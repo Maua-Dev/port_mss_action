@@ -5,10 +5,9 @@ class Project(abc.ABC):
     code: str
     name: str
     description: str
-    PROJECT_CODE_LENGTH: 3
+    PROJECT_CODE_LENGTH = 3
     
     def __init__(self, code: str, name: str, description: str):
-        
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
@@ -27,6 +26,10 @@ class Project(abc.ABC):
         if type(code) != str:
             return False
         if len(code) != Project.PROJECT_CODE_LENGTH:
+            return False
+        if not code.isupper():
+            return False
+        if not code.isalpha():
             return False
         return True
     
