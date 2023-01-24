@@ -1,0 +1,12 @@
+from enum import Enum
+
+
+class ACTION_TYPE(Enum):
+    CODE = "CODE"
+    MEETING = "MEETING"
+    CODEREVIEW = "CODEREVIEW"
+    LEARN = "LEARN"
+    PRESENTATION = "PRESENTATION"
+    DESIGN = "DESIGN"
+    ARCHITECT = "ARCHITECT"
+    WORK = "WORK"
