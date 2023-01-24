@@ -172,6 +172,20 @@ class Test_Action:
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
+            
+    def test_action_associated_members_ra_is_empty_list(self):
+        action = Action(
+                owner_ra="22011020",
+                date=datetime.datetime(2020, 1, 1),
+                action_id="1234",
+                associated_members_ra=[],
+                title="Teste",
+                duration=datetime.time(12, 0, 0),
+                project_code="TST",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+        assert action.associated_members_ra == []
     
     def test_action_title_not_string(self):
         with pytest.raises(EntityError):

@@ -63,6 +63,8 @@ class Member(abc.ABC):
         if type(year) != int:
             raise EntityError("year")
         self.year = year
+        if year > 6 or year <= 0:
+            raise EntityError("year")
         
         if not Member.validate_cellphone(cellphone):
             raise EntityError("cellphone")

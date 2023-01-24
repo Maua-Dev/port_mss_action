@@ -18,7 +18,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -37,7 +37,7 @@ class Test_Member:
         assert member.ra == "21017310"
         assert member.role == ROLE.DIRECTOR
         assert member.stack == STACK.INFRA
-        assert member.year == 2021
+        assert member.year == 1
         assert member.cellphone == "11991758098"
         assert member.course == COURSE.ECA
         assert member.hired_date == datetime.datetime(2022, 12, 22, 13, 56, 5, 430523)
@@ -57,7 +57,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -79,7 +79,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -101,7 +101,7 @@ class Test_Member:
             ra=21017310,
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -123,7 +123,7 @@ class Test_Member:
             ra="210173A0",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -145,7 +145,7 @@ class Test_Member:
             ra="221017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -168,7 +168,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -190,7 +190,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -212,7 +212,7 @@ class Test_Member:
             ra="21017310",
             role="ROLE.DIRECTOR",
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -234,7 +234,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack="STACK.INFRA",
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -269,6 +269,50 @@ class Test_Member:
                 )
             ]
         )
+            
+    def test_member_year_bigger_than_6(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email="vitor.soller@devmaua.br",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=10,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            active=ACTIVE.FREEZE,
+            projects=[
+                Project(
+                    code="MFD",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                )
+            ]
+        )
+            
+    def test_member_year_smaller_than_0(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email="vitor.soller@devmaua.br",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=-2,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            active=ACTIVE.FREEZE,
+            projects=[
+                Project(
+                    code="MFD",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                )
+            ]
+        )
 
     def test_member_cellphone_not_str(self): 
         with pytest.raises(EntityError):
@@ -278,7 +322,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone=11991758098,
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -300,7 +344,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="551991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -323,7 +367,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -346,7 +390,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date="10/10/2002",
@@ -368,7 +412,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -389,7 +433,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
@@ -465,7 +509,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=2021,
+            year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
