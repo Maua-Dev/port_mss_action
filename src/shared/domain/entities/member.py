@@ -48,7 +48,7 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if not Member.validate_email(email):
+        if not Member.validate_email_dev(email):
             raise EntityError('email')
         self.email = email
         
@@ -104,10 +104,12 @@ class Member(abc.ABC):
         return ra.isdecimal() and len(ra) == 8
 
     @staticmethod
-    def validate_email(email) -> bool:
+    def validate_email_dev(email) -> bool:
         if email == None:
             return False
         if type(email) != str:
+            return False
+        if email[-18:] != ".devmaua@gmail.com":
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email))

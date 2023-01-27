@@ -20,7 +20,7 @@ class ActionRepositoryMock(IActionRepository):
         self.members = [
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -36,7 +36,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Joao Branco",
-            email="joao.branco@devmaua.br",
+            email="jbranco.devmaua@gmail.com",
             ra="21010757",
             role=ROLE.HEAD1,
             stack=STACK.BACKEND,
@@ -54,7 +54,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Luigi Televisão",
-            email="luigi.televisao@devmaua.br",
+            email="ltelevisao.devmaua@gmail.com",
             ra="22017310",
             role=ROLE.DEV,
             stack=STACK.DATA_SCIENCE,
@@ -69,7 +69,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Little Ronald",
-            email="little.ronald@devmaua.br",
+            email="lronald.devmaua@gmail.com",
             ra="10017310",
             role=ROLE.DIRECTOR,
             stack=STACK.FRONTEND,
@@ -90,7 +90,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Marcos Pereira Neto",
-            email="marcos.neto@devmaua.br",
+            email="mneto.devmaua@gmail.com",
             ra="19017310",
             role=ROLE.PO,
             stack=STACK.PO,
@@ -105,7 +105,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Rubicks Cube",
-            email="rubicks.cube@devmaua.br",
+            email="rcube.devmaua@gmail.com",
             ra="19017310",
             role=ROLE.DEV,
             stack=STACK.BACKEND,
@@ -122,7 +122,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Django Fett",
-            email="django.fett@devmaua.br",
+            email="dfett.devmaua@gmail.com",
             ra="17033730",
             role=ROLE.INTERNAL,
             stack=STACK.INTERNAL,
@@ -137,7 +137,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Henrique Gustavo de Souza",
-            email="henrique.souza@devmaua.br",
+            email="hsouza.devmaua@gmail.co",
             ra="23017310",
             role=ROLE.DEV,
             stack=STACK.UX_UI,
