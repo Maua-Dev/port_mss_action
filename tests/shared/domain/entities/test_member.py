@@ -459,8 +459,9 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523),
             active=ACTIVE.FREEZE,
+            deactivated_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523)
         )
         
         assert member.projects == []
@@ -524,7 +525,7 @@ class Test_Member:
             ]
             )
     
-    def test_member_projects_is__list_of_projects_with_2_items(self): 
+    def test_member_projects_is_list_of_projects_with_2_items(self): 
         
         member = Member(
             name="Vitor Guirão MPNTM",
@@ -551,3 +552,59 @@ class Test_Member:
         ]
         )            
         assert len(member.projects) == 2
+
+    def test_member_deactivated_date_not_none_or_datetime(self): 
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email="vsoller.devmaua@gmail.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                active=ACTIVE.DISCONNECTED,
+                projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                ),
+                Project(
+                    code="SM",
+                    name="SMILE",
+                    description="=D"
+                ),
+            ],
+                deactivated_date="10/10/2022"
+            )     
+                 
+    def test_member_deactivated_date_smaller_than_hired_date(self): 
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email="vsoller.devmaua@gmail.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                active=ACTIVE.DISCONNECTED,
+                projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                ),
+                Project(
+                    code="SM",
+                    name="SMILE",
+                    description="=D"
+                ),
+            ],
+                deactivated_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523)
+            )          

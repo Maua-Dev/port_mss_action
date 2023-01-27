@@ -100,7 +100,8 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=datetime.datetime(2018, 12, 22, 13, 56, 5, 430523),
             active=ACTIVE.DISCONNECTED,
             projects=[
-            ]
+            ],
+            deactivated_date=datetime.datetime(2019, 12, 22, 13, 56, 5, 430523)
             ),
             
             Member(
@@ -137,7 +138,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Henrique Gustavo de Souza",
-            email="hsouza.devmaua@gmail.co",
+            email="hsouza.devmaua@gmail.com",
             ra="23017310",
             role=ROLE.DEV,
             stack=STACK.UX_UI,

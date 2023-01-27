@@ -21,6 +21,7 @@ class Member(abc.ABC):
     cellphone: str
     course: COURSE
     hired_date: datetime.datetime
+    deactivated_date: datetime.datetime = None
     active: ACTIVE
     projects: List[Project]
     MIN_NAME_LENGTH = 2
@@ -37,6 +38,7 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: datetime.datetime,
                  active: ACTIVE,
+                 deactivated_date: datetime.datetime = None,
                  projects: List[Project] = None
                 ):
 
@@ -91,6 +93,15 @@ class Member(abc.ABC):
                 self.projects = projects
         else:
             raise EntityError("projects")
+        
+        if deactivated_date is not None:
+            if type(deactivated_date) != datetime.datetime:
+                raise EntityError("deactivated_date")
+            if deactivated_date < self.hired_date:
+                raise EntityError("deactivated_date and hired_date") 
+        self.deactivated_date = deactivated_date
+        
+        
 
                 
     @staticmethod
