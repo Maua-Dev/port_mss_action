@@ -25,7 +25,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -44,7 +44,7 @@ class Test_Member:
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
         assert member.projects[0] == Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -516,12 +516,12 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
             Project(
-                code="MFD",
+                code="MF",
                 name="Maua Food",
                 description="É um aplicativo #foramoleza"
             ),
             Project(
-                code="SML",
+                code="SM",
                 name="SMILE",
                 description="=D"
             )

@@ -152,27 +152,27 @@ class ActionRepositoryMock(IActionRepository):
         ]
         self.projects = [
             Project(
-                code="MFD",
+                code="MF",
                 name="Maua Food",
                 description="É um aplicativo #foramoleza"
                 ),
             Project(
-                code="PTF",
+                code="PT",
                 name="Portfólio",
                 description="É um site"
             ),
             Project(
-                code="SLF",
+                code="SF",
                 name="Selfie Mauá",
                 description="Aplicativo para reconhecimento facial"
             ),
             Project(
-                code="SML",
+                code="SM",
                 name="SMILE",
                 description="Site do evento SMILE"
             ),
             Project(
-                code="GMF",
+                code="GM",
                 name="Gameficação",
                 description="Projeto para organização dos membros do DEV"
             )
