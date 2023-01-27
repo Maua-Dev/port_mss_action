@@ -21,6 +21,7 @@ class Member(abc.ABC):
     cellphone: str
     course: COURSE
     hired_date: datetime.datetime
+    deactivated_date: datetime.datetime = None
     active: ACTIVE
     projects: List[Project]
     MIN_NAME_LENGTH = 2
@@ -37,6 +38,7 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: datetime.datetime,
                  active: ACTIVE,
+                 deactivated_date: datetime.datetime = None,
                  projects: List[Project] = None
                 ):
 
@@ -48,7 +50,7 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if not Member.validate_email(email):
+        if not Member.validate_email_dev(email):
             raise EntityError('email')
         self.email = email
         
@@ -91,6 +93,15 @@ class Member(abc.ABC):
                 self.projects = projects
         else:
             raise EntityError("projects")
+        
+        if deactivated_date is not None:
+            if type(deactivated_date) != datetime.datetime:
+                raise EntityError("deactivated_date")
+            if deactivated_date < self.hired_date:
+                raise EntityError("deactivated_date and hired_date") 
+        self.deactivated_date = deactivated_date
+        
+        
 
                 
     @staticmethod
@@ -104,10 +115,12 @@ class Member(abc.ABC):
         return ra.isdecimal() and len(ra) == 8
 
     @staticmethod
-    def validate_email(email) -> bool:
+    def validate_email_dev(email) -> bool:
         if email == None:
             return False
         if type(email) != str:
+            return False
+        if email[-18:] != ".devmaua@gmail.com":
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email))

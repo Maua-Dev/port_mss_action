@@ -5,7 +5,7 @@ import pytest
 class Test_Project():
     def test_project(self):
         project = Project(
-            code = 'PQP',
+            code = 'PQ',
             name='test_project',
             description='test_description'
         )
@@ -19,10 +19,10 @@ class Test_Project():
                 description='test_description'
                          )
 
-    def test_project_code_must_be_3_characters(self):
+    def test_project_code_must_be_2_characters(self):
         with pytest.raises(EntityError):
             Project(
-                code = 'PQ',
+                code = 'PQP',
                 name='test_project',
                 description='test_description'
                          )

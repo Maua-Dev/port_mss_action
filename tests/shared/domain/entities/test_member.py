@@ -14,7 +14,7 @@ class Test_Member:
     def test_member(self):
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -25,7 +25,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -33,7 +33,7 @@ class Test_Member:
         )
         
         assert member.name == "Vitor Guirão MPNTM"
-        assert member.email == "vitor.soller@devmaua.br"
+        assert member.email == "vsoller.devmaua@gmail.com"
         assert member.ra == "21017310"
         assert member.role == ROLE.DIRECTOR
         assert member.stack == STACK.INFRA
@@ -44,7 +44,7 @@ class Test_Member:
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
         assert member.projects[0] == Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -53,7 +53,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name=1,
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -64,7 +64,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -75,7 +75,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="V",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -86,7 +86,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -97,7 +97,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra=21017310,
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -108,7 +108,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -119,7 +119,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="210173A0",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -130,7 +130,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -141,7 +141,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="221017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -152,7 +152,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -175,7 +175,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -186,7 +186,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitorsoller@devmauabr",
+            email="vsollerdevmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -197,7 +197,30 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                )
+            ]
+        )
+            
+    
+    def test_member_email_not_dev(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email="vitor.guirao@gmail.com",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            active=ACTIVE.FREEZE,
+            projects=[
+                Project(
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -208,7 +231,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role="ROLE.DIRECTOR",
             stack=STACK.INFRA,
@@ -219,7 +242,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -230,7 +253,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack="STACK.INFRA",
@@ -241,7 +264,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -252,7 +275,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -263,7 +286,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -274,7 +297,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -285,7 +308,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -296,7 +319,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -307,7 +330,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -318,7 +341,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -329,7 +352,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -340,7 +363,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -351,7 +374,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -363,7 +386,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -374,7 +397,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -386,7 +409,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -397,7 +420,7 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -408,7 +431,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -419,7 +442,7 @@ class Test_Member:
             active="ACTIVE.FREEZE",
             projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 )
@@ -429,15 +452,16 @@ class Test_Member:
     def test_member_projects_is_none(self): 
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523),
             active=ACTIVE.FREEZE,
+            deactivated_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523)
         )
         
         assert member.projects == []
@@ -447,7 +471,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -464,7 +488,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -482,7 +506,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
-                email="vitor.soller@devmaua.br",
+                email="vsoller.devmaua@gmail.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
@@ -493,7 +517,7 @@ class Test_Member:
                 active=ACTIVE.FREEZE,
                 projects=[
                 Project(
-                    code="MFD",
+                    code="MF",
                     name="Maua Food",
                     description="É um aplicativo #foramoleza"
                 ),
@@ -501,11 +525,11 @@ class Test_Member:
             ]
             )
     
-    def test_member_projects_is__list_of_projects_with_2_items(self): 
+    def test_member_projects_is_list_of_projects_with_2_items(self): 
         
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.soller@devmaua.br",
+            email="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -516,15 +540,71 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
             Project(
-                code="MFD",
+                code="MF",
                 name="Maua Food",
                 description="É um aplicativo #foramoleza"
             ),
             Project(
-                code="SML",
+                code="SM",
                 name="SMILE",
                 description="=D"
             )
         ]
         )            
         assert len(member.projects) == 2
+
+    def test_member_deactivated_date_not_none_or_datetime(self): 
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email="vsoller.devmaua@gmail.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                active=ACTIVE.DISCONNECTED,
+                projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                ),
+                Project(
+                    code="SM",
+                    name="SMILE",
+                    description="=D"
+                ),
+            ],
+                deactivated_date="10/10/2022"
+            )     
+                 
+    def test_member_deactivated_date_smaller_than_hired_date(self): 
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email="vsoller.devmaua@gmail.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                active=ACTIVE.DISCONNECTED,
+                projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                ),
+                Project(
+                    code="SM",
+                    name="SMILE",
+                    description="=D"
+                ),
+            ],
+                deactivated_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523)
+            )          

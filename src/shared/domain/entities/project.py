@@ -5,7 +5,7 @@ class Project(abc.ABC):
     code: str
     name: str
     description: str
-    PROJECT_CODE_LENGTH = 3
+    PROJECT_CODE_LENGTH = 2
     
     def __init__(self, code: str, name: str, description: str):
         if not self.validate_project_code(code):
