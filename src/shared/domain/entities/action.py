@@ -19,7 +19,7 @@ class Action(abc.ABC):
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     ACTION_ID_LENGTH = 4
-    PROJECT_CODE_LENGTH = 3
+    PROJECT_CODE_LENGTH = 2
     
     
     def __init__(self, owner_ra: str, date: datetime.datetime, action_id: str, associated_members_ra: List[str], title: str, duration: datetime.time, project_code: str, stack_tags: List[STACK], action_type_tags: List[ACTION_TYPE]):

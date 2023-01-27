@@ -17,6 +17,34 @@ class ActionRepositoryMock(IActionRepository):
     actions: List[Action]
 
     def __init__(self):
+        self.projects = [
+            Project(
+                code="MF",
+                name="Maua Food",
+                description="É um aplicativo #foramoleza"
+                ),
+            Project(
+                code="PT",
+                name="Portfólio",
+                description="É um site"
+            ),
+            Project(
+                code="SF",
+                name="Selfie Mauá",
+                description="Aplicativo para reconhecimento facial"
+            ),
+            Project(
+                code="SM",
+                name="SMILE",
+                description="Site do evento SMILE"
+            ),
+            Project(
+                code="GM",
+                name="Gameficação",
+                description="Projeto para organização dos membros do DEV"
+            )
+        ]
+        
         self.members = [
             Member(
             name="Vitor Guirão MPNTM",
@@ -38,7 +66,7 @@ class ActionRepositoryMock(IActionRepository):
             name="Joao Branco",
             email="jbranco.devmaua@gmail.com",
             ra="21010757",
-            role=ROLE.HEAD1,
+            role=ROLE.HEAD,
             stack=STACK.BACKEND,
             year=3,
             cellphone="11991152348",
@@ -95,7 +123,7 @@ class ActionRepositoryMock(IActionRepository):
             role=ROLE.PO,
             stack=STACK.PO,
             year=4,
-            cellphone="119917532098",
+            cellphone="11991753208",
             course=COURSE.EMC,
             hired_date=datetime.datetime(2018, 12, 22, 13, 56, 5, 430523),
             active=ACTIVE.DISCONNECTED,
@@ -149,33 +177,6 @@ class ActionRepositoryMock(IActionRepository):
             active=ACTIVE.ACTIVE,
             projects=[
             ]
-            )
-        ]
-        self.projects = [
-            Project(
-                code="MF",
-                name="Maua Food",
-                description="É um aplicativo #foramoleza"
-                ),
-            Project(
-                code="PT",
-                name="Portfólio",
-                description="É um site"
-            ),
-            Project(
-                code="SF",
-                name="Selfie Mauá",
-                description="Aplicativo para reconhecimento facial"
-            ),
-            Project(
-                code="SM",
-                name="SMILE",
-                description="Site do evento SMILE"
-            ),
-            Project(
-                code="GM",
-                name="Gameficação",
-                description="Projeto para organização dos membros do DEV"
             )
         ]
         
@@ -276,4 +277,9 @@ class ActionRepositoryMock(IActionRepository):
             
         ]
 
-    
+    def get_member(self, ra: str) -> Member:
+        for member in self.members:
+            if member.ra == ra:
+                return member
+            
+        return None
