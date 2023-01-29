@@ -1,4 +1,8 @@
+import datetime
+from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
+from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
 
@@ -15,3 +19,58 @@ class Test_ActionRepositoryMock:
         member = repo.get_member(ra="21010101")
         
         assert member is None
+    
+    def test_get_all_actions_by_ra(self):
+        repo = ActionRepositoryMock()
+        member = repo.get_member(ra=repo.members[0].ra)
+        actions = repo.get_all_actions_by_ra(ra=member.ra)
+        expected = [
+            Action(
+                owner_ra="21017310",
+                date=datetime.datetime(2021, 10, 18),
+                action_id="u1e2",
+                associated_members_ra=None,
+                title="Reunião de Diretoria",
+                duration=datetime.time(2, 0, 0),
+                project_code="MF",
+                stack_tags=[STACK.INTERNAL],
+                action_type_tags=[ACTION_TYPE.MEETING]
+            ),
+            Action(
+                owner_ra="21017310",
+                date=datetime.datetime(2021, 10, 18),
+                action_id="dd1d",
+                associated_members_ra=None,
+                title="Code",
+                duration=datetime.time(1, 0, 0),
+                project_code="MF",
+                stack_tags=None,
+                action_type_tags=[ACTION_TYPE.CODE]
+            ),
+            Action(
+                owner_ra="21010757",
+                date=datetime.datetime(2021, 10, 24),
+                action_id="9fc2",
+                associated_members_ra=["21017310", "22017310"],
+                title="Code",
+                duration=datetime.time(4, 30, 0),
+                project_code="PT",
+                stack_tags=[STACK.BACKEND, STACK.FRONTEND],
+                action_type_tags=[ACTION_TYPE.CODE]
+            ),
+            Action(
+                owner_ra="21017310",
+                date=datetime.datetime(2022, 10, 18),
+                action_id="jf12",
+                associated_members_ra=None,
+                title="Reunião",
+                duration=datetime.time(1, 0, 0),
+                project_code="MF",
+                stack_tags=[STACK.BACKEND, STACK.FRONTEND],
+                action_type_tags=None
+            )
+        ]
+        
+        assert actions == expected
+        assert len(actions) == len(expected)
+        assert all([type(action) == Action for action in actions])
