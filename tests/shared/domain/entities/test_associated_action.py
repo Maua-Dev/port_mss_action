@@ -17,7 +17,7 @@ class Test_AssociatedAction:
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
             duration=datetime.time(12, 0, 0),
-            project_code="TST",
+            project_code="TS",
             stack_tags = [STACK.BACKEND],
             action_type_tags = [ACTION_TYPE.CODE]
         )
@@ -35,7 +35,7 @@ class Test_AssociatedAction:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
         )
@@ -50,7 +50,7 @@ class Test_AssociatedAction:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
         )
@@ -65,7 +65,7 @@ class Test_AssociatedAction:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
         )
