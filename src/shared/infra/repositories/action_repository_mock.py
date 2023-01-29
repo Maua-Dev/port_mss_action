@@ -288,9 +288,6 @@ class ActionRepositoryMock(IActionRepository):
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
         member = self.get_member(ra)
         
-        if member == None:
-            raise NoItemsFound('ra')
-        
         owner_actions = [action for action in self.actions if action.owner_ra == ra]
         associated_actions = [action for action in self.actions if ra in action.associated_members_ra]
         actions = owner_actions + associated_actions
