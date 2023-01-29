@@ -1,5 +1,5 @@
-from src.modules.get_all_actions_by_ra.app.get_all_actions_by_ra_usecase import GetAllActionsByRaUsecase
-from src.modules.get_all_actions_by_ra.app.get_all_actions_by_ra_viewmodel import GetAllActionsByRaViewmodel
+from .get_all_actions_by_ra_usecase import GetAllActionsByRaUsecase
+from .get_all_actions_by_ra_viewmodel import GetAllActionsByRaViewmodel
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
