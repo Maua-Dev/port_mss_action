@@ -1,6 +1,7 @@
 import pytest
 from src.modules.get_all_actions_by_ra.app.get_all_actions_by_ra_usecase import GetAllActionsByRaUsecase
 from src.shared.domain.entities.action import Action
+from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
@@ -17,3 +18,9 @@ class Test_GetAllActionsByRaUsecase:
         usecase = GetAllActionsByRaUsecase(repo=repo)
         with pytest.raises(NoItemsFound):
             usecase(ra='00000000')
+            
+    def test_get_all_actions_by_ra_usecase_invalid_ra(self):
+        repo = ActionRepositoryMock()
+        usecase = GetAllActionsByRaUsecase(repo=repo)
+        with pytest.raises(EntityError):
+            usecase(ra='123')
