@@ -59,80 +59,71 @@ class Test_GetAllActionsByRaPresenter:
         
         response = lambda_handler(event, None)
         expected = {
-                    "actions":[
-                    {
-                        "owner_ra":"21017310",
-                        "date":"2021-10-18T00:00:00",
-                        "action_id":"u1e2",
-                        "title":"Reuni\u00e3o de Diretoria",
-                        "duration":"02:00:00",
-                        "project_code":"MF",
-                        "associated_members_ra":[
-                            
-                        ],
-                        "stack_tags":[
-                            "INTERNAL"
-                        ],
-                        "action_type_tags":[
-                            "MEETING"
-                        ]
-                    },
-                    {
-                        "owner_ra":"21017310",
-                        "date":"2021-10-18T00:00:00",
-                        "action_id":"dd1d",
-                        "title":"Code",
-                        "duration":"01:00:00",
-                        "project_code":"MF",
-                        "associated_members_ra":[
-                            
-                        ],
-                        "stack_tags":[
-                            
-                        ],
-                        "action_type_tags":[
-                            "CODE"
-                        ]
-                    },
-                    {
-                        "owner_ra":"21010757",
-                        "date":"2021-10-24T00:00:00",
-                        "action_id":"9fc2",
-                        "title":"Code",
-                        "duration":"04:30:00",
-                        "project_code":"PT",
-                        "associated_members_ra":[
-                            "21017310",
-                            "22017310"
-                        ],
-                        "stack_tags":[
-                            "BACKEND",
-                            "FRONTEND"
-                        ],
-                        "action_type_tags":[
-                            "CODE"
-                        ]
-                    },
-                    {
-                        "owner_ra":"21017310",
-                        "date":"2022-10-18T00:00:00",
-                        "action_id":"jf12",
-                        "title":"Reuni\u00e3o",
-                        "duration":"01:00:00",
-                        "project_code":"MF",
-                        "associated_members_ra":[
-                            
-                        ],
-                        "stack_tags":[
-                            "BACKEND",
-                            "FRONTEND"
-                        ],
-                        "action_type_tags":[
-                            
-                        ]
+                    'actions':[
+                        {
+                            'ra':'21017310',
+                            'date':'2021-10-18T00:00:00',
+                            'action_id':'u1e2',
+                            'title':'Reunião de Diretoria',
+                            'duration':'02:00:00',
+                            'project_code':'MF',
+                            'stack_tags':[
+                                'INTERNAL'
+                            ],
+                            'action_type_tags':[
+                                'MEETING'
+                            ],
+                            'is_owner':True
+                        },
+                        {
+                            'ra':'21017310',
+                            'date':'2021-10-18T00:00:00',
+                            'action_id':'dd1d',
+                            'title':'Code',
+                            'duration':'01:00:00',
+                            'project_code':'MF',
+                            'stack_tags':[
+                                
+                            ],
+                            'action_type_tags':[
+                                'CODE'
+                            ],
+                            'is_owner':True
+                        },
+                        {
+                            'ra':'21017310',
+                            'date':'2021-10-24T00:00:00',
+                            'action_id':'9fc2',
+                            'title':'Code',
+                            'duration':'04:30:00',
+                            'project_code':'PT',
+                            'stack_tags':[
+                                'BACKEND',
+                                'FRONTEND'
+                            ],
+                            'action_type_tags':[
+                                'CODE'
+                            ],
+                            'is_owner':False
+                        },
+                        {
+                            'ra':'21017310',
+                            'date':'2022-10-18T00:00:00',
+                            'action_id':'jf12',
+                            'title':'Reunião',
+                            'duration':'01:00:00',
+                            'project_code':'MF',
+                            'stack_tags':[
+                                'BACKEND',
+                                'FRONTEND'
+                            ],
+                            'action_type_tags':[
+                                
+                            ],
+                            'is_owner':True
                         }
                     ],
-                "message":"the actions were retrieved"
+                    'message':'the actions were retrieved'
         }
         assert response["statusCode"] == 200
         assert json.loads(response["body"]) == expected

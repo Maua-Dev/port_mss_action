@@ -17,7 +17,7 @@ class GetAllActionsByRaController:
                 raise MissingParameters('ra')
             
             actions = self.usecase(ra=request.data.get('ra'))
-            viewmodel = GetAllActionsByRaViewmodel(actions=actions)
+            viewmodel = GetAllActionsByRaViewmodel(actions=actions, ra=request.data.get('ra'))
             
             return OK(viewmodel.to_dict())
         
