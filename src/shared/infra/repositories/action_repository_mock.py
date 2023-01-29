@@ -10,6 +10,7 @@ from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.entities.member import Member
+from src.shared.helpers.errors.usecase_errors import NoItemsFound
 
 class ActionRepositoryMock(IActionRepository):
     members: List[Member]
@@ -283,3 +284,12 @@ class ActionRepositoryMock(IActionRepository):
                 return member
             
         return None
+
+    def get_all_actions_by_ra(self, ra: str) -> List[Action]:
+        member = self.get_member(ra)
+        
+        owner_actions = [action for action in self.actions if action.owner_ra == ra]
+        associated_actions = [action for action in self.actions if ra in action.associated_members_ra]
+        actions = owner_actions + associated_actions
+        actions.sort(key=lambda action: action.date)
+        return actions
