@@ -16,7 +16,7 @@ class Test_Action:
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
             duration=datetime.time(12, 0, 0),
-            project_code="TST",
+            project_code="TS",
             stack_tags = [STACK.BACKEND],
             action_type_tags = [ACTION_TYPE.CODE]
         )
@@ -28,7 +28,7 @@ class Test_Action:
         assert action.associated_members_ra == ["22011021", "22011022"]
         assert action.title == "Teste"
         assert action.duration == datetime.time(12, 0, 0)
-        assert action.project_code == "TST"
+        assert action.project_code == "TS"
         assert action.stack_tags == [STACK.BACKEND]
         assert action.action_type_tags == [ACTION_TYPE.CODE]
         
@@ -41,7 +41,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -55,7 +55,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -69,7 +69,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -83,7 +83,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -97,7 +97,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -111,7 +111,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -125,7 +125,7 @@ class Test_Action:
                 associated_members_ra=None,
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -140,7 +140,7 @@ class Test_Action:
                 associated_members_ra="22011021",
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -154,7 +154,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "2201102"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -168,7 +168,7 @@ class Test_Action:
                 associated_members_ra=[22011021, 22011022],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -181,7 +181,7 @@ class Test_Action:
                 associated_members_ra=[],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -196,7 +196,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title=1,
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -210,7 +210,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="A",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -224,7 +224,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -237,7 +237,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration="12:00:00",
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -279,7 +279,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = None,
                 action_type_tags = [ACTION_TYPE.CODE]
         )
@@ -295,7 +295,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = STACK.BACKEND,
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -309,7 +309,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND, "FRONTEND"],
                 action_type_tags = [ACTION_TYPE.CODE]
             )
@@ -322,7 +322,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = None
         )
@@ -338,7 +338,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = ACTION_TYPE.CODE
             )
@@ -352,7 +352,7 @@ class Test_Action:
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 duration=datetime.time(12, 0, 0),
-                project_code="TST",
+                project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE, "REVIEW"]
             )
