@@ -27,4 +27,28 @@ class Test_GetAllActionsByRaController:
         response = controller(request=request)
         
         assert response.status_code == 400
+        assert response.body == 'Field ra is missing'
         
+    def test_get_all_actions_by_ra_controller_entity_error(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = GetAllActionsByRaUsecase(repo=repo)
+        controller = GetAllActionsByRaController(usecase=usecase)
+        request = HttpRequest(query_params={'ra': '123'})
+        
+        response = controller(request=request)
+        
+        assert response.status_code == 400
+        assert response.body == 'Field ra is not valid'
+        
+    def test_get_all_actions_by_ra_controller_wrong_type(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = GetAllActionsByRaUsecase(repo=repo)
+        controller = GetAllActionsByRaController(usecase=usecase)
+        request = HttpRequest(query_params={'ra': 21017310})
+        
+        response = controller(request=request)
+        
+        assert response.status_code == 400
+        assert response.body == 'ra must be a string'
