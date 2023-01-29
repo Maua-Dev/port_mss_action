@@ -74,3 +74,11 @@ class Test_ActionRepositoryMock:
         assert actions == expected
         assert len(actions) == len(expected)
         assert all([type(action) == Action for action in actions])
+    
+    def test_get_all_actions_by_ra_member_without_actions(self):
+        repo = ActionRepositoryMock()
+        member = repo.get_member(ra=repo.members[6].ra)
+        actions = repo.get_all_actions_by_ra(ra=member.ra)
+        
+        assert actions == []
+        assert len(actions) == 0
