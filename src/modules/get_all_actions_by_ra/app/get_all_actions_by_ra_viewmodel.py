@@ -29,14 +29,14 @@ class ActionViewModel:
     def to_dict(self):
         return {
             "owner_ra": self.owner_ra,
-            "date": self.date.strftime("%d/%m/%Y"),
+            "date": self.date.isoformat(),
             "action_id": self.action_id,
             "title": self.title,
-            "duration": self.duration.strftime("%H:%M"),
+            "duration": self.duration.strftime("%H:%M:%S"),
             "project_code": self.project_code,
-            "associated_members_ra": ', '.join(self.associated_members_ra),
-            "stack_tags": ', '.join([tag.value for tag in self.stack_tags]),
-            "action_type_tags": ', '.join([tag.value for tag in self.action_type_tags])
+            "associated_members_ra": [ra for ra in self.associated_members_ra],
+            "stack_tags": [tag.value for tag in self.stack_tags],
+            "action_type_tags": [tag.value for tag in self.action_type_tags]
         }
         
 
