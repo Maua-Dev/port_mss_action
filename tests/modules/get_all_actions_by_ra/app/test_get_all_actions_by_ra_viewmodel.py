@@ -55,7 +55,7 @@ class Test_GetAllActionsByRaViewmodel:
                     'action_type_tags' : ''
                 }
             ],
-            "message:": "actions retrieved with success"
+            "message": "actions retrieved with success"
         }
         
         assert viewmodel.to_dict() == expected

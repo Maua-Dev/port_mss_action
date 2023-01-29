@@ -49,5 +49,5 @@ class GetAllActionsByRaViewmodel:
     def to_dict(self):
         return {
             "actions": [ActionViewModel(action).to_dict() for action in self.actions],
-            "message:": "actions retrieved with success"
+            "message": "actions retrieved with success"
         }
