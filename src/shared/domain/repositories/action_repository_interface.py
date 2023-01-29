@@ -12,4 +12,7 @@ class IActionRepository(ABC):
     
     @abstractmethod
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
+        '''
+        return [] if member doesn't have actions
+        '''
         pass
