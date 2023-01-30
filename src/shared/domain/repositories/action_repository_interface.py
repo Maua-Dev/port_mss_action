@@ -16,3 +16,7 @@ class IActionRepository(ABC):
         return [] if member doesn't have actions
         '''
         pass
+    
+    @abstractmethod
+    def create_member(self, member: Member) -> Member:
+        pass

@@ -293,3 +293,7 @@ class ActionRepositoryMock(IActionRepository):
         actions = owner_actions + associated_actions
         actions.sort(key=lambda action: action.date)
         return actions
+    
+    def create_member(self, member: Member) -> Member:
+        self.members.append(member)
+        return member
