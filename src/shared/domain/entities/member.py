@@ -128,6 +128,9 @@ class Member(abc.ABC):
     @staticmethod
     def validate_name(name) -> bool:
 
+        if name == None:
+            return False
+        
         if type(name) != str:
             return False
         
