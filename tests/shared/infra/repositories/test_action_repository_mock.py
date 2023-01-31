@@ -91,6 +91,7 @@ class Test_ActionRepositoryMock:
         member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=datetime.datetime(2021, 10, 18), active=ACTIVE.ACTIVE)
         len_before = len(repo.members)
         
-        repo.create_member(member=member)
+        new_member = repo.create_member(member=member)
         
         assert len(repo.members) == len_before + 1
+        assert new_member == member
