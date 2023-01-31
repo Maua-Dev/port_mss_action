@@ -24,3 +24,7 @@ class IActionRepository(ABC):
     @abstractmethod
     def create_action(self, action: Action) -> Action:
         pass
+    
+    @abstractmethod
+    def get_action(self, action_id: str) -> Action:
+        pass

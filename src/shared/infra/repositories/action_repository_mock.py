@@ -300,3 +300,8 @@ class ActionRepositoryMock(IActionRepository):
         self.actions.append(action)
         return action
     
+    def get_action(self, action_id: str) -> Action:
+        for action in self.actions:
+            if action.action_id == action_id:
+                return action
+        return None

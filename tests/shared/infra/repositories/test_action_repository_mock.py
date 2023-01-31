@@ -62,3 +62,16 @@ class Test_ActionRepositoryMock:
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_before + 1
         assert new_action == action
+
+    def test_get_action(self):
+        repo = ActionRepositoryMock()
+        action = repo.get_action(action_id=repo.actions[0].action_id)
+
+        assert type(action) == Action
+        assert action == repo.actions[0]
+        
+    def test_get_action_not_found(self):
+        repo = ActionRepositoryMock()
+        action = repo.get_action(action_id="1234")
+
+        assert action is None
