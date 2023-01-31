@@ -16,6 +16,7 @@ class ActionRepositoryMock(IActionRepository):
     members: List[Member]
     projects: List[Project]
     actions: List[Action]
+    associatedActions: List[AssociatedAction]
 
     def __init__(self):
         self.projects = [
@@ -277,6 +278,20 @@ class ActionRepositoryMock(IActionRepository):
             
             
         ]
+        self.associatedActions = [
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[0]
+            ),
+            AssociatedAction(
+                member_ra=self.members[2].ra,
+                action=self.actions[0]
+            ),
+            AssociatedAction(
+                member_ra=self.members[3].ra,
+                action=self.actions[2]
+            )
+        ]
 
     def get_member(self, ra: str) -> Member:
         for member in self.members:
@@ -305,3 +320,7 @@ class ActionRepositoryMock(IActionRepository):
             if action.action_id == action_id:
                 return action
         return None
+    
+    def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
+        self.associatedActions.append(associatedAction)
+        return associatedAction
