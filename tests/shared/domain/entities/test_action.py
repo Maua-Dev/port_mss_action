@@ -173,6 +173,20 @@ class Test_Action:
                 action_type_tags = [ACTION_TYPE.CODE]
             )
             
+    def test_action_owner_ra_is_in_associated_members_ra(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                date=1577847600,
+                action_id="1234",
+                associated_members_ra=["22011020", "22011021"],
+                title="Teste",
+                duration=datetime.time(12, 0, 0),
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+            
     def test_action_associated_members_ra_is_empty_list(self):
         action = Action(
                 owner_ra="22011020",

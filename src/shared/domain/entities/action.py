@@ -40,7 +40,7 @@ class Action(abc.ABC):
         if associated_members_ra is None:
             self.associated_members_ra = []
         elif type(associated_members_ra) == list:
-            if not all([self.validate_ra(ra) for ra in associated_members_ra]):
+            if not all([self.validate_ra(ra) for ra in associated_members_ra]) or self.owner_ra in [ra for ra in associated_members_ra]:
                 raise EntityError('associated_members_ra')
             else:
                 self.associated_members_ra = associated_members_ra
