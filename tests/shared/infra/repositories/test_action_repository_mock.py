@@ -53,3 +53,12 @@ class Test_ActionRepositoryMock:
         
         assert len(repo.members) == len_before + 1
         assert new_member == member
+        
+    def test_create_action(self):
+        repo = ActionRepositoryMock()
+        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        len_before = len(repo.actions)
+        
+        new_action = repo.create_action(action=action)
+        assert len(repo.actions) == len_before + 1
+        assert new_action == action

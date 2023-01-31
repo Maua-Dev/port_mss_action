@@ -20,3 +20,7 @@ class IActionRepository(ABC):
     @abstractmethod
     def create_member(self, member: Member) -> Member:
         pass
+    
+    @abstractmethod
+    def create_action(self, action: Action) -> Action:
+        pass

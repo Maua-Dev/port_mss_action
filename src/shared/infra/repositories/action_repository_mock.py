@@ -285,10 +285,7 @@ class ActionRepositoryMock(IActionRepository):
             
         return None
 
-
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
-
-        
         owner_actions = [action for action in self.actions if action.owner_ra == ra]
         associated_actions = [action for action in self.actions if ra in action.associated_members_ra]
         actions = owner_actions + associated_actions
@@ -298,3 +295,8 @@ class ActionRepositoryMock(IActionRepository):
     def create_member(self, member: Member) -> Member:
         self.members.append(member)
         return member
+    
+    def create_action(self, action: Action) -> Action:
+        self.actions.append(action)
+        return action
+    
