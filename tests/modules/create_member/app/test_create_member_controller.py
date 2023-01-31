@@ -21,7 +21,6 @@ class Test_CreateMemberController:
             'cellphone':'11912345678',
             'course':'CIC',
             'hired_date':1634526000,
-            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -44,7 +43,7 @@ class Test_CreateMemberController:
         assert response.body['member']['cellphone'] == "11912345678"
         assert response.body['member']['course'] == "CIC"
         assert response.body['member']['hired_date'] == 1634526000
-        assert response.body['member']['deactivated_date'] == 1666062000
+        assert response.body['member']['deactivated_date'] == None
         assert response.body['member']['active'] == "ACTIVE"
         assert response.body['member']['projects'][0]['code'] == "MF"
         assert response.body['member']['projects'][0]['name'] == "Maua Food"
@@ -261,7 +260,6 @@ class Test_CreateMemberController:
             'cellphone':'11912345678',
             'course':'CIC',
             'hired_date':1634526000,
-            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {

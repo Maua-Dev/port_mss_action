@@ -73,9 +73,14 @@ class Member(abc.ABC):
             raise EntityError("course")
         self.course = course
         
-        if type(hired_date) != int:
+        if type(hired_date) == int:
+            if hired_date > 0:
+                self.hired_date = hired_date 
+            else:
+                raise EntityError("hired_date")
+        else:
             raise EntityError("hired_date")
-        self.hired_date = hired_date
+            
         
         if type(active) != ACTIVE:
             raise EntityError("active")
@@ -91,11 +96,19 @@ class Member(abc.ABC):
         else:
             raise EntityError("projects")
         
+        if hired_date < 0:
+                raise EntityError("hired_date")
+            
         if deactivated_date is not None:
             if type(deactivated_date) != int:
                 raise EntityError("deactivated_date")
             if deactivated_date < self.hired_date:
                 raise EntityError("deactivated_date and hired_date") 
+            if deactivated_date < 0:
+                raise EntityError("deactivated_date")
+            
+            if active == ACTIVE.ACTIVE:
+                raise EntityError("active")
         self.deactivated_date = deactivated_date
         
         

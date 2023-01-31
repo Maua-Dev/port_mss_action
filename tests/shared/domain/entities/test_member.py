@@ -426,6 +426,28 @@ class Test_Member:
             ]
         )
             
+    def test_member_hired_date_less_than_zero(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email="vsoller.devmaua@gmail.com",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=-1671728165,
+            active=ACTIVE.FREEZE,
+            projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                )
+            ]
+        )
+            
     def test_member_active_not_enum(self): 
         with pytest.raises(EntityError):
             Member(
@@ -439,6 +461,29 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active="ACTIVE.FREEZE",
+            projects=[
+                Project(
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza"
+                )
+            ]
+        )
+            
+    def test_member_active_with_deactivated_date(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email="vsoller.devmaua@gmail.com",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=1671728165,
+            deactivated_date=1671728165,
+            active=ACTIVE.ACTIVE,
             projects=[
                 Project(
                     code="MF",

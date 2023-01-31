@@ -14,7 +14,7 @@ class Test_CreateMemberViewmodel:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.FREEZE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
         
         memberViewModel = CreateMemberViewmodel(member=usecase(member)).to_dict()
         
@@ -30,7 +30,7 @@ class Test_CreateMemberViewmodel:
             'course':'CIC',
             'hired_date':1634526000,
             'deactivated_date':1666062000,
-            'active':'ACTIVE',
+            'active':'FREEZE',
             'projects':[
                 {
                     'code':'MF',

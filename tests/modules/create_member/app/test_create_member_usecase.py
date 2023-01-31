@@ -17,7 +17,7 @@ class Test_CreateMemberUsecase:
         usecase = CreateMemberUsecase(repo=repo)
         lenBefore = len(repo.members)
         
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.FREEZE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
         
         usecase(member=member)
         
@@ -32,7 +32,7 @@ class Test_CreateMemberUsecase:
         assert repo.members[-1].cellphone == "11912345678"
         assert repo.members[-1].course == COURSE.CIC
         assert repo.members[-1].hired_date == 1634526000
-        assert repo.members[-1].active == ACTIVE.ACTIVE
+        assert repo.members[-1].active == ACTIVE.FREEZE
         assert repo.members[-1].deactivated_date == 1666062000
         assert repo.members[-1].projects[0].code == "MF"
         assert repo.members[-1].projects[0].name == "Maua Food"
@@ -55,7 +55,7 @@ class Test_CreateMemberUsecase:
         usecase = CreateMemberUsecase(repo=repo)
         lenBefore = len(repo.members)
         
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.FRONTEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.FRONTEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
         
         usecase(member=member)
         
@@ -66,7 +66,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(DuplicatedItem):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="22017310", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="22017310", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
     
@@ -74,7 +74,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name=None, email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name=None, email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
             
@@ -82,7 +82,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name=True, email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name=True, email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
             
@@ -90,7 +90,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="O", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name="O", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
 
@@ -98,7 +98,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email=None, ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email=None, ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
     
@@ -106,7 +106,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email=1, ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name="Teste", email=1, ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
     
@@ -114,7 +114,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="@.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name="Teste", email="@.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
             
@@ -122,7 +122,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000)
+            member = Member(name="Teste", email="teste@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
             
             usecase(member=member)
 
@@ -130,7 +130,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra=None, role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra=None, role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -138,7 +138,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra=12345678, role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra=12345678, role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -146,7 +146,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="123", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="123", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -154,7 +154,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=None, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=None, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -162,7 +162,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role="DEV", stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role="DEV", stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -170,7 +170,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=None, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=None, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -178,7 +178,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack="BACKEND", year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack="BACKEND", year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -186,7 +186,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=None, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=None, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -194,7 +194,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year="2", cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year="2", cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -202,7 +202,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2022, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2022, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -210,7 +210,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone=None, course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone=None, course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -218,7 +218,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone=11912345678, course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone=11912345678, course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -226,7 +226,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -234,7 +234,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=None, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=None, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -242,7 +242,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course="CIC", hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course="CIC", hired_date=1634526000, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -250,7 +250,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=None, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=None, active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -258,7 +258,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date="18-10-2021", active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date="18-10-2021", active=ACTIVE.ACTIVE, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
             
             usecase(member=member)
 
@@ -290,7 +290,7 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza"))
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza"))
             
             usecase(member=member)
 
@@ -298,5 +298,5 @@ class Test_CreateMemberUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         with pytest.raises(EntityError):
-            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=1666062000, projects=["MF", "PT"])
+            member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, projects=["MF", "PT"])
             usecase(member=member)
