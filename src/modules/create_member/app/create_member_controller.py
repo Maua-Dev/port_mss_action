@@ -1,6 +1,6 @@
 import datetime
-from src.modules.create_member.app.create_member_usecase import CreateMemberUsecase
-from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
+from .create_member_usecase import CreateMemberUsecase
+from .create_member_viewmodel import CreateMemberViewmodel
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
