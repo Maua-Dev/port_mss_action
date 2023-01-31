@@ -20,6 +20,7 @@ class Test_CreateMemberViewmodel:
         memberViewModel = CreateMemberViewmodel(member=usecase(member)).to_dict()
         
         expected = {
+            'member' : {
             'name':'Teste',
             'email':'teste.devmaua@gmail.com',
             'ra':'12345678',
@@ -37,7 +38,7 @@ class Test_CreateMemberViewmodel:
                     'name':'Maua Food',
                     'description':'É um aplicativo #foramoleza'
                 }
-            ],
+            ]},
             'message':'the member was created'
         }
         
@@ -52,6 +53,7 @@ class Test_CreateMemberViewmodel:
         memberViewModel = CreateMemberViewmodel(member=usecase(member=member)).to_dict()
         
         expected = {
+            'member' : {
             'name':'Teste',
             'email':'teste.devmaua@gmail.com',
             'ra':'12345678',
@@ -69,7 +71,7 @@ class Test_CreateMemberViewmodel:
                     'name':'Maua Food',
                     'description':'É um aplicativo #foramoleza'
                 }
-            ],
+            ]},
             'message':'the member was created'
         }
         

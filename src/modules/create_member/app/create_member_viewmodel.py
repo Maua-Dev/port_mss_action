@@ -55,17 +55,19 @@ class CreateMemberViewmodel:
         
     def to_dict(self) -> dict:
         return {
-            "name" : self.name,
-            "email" : self.email,
-            "ra" : self.ra,
-            "role" : self.role.value,
-            "stack" : self.stack.value,
-            "year" : self.year,
-            "cellphone" : self.cellphone,
-            "course" : self.course.value,
-            "hired_date" : self.hired_date.isoformat(),
-            "deactivated_date" : self.deactivated_date.isoformat() if self.deactivated_date else "",
-            "active" : self.active.value,
-            "projects" : [ProjectViewModel(project).to_dict() for project in self.projects],
+            "member" : {
+                "name" : self.name,
+                "email" : self.email,
+                "ra" : self.ra,
+                "role" : self.role.value,
+                "stack" : self.stack.value,
+                "year" : self.year,
+                "cellphone" : self.cellphone,
+                "course" : self.course.value,
+                "hired_date" : self.hired_date.isoformat(),
+                "deactivated_date" : self.deactivated_date.isoformat() if self.deactivated_date else "",
+                "active" : self.active.value,
+                "projects" : [ProjectViewModel(project).to_dict() for project in self.projects],
+            },
             "message" : "the member was created"
         }

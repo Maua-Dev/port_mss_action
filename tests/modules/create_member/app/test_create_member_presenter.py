@@ -57,7 +57,7 @@ class Test_CreateMemberPresenter:
         }
         response = lambda_handler(event, None)
         
-        expected = {"name": "Teste", "email": "teste.devmaua@gmail.com", "ra": "12345678", "role": "DEV", "stack": "BACKEND", "year": 2, "cellphone": "11912345678", "course": "CIC", "hired_date": "2021-10-18T00:00:00", "deactivated_date": "2022-10-18T00:00:00", "active": "ACTIVE", "projects": [{"code": "MF", "name": "Maua Food", "description": "É um aplicativo #foramoleza"}], "message": "the member was created"}
+        expected = {"member" : {"name": "Teste", "email": "teste.devmaua@gmail.com", "ra": "12345678", "role": "DEV", "stack": "BACKEND", "year": 2, "cellphone": "11912345678", "course": "CIC", "hired_date": "2021-10-18T00:00:00", "deactivated_date": "2022-10-18T00:00:00", "active": "ACTIVE", "projects": [{"code": "MF", "name": "Maua Food", "description": "É um aplicativo #foramoleza"}]}, "message": "the member was created"}
         
         assert response["statusCode"] == 201
         assert json.loads(response['body']) == expected

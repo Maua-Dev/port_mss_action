@@ -35,20 +35,20 @@ class Test_CreateMemberController:
         response = controller(request=request)
         assert response.status_code == 201
         assert response.body['message'] == "the member was created"
-        assert response.body['name'] == "Teste"
-        assert response.body['email'] == "teste.devmaua@gmail.com"
-        assert response.body['ra'] == "12345678"
-        assert response.body['role'] == "DEV"
-        assert response.body['stack'] == "BACKEND"
-        assert response.body['year'] == 2
-        assert response.body['cellphone'] == "11912345678"
-        assert response.body['course'] == "CIC"
-        assert response.body['hired_date'] == "2021-10-18T00:00:00"
-        assert response.body['deactivated_date'] == "2022-10-18T00:00:00"
-        assert response.body['active'] == "ACTIVE"
-        assert response.body['projects'][0]['code'] == "MF"
-        assert response.body['projects'][0]['name'] == "Maua Food"
-        assert response.body['projects'][0]['description'] == "É um aplicativo #foramoleza"
+        assert response.body['member']['name'] == "Teste"
+        assert response.body['member']['email'] == "teste.devmaua@gmail.com"
+        assert response.body['member']['ra'] == "12345678"
+        assert response.body['member']['role'] == "DEV"
+        assert response.body['member']['stack'] == "BACKEND"
+        assert response.body['member']['year'] == 2
+        assert response.body['member']['cellphone'] == "11912345678"
+        assert response.body['member']['course'] == "CIC"
+        assert response.body['member']['hired_date'] == "2021-10-18T00:00:00"
+        assert response.body['member']['deactivated_date'] == "2022-10-18T00:00:00"
+        assert response.body['member']['active'] == "ACTIVE"
+        assert response.body['member']['projects'][0]['code'] == "MF"
+        assert response.body['member']['projects'][0]['name'] == "Maua Food"
+        assert response.body['member']['projects'][0]['description'] == "É um aplicativo #foramoleza"
     
     def test_create_member_controller_missing_deactivated_date(self):
         repo = ActionRepositoryMock()
@@ -78,7 +78,7 @@ class Test_CreateMemberController:
         response = controller(request=request)
         assert response.status_code == 201
         assert response.body['message'] == "the member was created"
-        assert response.body['deactivated_date'] == ''
+        assert response.body['member']['deactivated_date'] == ''
     
     def test_create_member_controller_missing_projects(self):
         repo = ActionRepositoryMock()
@@ -102,7 +102,7 @@ class Test_CreateMemberController:
         response = controller(request=request)
         assert response.status_code == 201
         assert response.body['message'] == "the member was created"
-        assert response.body['projects'] == []
+        assert response.body['member']['projects'] == []
         
     def test_create_member_controller_missing_name(self):
         repo = ActionRepositoryMock()
