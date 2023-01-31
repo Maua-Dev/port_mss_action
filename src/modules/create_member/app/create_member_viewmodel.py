@@ -52,8 +52,9 @@ class CreateMemberViewmodel:
         self.deactivated_date = member.deactivated_date
         self.active = member.active
         self.projects = member.projects
-
+        
     def to_dict(self) -> dict:
+        course_key = [key for key, value in COURSE.__members__.items() if value == self.course][0]
         return {
             "name" : self.name,
             "email" : self.email,
@@ -62,7 +63,7 @@ class CreateMemberViewmodel:
             "stack" : self.stack.value,
             "year" : self.year,
             "cellphone" : self.cellphone,
-            "course" : self.course.value,
+            "course" : course_key,
             "hired_date" : self.hired_date.isoformat(),
             "deactivated_date" : self.deactivated_date.isoformat() if self.deactivated_date else "",
             "active" : self.active.value,
