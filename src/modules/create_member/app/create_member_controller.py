@@ -74,7 +74,7 @@ class CreateMemberController:
             except:
                 raise EntityError('deactivated_date')
             
-            member = self.usecase(
+            member = Member(
                 name=request.data.get('name'),
                 email=request.data.get('email'),
                 ra=request.data.get('ra'),
@@ -89,7 +89,7 @@ class CreateMemberController:
                 projects=projects
             )
             
-            viewmodel = CreateMemberViewmodel(member=member)
+            viewmodel = CreateMemberViewmodel(member=self.usecase(member))
             
             return Created(viewmodel.to_dict())
     
