@@ -50,14 +50,14 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"12345678","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":"2021-10-18T00:00:00","deactivated_date":"2022-10-18T00:00:00","active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
+            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"12345678","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":1634526000,"deactivated_date":1666062000,"active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
         }
         response = lambda_handler(event, None)
         
-        expected = {"member" : {"name": "Teste", "email": "teste.devmaua@gmail.com", "ra": "12345678", "role": "DEV", "stack": "BACKEND", "year": 2, "cellphone": "11912345678", "course": "CIC", "hired_date": "2021-10-18T00:00:00", "deactivated_date": "2022-10-18T00:00:00", "active": "ACTIVE", "projects": [{"code": "MF", "name": "Maua Food", "description": "É um aplicativo #foramoleza"}]}, "message": "the member was created"}
+        expected = {"member" : {"name": "Teste", "email": "teste.devmaua@gmail.com", "ra": "12345678", "role": "DEV", "stack": "BACKEND", "year": 2, "cellphone": "11912345678", "course": "CIC", "hired_date": 1634526000, "deactivated_date": 1666062000, "active": "ACTIVE", "projects": [{"code": "MF", "name": "Maua Food", "description": "É um aplicativo #foramoleza"}]}, "message": "the member was created"}
         
         assert response["statusCode"] == 201
         assert json.loads(response['body']) == expected
@@ -109,7 +109,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"email":"teste.devmaua@gmail.com","ra":"12345678","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":"2021-10-18T00:00:00","deactivated_date":"2022-10-18T00:00:00","active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
+            "body": '{"email":"teste.devmaua@gmail.com","ra":"12345678","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":1634526000,"deactivated_date":1666062000,"active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -166,7 +166,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"123","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":"2021-10-18T00:00:00","deactivated_date":"2022-10-18T00:00:00","active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
+            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"123","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":1634526000,"deactivated_date":1666062000,"active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -223,7 +223,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"21017310","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":"2021-10-18T00:00:00","deactivated_date":"2022-10-18T00:00:00","active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
+            "body": '{"name":"Teste","email":"teste.devmaua@gmail.com","ra":"21017310","role":"DEV","stack":"BACKEND","year":2,"cellphone":"11912345678","course":"CIC","hired_date":1634526000,"deactivated_date":1666062000,"active":"ACTIVE","projects":[{"code":"MF","name":"Maua Food","description":"É um aplicativo #foramoleza"}]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None

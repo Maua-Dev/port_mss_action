@@ -56,7 +56,7 @@ class ActionRepositoryMock(IActionRepository):
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2021, 10, 18, 13, 56, 5, 430523),
+            hired_date=1634576165,
             active=ACTIVE.ACTIVE,
             projects=[
                 self.projects[0]
@@ -72,7 +72,7 @@ class ActionRepositoryMock(IActionRepository):
             year=3,
             cellphone="11991152348",
             course=COURSE.ECM,
-            hired_date=datetime.datetime(2021, 10, 22, 13, 56, 5, 430523),
+            hired_date=1634921765,
             active=ACTIVE.ACTIVE,
             projects=[
                 self.projects[0],
@@ -90,7 +90,7 @@ class ActionRepositoryMock(IActionRepository):
             year=2,
             cellphone="11991758228",
             course=COURSE.CIC,
-            hired_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523),
+            hired_date=1640192165,
             active=ACTIVE.FREEZE,
             projects=[
             ]
@@ -105,7 +105,7 @@ class ActionRepositoryMock(IActionRepository):
             year=6,
             cellphone="11991759998",
             course=COURSE.ECM,
-            hired_date=datetime.datetime(2010, 12, 22, 13, 56, 5, 430523),
+            hired_date=1293036965,
             active=ACTIVE.ACTIVE,
             projects=[
                 self.projects[0],
@@ -126,11 +126,11 @@ class ActionRepositoryMock(IActionRepository):
             year=4,
             cellphone="11991753208",
             course=COURSE.EMC,
-            hired_date=datetime.datetime(2018, 12, 22, 13, 56, 5, 430523),
+            hired_date=1545497765,
             active=ACTIVE.DISCONNECTED,
             projects=[
             ],
-            deactivated_date=datetime.datetime(2019, 12, 22, 13, 56, 5, 430523)
+            deactivated_date=1577033765
             ),
             
             Member(
@@ -142,7 +142,7 @@ class ActionRepositoryMock(IActionRepository):
             year=3,
             cellphone="11911758098",
             course=COURSE.ECM,
-            hired_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523),
+            hired_date=1640192165,
             active=ACTIVE.ACTIVE,
             projects=[
                 self.projects[3],
@@ -159,7 +159,7 @@ class ActionRepositoryMock(IActionRepository):
             year=2,
             cellphone="11915758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2021, 1, 2, 13, 56, 5, 430523),
+            hired_date=1609606565,
             active=ACTIVE.FREEZE,
             projects=[
             ]
@@ -174,7 +174,7 @@ class ActionRepositoryMock(IActionRepository):
             year=1,
             cellphone="11991123498",
             course=COURSE.ECM,
-            hired_date=datetime.datetime(2023, 1, 1, 13, 56, 5, 430523),
+            hired_date=1672592165,
             active=ACTIVE.ACTIVE,
             projects=[
             ]
@@ -184,7 +184,7 @@ class ActionRepositoryMock(IActionRepository):
         self.actions = [
             Action(
                 owner_ra=self.members[0].ra,
-                date=datetime.datetime(2021, 10, 18),
+                date=1634526000,
                 action_id="u1e2",
                 associated_members_ra=None,
                 title="Reunião de Diretoria",
@@ -196,7 +196,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[1].ra,
-                date=datetime.datetime(2021, 10, 24),
+                date=1635044400,
                 action_id="9fc2",
                 associated_members_ra=[self.members[0].ra, self.members[2].ra],
                 title="Code",
@@ -207,7 +207,7 @@ class ActionRepositoryMock(IActionRepository):
             ),
             Action(
                 owner_ra=self.members[2].ra,
-                date=datetime.datetime(2021, 11, 5),
+                date=1636081200,
                 action_id="921f",
                 associated_members_ra=[self.members[3].ra],
                 title="Design",
@@ -219,7 +219,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[3].ra,
-                date=datetime.datetime(2021, 11, 5),
+                date=1636081200,
                 action_id="0d2d",
                 associated_members_ra=[],
                 title="Estudo",
@@ -230,7 +230,7 @@ class ActionRepositoryMock(IActionRepository):
             ),
             Action(
                 owner_ra=self.members[0].ra,
-                date=datetime.datetime(2021, 10, 18),
+                date=1634526000,
                 action_id="dd1d",
                 associated_members_ra=None,
                 title="Code",
@@ -242,7 +242,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[5].ra,
-                date=datetime.datetime(2021, 10, 18),
+                date=1634526000,
                 action_id="jgrl",
                 associated_members_ra=None,
                 title="Reunião",
@@ -253,7 +253,7 @@ class ActionRepositoryMock(IActionRepository):
             ),
             Action(
                 owner_ra=self.members[0].ra,
-                date=datetime.datetime(2022, 10, 18),
+                date=1666062000,
                 action_id="jf12",
                 associated_members_ra=None,
                 title="Reunião",
@@ -265,7 +265,7 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[4].ra,
-                date=datetime.datetime(2021, 10, 18),
+                date=1634526000,
                 action_id='32kd',
                 associated_members_ra=None,
                 title="Hackathon",
@@ -285,8 +285,9 @@ class ActionRepositoryMock(IActionRepository):
             
         return None
 
+
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
-        member = self.get_member(ra)
+
         
         owner_actions = [action for action in self.actions if action.owner_ra == ra]
         associated_actions = [action for action in self.actions if ra in action.associated_members_ra]

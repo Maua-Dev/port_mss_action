@@ -64,16 +64,6 @@ class CreateMemberController:
             except:
                 raise EntityError('projects')
             
-            try:
-                hired_date = datetime.datetime.strptime(request.data.get('hired_date'), '%Y-%m-%dT%H:%M:%S')
-            except:
-                raise EntityError('hired_date')
-            
-            try:
-                deactivated_date = None if request.data.get('deactivated_date') is None else datetime.datetime.strptime(request.data.get('deactivated_date'), '%Y-%m-%dT%H:%M:%S')
-            except:
-                raise EntityError('deactivated_date')
-            
             member = Member(
                 name=request.data.get('name'),
                 email=request.data.get('email'),
@@ -83,8 +73,8 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=COURSE[request.data.get('course')],
-                hired_date=hired_date,
-                deactivated_date=deactivated_date,
+                hired_date=request.data.get('hired_date'),
+                deactivated_date=request.data.get('deactivated_date'),
                 active=ACTIVE[request.data.get('active')],
                 projects=projects
             )

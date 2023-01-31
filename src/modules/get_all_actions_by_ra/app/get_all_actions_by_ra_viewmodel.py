@@ -6,7 +6,7 @@ from src.shared.domain.enums.stack_enum import STACK
 
 class ActionViewModel:
     ra: str
-    date: datetime.datetime
+    date: int
     action_id: str
     title: str
     duration: datetime.time
@@ -29,7 +29,7 @@ class ActionViewModel:
     def to_dict(self):
         return {
             "ra": self.ra,
-            "date": self.date.isoformat(),
+            "date": self.date,
             "action_id": self.action_id,
             "title": self.title,
             "duration": self.duration.strftime("%H:%M:%S"),

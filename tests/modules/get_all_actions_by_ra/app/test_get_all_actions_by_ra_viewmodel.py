@@ -13,7 +13,7 @@ class Test_GetAllActionsByRaViewmodel:
                      'actions':[
                         {
                            'ra':'21017310',
-                           'date':'2021-10-18T00:00:00',
+                           'date':1634526000,
                            'action_id':'u1e2',
                            'title':'Reunião de Diretoria',
                            'duration':'02:00:00',
@@ -28,7 +28,7 @@ class Test_GetAllActionsByRaViewmodel:
                         },
                         {
                            'ra':'21017310',
-                           'date':'2021-10-18T00:00:00',
+                           'date':1634526000,
                            'action_id':'dd1d',
                            'title':'Code',
                            'duration':'01:00:00',
@@ -43,7 +43,7 @@ class Test_GetAllActionsByRaViewmodel:
                         },
                         {
                            'ra':'21017310',
-                           'date':'2021-10-24T00:00:00',
+                           'date':1635044400,
                            'action_id':'9fc2',
                            'title':'Code',
                            'duration':'04:30:00',
@@ -59,7 +59,7 @@ class Test_GetAllActionsByRaViewmodel:
                         },
                         {
                            'ra':'21017310',
-                           'date':'2022-10-18T00:00:00',
+                           'date':1666062000,
                            'action_id':'jf12',
                            'title':'Reunião',
                            'duration':'01:00:00',

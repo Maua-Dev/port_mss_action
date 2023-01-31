@@ -11,7 +11,7 @@ class Test_Action:
     def test_action(self):
         action = Action(
             owner_ra="22011020",
-            date=datetime.datetime(2020, 1, 1),
+            date=1577847600,
             action_id="1234",
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -23,7 +23,7 @@ class Test_Action:
         
         assert type(action) == Action
         assert action.owner_ra == "22011020"
-        assert action.date == datetime.datetime(2020, 1, 1)
+        assert action.date == 1577847600
         assert action.action_id == "1234"
         assert action.associated_members_ra == ["22011021", "22011022"]
         assert action.title == "Teste"
@@ -36,7 +36,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="2201102",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -50,7 +50,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra=22011020,
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -64,7 +64,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="vitor",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -92,7 +92,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="123",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -106,7 +106,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id=1234,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -120,7 +120,7 @@ class Test_Action:
     def test_action_associated_members_ra_none(self):   
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=None,
                 title="Teste",
@@ -135,7 +135,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra="22011021",
                 title="Teste",
@@ -149,7 +149,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "2201102"],
                 title="Teste",
@@ -163,7 +163,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=[22011021, 22011022],
                 title="Teste",
@@ -176,7 +176,7 @@ class Test_Action:
     def test_action_associated_members_ra_is_empty_list(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=[],
                 title="Teste",
@@ -191,7 +191,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title=1,
@@ -205,7 +205,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="A",
@@ -219,7 +219,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
@@ -232,7 +232,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -246,7 +246,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -260,7 +260,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -274,7 +274,7 @@ class Test_Action:
     def test_action_stack_tags_none(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -290,7 +290,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -304,7 +304,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -317,7 +317,7 @@ class Test_Action:
     def test_action_action_type_tags_none(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -333,7 +333,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -347,7 +347,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",

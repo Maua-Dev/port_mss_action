@@ -1,4 +1,3 @@
-import datetime
 import pytest
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
@@ -21,7 +20,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -40,7 +39,7 @@ class Test_Member:
         assert member.year == 1
         assert member.cellphone == "11991758098"
         assert member.course == COURSE.ECA
-        assert member.hired_date == datetime.datetime(2022, 12, 22, 13, 56, 5, 430523)
+        assert member.hired_date == 1671728165
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
         assert member.projects[0] == Project(
@@ -60,7 +59,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -82,7 +81,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -104,7 +103,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -126,7 +125,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -148,7 +147,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -171,7 +170,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -193,7 +192,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -216,7 +215,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -238,7 +237,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -260,7 +259,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -282,7 +281,7 @@ class Test_Member:
             year="2021",
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -304,7 +303,7 @@ class Test_Member:
             year=10,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -326,7 +325,7 @@ class Test_Member:
             year=-2,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -348,7 +347,7 @@ class Test_Member:
             year=1,
             cellphone=11991758098,
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -370,7 +369,7 @@ class Test_Member:
             year=1,
             cellphone="551991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -393,7 +392,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course="COURSE.ECA",
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 Project(
@@ -405,7 +404,7 @@ class Test_Member:
         )
 
 
-    def test_member_hired_date_not_datetime(self): 
+    def test_member_hired_date_not_int(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
@@ -438,7 +437,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active="ACTIVE.FREEZE",
             projects=[
                 Project(
@@ -459,9 +458,9 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523),
+            hired_date=1640192165,
             active=ACTIVE.FREEZE,
-            deactivated_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523)
+            deactivated_date=1671728165
         )
         
         assert member.projects == []
@@ -478,7 +477,7 @@ class Test_Member:
             year=2021,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects="[]"
             
@@ -495,7 +494,7 @@ class Test_Member:
             year=2021,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
                 "project1"
@@ -513,7 +512,7 @@ class Test_Member:
                 year=2021,
                 cellphone="11991758098",
                 course=COURSE.ECA,
-                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                hired_date=1671728165,
                 active=ACTIVE.FREEZE,
                 projects=[
                 Project(
@@ -536,7 +535,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+            hired_date=1671728165,
             active=ACTIVE.FREEZE,
             projects=[
             Project(
@@ -553,7 +552,7 @@ class Test_Member:
         )            
         assert len(member.projects) == 2
 
-    def test_member_deactivated_date_not_none_or_datetime(self): 
+    def test_member_deactivated_date_not_none_or_int(self): 
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
@@ -564,7 +563,7 @@ class Test_Member:
                 year=1,
                 cellphone="11991758098",
                 course=COURSE.ECA,
-                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
                 projects=[
                 Project(
@@ -592,7 +591,7 @@ class Test_Member:
                 year=1,
                 cellphone="11991758098",
                 course=COURSE.ECA,
-                hired_date=datetime.datetime(2022, 12, 22, 13, 56, 5, 430523),
+                hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
                 projects=[
                 Project(
@@ -606,5 +605,5 @@ class Test_Member:
                     description="=D"
                 ),
             ],
-                deactivated_date=datetime.datetime(2021, 12, 22, 13, 56, 5, 430523)
+                deactivated_date=1640192165
             )          

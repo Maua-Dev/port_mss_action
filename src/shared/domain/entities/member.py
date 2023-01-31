@@ -1,5 +1,4 @@
 import abc
-import datetime
 import re
 from typing import List
 from src.shared.domain.entities.project import Project
@@ -20,8 +19,8 @@ class Member(abc.ABC):
     year: int
     cellphone: str
     course: COURSE
-    hired_date: datetime.datetime
-    deactivated_date: datetime.datetime = None
+    hired_date: int # milliseconds
+    deactivated_date: int = None # milliseconds
     active: ACTIVE
     projects: List[Project]
     MIN_NAME_LENGTH = 2
@@ -36,9 +35,9 @@ class Member(abc.ABC):
                  year:int,
                  cellphone:str,
                  course: COURSE,
-                 hired_date: datetime.datetime,
+                 hired_date: int, 
                  active: ACTIVE,
-                 deactivated_date: datetime.datetime = None,
+                 deactivated_date: int = None, 
                  projects: List[Project] = None
                 ):
 
@@ -74,8 +73,8 @@ class Member(abc.ABC):
             raise EntityError("course")
         self.course = course
         
-        if type(hired_date) != datetime.datetime:
-            raise EntityError("active")
+        if type(hired_date) != int:
+            raise EntityError("hired_date")
         self.hired_date = hired_date
         
         if type(active) != ACTIVE:
@@ -93,7 +92,7 @@ class Member(abc.ABC):
             raise EntityError("projects")
         
         if deactivated_date is not None:
-            if type(deactivated_date) != datetime.datetime:
+            if type(deactivated_date) != int:
                 raise EntityError("deactivated_date")
             if deactivated_date < self.hired_date:
                 raise EntityError("deactivated_date and hired_date") 
