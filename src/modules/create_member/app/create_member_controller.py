@@ -44,9 +44,6 @@ class CreateMemberController:
             if request.data.get('projects') is None:
                 raise MissingParameters('projects')
 
-            if self.repo.get_member(ra=request.data.get('ra')) is not None:
-                raise DuplicatedItem('ra')
-            
             if request.data.get('role') not in [role.value for role in ROLE]:
                 raise EntityError('role')
 
