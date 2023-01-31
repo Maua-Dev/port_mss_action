@@ -674,8 +674,31 @@ class Test_CreateMemberController:
         response = controller(request=request)
         assert response.status_code == 400
         assert response.body == "Field active is not valid"
-        
+    
     def test_create_member_controller_invalid_projects(self): 
+        repo = ActionRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            'name':'Teste',
+            'email':'teste.devmaua@gmail.com',
+            'ra':'12345678',
+            'role':'DEV',
+            'stack':'BACKEND',
+            'year':2,
+            'cellphone':'11912345678',
+            'course':'CIC',
+            'hired_date':'2021-10-18T00:00:00',
+            'deactivated_date':'2022-10-18T00:00:00',
+            'active':'ACTIVE',
+            'projects':1,
+        })
+        
+        response = controller(request=request)
+        assert response.status_code == 400
+        assert response.body == "Field projects is not valid"
+    
+    def test_create_member_controller_invalid_project_items(self): 
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
