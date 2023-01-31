@@ -20,8 +20,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -43,8 +42,8 @@ class Test_CreateMemberController:
         assert response.body['member']['year'] == 2
         assert response.body['member']['cellphone'] == "11912345678"
         assert response.body['member']['course'] == "CIC"
-        assert response.body['member']['hired_date'] == "2021-10-18T00:00:00"
-        assert response.body['member']['deactivated_date'] == "2022-10-18T00:00:00"
+        assert response.body['member']['hired_date'] == 1634526000
+        assert response.body['member']['deactivated_date'] == None
         assert response.body['member']['active'] == "ACTIVE"
         assert response.body['member']['projects'][0]['code'] == "MF"
         assert response.body['member']['projects'][0]['name'] == "Maua Food"
@@ -63,7 +62,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[
@@ -78,7 +77,7 @@ class Test_CreateMemberController:
         response = controller(request=request)
         assert response.status_code == 201
         assert response.body['message'] == "the member was created"
-        assert response.body['member']['deactivated_date'] == ''
+        assert response.body['member']['deactivated_date'] == None
     
     def test_create_member_controller_missing_projects(self):
         repo = ActionRepositoryMock()
@@ -93,7 +92,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[],
@@ -116,7 +115,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[
@@ -145,7 +144,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[
@@ -174,7 +173,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[
@@ -202,8 +201,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -231,8 +230,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -260,8 +259,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -288,8 +286,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -317,8 +315,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -345,8 +343,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -374,8 +372,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -402,8 +400,8 @@ class Test_CreateMemberController:
             'stack':'BACKEND',
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -431,8 +429,8 @@ class Test_CreateMemberController:
             'year':2022,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -459,8 +457,8 @@ class Test_CreateMemberController:
             'stack':'BACKEND',
             'year':2,
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -487,8 +485,8 @@ class Test_CreateMemberController:
             'stack':'BACKEND',
             'year':2,
             'cellphone':'11912345678',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -516,8 +514,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'Design',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -545,7 +543,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -574,7 +572,7 @@ class Test_CreateMemberController:
             'cellphone':'11912345678',
             'course':'CIC',
             'hired_date':'18/10/2021',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 {
@@ -602,7 +600,7 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
+            'hired_date':1634526000,
             'deactivated_date':'18/10/2022',
             'active':'ACTIVE',
             'projects':[
@@ -631,8 +629,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'projects':[
                 {
                     'code':'MF',
@@ -659,8 +657,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':True,
             'projects':[
                 {
@@ -688,8 +686,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':1,
         })
@@ -711,8 +709,8 @@ class Test_CreateMemberController:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
             'active':'ACTIVE',
             'projects':[
                 "MF"

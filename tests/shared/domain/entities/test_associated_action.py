@@ -12,7 +12,7 @@ class Test_AssociatedAction:
     def test_associated_action(self):
         action = Action(
             owner_ra="22011020",
-            date=datetime.datetime(2020, 1, 1),
+            date=1577847600,
             action_id="1234",
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -30,7 +30,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_string(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -45,7 +45,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -60,7 +60,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
                 owner_ra="22011020",
-                date=datetime.datetime(2020, 1, 1),
+                date=1577847600,
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",

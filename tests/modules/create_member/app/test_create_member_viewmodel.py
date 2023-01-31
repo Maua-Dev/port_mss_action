@@ -1,4 +1,3 @@
-import datetime
 from src.modules.create_member.app.create_member_usecase import CreateMemberUsecase
 from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
 from src.shared.domain.entities.member import Member
@@ -15,7 +14,7 @@ class Test_CreateMemberViewmodel:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=datetime.datetime(2021, 10, 18), active=ACTIVE.ACTIVE, deactivated_date=datetime.datetime(2022, 10, 18), projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.FREEZE, deactivated_date=1666062000, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
         
         memberViewModel = CreateMemberViewmodel(member=usecase(member)).to_dict()
         
@@ -29,9 +28,9 @@ class Test_CreateMemberViewmodel:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'2022-10-18T00:00:00',
-            'active':'ACTIVE',
+            'hired_date':1634526000,
+            'deactivated_date':1666062000,
+            'active':'FREEZE',
             'projects':[
                 {
                     'code':'MF',
@@ -48,7 +47,7 @@ class Test_CreateMemberViewmodel:
         repo = ActionRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=datetime.datetime(2021, 10, 18), active=ACTIVE.ACTIVE, deactivated_date=None, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE, deactivated_date=None, projects=[Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza")])
         
         memberViewModel = CreateMemberViewmodel(member=usecase(member=member)).to_dict()
         
@@ -62,8 +61,8 @@ class Test_CreateMemberViewmodel:
             'year':2,
             'cellphone':'11912345678',
             'course':'CIC',
-            'hired_date':'2021-10-18T00:00:00',
-            'deactivated_date':'',
+            'hired_date':1634526000,
+            'deactivated_date':None,
             'active':'ACTIVE',
             'projects':[
                 {

@@ -1,3 +1,4 @@
+
 import abc
 import datetime
 from typing import List
@@ -8,7 +9,7 @@ from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, En
 
 class Action(abc.ABC):
     owner_ra: str
-    date: datetime.datetime
+    date: int # milliseconds
     action_id: str
     title: str
     duration: datetime.time
@@ -28,7 +29,7 @@ class Action(abc.ABC):
             raise EntityError('owner_ra')
         self.owner_ra = owner_ra
         
-        if type(date) != datetime.datetime:
+        if type(date) != int:
             raise EntityError('date')
         self.date = date
         
@@ -39,7 +40,7 @@ class Action(abc.ABC):
         if associated_members_ra is None:
             self.associated_members_ra = []
         elif type(associated_members_ra) == list:
-            if not all([self.validate_ra(ra) for ra in associated_members_ra]):
+            if not all([self.validate_ra(ra) for ra in associated_members_ra]) or self.owner_ra in [ra for ra in associated_members_ra]:
                 raise EntityError('associated_members_ra')
             else:
                 self.associated_members_ra = associated_members_ra

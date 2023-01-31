@@ -1,5 +1,4 @@
 import abc
-import datetime
 import re
 from typing import List
 from src.shared.domain.entities.project import Project
@@ -20,8 +19,8 @@ class Member(abc.ABC):
     year: int
     cellphone: str
     course: COURSE
-    hired_date: datetime.datetime
-    deactivated_date: datetime.datetime = None
+    hired_date: int # milliseconds
+    deactivated_date: int = None # milliseconds
     active: ACTIVE
     projects: List[Project]
     MIN_NAME_LENGTH = 2
@@ -36,9 +35,9 @@ class Member(abc.ABC):
                  year:int,
                  cellphone:str,
                  course: COURSE,
-                 hired_date: datetime.datetime,
+                 hired_date: int, 
                  active: ACTIVE,
-                 deactivated_date: datetime.datetime = None,
+                 deactivated_date: int = None, 
                  projects: List[Project] = None
                 ):
 
@@ -74,9 +73,14 @@ class Member(abc.ABC):
             raise EntityError("course")
         self.course = course
         
-        if type(hired_date) != datetime.datetime:
-            raise EntityError("active")
-        self.hired_date = hired_date
+        if type(hired_date) == int:
+            if hired_date > 0:
+                self.hired_date = hired_date 
+            else:
+                raise EntityError("hired_date")
+        else:
+            raise EntityError("hired_date")
+            
         
         if type(active) != ACTIVE:
             raise EntityError("active")
@@ -92,11 +96,19 @@ class Member(abc.ABC):
         else:
             raise EntityError("projects")
         
+        if hired_date < 0:
+                raise EntityError("hired_date")
+            
         if deactivated_date is not None:
-            if type(deactivated_date) != datetime.datetime:
+            if type(deactivated_date) != int:
                 raise EntityError("deactivated_date")
             if deactivated_date < self.hired_date:
                 raise EntityError("deactivated_date and hired_date") 
+            if deactivated_date < 0:
+                raise EntityError("deactivated_date")
+            
+            if active == ACTIVE.ACTIVE:
+                raise EntityError("active")
         self.deactivated_date = deactivated_date
         
         

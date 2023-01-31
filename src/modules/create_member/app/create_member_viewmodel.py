@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
@@ -34,8 +33,8 @@ class CreateMemberViewmodel:
     year: int
     cellphone: str
     course: COURSE
-    hired_date: datetime.datetime
-    deactivated_date: datetime.datetime = None
+    hired_date: int
+    deactivated_date: int = None
     active: ACTIVE
     projects: List[Project]
     
@@ -64,8 +63,8 @@ class CreateMemberViewmodel:
                 "year" : self.year,
                 "cellphone" : self.cellphone,
                 "course" : self.course.value,
-                "hired_date" : self.hired_date.isoformat(),
-                "deactivated_date" : self.deactivated_date.isoformat() if self.deactivated_date else "",
+                "hired_date" : self.hired_date,
+                "deactivated_date" : self.deactivated_date,
                 "active" : self.active.value,
                 "projects" : [ProjectViewModel(project).to_dict() for project in self.projects],
             },
