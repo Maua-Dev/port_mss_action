@@ -62,11 +62,9 @@ class Member(abc.ABC):
             raise EntityError("stack")
         self.stack = stack
         
-        if type(year) != int:
+        if not Member.validate_year(year):
             raise EntityError("year")
         self.year = year
-        if year > 6 or year <= 0:
-            raise EntityError("year")
         
         if not Member.validate_cellphone(cellphone):
             raise EntityError("cellphone")
@@ -102,7 +100,16 @@ class Member(abc.ABC):
         self.deactivated_date = deactivated_date
         
         
+    @staticmethod
+    def validate_year(year: int) -> bool:
+        if year == None:
+            return False
+        
+        if type(year) != int:
+            return False
 
+        return year > 0 and year <= 6
+        
                 
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -128,6 +135,9 @@ class Member(abc.ABC):
     @staticmethod
     def validate_name(name) -> bool:
 
+        if name == None:
+            return False
+        
         if type(name) != str:
             return False
         

@@ -2,6 +2,9 @@ import datetime
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.active_enum import ACTIVE
+from src.shared.domain.enums.course_enum import COURSE
+from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
@@ -82,3 +85,13 @@ class Test_ActionRepositoryMock:
         
         assert actions == []
         assert len(actions) == 0
+        
+    def test_create_member(self):
+        repo = ActionRepositoryMock()
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=datetime.datetime(2021, 10, 18), active=ACTIVE.ACTIVE)
+        len_before = len(repo.members)
+        
+        new_member = repo.create_member(member=member)
+        
+        assert len(repo.members) == len_before + 1
+        assert new_member == member
