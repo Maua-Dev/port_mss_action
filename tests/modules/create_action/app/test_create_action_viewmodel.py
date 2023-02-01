@@ -27,7 +27,7 @@ class Test_CreateActionViewmodel:
                 'stack_tags':['BACKEND'],
                 'action_type_tags':['CODE']
             },
-            'message':'the action has been created'
+            'message':'the action was created'
             }
        
         assert viewmodel == expected
@@ -52,7 +52,7 @@ class Test_CreateActionViewmodel:
                 'stack_tags':[],
                 'action_type_tags':[]
             },
-            'message':'the action has been created'
+            'message':'the action was created'
             }
        
         assert viewmodel == expected
