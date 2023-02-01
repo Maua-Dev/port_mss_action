@@ -86,4 +86,12 @@ class Test_ActionRepositoryMock:
         new_associated_action = repo.create_associated_action(associatedAction=associatedAction)
         assert len(repo.associatedActions) == len_before + 1
         assert new_associated_action == associatedAction
-        
+
+    def test_create_action_with_associated_members(self):
+        repo = ActionRepositoryMock()
+        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        len_actions_before = len(repo.actions)
+        len_associatedActions_before = len(repo.associatedActions)
+        new_action = repo.create_action(action=action)
+        assert len(repo.actions) == len_actions_before + 1
+        assert len(repo.associatedActions) == len_associatedActions_before + 2
