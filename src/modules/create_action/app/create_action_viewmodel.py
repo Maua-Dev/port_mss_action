@@ -49,5 +49,5 @@ class CreateActionViewmodel:
     def to_dict(self) -> dict:
         return {
             'action' : ActionViewModel(self.action, self.action.owner_ra).to_dict(),
-            'message' : 'the action has been created'
+            'message' : 'the action was created'
         }
