@@ -28,9 +28,6 @@ class GetMemberController:
         except MissingParameters as err:
             return BadRequest(body=err.message)
 
-        except WrongTypeParameter as err:
-            return BadRequest(body=err.message)
-
         except EntityError as err:
             return BadRequest(body=err.message)
 

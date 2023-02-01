@@ -59,6 +59,19 @@ class Test_GetMemberPresenter:
 
         response = lambda_handler(event, None)
         assert response["statusCode"] == 200
+        assert json.loads(response['body'])['member']['name'] == 'Little Ronald'
+        assert json.loads(response['body'])['member']['email'] == 'lronald.devmaua@gmail.com'
+        assert json.loads(response['body'])['member']['ra'] == '10017310'
+        assert json.loads(response['body'])['member']['role'] == 'DIRECTOR'
+        assert json.loads(response['body'])['member']['stack'] == 'FRONTEND'
+        assert json.loads(response['body'])['member']['year'] == 6
+        assert json.loads(response['body'])['member']['cellphone'] == '11991759998'
+        assert json.loads(response['body'])['member']['course'] == 'ECM'
+        assert json.loads(response['body'])['member']['hired_date'] == 1293036965
+        assert json.loads(response['body'])['member']['deactivated_date'] == None
+        assert json.loads(response['body'])['member']['active'] == 'ACTIVE'
+        assert len(json.loads(response['body'])['member']['projects']) == 4
+
         
     def test_get_member_presenter_invalid_ra(self):
         event = {
