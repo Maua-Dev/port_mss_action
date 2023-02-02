@@ -284,13 +284,45 @@ class ActionRepositoryMock(IActionRepository):
                 action=self.actions[0]
             ),
             AssociatedAction(
+                member_ra=self.members[1].ra,
+                action=self.actions[1]
+            ),
+            AssociatedAction(
                 member_ra=self.members[2].ra,
-                action=self.actions[0]
+                action=self.actions[1]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[1]
             ),
             AssociatedAction(
                 member_ra=self.members[3].ra,
                 action=self.actions[2]
-            )
+            ),
+            AssociatedAction(
+                member_ra=self.members[2].ra,
+                action=self.actions[2]
+            ),
+            AssociatedAction(
+                member_ra=self.members[3].ra,
+                action=self.actions[3]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[4]
+            ),
+            AssociatedAction(
+                member_ra=self.members[5].ra,
+                action=self.actions[5]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[6]
+            ),
+            AssociatedAction(
+                member_ra=self.members[4].ra,
+                action=self.actions[7]
+            ),
         ]
 
     def get_member(self, ra: str) -> Member:
@@ -313,6 +345,7 @@ class ActionRepositoryMock(IActionRepository):
     
     def create_action(self, action: Action) -> Action:
         self.actions.append(action)
+        self.create_associated_action(AssociatedAction(action.owner_ra, action))
         if action.associated_members_ra is not None:
             for ra in action.associated_members_ra:
                 self.create_associated_action(AssociatedAction(ra, action))
