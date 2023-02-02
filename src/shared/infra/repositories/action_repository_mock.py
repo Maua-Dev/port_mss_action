@@ -16,6 +16,7 @@ class ActionRepositoryMock(IActionRepository):
     members: List[Member]
     projects: List[Project]
     actions: List[Action]
+    associatedActions: List[AssociatedAction]
 
     def __init__(self):
         self.projects = [
@@ -277,6 +278,52 @@ class ActionRepositoryMock(IActionRepository):
             
             
         ]
+        self.associatedActions = [
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[0]
+            ),
+            AssociatedAction(
+                member_ra=self.members[1].ra,
+                action=self.actions[1]
+            ),
+            AssociatedAction(
+                member_ra=self.members[2].ra,
+                action=self.actions[1]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[1]
+            ),
+            AssociatedAction(
+                member_ra=self.members[3].ra,
+                action=self.actions[2]
+            ),
+            AssociatedAction(
+                member_ra=self.members[2].ra,
+                action=self.actions[2]
+            ),
+            AssociatedAction(
+                member_ra=self.members[3].ra,
+                action=self.actions[3]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[4]
+            ),
+            AssociatedAction(
+                member_ra=self.members[5].ra,
+                action=self.actions[5]
+            ),
+            AssociatedAction(
+                member_ra=self.members[0].ra,
+                action=self.actions[6]
+            ),
+            AssociatedAction(
+                member_ra=self.members[4].ra,
+                action=self.actions[7]
+            ),
+        ]
 
     def get_member(self, ra: str) -> Member:
         for member in self.members:
@@ -285,10 +332,7 @@ class ActionRepositoryMock(IActionRepository):
             
         return None
 
-
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
-
-        
         owner_actions = [action for action in self.actions if action.owner_ra == ra]
         associated_actions = [action for action in self.actions if ra in action.associated_members_ra]
         actions = owner_actions + associated_actions
@@ -298,3 +342,30 @@ class ActionRepositoryMock(IActionRepository):
     def create_member(self, member: Member) -> Member:
         self.members.append(member)
         return member
+    
+    def create_action(self, action: Action) -> Action:
+        self.actions.append(action)
+        self.create_associated_action(AssociatedAction(action.owner_ra, action))
+        if action.associated_members_ra is not None:
+            for ra in action.associated_members_ra:
+                self.create_associated_action(AssociatedAction(ra, action))
+        
+        return action
+    
+    def get_action(self, action_id: str) -> Action:
+        for action in self.actions:
+            if action.action_id == action_id:
+                return action
+        return None
+    
+    def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
+        self.associatedActions.append(associatedAction)
+        return associatedAction
+    
+    def get_members(self, ras: List[str]) -> List[Member]:
+        members = []
+        for member in self.members:
+            if member.ra in ras:
+                members.append(member)
+                
+        return members

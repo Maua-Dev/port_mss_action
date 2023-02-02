@@ -4,7 +4,6 @@ import datetime
 from typing import List
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-
 from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, EntityError
 
 class Action(abc.ABC):
@@ -40,7 +39,11 @@ class Action(abc.ABC):
         if associated_members_ra is None:
             self.associated_members_ra = []
         elif type(associated_members_ra) == list:
-            if not all([self.validate_ra(ra) for ra in associated_members_ra]) or self.owner_ra in [ra for ra in associated_members_ra]:
+            if not all([self.validate_ra(ra) for ra in associated_members_ra]):
+                raise EntityError('associated_members_ra')
+            if owner_ra in associated_members_ra:
+                raise EntityError('associated_members_ra')
+            if len(associated_members_ra) != len(set(associated_members_ra)):
                 raise EntityError('associated_members_ra')
             else:
                 self.associated_members_ra = associated_members_ra
