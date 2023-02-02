@@ -24,6 +24,9 @@ class IActionRepository(ABC):
     
     @abstractmethod
     def create_action(self, action: Action) -> Action:
+        '''
+        creates action and associated_actions for each associated_member and the owner
+        '''
         pass
     
     @abstractmethod
