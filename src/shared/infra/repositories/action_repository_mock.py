@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -185,11 +184,11 @@ class ActionRepositoryMock(IActionRepository):
         self.actions = [
             Action(
                 owner_ra=self.members[0].ra,
-                date=1634526000000,
+                start_time=1634526000000,
                 action_id="u1e2",
                 associated_members_ra=None,
                 title="Reunião de Diretoria",
-                duration=datetime.time(2, 0, 0),
+                end_time=1634533200000,
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.INTERNAL],
                 action_type_tags=[ACTION_TYPE.MEETING]
@@ -197,22 +196,22 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[1].ra,
-                date=1635044400000,
+                start_time=1635044400000,
                 action_id="9fc2",
                 associated_members_ra=[self.members[0].ra, self.members[2].ra],
                 title="Code",
-                duration=datetime.time(4, 30, 0),
+                end_time=1635060600000,
                 project_code=self.projects[1].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
                 action_type_tags=[ACTION_TYPE.CODE]
             ),
             Action(
                 owner_ra=self.members[2].ra,
-                date=1636081200000,
+                start_time=1636081200000,
                 action_id="921f",
                 associated_members_ra=[self.members[3].ra],
                 title="Design",
-                duration=datetime.time(1, 30, 0),
+                end_time=1636086600000,
                 project_code=self.projects[2].code,
                 stack_tags=[STACK.UX_UI],
                 action_type_tags=[ACTION_TYPE.DESIGN]
@@ -220,22 +219,22 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[3].ra,
-                date=1636081200000,
+                start_time=1636081200000,
                 action_id="0d2d",
                 associated_members_ra=[],
                 title="Estudo",
-                duration=datetime.time(0, 30, 0),
+                end_time=1636083000000,
                 project_code=self.projects[2].code,
                 stack_tags=[STACK.INTERNAL],
                 action_type_tags=[ACTION_TYPE.LEARN]
             ),
             Action(
                 owner_ra=self.members[0].ra,
-                date=1634526000000,
+                start_time=1634526000000,
                 action_id="dd1d",
                 associated_members_ra=None,
                 title="Code",
-                duration=datetime.time(1, 0, 0),
+                end_time=1634529600000,
                 project_code=self.projects[0].code,
                 stack_tags=None,
                 action_type_tags=[ACTION_TYPE.CODE]
@@ -243,22 +242,22 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[5].ra,
-                date=1634526000000,
+                start_time=1634526000000,
                 action_id="jgrl",
                 associated_members_ra=None,
                 title="Reunião",
-                duration=datetime.time(1, 0, 0),
+                end_time=1634529600000,
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
                 action_type_tags=None
             ),
             Action(
                 owner_ra=self.members[0].ra,
-                date=1666062000000,
+                start_time=1666062000000,
                 action_id="jf12",
                 associated_members_ra=None,
                 title="Reunião",
-                duration=datetime.time(1, 0, 0),
+                end_time=1666065600000,
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
                 action_type_tags=None
@@ -266,11 +265,11 @@ class ActionRepositoryMock(IActionRepository):
             
             Action(
                 owner_ra=self.members[4].ra,
-                date=1634526000000,
+                start_time=1634526000000,
                 action_id='32kd',
                 associated_members_ra=None,
                 title="Hackathon",
-                duration=datetime.time(10, 0, 0),
+                end_time=1634562000000,
                 project_code=self.projects[0].code,
                 stack_tags=None,
                 action_type_tags=None
@@ -336,7 +335,7 @@ class ActionRepositoryMock(IActionRepository):
         owner_actions = [action for action in self.actions if action.owner_ra == ra]
         associated_actions = [action for action in self.actions if ra in action.associated_members_ra]
         actions = owner_actions + associated_actions
-        actions.sort(key=lambda action: action.date)
+        actions.sort(key=lambda action: action.start_time)
         return actions
     
     def create_member(self, member: Member) -> Member:
