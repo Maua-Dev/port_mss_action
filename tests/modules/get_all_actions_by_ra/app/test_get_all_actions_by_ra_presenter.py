@@ -62,7 +62,7 @@ class Test_GetAllActionsByRaPresenter:
                      'actions':[
                         {
                            'ra':'21017310',
-                           'date':1634526000,
+                           'date':1634526000000,
                            'action_id':'u1e2',
                            'title':'Reunião de Diretoria',
                            'duration':'02:00:00',
@@ -77,7 +77,7 @@ class Test_GetAllActionsByRaPresenter:
                         },
                         {
                            'ra':'21017310',
-                           'date':1634526000,
+                           'date':1634526000000,
                            'action_id':'dd1d',
                            'title':'Code',
                            'duration':'01:00:00',
@@ -92,7 +92,7 @@ class Test_GetAllActionsByRaPresenter:
                         },
                         {
                            'ra':'21017310',
-                           'date':1635044400,
+                           'date':1635044400000,
                            'action_id':'9fc2',
                            'title':'Code',
                            'duration':'04:30:00',
@@ -108,7 +108,7 @@ class Test_GetAllActionsByRaPresenter:
                         },
                         {
                            'ra':'21017310',
-                           'date':1666062000,
+                           'date':1666062000000,
                            'action_id':'jf12',
                            'title':'Reunião',
                            'duration':'01:00:00',
