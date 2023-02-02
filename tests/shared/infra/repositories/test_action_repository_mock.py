@@ -31,7 +31,7 @@ class Test_ActionRepositoryMock:
         expected = [
             repo.actions[0], repo.actions[1], repo.actions[4], repo.actions[6]
         ]
-        expected.sort(key=lambda action: action.date)
+        expected.sort(key=lambda action: action.start_time)
         
         assert len(actions) == len(expected)
         assert actions == expected
@@ -47,7 +47,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_member(self):
         repo = ActionRepositoryMock()
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000000, active=ACTIVE.ACTIVE)
         len_before = len(repo.members)
         
         new_member = repo.create_member(member=member)
@@ -57,7 +57,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_before = len(repo.actions)
         
         new_action = repo.create_action(action=action)
@@ -79,7 +79,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         associatedAction = AssociatedAction(member_ra='12345678', action=action)
         len_before = len(repo.associatedActions)
         
@@ -89,7 +89,7 @@ class Test_ActionRepositoryMock:
 
     def test_create_action_with_associated_members(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_actions_before = len(repo.actions)
         len_associatedActions_before = len(repo.associatedActions)
         new_action = repo.create_action(action=action)
