@@ -55,6 +55,125 @@ class Test_CreateActionController:
         assert response.status_code == 400
         assert response.body == 'Field action_id is missing'
     
+    def test_create_action_controller_missing_owner_ra(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field owner_ra is missing'
+        
+    def test_create_action_controller_missing_date(self):
+            
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field date is missing'
+            
+    def test_create_action_controller_missing_title(self):
+            
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field title is missing'
+        
+    def test_create_action_controller_missing_duration(self):
+                
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field duration is missing'
+            
+    def test_create_action_controller_missing_project_code(self):
+                    
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field project_code is missing'
+        
+    def test_create_action_controller_missing_associated_members_ra(self):
+                            
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 201
+        
     def test_create_action_controller_duration_entity_error(self):
         
         repo = ActionRepositoryMock()
@@ -96,6 +215,27 @@ class Test_CreateActionController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field stack_tags is not valid'
+    
+    def test_create_action_controller_stack_tags_is_none(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':None,
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 201
+        assert response.body['action']['stack_tags'] == []
         
     def test_create_action_controller_stack_tags_is_not_valid(self):
         
@@ -139,28 +279,49 @@ class Test_CreateActionController:
         assert response.status_code == 400
         assert response.body == 'Field action_type_tags is not valid'
         
+    def test_create_action_controller_action_type_tags_is_none(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 201
+        assert response.body['action']['action_type_tags'] == []
+        
     def test_create_action_controller_action_type_tags_is_not_valid(self):
             
-            repo = ActionRepositoryMock()
-            usecase = CreateActionUsecase(repo=repo)
-            controller = CreateActionController(usecase=usecase)
-            request = HttpRequest(body={
-                'owner_ra':'17033730',
-                'date':1634526000,
-                'action_id':'82fc',
-                'title':'Teste',
-                'duration':'02:00:00',
-                'project_code':'MF',
-                'associated_members_ra':['19017310'],
-                'stack_tags':['BACKEND'],
-                'action_type_tags':['CODE','TESTE']
-            })
-            
-            response = controller(request)
-            assert response.status_code == 400
-            assert response.body == 'Field action_type_tags is not valid'
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'date':1634526000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration':'02:00:00',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE','TESTE']
+        })
         
-    def test_create_action_controller_duplicated_id(self):
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field action_type_tags is not valid'
+        
+    def test_create_action_controller_duplicated_action_id(self):
         
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
@@ -183,21 +344,63 @@ class Test_CreateActionController:
         
     def test_create_action_controller_ra_not_found(self):
             
-            repo = ActionRepositoryMock()
-            usecase = CreateActionUsecase(repo=repo)
-            controller = CreateActionController(usecase=usecase)
-            request = HttpRequest(body={
-            'owner_ra':'12345678',
-            'date':1634526000,
-            'action_id':'82fc',
-            'title':'Teste',
-            'duration':'02:00:00',
-            'project_code':'MF',
-            'associated_members_ra':['19017310'],
-            'stack_tags':['BACKEND'],
-            'action_type_tags':['CODE']
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+        'owner_ra':'12345678',
+        'date':1634526000,
+        'action_id':'82fc',
+        'title':'Teste',
+        'duration':'02:00:00',
+        'project_code':'MF',
+        'associated_members_ra':['19017310'],
+        'stack_tags':['BACKEND'],
+        'action_type_tags':['CODE']
         })
-            
-            response = controller(request)
-            assert response.status_code == 404
-            assert response.body == 'No items found for owner_ra'
+        
+        response = controller(request)
+        assert response.status_code == 404
+        assert response.body == 'No items found for owner_ra'
+        
+    def test_create_action_controller_associated_members_ra_not_found(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+        'owner_ra':'17033730',
+        'date':1634526000,
+        'action_id':'82fc',
+        'title':'Teste',
+        'duration':'02:00:00',
+        'project_code':'MF',
+        'associated_members_ra':['12345678'],
+        'stack_tags':['BACKEND'],
+        'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 404
+        assert response.body == 'No items found for associated_members_ra'
+
+    def test_create_action_controller_duplicated_associated_members_ra(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+        'owner_ra':'17033730',
+        'date':1634526000,
+        'action_id':'82fc',
+        'title':'Teste',
+        'duration':'02:00:00',
+        'project_code':'MF',
+        'associated_members_ra':['19017310','19017310'],
+        'stack_tags':['BACKEND'],
+        'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field associated_members_ra is not valid'
