@@ -370,3 +370,7 @@ class Test_Action:
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE, "REVIEW"]
             )
+        
+    def test_create_action_duplicated_associated_ra(self):
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', duration=datetime.time(12, 0, 0), project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
