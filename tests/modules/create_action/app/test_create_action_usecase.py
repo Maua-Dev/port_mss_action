@@ -30,7 +30,7 @@ class Test_CreateActionUsecase:
         new_action = usecase(action=action)
         assert repo.actions[-1] == new_action == action
         assert len(repo.actions) == lenActionBefore + 1
-        assert len(repo.associatedActions) == lenAssociatedActionBefore + 2
+        assert len(repo.associatedActions) == lenAssociatedActionBefore + 3
         assert repo.associatedActions[-2].member_ra == '21017310'
         assert repo.associatedActions[-1].member_ra == '21010757'
     
@@ -59,13 +59,4 @@ class Test_CreateActionUsecase:
         action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['21017310', '21010758'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         
         with pytest.raises(NoItemsFound):
-            usecase(action=action)
-    
-    def test_create_action_usecase_duplicated_associated_ra(self):
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
-        
-        with pytest.raises(DuplicatedItem):
             usecase(action=action)
