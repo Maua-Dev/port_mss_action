@@ -349,6 +349,6 @@ class Test_CreateActionPresenter:
         
         response = lambda_handler(event, None)
         
+        assert response["statusCode"] == 404
         assert json.loads(response["body"]) == 'No items found for associated_members_ra'
-        
     
