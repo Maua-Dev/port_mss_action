@@ -1,4 +1,3 @@
-import datetime
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
@@ -21,21 +20,16 @@ class CreateActionController:
         try:
             if request.data.get('owner_ra') is None:
                 raise MissingParameters('owner_ra')
-            if request.data.get('date') is None:
-                raise MissingParameters('date')
+            if request.data.get('start_time') is None:
+                raise MissingParameters('start_time')
+            if request.data.get('end_time') is None:
+                raise MissingParameters('end_time')
             if request.data.get('action_id') is None:
                 raise MissingParameters('action_id')
             if request.data.get('title') is None:
                 raise MissingParameters('title')
-            if request.data.get('duration') is None:
-                raise MissingParameters('duration')
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
-            
-            try:
-                duration = datetime.datetime.strptime(request.data.get('duration'), '%H:%M:%S').time()
-            except:
-                raise EntityError('duration')
             
             if request.data.get('stack_tags') is not None:
                 if type(request.data.get('stack_tags')) is not list:
@@ -59,10 +53,10 @@ class CreateActionController:
             
             action = Action(
                 owner_ra=request.data.get('owner_ra'),
-                date=request.data.get('date'),
+                start_time=request.data.get('start_time'),
+                end_time=request.data.get('end_time'),
                 action_id=request.data.get('action_id'),
                 title=request.data.get('title'),
-                duration=duration,
                 associated_members_ra=request.data.get('associated_members_ra'),
                 project_code=request.data.get('project_code'),
                 stack_tags=stack_tags,
