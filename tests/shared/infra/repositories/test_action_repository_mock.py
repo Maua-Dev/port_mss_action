@@ -95,3 +95,12 @@ class Test_ActionRepositoryMock:
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_actions_before + 1
         assert len(repo.associatedActions) == len_associatedActions_before + 3
+        
+    def test_get_members(self):
+        repo = ActionRepositoryMock()
+        ras = [repo.members[0].ra, repo.members[1].ra]
+        members = repo.get_members(ras=ras)
+        assert len(members) == len(ras)
+        assert all([type(member) == Member for member in members])
+        assert members == [repo.members[0], repo.members[1]]
+        

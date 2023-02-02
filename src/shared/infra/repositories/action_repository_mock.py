@@ -361,3 +361,11 @@ class ActionRepositoryMock(IActionRepository):
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         self.associatedActions.append(associatedAction)
         return associatedAction
+    
+    def get_members(self, ras: List[str]) -> List[Member]:
+        members = []
+        for member in self.members:
+            if member.ra in ras:
+                members.append(member)
+                
+        return members
