@@ -34,6 +34,17 @@ class Test_CreateActionUsecase:
         assert repo.associatedActions[-2].member_ra == '21017310'
         assert repo.associatedActions[-1].member_ra == '21010757'
     
+    def test_create_action_usecase_with_empty_list(self):
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        lenActionBefore = len(repo.actions)
+        
+        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=[], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        
+        new_action = usecase(action=action)
+        assert len(repo.actions) == lenActionBefore + 1
+        assert repo.actions[-1] == new_action == action
+    
     def test_create_action_usecase_duplicated_action_id(self):
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
