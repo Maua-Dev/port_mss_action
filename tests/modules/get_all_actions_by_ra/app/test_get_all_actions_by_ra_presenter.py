@@ -58,73 +58,73 @@ class Test_GetAllActionsByRaPresenter:
         }
         
         response = lambda_handler(event, None)
-        expected = expected = {
-                     'actions':[
-                        {
-                           'ra':'21017310',
-                           'date':1634526000000,
-                           'action_id':'u1e2',
-                           'title':'Reunião de Diretoria',
-                           'duration':'02:00:00',
-                           'project_code':'MF',
-                           'stack_tags':[
-                              'INTERNAL'
-                           ],
-                           'action_type_tags':[
-                              'MEETING'
-                           ],
-                           'is_owner':True
-                        },
-                        {
-                           'ra':'21017310',
-                           'date':1634526000000,
-                           'action_id':'dd1d',
-                           'title':'Code',
-                           'duration':'01:00:00',
-                           'project_code':'MF',
-                           'stack_tags':[
-                              
-                           ],
-                           'action_type_tags':[
-                              'CODE'
-                           ],
-                           'is_owner':True
-                        },
-                        {
-                           'ra':'21017310',
-                           'date':1635044400000,
-                           'action_id':'9fc2',
-                           'title':'Code',
-                           'duration':'04:30:00',
-                           'project_code':'PT',
-                           'stack_tags':[
-                              'BACKEND',
-                              'FRONTEND'
-                           ],
-                           'action_type_tags':[
-                              'CODE'
-                           ],
-                           'is_owner':False
-                        },
-                        {
-                           'ra':'21017310',
-                           'date':1666062000000,
-                           'action_id':'jf12',
-                           'title':'Reunião',
-                           'duration':'01:00:00',
-                           'project_code':'MF',
-                           'stack_tags':[
-                              'BACKEND',
-                              'FRONTEND'
-                           ],
-                           'action_type_tags':[
-                              
-                           ],
-                           'is_owner':True
-                        }
-                     ],
-                     'message':'the actions were retrieved'
-        }
+        expected = {
+            'actions':[
+                {
+                    'ra':'21017310',
+                    'start_time':1634526000000,
+                    'end_time':1634533200000,
+                    'action_id':'u1e2',
+                    'title':'Reunião de Diretoria',
+                    'project_code':'MF',
+                    'stack_tags':[
+                        'INTERNAL'
+                    ],
+                    'action_type_tags':[
+                        'MEETING'
+                    ],
+                    'is_owner':True
+                },
+                {
+                    'ra':'21017310',
+                    'start_time':1634526000000,
+                    'end_time':1634529600000,
+                    'action_id':'dd1d',
+                    'title':'Code',
+                    'project_code':'MF',
+                    'stack_tags':[
+                        
+                    ],
+                    'action_type_tags':[
+                        'CODE'
+                    ],
+                    'is_owner':True
+                },
+                {
+                    'ra':'21017310',
+                    'start_time':1635044400000,
+                    'end_time':1635060600000,
+                    'action_id':'9fc2',
+                    'title':'Code',
+                    'project_code':'PT',
+                    'stack_tags':[
+                        'BACKEND',
+                        'FRONTEND'
+                    ],
+                    'action_type_tags':[
+                        'CODE'
+                    ],
+                    'is_owner':False
+                },
+                {
+                    'ra':'21017310',
+                    'start_time':1666062000000,
+                    'end_time':1666065600000,
+                    'action_id':'jf12',
+                    'title':'Reunião',
+                    'project_code':'MF',
+                    'stack_tags':[
+                        'BACKEND',
+                        'FRONTEND'
+                    ],
+                    'action_type_tags':[
+                        
+                    ],
+                    'is_owner':True
+                }
+            ],
+            'message':'the actions were retrieved'
+            }
         assert response["statusCode"] == 200
         assert json.loads(response["body"]) == expected
         assert len(json.loads(response['body'])['actions']) == 4
