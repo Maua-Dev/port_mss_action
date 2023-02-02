@@ -137,7 +137,7 @@ class ActionRepositoryMock(IActionRepository):
             Member(
             name="Rubicks Cube",
             email="rcube.devmaua@gmail.com",
-            ra="19017310",
+            ra="19017311",
             role=ROLE.DEV,
             stack=STACK.BACKEND,
             year=3,
