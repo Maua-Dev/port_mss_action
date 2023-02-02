@@ -1,4 +1,3 @@
-import datetime
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
@@ -29,13 +28,13 @@ class Test_ActionRepositoryMock:
         member = repo.get_member(ra=repo.members[0].ra)
         actions = repo.get_all_actions_by_ra(ra=member.ra)
         expected = [
-            repo.actions[0], repo.actions[1], repo.actions[4], repo.actions[6]
+            repo.associatedActions[0], repo.associatedActions[3], repo.associatedActions[7], repo.associatedActions[9]
         ]
-        expected.sort(key=lambda action: action.start_time)
+        expected.sort(key=lambda associated_action: associated_action.action.start_time)
         
         assert len(actions) == len(expected)
         assert actions == expected
-        assert all([type(action) == Action for action in actions])
+        assert all([type(action) == AssociatedAction for action in actions])
     
     def test_get_all_actions_by_ra_member_without_actions(self):
         repo = ActionRepositoryMock()
