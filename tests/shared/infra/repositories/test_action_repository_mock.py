@@ -94,4 +94,4 @@ class Test_ActionRepositoryMock:
         len_associatedActions_before = len(repo.associatedActions)
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_actions_before + 1
-        assert len(repo.associatedActions) == len_associatedActions_before + 2
+        assert len(repo.associatedActions) == len_associatedActions_before + 3

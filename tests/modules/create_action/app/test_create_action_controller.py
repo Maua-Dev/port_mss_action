@@ -35,7 +35,7 @@ class Test_CreateActionController:
         assert response.body['action']['stack_tags'] == ['BACKEND']
         assert response.body['action']['action_type_tags'] == ['CODE']
     
-    def test_create_action_controller_missing_parameters(self):
+    def test_create_action_controller_missing_action_id(self):
         
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
@@ -97,7 +97,7 @@ class Test_CreateActionController:
         assert response.status_code == 400
         assert response.body == 'Field stack_tags is not valid'
         
-    def test_create_action_controller_stack_tags_not_valid(self):
+    def test_create_action_controller_stack_tags_is_not_valid(self):
         
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
@@ -139,7 +139,7 @@ class Test_CreateActionController:
         assert response.status_code == 400
         assert response.body == 'Field action_type_tags is not valid'
         
-    def test_create_action_controller_action_type_tags_not_valid(self):
+    def test_create_action_controller_action_type_tags_is_not_valid(self):
             
             repo = ActionRepositoryMock()
             usecase = CreateActionUsecase(repo=repo)
