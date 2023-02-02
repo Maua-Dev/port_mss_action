@@ -33,3 +33,7 @@ class IActionRepository(ABC):
     @abstractmethod
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         pass
+    
+    @abstractmethod
+    def get_members(self, ras: List[str]) -> List[Member]:
+        pass
