@@ -15,11 +15,8 @@ class CreateActionUsecase:
             raise NoItemsFound('owner_ra')
         
         if action.associated_members_ra is not None:
-            for ra in action.associated_members_ra:
-                if self.repo.get_member(ra=ra) is None:
-                    raise NoItemsFound('associated_members_ra')
-                
-            if len(action.associated_members_ra) != len(set(action.associated_members_ra)):
-                raise DuplicatedItem('associated_members_ra')
+            members = self.repo.get_members(ras=action.associated_members_ra)
+            if len(members) != len(action.associated_members_ra):
+                raise NoItemsFound('associated_members_ra')
         
         return self.repo.create_action(action)
