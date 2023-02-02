@@ -16,7 +16,7 @@ class ActionViewModel:
     stack_tags: List[STACK] = None
     action_type_tags: List[ACTION_TYPE] = None
     
-    def __init__(self, action: Action, ra: str):
+    def __init__(self, action: Action):
         self.owner_ra = action.owner_ra
         self.date = action.date
         self.action_id = action.action_id
@@ -48,6 +48,6 @@ class CreateActionViewmodel:
     
     def to_dict(self) -> dict:
         return {
-            'action' : ActionViewModel(self.action, self.action.owner_ra).to_dict(),
+            'action' : ActionViewModel(self.action).to_dict(),
             'message' : 'the action was created'
         }
