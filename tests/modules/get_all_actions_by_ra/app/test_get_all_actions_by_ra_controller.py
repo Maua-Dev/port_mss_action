@@ -26,9 +26,15 @@ class Test_GetAllActionsByRaController:
         
         response = controller(request=request)
         
+        expected = {
+            'actions':[],
+            'ra':'23017310',
+            'message':'the actions were retrieved'
+        }
         assert response.status_code == 200
         assert response.body['message'] == "the actions were retrieved"
         assert len(response.body['actions']) == 0
+        assert response.body == expected
         
     def test_get_all_actions_by_ra_controller_missing_ra(self):
         
