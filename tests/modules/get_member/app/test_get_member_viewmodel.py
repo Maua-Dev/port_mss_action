@@ -19,7 +19,7 @@ class Test_GetMemberViewmodel:
                 'year':1,
                 'cellphone':'11991758098',
                 'course':'ECA',
-                'hired_date':1634576165,
+                'hired_date':1634576165000,
                 'deactivated_date':None,
                 'active':'ACTIVE',
                 'projects':[

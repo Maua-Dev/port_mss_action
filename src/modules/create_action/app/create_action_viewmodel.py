@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
@@ -7,10 +6,10 @@ from src.shared.domain.enums.stack_enum import STACK
 
 class ActionViewModel:
     owner_ra: str
-    date: int
+    start_time: int
     action_id: str
     title: str
-    duration: datetime.time
+    end_time: int
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK] = None
@@ -18,10 +17,10 @@ class ActionViewModel:
     
     def __init__(self, action: Action):
         self.owner_ra = action.owner_ra
-        self.date = action.date
+        self.start_time = action.start_time
         self.action_id = action.action_id
         self.title = action.title
-        self.duration = action.duration
+        self.end_time = action.end_time
         self.project_code = action.project_code
         self.associated_members_ra = action.associated_members_ra
         self.stack_tags = action.stack_tags
@@ -30,10 +29,10 @@ class ActionViewModel:
     def to_dict(self):
         return {
             'owner_ra' : self.owner_ra,
-            'date' : self.date,
+            'start_time' : self.start_time,
+            'end_time' : self.end_time,
             'action_id' : self.action_id,
             'title' : self.title,
-            'duration' : self.duration.strftime("%H:%M:%S"),
             'project_code' : self.project_code,
             'associated_members_ra' : self.associated_members_ra,
             'stack_tags' : [tag.value for tag in self.stack_tags],

@@ -1,4 +1,3 @@
-import datetime
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
@@ -29,13 +28,14 @@ class Test_ActionRepositoryMock:
         member = repo.get_member(ra=repo.members[0].ra)
         actions = repo.get_all_actions_by_ra(ra=member.ra)
         expected = [
-            repo.actions[0], repo.actions[1], repo.actions[4], repo.actions[6]
+            repo.associatedActions[0], repo.associatedActions[3], repo.associatedActions[7], repo.associatedActions[9]
         ]
-        expected.sort(key=lambda action: action.date)
+        expected.sort(key=lambda associated_action: associated_action.action.start_time)
         
         assert len(actions) == len(expected)
         assert actions == expected
-        assert all([type(action) == Action for action in actions])
+        assert all([type(action) == AssociatedAction for action in actions])
+        assert all([action.member_ra == repo.members[0].ra for action in actions])
     
     def test_get_all_actions_by_ra_member_without_actions(self):
         repo = ActionRepositoryMock()
@@ -47,7 +47,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_member(self):
         repo = ActionRepositoryMock()
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000, active=ACTIVE.ACTIVE)
+        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000000, active=ACTIVE.ACTIVE)
         len_before = len(repo.members)
         
         new_member = repo.create_member(member=member)
@@ -57,7 +57,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_before = len(repo.actions)
         
         new_action = repo.create_action(action=action)
@@ -79,7 +79,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         associatedAction = AssociatedAction(member_ra='12345678', action=action)
         len_before = len(repo.associatedActions)
         
@@ -89,7 +89,7 @@ class Test_ActionRepositoryMock:
 
     def test_create_action_with_associated_members(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', date=1634526000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', duration=repo.actions[0].duration, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_actions_before = len(repo.actions)
         len_associatedActions_before = len(repo.associatedActions)
         new_action = repo.create_action(action=action)
