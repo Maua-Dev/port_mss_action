@@ -2,7 +2,7 @@ import enum
 from enum import Enum
 import os
 
-from src.shared.domain.repositories.user_repository_interface import IUserRepository
+from src.shared.domain.repositories.action_repository_interface import IActionRepository
 
 
 class STAGE(Enum):
@@ -40,10 +40,10 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
         if self.stage == STAGE.TEST:
-            self.s3_bucket_name = "bucket-test"
+            self.s3_bucket_name = "action-bucket-test"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
-            self.dynamo_table_name = "user_mss_template-table"
+            self.dynamo_table_name = "port_mss_action-table"
             self.dynamo_partition_key = "PK"
             self.dynamo_sort_key = "SK"
             self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
@@ -58,15 +58,16 @@ class Environments:
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
 
     @staticmethod
-    def get_user_repo() -> IUserRepository:
+    def get_action_repo() -> IActionRepository:
         if Environments.get_envs().stage == STAGE.TEST:
-            from src.shared.infra.repositories.user_repository_mock import UserRepositoryMock
-            return UserRepositoryMock
+            from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+            return ActionRepositoryMock
         # elif Environments.get_envs().stage == STAGE.PROD:
         #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
         #     return UserRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
+        
 
     @staticmethod
     def get_envs() -> "Environments":
