@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -6,7 +5,6 @@ from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 
 class ActionViewModel:
-    ra: str
     start_time: int
     end_time: int
     action_id: str
@@ -17,7 +15,6 @@ class ActionViewModel:
     is_owner : bool
     
     def __init__(self, associated_action: AssociatedAction):
-        self.ra = associated_action.member_ra
         self.start_time = associated_action.action.start_time
         self.end_time = associated_action.action.end_time
         self.action_id = associated_action.action.action_id
@@ -29,7 +26,6 @@ class ActionViewModel:
         
     def to_dict(self):
         return {
-            "ra": self.ra,
             "start_time": self.start_time,
             "end_time": self.end_time,
             "action_id": self.action_id,
@@ -43,12 +39,15 @@ class ActionViewModel:
 
 class GetAllActionsByRaViewmodel:
     associated_actions: List[AssociatedAction]
+    ra: str
     
     def __init__(self, associated_actions: List[AssociatedAction]):
         self.associated_actions = associated_actions
+        self.ra = associated_actions[0].member_ra
     
     def to_dict(self):
         return {
             "actions": [ActionViewModel(action).to_dict() for action in self.associated_actions],
+            "ra": self.ra,
             "message": "the actions were retrieved"
         }
