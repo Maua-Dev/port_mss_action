@@ -41,9 +41,9 @@ class GetAllActionsByRaViewmodel:
     associated_actions: List[AssociatedAction]
     ra: str
     
-    def __init__(self, associated_actions: List[AssociatedAction]):
+    def __init__(self, associated_actions: List[AssociatedAction], ra: str):
         self.associated_actions = associated_actions
-        self.ra = associated_actions[0].member_ra
+        self.ra = ra
     
     def to_dict(self):
         return {

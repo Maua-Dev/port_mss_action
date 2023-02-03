@@ -8,72 +8,51 @@ class Test_GetAllActionsByRaViewmodel:
         usecase = GetAllActionsByRaUsecase(repo)
         ra = '21017310'
         associated_actions = usecase(ra=ra)
-        viewmodel = GetAllActionsByRaViewmodel(associated_actions)
+        viewmodel = GetAllActionsByRaViewmodel(associated_actions=associated_actions, ra=ra)
         expected = {
             'actions':[
                {
-                  'ra':'21017310',
                   'start_time':1634526000000,
                   'end_time':1634533200000,
                   'action_id':'u1e2',
                   'title':'Reunião de Diretoria',
                   'project_code':'MF',
-                  'stack_tags':[
-                     'INTERNAL'
-                  ],
-                  'action_type_tags':[
-                     'MEETING'
-                  ],
+                  'stack_tags':['INTERNAL'],
+                  'action_type_tags':['MEETING'],
                   'is_owner':True
                },
                {
-                  'ra':'21017310',
                   'start_time':1634526000000,
                   'end_time':1634529600000,
                   'action_id':'dd1d',
                   'title':'Code',
                   'project_code':'MF',
-                  'stack_tags':[
-                     
-                  ],
-                  'action_type_tags':[
-                     'CODE'
-                  ],
+                  'stack_tags':[],
+                  'action_type_tags':['CODE'],
                   'is_owner':True
                },
                {
-                  'ra':'21017310',
                   'start_time':1635044400000,
                   'end_time':1635060600000,
                   'action_id':'9fc2',
                   'title':'Code',
                   'project_code':'PT',
-                  'stack_tags':[
-                     'BACKEND',
-                     'FRONTEND'
-                  ],
-                  'action_type_tags':[
-                     'CODE'
-                  ],
+                  'stack_tags':['BACKEND', 'FRONTEND'],
+                  'action_type_tags':['CODE'],
                   'is_owner':False
                },
                {
-                  'ra':'21017310',
                   'start_time':1666062000000,
                   'end_time':1666065600000,
                   'action_id':'jf12',
                   'title':'Reunião',
                   'project_code':'MF',
-                  'stack_tags':[
-                     'BACKEND',
-                     'FRONTEND'
-                  ],
-                  'action_type_tags':[
-                     
-                  ],
+                  'stack_tags':['BACKEND', 'FRONTEND'],
+                  'action_type_tags':[],
                   'is_owner':True
                }
             ],
+            'ra':'21017310',
             'message':'the actions were retrieved'
          }
         
