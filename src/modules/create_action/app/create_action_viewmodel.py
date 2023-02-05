@@ -7,9 +7,10 @@ from src.shared.domain.enums.stack_enum import STACK
 class ActionViewModel:
     owner_ra: str
     start_time: int
+    end_time: int
+    duration: int
     action_id: str
     title: str
-    end_time: int
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK] = None
@@ -18,9 +19,10 @@ class ActionViewModel:
     def __init__(self, action: Action):
         self.owner_ra = action.owner_ra
         self.start_time = action.start_time
+        self.end_time = action.end_time
+        self.duration = self.end_time - self.start_time
         self.action_id = action.action_id
         self.title = action.title
-        self.end_time = action.end_time
         self.project_code = action.project_code
         self.associated_members_ra = action.associated_members_ra
         self.stack_tags = action.stack_tags
@@ -31,6 +33,7 @@ class ActionViewModel:
             'owner_ra' : self.owner_ra,
             'start_time' : self.start_time,
             'end_time' : self.end_time,
+            'duration' : self.duration,
             'action_id' : self.action_id,
             'title' : self.title,
             'project_code' : self.project_code,

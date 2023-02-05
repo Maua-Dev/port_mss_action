@@ -14,6 +14,7 @@ class Test_GetAllActionsByRaViewmodel:
                {
                   'start_time':1634526000000,
                   'end_time':1634533200000,
+                  'duration':7200000,
                   'action_id':'u1e2',
                   'title':'Reunião de Diretoria',
                   'project_code':'MF',
@@ -24,6 +25,7 @@ class Test_GetAllActionsByRaViewmodel:
                {
                   'start_time':1634526000000,
                   'end_time':1634529600000,
+                  'duration':3600000,
                   'action_id':'dd1d',
                   'title':'Code',
                   'project_code':'MF',
@@ -34,6 +36,7 @@ class Test_GetAllActionsByRaViewmodel:
                {
                   'start_time':1635044400000,
                   'end_time':1635060600000,
+                  'duration':16200000,
                   'action_id':'9fc2',
                   'title':'Code',
                   'project_code':'PT',
@@ -44,6 +47,7 @@ class Test_GetAllActionsByRaViewmodel:
                {
                   'start_time':1666062000000,
                   'end_time':1666065600000,
+                  'duration':3600000,
                   'action_id':'jf12',
                   'title':'Reunião',
                   'project_code':'MF',
