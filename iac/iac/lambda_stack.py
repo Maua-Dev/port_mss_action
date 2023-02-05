@@ -42,3 +42,10 @@ class LambdaStack(Construct):
             mss_student_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
+        
+        self.create_action_function = self.create_lambda_api_gateway_integration(
+            module_name="create_action",
+            method="POST",
+            mss_student_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
