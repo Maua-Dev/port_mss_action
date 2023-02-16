@@ -10,18 +10,6 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 
 
 class Test_ActionRepositoryMock:
-    def test_get_member(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[1].ra)
-        
-        assert type(member) == Member
-        assert member == repo.members[1]
-        
-    def test_get_member_not_found(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra="21010101")
-        
-        assert member is None
     
     def test_get_all_actions_by_ra(self):
         repo = ActionRepositoryMock()
@@ -44,16 +32,6 @@ class Test_ActionRepositoryMock:
         
         assert actions == []
         assert len(actions) == 0
-        
-    def test_create_member(self):
-        repo = ActionRepositoryMock()
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000000, active=ACTIVE.ACTIVE)
-        len_before = len(repo.members)
-        
-        new_member = repo.create_member(member=member)
-        
-        assert len(repo.members) == len_before + 1
-        assert new_member == member
         
     def test_create_action(self):
         repo = ActionRepositoryMock()
@@ -95,12 +73,4 @@ class Test_ActionRepositoryMock:
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_actions_before + 1
         assert len(repo.associatedActions) == len_associatedActions_before + 3
-        
-    def test_get_members(self):
-        repo = ActionRepositoryMock()
-        ras = [repo.members[0].ra, repo.members[1].ra]
-        members = repo.get_members(ras=ras)
-        assert len(members) == len(ras)
-        assert all([type(member) == Member for member in members])
-        assert members == [repo.members[0], repo.members[1]]
         
