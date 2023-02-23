@@ -323,22 +323,11 @@ class ActionRepositoryMock(IActionRepository):
             ),
         ]
 
-    def get_member(self, ra: str) -> Member:
-        for member in self.members:
-            if member.ra == ra:
-                return member
-            
-        return None
-
     def get_all_actions_by_ra(self, ra: str) -> List[Action]:
         associated_actions = [action for action in self.associatedActions if action.member_ra == ra]
         associated_actions.sort(key=lambda associated_action: associated_action.action.start_time)
         return associated_actions
-    
-    def create_member(self, member: Member) -> Member:
-        self.members.append(member)
-        return member
-    
+
     def create_action(self, action: Action) -> Action:
         self.actions.append(action)
         self.create_associated_action(AssociatedAction(action.owner_ra, action))
@@ -357,11 +346,3 @@ class ActionRepositoryMock(IActionRepository):
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         self.associatedActions.append(associatedAction)
         return associatedAction
-    
-    def get_members(self, ras: List[str]) -> List[Member]:
-        members = []
-        for member in self.members:
-            if member.ra in ras:
-                members.append(member)
-                
-        return members
