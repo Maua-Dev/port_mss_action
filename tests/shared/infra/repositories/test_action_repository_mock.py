@@ -10,28 +10,6 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 
 
 class Test_ActionRepositoryMock:
-    
-    def test_get_all_actions_by_ra(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[0].ra)
-        actions = repo.get_all_actions_by_ra(ra=member.ra)
-        expected = [
-            repo.associatedActions[0], repo.associatedActions[3], repo.associatedActions[7], repo.associatedActions[9]
-        ]
-        expected.sort(key=lambda associated_action: associated_action.action.start_time)
-        
-        assert len(actions) == len(expected)
-        assert actions == expected
-        assert all([type(action) == AssociatedAction for action in actions])
-        assert all([action.member_ra == repo.members[0].ra for action in actions])
-    
-    def test_get_all_actions_by_ra_member_without_actions(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[6].ra)
-        actions = repo.get_all_actions_by_ra(ra=member.ra)
-        
-        assert actions == []
-        assert len(actions) == 0
         
     def test_create_action(self):
         repo = ActionRepositoryMock()

@@ -16,9 +16,4 @@ class GetAllActionsByRaUsecase:
         if not Member.validate_ra(ra):
             raise EntityError('ra')
         
-        member = self.repo.get_member(ra=ra)
-        
-        if member == None:
-            raise NoItemsFound('ra')
-        
         return self.repo.get_all_actions_by_ra(ra=ra)

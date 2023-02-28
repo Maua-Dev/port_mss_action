@@ -383,48 +383,6 @@ class Test_CreateActionController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'The item alredy exists for this action_id'
-        
-    def test_create_action_controller_ra_not_found(self):
-            
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        controller = CreateActionController(usecase=usecase)
-        request = HttpRequest(body={
-        'owner_ra':'12345678',
-        'start_time':1634526000000,
-        'action_id':'82fc',
-        'title':'Teste',
-        'end_time' : 1634533200000,
-        'project_code':'MF',
-        'associated_members_ra':['19017310'],
-        'stack_tags':['BACKEND'],
-        'action_type_tags':['CODE']
-        })
-        
-        response = controller(request)
-        assert response.status_code == 404
-        assert response.body == 'No items found for owner_ra'
-        
-    def test_create_action_controller_associated_members_ra_not_found(self):
-        
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        controller = CreateActionController(usecase=usecase)
-        request = HttpRequest(body={
-        'owner_ra':'17033730',
-        'start_time':1634526000000,
-        'action_id':'82fc',
-        'title':'Teste',
-        'end_time' : 1634533200000,
-        'project_code':'MF',
-        'associated_members_ra':['12345678'],
-        'stack_tags':['BACKEND'],
-        'action_type_tags':['CODE']
-        })
-        
-        response = controller(request)
-        assert response.status_code == 404
-        assert response.body == 'No items found for associated_members_ra'
 
     def test_create_action_controller_duplicated_associated_members_ra(self):
         

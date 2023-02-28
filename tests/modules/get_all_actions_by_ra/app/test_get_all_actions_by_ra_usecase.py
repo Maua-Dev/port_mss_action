@@ -12,12 +12,6 @@ class Test_GetAllActionsByRaUsecase:
         actions = usecase(ra='21010757')
         assert type(actions) == list
         assert all(type(action) == AssociatedAction for action in actions)
-        
-    def test_get_all_actions_by_ra_usecase_member_not_found(self):
-        repo = ActionRepositoryMock()
-        usecase = GetAllActionsByRaUsecase(repo=repo)
-        with pytest.raises(NoItemsFound):
-            usecase(ra='00000000')
             
     def test_get_all_actions_by_ra_usecase_invalid_ra(self):
         repo = ActionRepositoryMock()
