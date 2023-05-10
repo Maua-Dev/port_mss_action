@@ -233,4 +233,7 @@ class Test_CreateActionPresenter:
         
         response = lambda_handler(event, None)
         
+        
+        
         assert response["statusCode"] == 400
+        assert json.loads(response["body"]) == 'The item alredy exists for this action_id'
