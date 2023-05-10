@@ -19,6 +19,7 @@ class Action(abc.ABC):
     action_type_tags: List[ACTION_TYPE] = None
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
+    MAX_DESCRIPTION_LENGTH = 500
     ACTION_ID_LENGTH = 4
     PROJECT_CODE_LENGTH = 2
     
@@ -134,7 +135,7 @@ class Action(abc.ABC):
         if description is not None:
             if type(description) != str:
                 return False
-            if len(description) < Action.MIN_TITLE_LENGTH or len(description) > Action.MAX_TITLE_LENGTH:
+            if len(description) < Action.MIN_TITLE_LENGTH or len(description) > Action.MAX_DESCRIPTION_LENGTH:
                 return False
         return True
     
