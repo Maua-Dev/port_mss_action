@@ -11,6 +11,7 @@ class Action(abc.ABC):
     end_time: int # milisseconds
     action_id: str
     title: str
+    description: str = None
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK] = None
@@ -21,7 +22,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_time: int, end_time: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None):
+    def __init__(self, owner_ra: str, start_time: int, end_time: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -52,6 +53,10 @@ class Action(abc.ABC):
         if not self.validate_title(title):
             raise EntityError('title')
         self.title = title
+        
+        if not self.validate_description(description):
+            raise EntityError('description')
+        self.description = description
         
         if type(end_time) != int:
             raise EntityError('end_time')
@@ -117,6 +122,15 @@ class Action(abc.ABC):
             return False
         if len(title) < Action.MIN_TITLE_LENGTH or len(title) > Action.MAX_TITLE_LENGTH:
             return False
+        return True
+    
+    @staticmethod
+    def validate_description(description: str) -> bool:
+        if description is not None:
+            if type(description) != str:
+                return False
+            if len(description) < Action.MIN_TITLE_LENGTH or len(description) > Action.MAX_TITLE_LENGTH:
+                return False
         return True
     
     @staticmethod

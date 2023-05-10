@@ -15,6 +15,7 @@ class Test_Action:
             action_id="1234",
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
+            description="Apenas um teste",
             project_code="TS",
             stack_tags = [STACK.BACKEND],
             action_type_tags = [ACTION_TYPE.CODE]
@@ -27,6 +28,7 @@ class Test_Action:
         assert action.action_id == "1234"
         assert action.associated_members_ra == ["22011021", "22011022"]
         assert action.title == "Teste"
+        assert action.description == "Apenas um teste"
         assert action.project_code == "TS"
         assert action.stack_tags == [STACK.BACKEND]
         assert action.action_type_tags == [ACTION_TYPE.CODE]
@@ -265,6 +267,65 @@ class Test_Action:
                 action_id="1234",
                 associated_members_ra=["22011021", "22011022"],
                 title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
+                end_time=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+            
+    def test_action_description_none(self):
+        action = Action(
+            owner_ra="22011020",
+            start_time=1577847600000,
+            action_id="1234",
+            associated_members_ra=["22011021", "22011022"],
+            title="Teste",
+            end_time=1577890800000,
+            project_code="TS",
+            stack_tags = [STACK.BACKEND],
+            action_type_tags = [ACTION_TYPE.CODE]
+        ) 
+        assert action.description == None
+        
+    def test_action_description_not_string(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_time=1577847600000,
+                action_id="1234",
+                associated_members_ra=["22011021", "22011022"],
+                title=123,
+                description=1,
+                end_time=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+            
+    def test_action_description_too_short(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_time=1577847600000,
+                action_id="1234",
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                description="A",
+                end_time=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+            
+    def test_action_description_too_long(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_time=1577847600000,
+                action_id="1234",
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
                 end_time=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
