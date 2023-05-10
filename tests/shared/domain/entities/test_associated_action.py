@@ -13,7 +13,7 @@ class Test_AssociatedAction:
         action = Action(
             owner_ra="22011020",
             start_time=1577847600000,
-            
+            duration=3 * 60 * 60 * 1000, 
             action_id="1234",
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -33,6 +33,7 @@ class Test_AssociatedAction:
                 owner_ra="22011020",
                 start_time=1577847600000,
                 action_id="1234",
+                duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 end_time=1577890800000,
@@ -48,6 +49,7 @@ class Test_AssociatedAction:
                 owner_ra="22011020",
                 start_time=1577847600000,
                 action_id="1234",
+                duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 end_time=1577890800000,
@@ -63,6 +65,7 @@ class Test_AssociatedAction:
                 owner_ra="22011020",
                 start_time=1577847600000,
                 action_id="1234",
+                duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
                 end_time=1577890800000,

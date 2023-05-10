@@ -9,6 +9,7 @@ class Action(abc.ABC):
     owner_ra: str
     start_time: int # milisseconds
     end_time: int # milisseconds
+    duration: int # milisseconds
     action_id: str
     title: str
     description: str = None
@@ -22,7 +23,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_time: int, end_time: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
+    def __init__(self, owner_ra: str, start_time: int, end_time: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -63,6 +64,10 @@ class Action(abc.ABC):
         if end_time < start_time:
             raise EntityError('start_time and end_time')
         self.end_time = end_time
+        
+        if not self.validate_duration(duration, start_time, end_time):
+            raise EntityError('duration')
+        self.duration = duration
         
         if not self.validate_project_code(project_code):
             raise EntityError('project_code')
@@ -138,6 +143,16 @@ class Action(abc.ABC):
         if type(project_code) != str:
             return False
         if len(project_code) != Action.PROJECT_CODE_LENGTH:
+            return False
+        return True
+    
+    @staticmethod
+    def validate_duration(duration: int, start_time: int, end_time: int) -> bool:
+        if type(duration) != int:
+            return False
+        if duration <= 0:
+            return False
+        if duration > end_time - start_time:
             return False
         return True
     
