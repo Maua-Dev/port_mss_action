@@ -7,8 +7,8 @@ from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, En
 
 class Action(abc.ABC):
     owner_ra: str
-    start_time: int # milisseconds
-    end_time: int # milisseconds
+    start_date: int # milisseconds
+    end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
     title: str
@@ -23,15 +23,15 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_time: int, end_time: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
+    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
         self.owner_ra = owner_ra
         
-        if type(start_time) != int:
-            raise EntityError('start_time')
-        self.start_time = start_time
+        if type(start_date) != int:
+            raise EntityError('start_date')
+        self.start_date = start_date
         
         if not self.validate_action_id(action_id):
             raise EntityError('action_id')
@@ -59,13 +59,13 @@ class Action(abc.ABC):
             raise EntityError('description')
         self.description = description
         
-        if type(end_time) != int:
-            raise EntityError('end_time')
-        if end_time < start_time:
-            raise EntityError('start_time and end_time')
-        self.end_time = end_time
+        if type(end_date) != int:
+            raise EntityError('end_date')
+        if end_date < start_date:
+            raise EntityError('start_date and end_date')
+        self.end_date = end_date
         
-        if not self.validate_duration(duration, start_time, end_time):
+        if not self.validate_duration(duration, start_date, end_date):
             raise EntityError('duration')
         self.duration = duration
         
@@ -96,12 +96,12 @@ class Action(abc.ABC):
             raise EntityError('action_type_tags')
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_time={self.start_time}, end_time={self.end_time}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tags={self.action_type_tags})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tags={self.action_type_tags})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_time == other.start_time and self.end_time == other.end_time and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tags == other.action_type_tags
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tags == other.action_type_tags
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -147,12 +147,12 @@ class Action(abc.ABC):
         return True
     
     @staticmethod
-    def validate_duration(duration: int, start_time: int, end_time: int) -> bool:
+    def validate_duration(duration: int, start_date: int, end_date: int) -> bool:
         if type(duration) != int:
             return False
         if duration <= 0:
             return False
-        if duration > end_time - start_time:
+        if duration > end_date - start_date:
             return False
         return True
     

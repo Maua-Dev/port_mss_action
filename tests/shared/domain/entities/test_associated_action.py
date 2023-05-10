@@ -12,12 +12,12 @@ class Test_AssociatedAction:
     def test_associated_action(self):
         action = Action(
             owner_ra="22011020",
-            start_time=1577847600000,
+            start_date=1577847600000,
             duration=3 * 60 * 60 * 1000, 
             action_id="1234",
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
-            end_time=1577890800000,
+            end_date=1577890800000,
             project_code="TS",
             stack_tags = [STACK.BACKEND],
             action_type_tags = [ACTION_TYPE.CODE]
@@ -31,12 +31,12 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_string(self):
         action = Action(
                 owner_ra="22011020",
-                start_time=1577847600000,
+                start_date=1577847600000,
                 action_id="1234",
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
-                end_time=1577890800000,
+                end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
@@ -47,12 +47,12 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
                 owner_ra="22011020",
-                start_time=1577847600000,
+                start_date=1577847600000,
                 action_id="1234",
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
-                end_time=1577890800000,
+                end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]
@@ -63,12 +63,12 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
                 owner_ra="22011020",
-                start_time=1577847600000,
+                start_date=1577847600000,
                 action_id="1234",
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
-                end_time=1577890800000,
+                end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tags = [ACTION_TYPE.CODE]

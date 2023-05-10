@@ -61,8 +61,8 @@ class Test_GetAllActionsByRaPresenter:
         expected = {
             'actions':[
                 {
-                    'start_time':1634526000000,
-                    'end_time':1634533200000,
+                    'start_date':1634526000000,
+                    'end_date':1634533200000,
                     'duration':7200000,
                     'action_id':'u1e2',
                     'title':'Reunião de Diretoria',
@@ -76,8 +76,8 @@ class Test_GetAllActionsByRaPresenter:
                     'is_owner':True
                 },
                 {
-                    'start_time':1634526000000,
-                    'end_time':1634529600000,
+                    'start_date':1634526000000,
+                    'end_date':1634529600000,
                     'duration':3600000,
                     'action_id':'dd1d',
                     'title':'Code',
@@ -91,8 +91,8 @@ class Test_GetAllActionsByRaPresenter:
                     'is_owner':True
                 },
                 {
-                    'start_time':1635044400000,
-                    'end_time':1635060600000,
+                    'start_date':1635044400000,
+                    'end_date':1635060600000,
                     'duration':16200000,
                     'action_id':'9fc2',
                     'title':'Code',
@@ -107,8 +107,8 @@ class Test_GetAllActionsByRaPresenter:
                     'is_owner':False
                 },
                 {
-                    'start_time':1666062000000,
-                    'end_time':1666065600000,
+                    'start_date':1666062000000,
+                    'end_date':1666065600000,
                     'duration':3600000,
                     'action_id':'jf12',
                     'title':'Reunião',
