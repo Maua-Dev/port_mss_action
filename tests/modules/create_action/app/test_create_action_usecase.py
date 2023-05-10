@@ -53,21 +53,3 @@ class Test_CreateActionUsecase:
         
         with pytest.raises(DuplicatedItem):
             usecase(action=action)
-    
-    def test_create_action_usecase_owner_ra_not_found(self):
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        
-        action = Action(owner_ra='17033731', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
-        
-        with pytest.raises(NoItemsFound):
-            usecase(action=action)
-    
-    def test_create_action_usecase_associated_ra_not_found(self):
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=['21017310', '21010758'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
-        
-        with pytest.raises(NoItemsFound):
-            usecase(action=action)

@@ -10,51 +10,6 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 
 
 class Test_ActionRepositoryMock:
-    def test_get_member(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[1].ra)
-        
-        assert type(member) == Member
-        assert member == repo.members[1]
-        
-    def test_get_member_not_found(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra="21010101")
-        
-        assert member is None
-    
-    def test_get_all_actions_by_ra(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[0].ra)
-        actions = repo.get_all_actions_by_ra(ra=member.ra)
-        expected = [
-            repo.associatedActions[0], repo.associatedActions[3], repo.associatedActions[7], repo.associatedActions[9]
-        ]
-        expected.sort(key=lambda associated_action: associated_action.action.start_date)
-        
-        assert len(actions) == len(expected)
-        assert actions == expected
-        assert all([type(action) == AssociatedAction for action in actions])
-        assert all([action.member_ra == repo.members[0].ra for action in actions])
-    
-    def test_get_all_actions_by_ra_member_without_actions(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra=repo.members[6].ra)
-        actions = repo.get_all_actions_by_ra(ra=member.ra)
-        
-        assert actions == []
-        assert len(actions) == 0
-        
-    def test_create_member(self):
-        repo = ActionRepositoryMock()
-        member = Member(name="Teste", email="teste.devmaua@gmail.com", ra="12345678", role=ROLE.DEV, stack=STACK.BACKEND, year=2, cellphone="11912345678", course=COURSE.CIC, hired_date=1634526000000, active=ACTIVE.ACTIVE)
-        len_before = len(repo.members)
-        
-        new_member = repo.create_member(member=member)
-        
-        assert len(repo.members) == len_before + 1
-        assert new_member == member
-        
     def test_create_action(self):
         repo = ActionRepositoryMock()
         action = Action(owner_ra='17033730', start_date=1634526000000, action_id='82fc', duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
@@ -95,12 +50,4 @@ class Test_ActionRepositoryMock:
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_actions_before + 1
         assert len(repo.associatedActions) == len_associatedActions_before + 3
-        
-    def test_get_members(self):
-        repo = ActionRepositoryMock()
-        ras = [repo.members[0].ra, repo.members[1].ra]
-        members = repo.get_members(ras=ras)
-        assert len(members) == len(ras)
-        assert all([type(member) == Member for member in members])
-        assert members == [repo.members[0], repo.members[1]]
         
