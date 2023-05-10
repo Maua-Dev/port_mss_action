@@ -20,7 +20,7 @@ class ActionViewModel:
         self.owner_ra = action.owner_ra
         self.start_time = action.start_time
         self.end_time = action.end_time
-        self.duration = self.end_time - self.start_time
+        self.duration = action.duration
         self.action_id = action.action_id
         self.title = action.title
         self.project_code = action.project_code

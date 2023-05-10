@@ -16,6 +16,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -45,6 +46,7 @@ class Test_CreateActionController:
             'start_time':1634526000000,
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -65,6 +67,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -85,6 +88,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -106,6 +110,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -126,6 +131,7 @@ class Test_CreateActionController:
             'start_time':1634526000000,
             'action_id':'82fc',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -167,6 +173,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
             'action_type_tags':['CODE']
@@ -187,6 +194,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'stack_tags':['BACKEND'],
             'action_type_tags':['CODE']
@@ -194,6 +202,27 @@ class Test_CreateActionController:
         
         response = controller(request)
         assert response.status_code == 201
+    
+    def test_create_action_controller_missing_end_time(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'start_time':1634526000000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'duration' : 7200000,
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field end_time is missing'
         
     def test_create_action_controller_end_time_entity_error(self):
         
@@ -206,6 +235,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time':'2h',
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -227,6 +257,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634526000000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -236,6 +267,71 @@ class Test_CreateActionController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field start_time and end_time is not valid'
+    
+    def test_create_action_controller_missing_duration(self):
+                
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'start_time':1634526000000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'end_time' : 1634533200000,
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field duration is missing'
+        
+    def test_create_action_controller_duration_entity_error(self):
+                
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'start_time':1634526000000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'end_time' : 1634533200000,
+            'duration' : '2h',
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field duration is not valid'
+        
+    def test_create_action_controller_duration_too_big(self):
+                    
+        repo = ActionRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo)
+        controller = CreateActionController(usecase=usecase)
+        request = HttpRequest(body={
+            'owner_ra':'17033730',
+            'start_time':1634526000000,
+            'action_id':'82fc',
+            'title':'Teste',
+            'end_time' : 1634533200000,
+            'duration' : 10800000,
+            'project_code':'MF',
+            'associated_members_ra':['19017310'],
+            'stack_tags':['BACKEND'],
+            'action_type_tags':['CODE']
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field duration is not valid'
         
     def test_create_action_controller_stack_tags_not_list(self):
         
@@ -248,6 +344,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':'BACKEND',
@@ -269,6 +366,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':None,
@@ -290,6 +388,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND','TESTE'],
@@ -311,6 +410,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -332,6 +432,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -353,6 +454,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -374,6 +476,7 @@ class Test_CreateActionController:
             'action_id':'9fc2',
             'title':'Teste',
             'end_time' : 1634533200000,
+            'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -395,6 +498,7 @@ class Test_CreateActionController:
         'action_id':'82fc',
         'title':'Teste',
         'end_time' : 1634533200000,
+        'duration' : 7200000,
         'project_code':'MF',
         'associated_members_ra':['19017310'],
         'stack_tags':['BACKEND'],
@@ -416,6 +520,7 @@ class Test_CreateActionController:
         'action_id':'82fc',
         'title':'Teste',
         'end_time' : 1634533200000,
+        'duration' : 7200000,
         'project_code':'MF',
         'associated_members_ra':['12345678'],
         'stack_tags':['BACKEND'],
@@ -437,6 +542,7 @@ class Test_CreateActionController:
         'action_id':'82fc',
         'title':'Teste',
         'end_time' : 1634533200000,
+        'duration' : 7200000,
         'project_code':'MF',
         'associated_members_ra':['19017310','19017310'],
         'stack_tags':['BACKEND'],

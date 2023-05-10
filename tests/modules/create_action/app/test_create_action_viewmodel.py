@@ -11,7 +11,7 @@ class Test_CreateActionViewmodel:
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         
-        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['19017310'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_time=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=['19017310'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         
         viewmodel = CreateActionViewmodel(action=usecase(action=action)).to_dict()
         
@@ -20,7 +20,7 @@ class Test_CreateActionViewmodel:
                 'owner_ra':'17033730',
                 'start_time':1634526000000,
                 'end_time':1634536800000,
-                'duration':10800000,
+                'duration':7200000,
                 'action_id':'82fc',
                 'title':'Teste',
                 'project_code':'MF',
@@ -37,7 +37,7 @@ class Test_CreateActionViewmodel:
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         
-        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=None, title='Teste', end_time=1634536800000, project_code='MF', stack_tags=None, action_type_tags=None)
+        action = Action(owner_ra='17033730', start_time=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=None, title='Teste', end_time=1634536800000, project_code='MF', stack_tags=None, action_type_tags=None)
         
         viewmodel = CreateActionViewmodel(action=usecase(action=action)).to_dict()
         
@@ -46,7 +46,7 @@ class Test_CreateActionViewmodel:
                 'owner_ra':'17033730',
                 'start_time':1634526000000,
                 'end_time':1634536800000,
-                'duration':10800000,
+                'duration':7200000,
                 'action_id':'82fc',
                 'title':'Teste',
                 'project_code':'MF',

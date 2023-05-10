@@ -24,6 +24,8 @@ class CreateActionController:
                 raise MissingParameters('start_time')
             if request.data.get('end_time') is None:
                 raise MissingParameters('end_time')
+            if request.data.get('duration') is None:
+                raise MissingParameters('duration')
             if request.data.get('action_id') is None:
                 raise MissingParameters('action_id')
             if request.data.get('title') is None:
@@ -55,6 +57,7 @@ class CreateActionController:
                 owner_ra=request.data.get('owner_ra'),
                 start_time=request.data.get('start_time'),
                 end_time=request.data.get('end_time'),
+                duration=request.data.get('duration'),
                 action_id=request.data.get('action_id'),
                 title=request.data.get('title'),
                 associated_members_ra=request.data.get('associated_members_ra'),
