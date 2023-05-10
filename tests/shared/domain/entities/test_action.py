@@ -477,6 +477,26 @@ class Test_Action:
                 action_type_tags = [ACTION_TYPE.CODE, "REVIEW"]
             )
         
-    def test_create_action_duplicated_associated_ra(self):
+    def test_action_duplicated_associated_ra(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1634526000, action_id='82fc', duration = 10 * 60 * 60 * 1000, associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 10 * 60 * 60 * 1000, associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            
+    def test_action_duration_none(self):
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = None, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            
+    def test_action_duration_not_int(self):
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = '10', associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            
+    def test_action_duration_negative(self):
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = -1, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            
+    def test_action_duration_zero(self):
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 0, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            
+    def test_action_invalid_duration(self): #duration > end_date - start_date
+        with pytest.raises(EntityError):
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 48000000, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE]) 
