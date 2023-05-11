@@ -334,11 +334,6 @@ class ActionRepositoryMock(IActionRepository):
             ),
         ]
 
-    def get_all_actions_by_ra(self, ra: str) -> List[Action]:
-        associated_actions = [action for action in self.associatedActions if action.member_ra == ra]
-        associated_actions.sort(key=lambda associated_action: associated_action.action.start_date)
-        return associated_actions
-
     def create_action(self, action: Action) -> Action:
         self.actions.append(action)
         self.create_associated_action(AssociatedAction(action.owner_ra, action))
