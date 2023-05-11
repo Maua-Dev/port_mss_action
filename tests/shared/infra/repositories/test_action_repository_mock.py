@@ -10,10 +10,9 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 
 
 class Test_ActionRepositoryMock:
-        
     def test_create_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, action_id='82fc', duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_before = len(repo.actions)
         
         new_action = repo.create_action(action=action)
@@ -35,7 +34,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, action_id='82fc', duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         associatedAction = AssociatedAction(member_ra='12345678', action=action)
         len_before = len(repo.associatedActions)
         
@@ -45,7 +44,7 @@ class Test_ActionRepositoryMock:
 
     def test_create_action_with_associated_members(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', start_time=1634526000000, action_id='82fc', associated_members_ra=['12345678', '98765432'], title='Teste', end_time=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, action_id='82fc', duration=2*60*60*1000, associated_members_ra=['12345678', '98765432'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
         len_actions_before = len(repo.actions)
         len_associatedActions_before = len(repo.associatedActions)
         new_action = repo.create_action(action=action)
