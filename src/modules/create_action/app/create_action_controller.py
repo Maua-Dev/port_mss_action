@@ -60,6 +60,7 @@ class CreateActionController:
                 duration=request.data.get('duration'),
                 action_id=request.data.get('action_id'),
                 title=request.data.get('title'),
+                description=request.data.get('description'),
                 associated_members_ra=request.data.get('associated_members_ra'),
                 project_code=request.data.get('project_code'),
                 stack_tags=stack_tags,
