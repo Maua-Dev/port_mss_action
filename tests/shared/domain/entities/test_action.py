@@ -14,6 +14,7 @@ class Test_Action:
             end_date=1577890800000,
             duration=10 * 60 * 60 * 1000,
             action_id="1234",
+            story_id=1,
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
             description="Apenas um teste",
@@ -27,6 +28,7 @@ class Test_Action:
         assert action.start_date == 1577847600000
         assert action.end_date == 1577890800000
         assert action.action_id == "1234"
+        assert action.story_id == 1
         assert action.associated_members_ra == ["22011021", "22011022"]
         assert action.title == "Teste"
         assert action.description == "Apenas um teste"
@@ -41,6 +43,7 @@ class Test_Action:
                 owner_ra="2201102",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -56,6 +59,7 @@ class Test_Action:
                 owner_ra=22011020,
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -71,6 +75,7 @@ class Test_Action:
                 owner_ra="vitor",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -86,6 +91,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date="2023-01-24",
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -101,6 +107,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577890800000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -116,6 +123,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577890800000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -131,6 +139,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="123",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -146,6 +155,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id=1234,
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -155,12 +165,60 @@ class Test_Action:
                 action_type_tags = [ACTION_TYPE.CODE]
             )
         
-    
+    def test_action_story_id_not_int(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="1234",
+                story_id="1",
+                duration=10 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+
+    def test_action_story_id_less_than_zero(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="1234",
+                story_id=-1,
+                duration=10 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )
+
+    def test_action_story_id_greater_than_9999(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="1234",
+                story_id=10000,
+                duration=10 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tags = [ACTION_TYPE.CODE]
+            )            
+
     def test_action_associated_members_ra_none(self):   
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=None,
                 title="Teste",
@@ -177,6 +235,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra="22011021",
                 title="Teste",
@@ -192,6 +251,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "2201102"],
                 title="Teste",
@@ -207,6 +267,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=[22011021, 22011022],
                 title="Teste",
@@ -222,6 +283,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011020", "22011021"],
                 title="Teste",
@@ -236,6 +298,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=[],
                 title="Teste",
@@ -252,6 +315,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title=1,
@@ -267,6 +331,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="A",
@@ -282,6 +347,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
@@ -296,6 +362,7 @@ class Test_Action:
             owner_ra="22011020",
             start_date=1577847600000,
             action_id="1234",
+            story_id=1,
             duration=10 * 60 * 60 * 1000,
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -312,6 +379,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title=123,
@@ -328,6 +396,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -344,6 +413,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -360,6 +430,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -375,6 +446,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -390,6 +462,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -407,6 +480,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -422,6 +496,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -436,6 +511,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -453,6 +529,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -468,6 +545,7 @@ class Test_Action:
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
+                story_id=1,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
                 title="Teste",
@@ -479,24 +557,24 @@ class Test_Action:
         
     def test_action_duplicated_associated_ra(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 10 * 60 * 60 * 1000, associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = 10 * 60 * 60 * 1000, associated_members_ra=['21017310', '21010757', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
             
     def test_action_duration_none(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = None, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = None, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
             
     def test_action_duration_not_int(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = '10', associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = '10', associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
             
     def test_action_duration_negative(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = -1, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = -1, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
             
     def test_action_duration_zero(self):
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 0, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = 0, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
             
     def test_action_invalid_duration(self): #duration > end_date - start_date
         with pytest.raises(EntityError):
-            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', duration = 48000000, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE]) 
+            action = Action(owner_ra='17033730', start_date=1577847600000, action_id='82fc', story_id=1, duration = 48000000, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1577890800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE]) 

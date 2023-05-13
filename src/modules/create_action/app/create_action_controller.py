@@ -33,6 +33,15 @@ class CreateActionController:
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
             
+           
+            if request.data.get('story_id') is not None:
+                if type(request.data.get('story_id')) is not int:
+                    raise EntityError('story_id')
+                story_id = request.data.get('story_id')
+            else:
+                story_id = None
+                
+
             if request.data.get('stack_tags') is not None:
                 if type(request.data.get('stack_tags')) is not list:
                     raise EntityError('stack_tags')
@@ -59,6 +68,7 @@ class CreateActionController:
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
                 action_id=request.data.get('action_id'),
+                story_id=request.data.get('story_id'),
                 title=request.data.get('title'),
                 associated_members_ra=request.data.get('associated_members_ra'),
                 project_code=request.data.get('project_code'),

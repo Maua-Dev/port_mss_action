@@ -11,6 +11,7 @@ class Action(abc.ABC):
     end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
+    story_id: int = None
     title: str
     description: str = None
     project_code: str
@@ -24,7 +25,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
+    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None, story_id: str = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -37,6 +38,10 @@ class Action(abc.ABC):
         if not self.validate_action_id(action_id):
             raise EntityError('action_id')
         self.action_id = action_id
+
+        if not self.validate_story_id(story_id):
+            raise EntityError('story_id')
+        self.story_id = story_id
         
         if associated_members_ra is None:
             self.associated_members_ra = []
@@ -120,6 +125,15 @@ class Action(abc.ABC):
             return False
         if len(action_id) != Action.ACTION_ID_LENGTH:
             return False
+        return True
+    
+    @staticmethod
+    def validate_story_id(story_id: int) -> bool:
+        if story_id is not None:
+            if type(story_id) != int:
+                return False
+            if story_id < 0 or story_id > 9999:
+                return False
         return True
     
     @staticmethod
