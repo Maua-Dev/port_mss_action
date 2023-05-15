@@ -25,7 +25,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None, story_id: str = None):
+    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None, story_id: int = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -40,7 +40,7 @@ class Action(abc.ABC):
         self.action_id = action_id
 
         if not self.validate_story_id(story_id):
-            raise EntityError('story_id')
+             raise EntityError('story_id')
         self.story_id = story_id
         
         if associated_members_ra is None:
@@ -132,7 +132,7 @@ class Action(abc.ABC):
         if story_id is not None:
             if type(story_id) != int:
                 return False
-            if story_id < 0 or story_id > 9999:
+            if story_id < 100 or story_id > 9999:
                 return False
         return True
     

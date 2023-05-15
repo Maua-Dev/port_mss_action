@@ -49,7 +49,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"owner_ra":"17033730","start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"]}',
+            "body": '{"owner_ra":"17033730","start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"], "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -57,7 +57,7 @@ class Test_CreateActionPresenter:
         
         response = lambda_handler(event, None)
         
-        expected = {'action': {'owner_ra': '17033730', 'start_date': 1634526000000, 'action_id': '82fc', 'title': 'Teste', 'end_date' : 1634533200000, 'duration' : 7200000,'project_code': 'MF', 'associated_members_ra': ['19017310'], 'stack_tags': ['BACKEND'], 'action_type_tags': ['CODE']}, 'message': 'the action was created'}
+        expected = {'action': {'owner_ra': '17033730', 'start_date': 1634526000000, 'action_id': '82fc', 'title': 'Teste', 'end_date' : 1634533200000, 'duration' : 7200000,'project_code': 'MF', 'associated_members_ra': ['19017310'], 'stack_tags': ['BACKEND'], 'action_type_tags': ['CODE'], 'story_id':100}, 'message': 'the action was created'}
         
         assert response["statusCode"] == 201
         assert json.loads(response["body"]) == expected
@@ -110,7 +110,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"]}',
+            "body": '{"start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"], "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -167,7 +167,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"owner_ra":"123","start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"]}',
+            "body": '{"owner_ra":"123","start_date":1634526000000,"action_id":"82fc","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"], "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -225,7 +225,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"owner_ra":"17033730","start_date":1634526000000,"action_id":"9fc2","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"]}',
+            "body": '{"owner_ra":"17033730","start_date":1634526000000,"action_id":"9fc2","title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_ra":["19017310"],"stack_tags":["BACKEND"],"action_type_tags":["CODE"], "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None

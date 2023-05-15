@@ -10,6 +10,7 @@ class ActionViewModel:
     end_date: int
     duration: int
     action_id: str
+    story_id: int = None
     title: str
     project_code: str
     associated_members_ra: List[str] = None
@@ -22,6 +23,7 @@ class ActionViewModel:
         self.end_date = action.end_date
         self.duration = action.duration
         self.action_id = action.action_id
+        self.story_id = action.story_id
         self.title = action.title
         self.project_code = action.project_code
         self.associated_members_ra = action.associated_members_ra
@@ -35,6 +37,7 @@ class ActionViewModel:
             'end_date' : self.end_date,
             'duration' : self.duration,
             'action_id' : self.action_id,
+            'story_id' : self.story_id,
             'title' : self.title,
             'project_code' : self.project_code,
             'associated_members_ra' : self.associated_members_ra,
