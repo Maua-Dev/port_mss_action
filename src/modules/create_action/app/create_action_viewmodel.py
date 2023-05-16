@@ -15,7 +15,7 @@ class ActionViewModel:
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK] = None
-    action_type_tags: List[ACTION_TYPE] = None
+    action_type_tag: ACTION_TYPE = None
     
     def __init__(self, action: Action):
         self.owner_ra = action.owner_ra
@@ -28,7 +28,7 @@ class ActionViewModel:
         self.project_code = action.project_code
         self.associated_members_ra = action.associated_members_ra
         self.stack_tags = action.stack_tags
-        self.action_type_tags = action.action_type_tags
+        self.action_type_tag = action.action_type_tag
         
     def to_dict(self):
         return {
@@ -42,7 +42,7 @@ class ActionViewModel:
             'project_code' : self.project_code,
             'associated_members_ra' : self.associated_members_ra,
             'stack_tags' : [tag.value for tag in self.stack_tags],
-            'action_type_tags' : [tag.value for tag in self.action_type_tags]
+            'action_type_tag' : self.action_type_tag.value
         }
 
 class CreateActionViewmodel:

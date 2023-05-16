@@ -193,7 +193,7 @@ class ActionRepositoryMock(IActionRepository):
                 description="Reunião de diretoria para discutir sobre o futuro do DEV",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.INTERNAL],
-                action_type_tags=[ACTION_TYPE.MEETING]
+                action_type_tag=ACTION_TYPE.MEETING
             ),
             
             Action(
@@ -208,7 +208,7 @@ class ActionRepositoryMock(IActionRepository):
                 description="Codando o site do DEV",
                 project_code=self.projects[1].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tags=[ACTION_TYPE.CODE]
+                action_type_tag=ACTION_TYPE.CODE
             ),
             Action(
                 owner_ra=self.members[2].ra,
@@ -222,7 +222,7 @@ class ActionRepositoryMock(IActionRepository):
                 description="Criando o design do site do DEV",
                 project_code=self.projects[2].code,
                 stack_tags=[STACK.UX_UI],
-                action_type_tags=[ACTION_TYPE.DESIGN]
+                action_type_tag=ACTION_TYPE.DESIGN
             ),
             
             Action(
@@ -236,7 +236,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Estudo",
                 project_code=self.projects[2].code,
                 stack_tags=[STACK.INTERNAL],
-                action_type_tags=[ACTION_TYPE.LEARN]
+                action_type_tag=ACTION_TYPE.LEARN
             ),
             Action(
                 owner_ra=self.members[0].ra,
@@ -249,7 +249,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Code",
                 project_code=self.projects[0].code,
                 stack_tags=None,
-                action_type_tags=[ACTION_TYPE.CODE]
+                action_type_tag=ACTION_TYPE.CODE
             ),
             
             Action(
@@ -263,7 +263,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tags=None
+                action_type_tag=None
             ),
             Action(
                 owner_ra=self.members[0].ra,
@@ -276,7 +276,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tags=None
+                action_type_tag=None
             ),
             
             Action(
@@ -290,7 +290,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Hackathon",
                 project_code=self.projects[0].code,
                 stack_tags=None,
-                action_type_tags=None
+                action_type_tag=None
             ),
             
             

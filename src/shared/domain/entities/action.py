@@ -17,7 +17,7 @@ class Action(abc.ABC):
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK] = None
-    action_type_tags: List[ACTION_TYPE] = None
+    action_type_tag: ACTION_TYPE = None
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 500
@@ -25,7 +25,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None, story_id: int = None):
+    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tag: ACTION_TYPE = None, description: str = None, story_id: int = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -89,25 +89,20 @@ class Action(abc.ABC):
                 self.stack_tags = stack_tags
         else:
             raise EntityError('stack_tags')
-            
+    
         
-        if action_type_tags is None:
-            self.action_type_tags = []
-        elif type(action_type_tags) == list:
-            if not all([type(tag) == ACTION_TYPE for tag in action_type_tags]):
-                raise EntityError('action_type_tags')
-            else:
-                self.action_type_tags = action_type_tags
-        else:
-            raise EntityError('action_type_tags')
+        if action_type_tag is not None:
+            if type(action_type_tag) != ACTION_TYPE:
+                raise EntityError('action_type_tag')
+            self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tags={self.action_type_tags})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tags == other.action_type_tags
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -170,5 +165,3 @@ class Action(abc.ABC):
         if duration > end_date - start_date:
             return False
         return True
-    
-    

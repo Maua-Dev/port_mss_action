@@ -21,7 +21,7 @@ class Test_AssociatedAction:
             end_date=1577890800000,
             project_code="TS",
             stack_tags = [STACK.BACKEND],
-            action_type_tags = [ACTION_TYPE.CODE]
+            action_type_tag= ACTION_TYPE.CODE
         )
 
         associated_action = AssociatedAction(member_ra="22011020", action=action)        
@@ -41,7 +41,7 @@ class Test_AssociatedAction:
                 end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
-                action_type_tags = [ACTION_TYPE.CODE]
+                action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
             AssociatedAction(member_ra=22011020, action=action)
@@ -58,7 +58,7 @@ class Test_AssociatedAction:
                 end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
-                action_type_tags = [ACTION_TYPE.CODE]
+                action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
             AssociatedAction(member_ra="vitor", action=action)
@@ -75,7 +75,7 @@ class Test_AssociatedAction:
                 end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
-                action_type_tags = [ACTION_TYPE.CODE]
+                action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
             AssociatedAction(member_ra="2201102", action=action)
