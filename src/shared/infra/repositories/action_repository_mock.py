@@ -248,7 +248,7 @@ class ActionRepositoryMock(IActionRepository):
                 associated_members_ra=None,
                 title="Code",
                 project_code=self.projects[0].code,
-                stack_tags=None,
+                stack_tags=[STACK.BACKEND],
                 action_type_tag=ACTION_TYPE.CODE
             ),
             
@@ -263,7 +263,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tag=None
+                action_type_tag=ACTION_TYPE.CODE
             ),
             Action(
                 owner_ra=self.members[0].ra,
@@ -276,7 +276,7 @@ class ActionRepositoryMock(IActionRepository):
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tag=None
+                action_type_tag=ACTION_TYPE.CODE
             ),
             
             Action(
@@ -289,8 +289,8 @@ class ActionRepositoryMock(IActionRepository):
                 associated_members_ra=None,
                 title="Hackathon",
                 project_code=self.projects[0].code,
-                stack_tags=None,
-                action_type_tag=None
+                stack_tags=[STACK.BACKEND],
+                action_type_tag=ACTION_TYPE.CODE
             ),
             
             

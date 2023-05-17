@@ -392,8 +392,8 @@ class Test_CreateActionController:
         })
         
         response = controller(request)
-        assert response.status_code == 201
-        assert response.body['action']['stack_tags'] == []
+        assert response.status_code == 400
+        assert response.body == 'Field stack_tags is not valid'
         
     def test_create_action_controller_stack_tags_is_not_valid(self):
         
@@ -438,8 +438,8 @@ class Test_CreateActionController:
         })
         
         response = controller(request)
-        assert response.status_code == 201
-        assert response.body['action']['action_type_tag'] == None
+        assert response.status_code == 400
+        assert response.body == 'Field action_type_tag is not valid'
         
     def test_create_action_controller_action_type_tag_is_not_valid(self):
             

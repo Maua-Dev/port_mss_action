@@ -14,8 +14,8 @@ class ActionViewModel:
     title: str
     project_code: str
     associated_members_ra: List[str] = None
-    stack_tags: List[STACK] = None
-    action_type_tag: ACTION_TYPE = None
+    stack_tags: List[STACK]
+    action_type_tag: ACTION_TYPE
     
     def __init__(self, action: Action):
         self.owner_ra = action.owner_ra

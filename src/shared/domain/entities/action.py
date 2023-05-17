@@ -16,8 +16,8 @@ class Action(abc.ABC):
     description: str = None
     project_code: str
     associated_members_ra: List[str] = None
-    stack_tags: List[STACK] = None
-    action_type_tag: ACTION_TYPE = None
+    stack_tags: List[STACK]
+    action_type_tag: ACTION_TYPE
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 500
@@ -25,7 +25,7 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     
     
-    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tag: ACTION_TYPE = None, description: str = None, story_id: int = None):
+    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = None, description: str = None, story_id: int = None, ):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -79,10 +79,7 @@ class Action(abc.ABC):
             raise EntityError('project_code')
         self.project_code = project_code
         
-        
-        if stack_tags is None:
-            self.stack_tags = []
-        elif type(stack_tags) == list:
+        if type(stack_tags) == list:
             if not all([type(tag) == STACK for tag in stack_tags]):
                 raise EntityError('stack_tags')
             else:
@@ -91,10 +88,9 @@ class Action(abc.ABC):
             raise EntityError('stack_tags')
     
         
-        if action_type_tag is not None:
-            if type(action_type_tag) != ACTION_TYPE:
-                raise EntityError('action_type_tag')
-            self.action_type_tag = action_type_tag
+        if type(action_type_tag) != ACTION_TYPE:
+            raise EntityError('action_type_tag')
+        self.action_type_tag = action_type_tag
 
     def __repr__(self):
         return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})'

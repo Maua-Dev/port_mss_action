@@ -458,7 +458,8 @@ class Test_Action:
             
             
     def test_action_stack_tags_none(self):
-        action = Action(
+       with pytest.raises(EntityError):
+        Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
@@ -471,8 +472,6 @@ class Test_Action:
                 stack_tags = None,
                 action_type_tag = ACTION_TYPE.CODE
         )
-        
-        assert action.stack_tags == []
     
     def test_action_stack_tags_not_list(self):
         with pytest.raises(EntityError):
@@ -507,7 +506,8 @@ class Test_Action:
             )
     
     def test_action_action_type_tag_none(self):
-        action = Action(
+        with pytest.raises(EntityError):
+            Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
                 action_id="1234",
@@ -521,8 +521,6 @@ class Test_Action:
                 action_type_tag = None
         )
         
-        assert action.action_type_tag == None
-    
     def test_action_action_type_tag_tags_not_enum(self):
         with pytest.raises(EntityError):
             Action(
