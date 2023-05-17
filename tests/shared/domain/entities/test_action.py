@@ -164,7 +164,22 @@ class Test_Action:
                 stack_tags = [STACK.BACKEND],
                 action_type_tag = ACTION_TYPE.CODE
             )
-        
+    def test_action_story_id_is_none(self):
+        action = Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="1234",
+                story_id=None,
+                duration=10 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tag = ACTION_TYPE.CODE
+            )
+        assert action.story_id == None
+
     def test_action_story_id_not_int(self):
         with pytest.raises(EntityError):
             Action(
@@ -181,7 +196,7 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
 
-    def test_action_story_id_less_than_100(self):
+    def test_action_story_id_less_than_minimum(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
@@ -197,7 +212,7 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
 
-    def test_action_story_id_greater_than_9999(self):
+    def test_action_story_id_greater_than_max(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
@@ -521,7 +536,7 @@ class Test_Action:
                 action_type_tag = None
         )
         
-    def test_action_action_type_tag_tags_not_enum(self):
+    def test_action_action_type_tag_tag_not_enum(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",

@@ -23,6 +23,9 @@ class Action(abc.ABC):
     MAX_DESCRIPTION_LENGTH = 500
     ACTION_ID_LENGTH = 4
     PROJECT_CODE_LENGTH = 2
+    MIN_STORY_ID = 100
+    MAX_STORY_ID = 9999
+
     
     
     def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = None, description: str = None, story_id: int = None, ):
@@ -93,7 +96,7 @@ class Action(abc.ABC):
         self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value()})'
     
     def __eq__(self, other):
         if type(other) != Action:
@@ -123,7 +126,7 @@ class Action(abc.ABC):
         if story_id is not None:
             if type(story_id) != int:
                 return False
-            if story_id < 100 or story_id > 9999:
+            if story_id < Action.MIN_STORY_ID or story_id > Action.MAX_STORY_ID:
                 return False
         return True
     
