@@ -12,6 +12,7 @@ class ActionViewModel:
     action_id: str
     story_id: int = None
     title: str
+    description: str
     project_code: str
     associated_members_ra: List[str] = None
     stack_tags: List[STACK]
@@ -25,6 +26,7 @@ class ActionViewModel:
         self.action_id = action.action_id
         self.story_id = action.story_id
         self.title = action.title
+        self.description = action.description
         self.project_code = action.project_code
         self.associated_members_ra = action.associated_members_ra
         self.stack_tags = action.stack_tags
@@ -39,6 +41,7 @@ class ActionViewModel:
             'action_id' : self.action_id,
             'story_id' : self.story_id,
             'title' : self.title,
+            'description' : self.description,
             'project_code' : self.project_code,
             'associated_members_ra' : self.associated_members_ra,
             'stack_tags' : [tag.value for tag in self.stack_tags],

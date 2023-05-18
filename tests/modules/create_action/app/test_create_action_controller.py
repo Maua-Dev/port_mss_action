@@ -16,6 +16,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -32,6 +33,7 @@ class Test_CreateActionController:
         assert response.body['action']['action_id'] == '82fc'
         assert response.body['action']['story_id'] == 100
         assert response.body['action']['title'] == 'Teste'
+        assert response.body['action']['description'] == 'Apenas um teste'
         assert response.body['action']['end_date'] == 1634533200000
         assert response.body['action']['project_code'] == 'MF'
         assert response.body['action']['associated_members_ra'] == ['19017310']
@@ -47,6 +49,7 @@ class Test_CreateActionController:
             'owner_ra':'17033730',
             'start_date':1634526000000,
             'title':'Teste',
+            'description':'Apenas um teste',
             'story_id': 100,
             'end_date' : 1634533200000,
             'duration' : 7200000,
@@ -70,6 +73,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -92,6 +96,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -115,6 +120,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -136,6 +142,7 @@ class Test_CreateActionController:
             'owner_ra':'17033730',
             'start_date':1634526000000,
             'action_id':'82fc',
+            'description':'Apenas um teste',
             'story_id': 100,
             'end_date' : 1634533200000,
             'duration' : 7200000,
@@ -160,6 +167,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
@@ -181,6 +189,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'associated_members_ra':['19017310'],
@@ -203,6 +212,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -224,6 +234,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
@@ -246,6 +257,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date':'2h',
             'duration' : 7200000,
             'project_code':'MF',
@@ -269,6 +281,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634526000000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -292,6 +305,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
@@ -314,6 +328,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : '2h',
             'project_code':'MF',
@@ -337,6 +352,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 10800000,
             'project_code':'MF',
@@ -360,6 +376,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -383,6 +400,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -406,6 +424,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -427,20 +446,20 @@ class Test_CreateActionController:
             'owner_ra':'17033730',
             'start_date':1634526000000,
             'action_id':'82fc',
-            'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':None
+            'action_type_tags':None
         })
         
         response = controller(request)
-        assert response.status_code == 400
         assert response.body == 'Field action_type_tag is not valid'
-        
+        assert response.status_code == 400
+
     def test_create_action_controller_action_type_tag_is_not_valid(self):
             
         repo = ActionRepositoryMock()
@@ -452,6 +471,7 @@ class Test_CreateActionController:
             'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -475,6 +495,7 @@ class Test_CreateActionController:
             'action_id':'9fc2',
             'story_id': 100,
             'title':'Teste',
+            'description':'Apenas um teste',
             'end_date' : 1634533200000,
             'duration' : 7200000,
             'project_code':'MF',
@@ -498,6 +519,7 @@ class Test_CreateActionController:
         'action_id':'82fc',
         'story_id': 100,
         'title':'Teste',
+        'description':'Apenas um teste',
         'end_date' : 1634533200000,
         'duration' : 7200000,
         'project_code':'MF',
