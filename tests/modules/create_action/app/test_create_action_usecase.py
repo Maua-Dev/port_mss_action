@@ -13,7 +13,7 @@ class Test_CreateActionUsecase:
         usecase = CreateActionUsecase(repo=repo)
         lenBefore = len(repo.actions)
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', story_id=100, associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         new_action = usecase(action=action)
         assert len(repo.actions) == lenBefore + 1
@@ -25,7 +25,7 @@ class Test_CreateActionUsecase:
         lenActionBefore = len(repo.actions)
         lenAssociatedActionBefore = len(repo.associatedActions)
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', story_id=100, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         new_action = usecase(action=action)
         assert repo.actions[-1] == new_action == action
@@ -39,7 +39,7 @@ class Test_CreateActionUsecase:
         usecase = CreateActionUsecase(repo=repo)
         lenActionBefore = len(repo.actions)
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', associated_members_ra=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', story_id=100, associated_members_ra=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         new_action = usecase(action=action)
         assert len(repo.actions) == lenActionBefore + 1
@@ -49,7 +49,7 @@ class Test_CreateActionUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id="u1e2", associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tags=[ACTION_TYPE.CODE])
+        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id="u1e2", story_id=100, associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         with pytest.raises(DuplicatedItem):
             usecase(action=action)

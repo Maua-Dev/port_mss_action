@@ -33,6 +33,15 @@ class CreateActionController:
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
             
+           
+            if request.data.get('story_id') is not None:
+                if type(request.data.get('story_id')) is not int:
+                    raise EntityError('story_id')
+                story_id = request.data.get('story_id')
+            else:
+                story_id = None
+                
+
             if request.data.get('stack_tags') is not None:
                 if type(request.data.get('stack_tags')) is not list:
                     raise EntityError('stack_tags')
@@ -43,28 +52,29 @@ class CreateActionController:
             else:
                 stack_tags = None
                 
-            if request.data.get('action_type_tags') is not None:
-                if type(request.data.get('action_type_tags')) is not list:
-                    raise EntityError('action_type_tags')
-                for value in request.data.get('action_type_tags'):
-                    if value not in [action_type.value for action_type in ACTION_TYPE]:
-                        raise EntityError('action_type_tags')
-                action_type_tags = [ACTION_TYPE[value] for value in request.data.get('action_type_tags')]
+            if request.data.get('action_type_tag') is not None:
+                action_type_tag_str = request.data.get('action_type_tag')
+
+                if action_type_tag_str not in [action_type.value for action_type in ACTION_TYPE]:
+                    raise EntityError('action_type_tag')
+                    
+                action_type_tag = ACTION_TYPE[action_type_tag_str]
             else:
-                action_type_tags = None
-            
+                action_type_tag = None
+                   
             action = Action(
                 owner_ra=request.data.get('owner_ra'),
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
                 action_id=request.data.get('action_id'),
+                story_id=request.data.get('story_id'),
                 title=request.data.get('title'),
                 description=request.data.get('description'),
                 associated_members_ra=request.data.get('associated_members_ra'),
                 project_code=request.data.get('project_code'),
                 stack_tags=stack_tags,
-                action_type_tags=action_type_tags
+                action_type_tag=action_type_tag
             )
             
             viewmodel = CreateActionViewmodel(action=self.usecase(action=action))

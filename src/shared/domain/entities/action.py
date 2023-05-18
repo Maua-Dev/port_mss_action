@@ -11,20 +11,24 @@ class Action(abc.ABC):
     end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
+    story_id: int = None
     title: str
     description: str = None
     project_code: str
     associated_members_ra: List[str] = None
-    stack_tags: List[STACK] = None
-    action_type_tags: List[ACTION_TYPE] = None
+    stack_tags: List[STACK]
+    action_type_tag: ACTION_TYPE
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 500
     ACTION_ID_LENGTH = 4
     PROJECT_CODE_LENGTH = 2
+    MIN_STORY_ID = 100
+    MAX_STORY_ID = 9999
+
     
     
-    def __init__(self, owner_ra: str, start_date: int, end_date: int, duration: int, action_id: str, title: str, project_code: str, associated_members_ra: List[str] = None, stack_tags: List[STACK] = None, action_type_tags: List[ACTION_TYPE] = None, description: str = None):
+    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = None, description: str = None, story_id: int = None, ):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -37,6 +41,10 @@ class Action(abc.ABC):
         if not self.validate_action_id(action_id):
             raise EntityError('action_id')
         self.action_id = action_id
+
+        if not self.validate_story_id(story_id):
+             raise EntityError('story_id')
+        self.story_id = story_id
         
         if associated_members_ra is None:
             self.associated_members_ra = []
@@ -74,35 +82,26 @@ class Action(abc.ABC):
             raise EntityError('project_code')
         self.project_code = project_code
         
-        
-        if stack_tags is None:
-            self.stack_tags = []
-        elif type(stack_tags) == list:
+        if type(stack_tags) == list:
             if not all([type(tag) == STACK for tag in stack_tags]):
                 raise EntityError('stack_tags')
             else:
                 self.stack_tags = stack_tags
         else:
             raise EntityError('stack_tags')
-            
+    
         
-        if action_type_tags is None:
-            self.action_type_tags = []
-        elif type(action_type_tags) == list:
-            if not all([type(tag) == ACTION_TYPE for tag in action_type_tags]):
-                raise EntityError('action_type_tags')
-            else:
-                self.action_type_tags = action_type_tags
-        else:
-            raise EntityError('action_type_tags')
+        if type(action_type_tag) != ACTION_TYPE:
+            raise EntityError('action_type_tag')
+        self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tags={self.action_type_tags})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value()})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tags == other.action_type_tags
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -120,6 +119,15 @@ class Action(abc.ABC):
             return False
         if len(action_id) != Action.ACTION_ID_LENGTH:
             return False
+        return True
+    
+    @staticmethod
+    def validate_story_id(story_id: int) -> bool:
+        if story_id is not None:
+            if type(story_id) != int:
+                return False
+            if story_id < Action.MIN_STORY_ID or story_id > Action.MAX_STORY_ID:
+                return False
         return True
     
     @staticmethod
@@ -156,5 +164,3 @@ class Action(abc.ABC):
         if duration > end_date - start_date:
             return False
         return True
-    
-    

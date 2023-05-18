@@ -35,13 +35,6 @@ class LambdaStack(Construct):
                                                  code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
-
-        self.get_all_actions_by_ra_function = self.create_lambda_api_gateway_integration(
-            module_name="get_all_actions_by_ra",
-            method="GET",
-            mss_student_api_resource=api_gateway_resource,
-            environment_variables=environment_variables
-        )
         
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
