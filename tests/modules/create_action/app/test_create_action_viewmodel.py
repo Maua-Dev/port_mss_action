@@ -16,22 +16,26 @@ class Test_CreateActionViewmodel:
         viewmodel = CreateActionViewmodel(action=usecase(action=action)).to_dict()
         
         expected = {
-            'action':{
-                'owner_ra':'17033730',
-                'start_date':1634526000000,
-                'end_date':1634536800000,
-                'duration':7200000,
-                'action_id':'82fc',
-                'story_id': 100,
-                'title':'Teste',
-                'description':"Apenas um teste",
-                'project_code':'MF',
-                'associated_members_ra':['19017310'],
-                'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE'
-            },
-            'message':'the action was created'
-            }
+                    'action':{
+                        'owner_ra':'17033730',
+                        'start_date':1634526000000,
+                        'end_date':1634536800000,
+                        'duration':7200000,
+                        'action_id':'82fc',
+                        'story_id':100,
+                        'title':'Teste',
+                        'description':None,
+                        'project_code':'MF',
+                        'associated_members_ra':[
+                            '19017310'
+                        ],
+                        'stack_tags':[
+                            'BACKEND'
+                        ],
+                        'action_type_tag':'CODE'
+                    },
+                    'message':'the action was created'
+        }
        
         assert viewmodel == expected
 
@@ -50,11 +54,16 @@ class Test_CreateActionViewmodel:
                 'end_date':1634536800000,
                 'duration':7200000,
                 'action_id':'82fc',
-                'story_id': None,
+                'story_id':None,
                 'title':'Teste',
+                'description':None,
                 'project_code':'MF',
-                'associated_members_ra':['19017310'],
-                'stack_tags':['BACKEND'],
+                'associated_members_ra':[
+                    '19017310'
+                ],
+                'stack_tags':[
+                    'BACKEND'
+                ],
                 'action_type_tag':'CODE'
             },
             'message':'the action was created'

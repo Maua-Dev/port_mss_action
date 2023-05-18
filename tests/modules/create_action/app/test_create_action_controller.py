@@ -457,8 +457,8 @@ class Test_CreateActionController:
         })
         
         response = controller(request)
-        assert response.status_code == 201
-        assert response.body['action']['action_type_tags'] == []
+        assert response.body == 'Field action_type_tag is not valid'
+        assert response.status_code == 400
 
     def test_create_action_controller_action_type_tag_is_not_valid(self):
             
