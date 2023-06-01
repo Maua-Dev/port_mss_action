@@ -23,8 +23,8 @@ class Action(abc.ABC):
     MAX_DESCRIPTION_LENGTH = 500
     ACTION_ID_LENGTH = 4
     PROJECT_CODE_LENGTH = 2
-    MIN_STORY_ID = 100
-    MAX_STORY_ID = 9999
+    MIN_STORY_ID = 1
+    MAX_STORY_ID = 999999
 
     
     
