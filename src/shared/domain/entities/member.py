@@ -22,7 +22,7 @@ class Member(abc.ABC):
     hired_date: int # milliseconds
     deactivated_date: int = None # milliseconds
     active: ACTIVE
-    projects: List[Project]
+    projects: List[str]
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
 
@@ -38,7 +38,7 @@ class Member(abc.ABC):
                  hired_date: int, 
                  active: ACTIVE,
                  deactivated_date: int = None, 
-                 projects: List[Project] = None
+                 projects: List[str] = None
                 ):
 
         if not Member.validate_name(name):
@@ -89,7 +89,9 @@ class Member(abc.ABC):
         if projects is None:
             self.projects = []
         elif type(projects) == list:
-            if not all([type(project) == Project for project in projects]):
+            if not all([type(project) == str for project in projects]):
+                raise EntityError("projects")
+            elif not all([Member.validate_project_code(project) for project in projects]):
                 raise EntityError("projects")
             else:
                 self.projects = projects
@@ -110,8 +112,7 @@ class Member(abc.ABC):
             if active == ACTIVE.ACTIVE:
                 raise EntityError("active")
         self.deactivated_date = deactivated_date
-        
-        
+
     @staticmethod
     def validate_year(year: int) -> bool:
         if year == None:
@@ -180,4 +181,3 @@ class Member(abc.ABC):
             return False
         
         return True
-        

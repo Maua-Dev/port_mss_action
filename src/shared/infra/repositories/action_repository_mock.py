@@ -58,7 +58,7 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1634576165000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0]
+                self.projects[0].code
             ]
             ),
             
@@ -74,9 +74,9 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1634921765000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0],
-                self.projects[1],
-                self.projects[2]
+                self.projects[0].code,
+                self.projects[1].code,
+                self.projects[2].code
             ]
             ),
             
@@ -107,10 +107,10 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1293036965000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0],
-                self.projects[1],
-                self.projects[2],
-                self.projects[3]
+                self.projects[0].code,
+                self.projects[1].code,
+                self.projects[2].code,
+                self.projects[3].code
             
 
             ]
@@ -144,8 +144,8 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1640192165000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[3],
-                self.projects[2]
+                self.projects[3].code,
+                self.projects[2].code
             ]
             ),
             

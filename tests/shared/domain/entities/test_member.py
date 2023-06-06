@@ -22,13 +22,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
         
         assert member.name == "Vitor Guirão MPNTM"
@@ -42,11 +36,7 @@ class Test_Member:
         assert member.hired_date == 1671728165
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
-        assert member.projects[0] == Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
+        assert member.projects[0] == "MF"
             
     def test_member_name_not_str(self): 
         with pytest.raises(EntityError):
@@ -61,13 +51,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_name_smaller_than_minimum(self): 
@@ -83,13 +67,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_ra_not_str(self): 
@@ -105,13 +83,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_ra_not_decimal(self): 
@@ -127,13 +99,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_lenght_ra_not_8(self): 
@@ -149,13 +115,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
 
@@ -172,13 +132,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_email_is_not_in_right_format(self): 
@@ -194,13 +148,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     
@@ -217,13 +165,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_role_not_enum(self): 
@@ -239,13 +181,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_stack_not_enum(self): 
@@ -261,13 +197,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_year_not_int(self): 
@@ -283,13 +213,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_year_bigger_than_6(self): 
@@ -305,13 +229,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_year_smaller_than_0(self): 
@@ -327,13 +245,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_cellphone_not_str(self): 
@@ -349,13 +261,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_cellphone_not_in_right_format(self): 
@@ -371,13 +277,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
 
@@ -394,13 +294,7 @@ class Test_Member:
             course="COURSE.ECA",
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
 
@@ -417,13 +311,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date="10/10/2002",
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_hired_date_less_than_zero(self): 
@@ -439,13 +327,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=-1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_active_not_enum(self): 
@@ -461,13 +343,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active="ACTIVE.FREEZE",
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
             
     def test_member_active_with_deactivated_date(self): 
@@ -484,13 +360,7 @@ class Test_Member:
             hired_date=1671728165,
             deactivated_date=1671728165,
             active=ACTIVE.ACTIVE,
-            projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                )
-            ]
+            projects=["MF"]
         )
 
     def test_member_projects_is_none(self): 
@@ -528,7 +398,7 @@ class Test_Member:
             
         )
 
-    def test_member_projects_is_not_list_of_projects(self): 
+    def test_member_projects_is_not_list_of_str(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
@@ -541,12 +411,10 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-                "project1"
-            ]
+            projects=[1,2,3]
         )
 
-    def test_member_projects_is_not_list_of_projects_with_2_items(self): 
+    def test_member_projects_is_not_list_of_str_with_2_items(self): 
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
@@ -559,17 +427,10 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.FREEZE,
-                projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                ),
-                1
-            ]
+                projects=["MF", 1]
             )
     
-    def test_member_projects_is_list_of_projects_with_2_items(self): 
+    def test_member_projects_is_list_of_str_with_2_items(self): 
         
         member = Member(
             name="Vitor Guirão MPNTM",
@@ -582,18 +443,7 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
-            projects=[
-            Project(
-                code="MF",
-                name="Maua Food",
-                description="É um aplicativo #foramoleza"
-            ),
-            Project(
-                code="SM",
-                name="SMILE",
-                description="=D"
-            )
-        ]
+            projects=["MF", "SM"]
         )            
         assert len(member.projects) == 2
 
@@ -610,18 +460,7 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
-                projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                ),
-                Project(
-                    code="SM",
-                    name="SMILE",
-                    description="=D"
-                ),
-            ],
+                projects=["MF", "SM"],
                 deactivated_date="10/10/2022"
             )     
                  
@@ -638,17 +477,6 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
-                projects=[
-                Project(
-                    code="MF",
-                    name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                ),
-                Project(
-                    code="SM",
-                    name="SMILE",
-                    description="=D"
-                ),
-            ],
+                projects=["MF", "SM"],
                 deactivated_date=1640192165
             )          
