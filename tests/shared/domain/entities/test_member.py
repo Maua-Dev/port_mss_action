@@ -26,7 +26,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -45,7 +48,10 @@ class Test_Member:
         assert member.projects[0] == Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             
     def test_member_name_not_str(self): 
@@ -65,7 +71,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -87,7 +96,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -109,7 +121,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -131,7 +146,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -153,7 +171,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -176,7 +197,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -198,7 +222,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -221,7 +248,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -243,7 +273,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -265,7 +298,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -287,7 +323,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -309,7 +348,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -331,7 +373,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -353,7 +398,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -375,7 +423,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -398,7 +449,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -421,7 +475,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -443,7 +500,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -465,7 +525,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -488,7 +551,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 )
             ]
         )
@@ -563,7 +629,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 ),
                 1
             ]
@@ -584,14 +653,20 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=[
             Project(
-                code="MF",
-                name="Maua Food",
-                description="É um aplicativo #foramoleza"
-            ),
+                    code="MF",
+                    name="Maua Food",
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
+                ),
             Project(
                 code="SM",
                 name="SMILE",
-                description="=D"
+                description="=D",
+                po_RA="22011020",
+                scrum_RA="21010480",
+                start_date=1672585200000
             )
         ]
         )            
@@ -614,12 +689,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                ),
-                Project(
-                    code="SM",
-                    name="SMILE",
-                    description="=D"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 ),
             ],
                 deactivated_date="10/10/2022"
@@ -642,12 +715,10 @@ class Test_Member:
                 Project(
                     code="MF",
                     name="Maua Food",
-                    description="É um aplicativo #foramoleza"
-                ),
-                Project(
-                    code="SM",
-                    name="SMILE",
-                    description="=D"
+                    description="É um aplicativo #foramoleza",
+                    po_RA="22011020",
+                    scrum_RA="21010480",
+                    start_date=1672585200000
                 ),
             ],
                 deactivated_date=1640192165
