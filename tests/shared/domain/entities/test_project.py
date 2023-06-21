@@ -222,9 +222,8 @@ class Test_Project():
             po_RA="22011020",
             scrum_RA="22011020",
             start_date=1672585200000,
-            photos=None
         )
-        assert project.photos == None
+        assert project.photos == []
         
     def test_project_photos_must_be_list(self):
         with pytest.raises(EntityError):

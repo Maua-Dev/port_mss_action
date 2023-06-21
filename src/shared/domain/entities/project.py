@@ -10,7 +10,7 @@ class Project(abc.ABC):
     po_RA: str
     scrum_RA: str
     start_date: int # milliseconds
-    photos: List[str] = None
+    photos: List[str] = []
     PROJECT_CODE_LENGTH = 2
     
     def __init__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = None):
@@ -45,7 +45,8 @@ class Project(abc.ABC):
         if photos is not None:
             if type(photos) != list:
                 raise EntityError("photos")
-        self.photos = photos
+            self.photos = photos
+        self.photos = []
         
         
     @staticmethod
