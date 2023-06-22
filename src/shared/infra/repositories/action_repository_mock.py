@@ -377,3 +377,7 @@ class ActionRepositoryMock(IActionRepository):
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         self.associatedActions.append(associatedAction)
         return associatedAction
+    
+    def create_project(self, project: Project) -> Project:
+        self.projects.append(project)
+        return project
