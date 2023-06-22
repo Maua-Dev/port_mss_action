@@ -46,7 +46,8 @@ class Project(abc.ABC):
             if type(photos) != list:
                 raise EntityError("photos")
             self.photos = photos
-        self.photos = []
+        else:
+            self.photos = []
         
         
     @staticmethod
