@@ -51,3 +51,9 @@ class Test_ActionRepositoryMock:
         assert len(repo.actions) == len_actions_before + 1
         assert len(repo.associatedActions) == len_associatedActions_before + 3
         
+    def test_delete_project(self):
+        repo = ActionRepositoryMock()
+        len_before = len(repo.projects)
+        project = repo.delete_project(code='MF')
+        assert len(repo.projects) == len_before - 1
+        assert project.code == 'MF'
