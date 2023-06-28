@@ -6,13 +6,13 @@ from src.shared.domain.enums.state_enum import STATE
 
 class UserDynamoDTO:
     name: str
-    email: str
+    email_dev: str
     state: STATE
     user_id: int
 
-    def __init__(self, name: str, email: str, state: STATE, user_id: int):
+    def __init__(self, name: str, email_dev: str, state: STATE, user_id: int):
         self.name = name
-        self.email = email
+        self.email_dev = email_dev
         self.user_id = user_id
         self.state = state
 
@@ -23,7 +23,7 @@ class UserDynamoDTO:
         """
         return UserDynamoDTO(
             name=user.name,
-            email=user.email,
+            email_dev=user.email_dev,
             user_id=user.user_id,
             state=user.state
         )
@@ -35,7 +35,7 @@ class UserDynamoDTO:
         return {
             "entity": "user",
             "name": self.name,
-            "email": self.email,
+            "email_dev": self.email_dev,
             "user_id": Decimal(self.user_id),
             "state": self.state.value
         }
@@ -48,7 +48,7 @@ class UserDynamoDTO:
         """
         return UserDynamoDTO(
             name=user_data["name"],
-            email=user_data["email"],
+            email_dev=user_data["email_dev"],
             user_id=int(user_data["user_id"]),
             state=STATE(user_data["state"])
         )
@@ -59,13 +59,13 @@ class UserDynamoDTO:
         """
         return User(
             name=self.name,
-            email=self.email,
+            email_dev=self.email_dev,
             user_id=self.user_id,
             state=self.state
         )
 
     def __repr__(self):
-        return f"UserDynamoDto(name={self.name}, email={self.email}, user_id={self.user_id}, state={self.state})"
+        return f"UserDynamoDto(name={self.name}, email_dev={self.email_dev}, user_id={self.user_id}, state={self.state})"
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__

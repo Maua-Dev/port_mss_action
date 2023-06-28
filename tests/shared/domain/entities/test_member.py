@@ -13,7 +13,7 @@ class Test_Member:
     def test_member(self):
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -26,7 +26,7 @@ class Test_Member:
         )
         
         assert member.name == "Vitor Guirão MPNTM"
-        assert member.email == "vsoller.devmaua@gmail.com"
+        assert member.email_dev == "vsoller.devmaua@gmail.com"
         assert member.ra == "21017310"
         assert member.role == ROLE.DIRECTOR
         assert member.stack == STACK.INFRA
@@ -42,7 +42,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name=1,
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -58,7 +58,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="V",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -74,7 +74,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra=21017310,
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -90,7 +90,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="210173A0",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -106,7 +106,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="221017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -119,11 +119,11 @@ class Test_Member:
         )
 
 
-    def test_member_email_is_not_str(self): 
+    def test_member_email_dev_is_not_str(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email=1,
+            email_dev=1,
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -135,11 +135,11 @@ class Test_Member:
             projects=["MF"]
         )
             
-    def test_member_email_is_not_in_right_format(self): 
+    def test_member_email_dev_is_not_in_right_format(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsollerdevmaua@gmail.com",
+            email_dev="vsollerdevmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -152,11 +152,11 @@ class Test_Member:
         )
             
     
-    def test_member_email_not_dev(self): 
+    def test_member_email_dev_not_dev(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vitor.guirao@gmail.com",
+            email_dev="vitor.guirao@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -172,7 +172,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role="ROLE.DIRECTOR",
             stack=STACK.INFRA,
@@ -188,7 +188,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack="STACK.INFRA",
@@ -204,7 +204,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -220,7 +220,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -236,7 +236,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -252,7 +252,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -268,7 +268,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -285,7 +285,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -302,7 +302,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -318,7 +318,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -334,7 +334,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -350,7 +350,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -366,7 +366,7 @@ class Test_Member:
     def test_member_projects_is_none(self): 
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -385,7 +385,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -402,7 +402,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -418,7 +418,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
-                email="vsoller.devmaua@gmail.com",
+                email_dev="vsoller.devmaua@gmail.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
@@ -434,7 +434,7 @@ class Test_Member:
         
         member = Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -451,7 +451,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
-                email="vsoller.devmaua@gmail.com",
+                email_dev="vsoller.devmaua@gmail.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
@@ -468,7 +468,7 @@ class Test_Member:
         with pytest.raises(EntityError):
             Member(
                 name="Vitor Guirão MPNTM",
-                email="vsoller.devmaua@gmail.com",
+                email_dev="vsoller.devmaua@gmail.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,

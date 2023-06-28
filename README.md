@@ -113,7 +113,7 @@ Our folder structure was developed specially for our projects.
 ### Tests 📄
 
 - snake_case 🐍
-- "test" follow by class name (ex: `test_cadastrar_usuario_valido`, `test_cadastrar_usuario_sem_email`)
+- "test" follow by class name (ex: `test_cadastrar_usuario_valido`, `test_cadastrar_usuario_sem_email_dev`)
     - The files must start with "test" to pytest recognition
 
 ### Commit 💢
