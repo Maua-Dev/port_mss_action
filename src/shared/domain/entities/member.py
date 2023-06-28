@@ -12,7 +12,8 @@ from src.shared.helpers.errors.domain_errors import EntityError, EntityParameter
 
 class Member(abc.ABC):
     name: str
-    email: str
+    email_dev: str
+    #email: str
     ra: str
     role: ROLE
     stack: STACK
@@ -28,6 +29,7 @@ class Member(abc.ABC):
 
     def __init__(self,
                  name:str,
+                 email_dev:str,
                  email:str,
                  ra:str,
                  role:ROLE,
@@ -49,9 +51,9 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if not Member.validate_email_dev(email):
-            raise EntityError('email')
-        self.email = email
+        if not Member.validate_email_dev(email_dev):
+            raise EntityError('email_dev')
+        self.email_dev = email_dev
         
         if type(role) != ROLE:
             raise EntityError("role")
@@ -135,15 +137,15 @@ class Member(abc.ABC):
         return ra.isdecimal() and len(ra) == 8
 
     @staticmethod
-    def validate_email_dev(email) -> bool:
-        if email == None:
+    def validate_email_dev(email_dev) -> bool:
+        if email_dev == None:
             return False
-        if type(email) != str:
+        if type(email_dev) != str:
             return False
-        if email[-18:] != ".devmaua@gmail.com":
+        if email_dev[-18:] != ".devmaua@gmail.com":
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
-        return bool(re.fullmatch(regex, email))
+        return bool(re.fullmatch(regex, email_dev))
 
     @staticmethod
     def validate_name(name) -> bool:
@@ -181,3 +183,12 @@ class Member(abc.ABC):
             return False
         
         return True
+    
+    @staticmethod
+    def validate_email(email) -> bool:
+        if email == None:
+            return False
+        if type(email) != str:
+            return False
+        regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+        return bool(re.fullmatch(regex, email))
