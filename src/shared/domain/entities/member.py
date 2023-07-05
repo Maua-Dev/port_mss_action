@@ -51,13 +51,16 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if not Member.validate_email_dev(email_dev):
-            raise EntityError('email_dev')
-        self.email_dev = email_dev
+        if email_dev==email:
+            raise EntityError('email_dev and email')
+        else:        
+            if not Member.validate_email_dev(email_dev):
+                raise EntityError('email_dev')
+            self.email_dev = email_dev
 
-        if not Member.validate_email(email):
-            raise EntityError('email')
-        self.email = email
+            if not Member.validate_email(email):
+                raise EntityError('email')
+            self.email = email
         
         if type(role) != ROLE:
             raise EntityError("role")

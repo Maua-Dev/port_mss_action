@@ -211,6 +211,23 @@ class Test_Member:
             active=ACTIVE.FREEZE,
             projects=["MF"]
             )    
+
+    def test_member_email_is_the_same_as_email_dev(self):
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller.devmaua@gmail.com",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course="COURSE.ECA",
+            hired_date=1671728165,
+            active=ACTIVE.FREEZE,
+            projects=["MF"]
+            )
     
     def test_member_role_not_enum(self): 
         with pytest.raises(EntityError):
