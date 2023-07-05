@@ -14,6 +14,7 @@ class Test_Member:
         member = Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -27,6 +28,7 @@ class Test_Member:
         
         assert member.name == "Vitor Guirão MPNTM"
         assert member.email_dev == "vsoller.devmaua@gmail.com"
+        assert member.email == "vsoller@airubio.com"
         assert member.ra == "21017310"
         assert member.role == ROLE.DIRECTOR
         assert member.stack == STACK.INFRA
@@ -43,6 +45,7 @@ class Test_Member:
             Member(
             name=1,
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -59,6 +62,7 @@ class Test_Member:
             Member(
             name="V",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -75,6 +79,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra=21017310,
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -91,6 +96,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="210173A0",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -107,6 +113,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="221017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -124,6 +131,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev=1,
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -140,6 +148,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsollerdevmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -157,6 +166,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vitor.guirao@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -168,11 +178,46 @@ class Test_Member:
             projects=["MF"]
         )
 
+    def test_member_email_is_not_str(self):
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email_dev="vsoller.devmaua@gmail.com",
+            email=1,
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course="COURSE.ECA",
+            hired_date=1671728165,
+            active=ACTIVE.FREEZE,
+            projects=["MF"]
+            )
+
+    def test_member_email_is_not_in_right_format(self):
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email_dev="vsoller.devmaua@gmail.com",
+            email="vsollerairubio.com",
+            ra="21017310",
+            role=ROLE.DIRECTOR,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course="COURSE.ECA",
+            hired_date=1671728165,
+            active=ACTIVE.FREEZE,
+            projects=["MF"]
+            )    
+    
     def test_member_role_not_enum(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role="ROLE.DIRECTOR",
             stack=STACK.INFRA,
@@ -189,6 +234,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack="STACK.INFRA",
@@ -205,6 +251,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -221,6 +268,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -237,6 +285,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -253,6 +302,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -269,6 +319,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -286,6 +337,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -303,6 +355,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -319,6 +372,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -335,6 +389,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -351,6 +406,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -367,6 +423,7 @@ class Test_Member:
         member = Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -386,6 +443,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -403,6 +461,7 @@ class Test_Member:
             Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -419,6 +478,7 @@ class Test_Member:
             Member(
                 name="Vitor Guirão MPNTM",
                 email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
@@ -435,6 +495,7 @@ class Test_Member:
         member = Member(
             name="Vitor Guirão MPNTM",
             email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -452,6 +513,7 @@ class Test_Member:
             Member(
                 name="Vitor Guirão MPNTM",
                 email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
@@ -469,6 +531,7 @@ class Test_Member:
             Member(
                 name="Vitor Guirão MPNTM",
                 email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
