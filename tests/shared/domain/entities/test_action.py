@@ -235,7 +235,7 @@ class Test_Action:
                 action_id="1234",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
