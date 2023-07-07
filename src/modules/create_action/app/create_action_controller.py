@@ -32,6 +32,8 @@ class CreateActionController:
                 raise MissingParameters('title')
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
+            if request.data.get('associated_members_ra') is None:
+                raise MissingParameters('associated_members_ra')
             
            
             if request.data.get('story_id') is not None:
@@ -62,17 +64,6 @@ class CreateActionController:
             else:
                 action_type_tag = None
 
-            if len(request.data.get('associated_members_ra')) > 0 :
-                if type(request.data.get('associated_members_ra')) is not list:
-                    raise EntityError('associated_members_ra')
-                if request.data.get('owner_ra') in request.data.get('associated_members_ra'):
-                    raise EntityError('associated_members_ra')
-                if len(request.data.get('associated_members_ra')) != len(set(request.data.get('associated_members_ra'))):
-                    raise EntityError('associated_members_ra')
-                else:
-                    associated_members_ra = request.data.get('associated_members_ra')
-            else:
-                associated_members_ra = []
                    
             action = Action(
                 owner_ra=request.data.get('owner_ra'),
