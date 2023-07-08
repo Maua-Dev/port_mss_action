@@ -133,3 +133,5 @@ dmypy.json
 
 /.vscode/
 /.idea/
+module_creation_inline.py
+module_creation.py
