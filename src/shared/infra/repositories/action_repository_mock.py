@@ -377,3 +377,9 @@ class ActionRepositoryMock(IActionRepository):
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         self.associatedActions.append(associatedAction)
         return associatedAction
+    
+    def delete_project(self, code: str) -> Project:
+        for i in range(len(self.projects)):
+            if self.projects[i].code == code:
+                return self.projects.pop(i)
+        return None

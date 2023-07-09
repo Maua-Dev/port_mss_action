@@ -13,7 +13,7 @@ class Project(abc.ABC):
     photos: List[str] = []
     PROJECT_CODE_LENGTH = 2
     
-    def __init__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = None):
+    def __init__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []):
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
@@ -42,11 +42,12 @@ class Project(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
         
-        if photos is not None:
-            if type(photos) != list:
+        if type(photos) != list:
+            raise EntityError("photos")
+        for photo in photos:
+            if type(photo) != str:
                 raise EntityError("photos")
-            self.photos = photos
-        self.photos = []
+        self.photos = photos
         
         
     @staticmethod

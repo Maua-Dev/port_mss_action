@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
+from src.shared.domain.entities.project import Project
 
 
 class IActionRepository(ABC):
@@ -23,3 +24,10 @@ class IActionRepository(ABC):
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         pass
     
+    @abstractmethod
+    def delete_project(self, code: str) -> Optional[Project]:
+        '''
+        If project exists, deletes it and returns it
+        else returns None
+        '''
+        pass
