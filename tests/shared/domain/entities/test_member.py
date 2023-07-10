@@ -21,7 +21,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=1671728165,
+            hired_date=1614567601000,
             active=ACTIVE.FREEZE,
             projects=["MF"]
         )
@@ -35,7 +35,7 @@ class Test_Member:
         assert member.year == 1
         assert member.cellphone == "11991758098"
         assert member.course == COURSE.ECA
-        assert member.hired_date == 1671728165
+        assert member.hired_date == 1614567601000
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
         assert member.projects[0] == "MF"
@@ -447,9 +447,9 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=1640192165,
+            hired_date=1614567601000,
             active=ACTIVE.FREEZE,
-            deactivated_date=1671728165
+            deactivated_date=1677639601000
         )
         
         assert member.projects == []
@@ -519,7 +519,7 @@ class Test_Member:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=1671728165,
+            hired_date=1614567601000,
             active=ACTIVE.FREEZE,
             projects=["MF", "SM"]
         )            

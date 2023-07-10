@@ -1,7 +1,6 @@
 
 import abc
-from typing import List
-from pyparsing import Optional
+from typing import List, Optional
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, EntityError

@@ -1,7 +1,6 @@
 import abc
 import re
-from typing import List
-from pyparsing import Optional
+from typing import List, Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -81,7 +80,7 @@ class Member(abc.ABC):
         self.course = course
         
         if type(hired_date) == int:
-            if not 1000000000000 < hired_date < 10000000000000:
+            if not 1577847601000 < hired_date:
                 raise EntityError("hired_date")
             self.hired_date = hired_date
         else:
@@ -111,7 +110,7 @@ class Member(abc.ABC):
                 raise EntityError("deactivated_date and hired_date") 
             if deactivated_date < 0:
                 raise EntityError("deactivated_date")
-            if not 1000000000000 < deactivated_date < 10000000000000:
+            if not self.hired_date < deactivated_date:
                 raise EntityError("deactivated_date")
             if active == ACTIVE.ACTIVE:
                 raise EntityError("active")
