@@ -1,6 +1,7 @@
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
+from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -51,3 +52,18 @@ class Test_ActionRepositoryMock:
         assert len(repo.actions) == len_actions_before + 1
         assert len(repo.associatedActions) == len_associatedActions_before + 3
         
+    def test_create_project(self):
+        repo = ActionRepositoryMock()
+        len_before = len(repo.projects)
+        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_RA='21021031', scrum_RA='17033730', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png']))
+        assert len(repo.projects) == len_before + 1
+        assert project == repo.projects[-1]
+        assert repo.projects[-1].code == 'DM'
+        assert repo.projects[-1].photos == ['https://i.imgur.com/7QF7uCk.png']
+        
+    def test_delete_project(self):
+        repo = ActionRepositoryMock()
+        len_before = len(repo.projects)
+        project = repo.delete_project(code='MF')
+        assert len(repo.projects) == len_before - 1
+        assert project.code == 'MF'

@@ -23,7 +23,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1614567601000,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
         
         assert member.name == "Vitor Guirão MPNTM"
@@ -38,7 +40,9 @@ class Test_Member:
         assert member.hired_date == 1614567601000
         assert member.active == ACTIVE.FREEZE
         assert len(member.projects) == 1
+
         assert member.projects[0] == "MF"
+
             
     def test_member_name_not_str(self): 
         with pytest.raises(EntityError):
@@ -54,7 +58,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_name_smaller_than_minimum(self): 
@@ -71,7 +77,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_ra_not_str(self): 
@@ -88,7 +96,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+              
             projects=["MF"]
+
         )
 
     def test_member_ra_not_decimal(self): 
@@ -105,7 +115,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_lenght_ra_not_8(self): 
@@ -122,7 +134,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
 
@@ -140,7 +154,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_email_dev_is_not_in_right_format(self): 
@@ -157,7 +173,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     
@@ -175,7 +193,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_email_is_not_str(self):
@@ -243,7 +263,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_stack_not_enum(self): 
@@ -260,7 +282,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_year_not_int(self): 
@@ -277,7 +301,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_year_bigger_than_6(self): 
@@ -294,7 +320,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_year_smaller_than_0(self): 
@@ -311,7 +339,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_cellphone_not_str(self): 
@@ -328,7 +358,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
     def test_member_cellphone_not_in_right_format(self): 
@@ -345,7 +377,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
 
@@ -363,7 +397,9 @@ class Test_Member:
             course="COURSE.ECA",
             hired_date=1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
 
 
@@ -381,7 +417,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date="10/10/2002",
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_hired_date_less_than_zero(self): 
@@ -398,7 +436,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=-1671728165,
             active=ACTIVE.FREEZE,
+
             projects=["MF"]
+
         )
             
     def test_member_active_not_enum(self): 
@@ -415,7 +455,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             active="ACTIVE.FREEZE",
+
             projects=["MF"]
+
         )
             
     def test_member_active_with_deactivated_date(self): 
@@ -433,7 +475,9 @@ class Test_Member:
             hired_date=1671728165,
             deactivated_date=1671728165,
             active=ACTIVE.ACTIVE,
+
             projects=["MF"]
+
         )
 
     def test_member_projects_is_none(self): 
@@ -504,7 +548,9 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.FREEZE,
+
                 projects=["MF", 1]
+
             )
     
     def test_member_projects_is_list_of_str_with_2_items(self): 
@@ -521,7 +567,9 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1614567601000,
             active=ACTIVE.FREEZE,
+
             projects=["MF", "SM"]
+
         )            
         assert len(member.projects) == 2
 
@@ -539,7 +587,9 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
+
                 projects=["MF", "SM"],
+
                 deactivated_date="10/10/2022"
             )     
                  
@@ -557,6 +607,8 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
+
                 projects=["MF", "SM"],
+
                 deactivated_date=1640192165
             )          
