@@ -147,3 +147,43 @@ class Test_CreateProjectController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field start_date is missing'
+        
+    def test_create_project_controller_wrong_type_photos(self):
+            
+            repo = ActionRepositoryMock()
+            usecase = CreateProjectUsecase(repo=repo)
+            controller = CreateProjectController(usecase=usecase)
+    
+            request = HttpRequest(body = {
+                'code':'DM',
+                'name':'DevMedias',
+                'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                'po_RA':'21021031',
+                'scrum_RA':'17033730',
+                'start_date':1649955600000,
+                'photos':'https://i.imgur.com/7QF7uCk.png'
+            })
+    
+            response = controller(request)
+            assert response.status_code == 400
+            assert response.body == 'Field photos is not valid'
+            
+    def test_create_project_controller_photos_not_list_of_str(self):
+                
+                repo = ActionRepositoryMock()
+                usecase = CreateProjectUsecase(repo=repo)
+                controller = CreateProjectController(usecase=usecase)
+        
+                request = HttpRequest(body = {
+                    'code':'DM',
+                    'name':'DevMedias',
+                    'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                    'po_RA':'21021031',
+                    'scrum_RA':'17033730',
+                    'start_date':1649955600000,
+                    'photos':[1,2,3]
+                })
+        
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'Field photos is not valid'
