@@ -42,12 +42,10 @@ class Project(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
         
-        if type(photos) != list:
-            raise EntityError("photos")
-        for photo in photos:
-            if type(photo) != str:
+        if photos is not None:
+            if type(photos) != list:
                 raise EntityError("photos")
-        self.photos = photos
+            self.photos = photos
         
         
     @staticmethod
