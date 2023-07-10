@@ -60,3 +60,10 @@ class Test_ActionRepositoryMock:
         assert project == repo.projects[-1]
         assert repo.projects[-1].code == 'DM'
         assert repo.projects[-1].photos == ['https://i.imgur.com/7QF7uCk.png']
+        
+    def test_delete_project(self):
+        repo = ActionRepositoryMock()
+        len_before = len(repo.projects)
+        project = repo.delete_project(code='MF')
+        assert len(repo.projects) == len_before - 1
+        assert project.code == 'MF'

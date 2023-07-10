@@ -381,3 +381,9 @@ class ActionRepositoryMock(IActionRepository):
     def create_project(self, project: Project) -> Project:
         self.projects.append(project)
         return project
+    
+    def delete_project(self, code: str) -> Project:
+        for i in range(len(self.projects)):
+            if self.projects[i].code == code:
+                return self.projects.pop(i)
+        return None
