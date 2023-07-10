@@ -65,7 +65,8 @@ class ActionRepositoryMock(IActionRepository):
         self.members = [
             Member(
             name="Vitor Guirão MPNTM",
-            email="vsoller.devmaua@gmail.com",
+            email_dev="vsoller.devmaua@gmail.com",
+            email="vsoller@airubio.com",
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
@@ -75,13 +76,14 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1634576165000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0]
+                self.projects[0].code
             ]
             ),
             
             Member(
             name="Joao Branco",
-            email="jbranco.devmaua@gmail.com",
+            email_dev="jbranco.devmaua@gmail.com",
+            email="jbranco@gmail.com",
             ra="21010757",
             role=ROLE.HEAD,
             stack=STACK.BACKEND,
@@ -91,15 +93,16 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1634921765000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0],
-                self.projects[1],
-                self.projects[2]
+                self.projects[0].code,
+                self.projects[1].code,
+                self.projects[2].code
             ]
             ),
             
             Member(
             name="Luigi Televisão",
-            email="ltelevisao.devmaua@gmail.com",
+            email_dev="ltelevisao.devmaua@gmail.com",
+            email="lgtv@gmail.com",
             ra="22017310",
             role=ROLE.DEV,
             stack=STACK.DATA_SCIENCE,
@@ -114,20 +117,21 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Little Ronald",
-            email="lronald.devmaua@gmail.com",
+            email_dev="lronald.devmaua@gmail.com",
+            email="lronald@gmail.com",
             ra="10017310",
             role=ROLE.DIRECTOR,
             stack=STACK.FRONTEND,
             year=6,
             cellphone="11991759998",
             course=COURSE.ECM,
-            hired_date=1293036965000,
+            hired_date=1614567601000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[0],
-                self.projects[1],
-                self.projects[2],
-                self.projects[3]
+                self.projects[0].code,
+                self.projects[1].code,
+                self.projects[2].code,
+                self.projects[3].code
             
 
             ]
@@ -135,23 +139,25 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Marcos Pereira Neto",
-            email="mneto.devmaua@gmail.com",
+            email_dev="mneto.devmaua@gmail.com",
+            email="mneto@gmail.com",
             ra="19017310",
             role=ROLE.PO,
             stack=STACK.PO,
             year=4,
             cellphone="11991753208",
             course=COURSE.EMC,
-            hired_date=1545497765000,
+            hired_date=1614567601000,
             active=ACTIVE.DISCONNECTED,
             projects=[
             ],
-            deactivated_date=1577033765000
+            deactivated_date=1646103601000
             ),
             
             Member(
             name="Rubicks Cube",
-            email="rcube.devmaua@gmail.com",
+            email_dev="rcube.devmaua@gmail.com",
+            email="rubikscube@gmail.com",
             ra="19017311",
             role=ROLE.DEV,
             stack=STACK.BACKEND,
@@ -161,14 +167,15 @@ class ActionRepositoryMock(IActionRepository):
             hired_date=1640192165000,
             active=ACTIVE.ACTIVE,
             projects=[
-                self.projects[3],
-                self.projects[2]
+                self.projects[3].code,
+                self.projects[2].code
             ]
             ),
             
             Member(
             name="Django Fett",
-            email="dfett.devmaua@gmail.com",
+            email_dev="dfett.devmaua@gmail.com",
+            email="djangofett@starwars.com",
             ra="17033730",
             role=ROLE.INTERNAL,
             stack=STACK.INTERNAL,
@@ -183,7 +190,8 @@ class ActionRepositoryMock(IActionRepository):
             
             Member(
             name="Henrique Gustavo de Souza",
-            email="hsouza.devmaua@gmail.com",
+            email_dev="hsouza.devmaua@gmail.com",
+            email="hsouza@gmail.com",
             ra="23017310",
             role=ROLE.DEV,
             stack=STACK.UX_UI,
@@ -205,7 +213,7 @@ class ActionRepositoryMock(IActionRepository):
                 duration=7200000,
                 action_id="u1e2",
                 story_id=100,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Reunião de Diretoria",
                 description="Reunião de diretoria para discutir sobre o futuro do DEV",
                 project_code=self.projects[0].code,
@@ -262,7 +270,7 @@ class ActionRepositoryMock(IActionRepository):
                 duration=3600000,
                 action_id="dd1d",
                 story_id=100,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Code",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND],
@@ -276,7 +284,7 @@ class ActionRepositoryMock(IActionRepository):
                 duration=3600000,
                 action_id="jgrl",
                 story_id=100,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
@@ -289,7 +297,7 @@ class ActionRepositoryMock(IActionRepository):
                 duration=3600000,
                 action_id="jf12",
                 story_id=100,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Reunião",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND, STACK.FRONTEND],
@@ -303,7 +311,7 @@ class ActionRepositoryMock(IActionRepository):
                 duration=3600000,
                 action_id='32kd',
                 story_id=100,
-                associated_members_ra=None,
+                associated_members_ra=[],
                 title="Hackathon",
                 project_code=self.projects[0].code,
                 stack_tags=[STACK.BACKEND],

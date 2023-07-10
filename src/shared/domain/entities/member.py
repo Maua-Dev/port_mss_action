@@ -1,6 +1,6 @@
 import abc
 import re
-from typing import List
+from typing import List, Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -12,6 +12,7 @@ from src.shared.helpers.errors.domain_errors import EntityError, EntityParameter
 
 class Member(abc.ABC):
     name: str
+    email_dev: str
     email: str
     ra: str
     role: ROLE
@@ -20,14 +21,15 @@ class Member(abc.ABC):
     cellphone: str
     course: COURSE
     hired_date: int # milliseconds
-    deactivated_date: int = None # milliseconds
+    deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
-    projects: List[Project]
+    projects: List[str]
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
 
     def __init__(self,
                  name:str,
+                 email_dev:str,
                  email:str,
                  ra:str,
                  role:ROLE,
@@ -37,8 +39,8 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: int, 
                  active: ACTIVE,
-                 deactivated_date: int = None, 
-                 projects: List[Project] = None
+                 deactivated_date: Optional[int] = None, 
+                 projects: Optional[List[str]] = None
                 ):
 
         if not Member.validate_name(name):
@@ -49,7 +51,11 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if not Member.validate_email_dev(email):
+        if not Member.validate_email_dev(email_dev):
+            raise EntityError('email_dev')
+        self.email_dev = email_dev
+
+        if not Member.validate_email(email):
             raise EntityError('email')
         self.email = email
         
@@ -74,10 +80,9 @@ class Member(abc.ABC):
         self.course = course
         
         if type(hired_date) == int:
-            if hired_date > 0:
-                self.hired_date = hired_date 
-            else:
+            if not 1577847601000 < hired_date:
                 raise EntityError("hired_date")
+            self.hired_date = hired_date
         else:
             raise EntityError("hired_date")
             
@@ -89,15 +94,14 @@ class Member(abc.ABC):
         if projects is None:
             self.projects = []
         elif type(projects) == list:
-            if not all([type(project) == Project for project in projects]):
+            if not all([type(project) == str for project in projects]):
+                raise EntityError("projects")
+            elif not all([Member.validate_project_code(project) for project in projects]):
                 raise EntityError("projects")
             else:
                 self.projects = projects
         else:
             raise EntityError("projects")
-        
-        if hired_date < 0:
-                raise EntityError("hired_date")
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -106,12 +110,12 @@ class Member(abc.ABC):
                 raise EntityError("deactivated_date and hired_date") 
             if deactivated_date < 0:
                 raise EntityError("deactivated_date")
-            
+            if not self.hired_date < deactivated_date:
+                raise EntityError("deactivated_date")
             if active == ACTIVE.ACTIVE:
                 raise EntityError("active")
         self.deactivated_date = deactivated_date
-        
-        
+
     @staticmethod
     def validate_year(year: int) -> bool:
         if year == None:
@@ -134,15 +138,15 @@ class Member(abc.ABC):
         return ra.isdecimal() and len(ra) == 8
 
     @staticmethod
-    def validate_email_dev(email) -> bool:
-        if email == None:
+    def validate_email_dev(email_dev) -> bool:
+        if email_dev == None:
             return False
-        if type(email) != str:
+        if type(email_dev) != str:
             return False
-        if email[-18:] != ".devmaua@gmail.com":
+        if email_dev[-18:] != ".devmaua@gmail.com":
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
-        return bool(re.fullmatch(regex, email))
+        return bool(re.fullmatch(regex, email_dev))
 
     @staticmethod
     def validate_name(name) -> bool:
@@ -180,4 +184,12 @@ class Member(abc.ABC):
             return False
         
         return True
-        
+    
+    @staticmethod
+    def validate_email(email) -> bool:
+        if email == None:
+            return False
+        if type(email) != str:
+            return False
+        regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+        return bool(re.fullmatch(regex, email))

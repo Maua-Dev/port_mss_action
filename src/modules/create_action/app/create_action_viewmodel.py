@@ -14,7 +14,7 @@ class ActionViewModel:
     title: str
     description: str
     project_code: str
-    associated_members_ra: List[str] = None
+    associated_members_ra: List[str] = []
     stack_tags: List[STACK]
     action_type_tag: ACTION_TYPE
     

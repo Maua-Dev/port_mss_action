@@ -71,11 +71,11 @@ class Test_CreateActionViewmodel:
        
         assert viewmodel == expected
 
-    def test_create_action_viewmodel_associated_members_is_none(self):
+    def test_create_action_viewmodel_associated_members_is_empty(self):
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', story_id=100, associated_members_ra=None, title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='82fc', story_id=100, associated_members_ra=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         viewmodel = CreateActionViewmodel(action=usecase(action=action)).to_dict()
         

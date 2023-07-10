@@ -221,7 +221,7 @@ class Test_CreateActionController:
         })
         
         response = controller(request)
-        assert response.status_code == 201
+        assert response.status_code == 400
     
     def test_create_action_controller_missing_end_date(self):
         

@@ -32,6 +32,8 @@ class CreateActionController:
                 raise MissingParameters('title')
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
+            if request.data.get('associated_members_ra') is None:
+                raise MissingParameters('associated_members_ra')
             
            
             if request.data.get('story_id') is not None:
@@ -61,6 +63,7 @@ class CreateActionController:
                 action_type_tag = ACTION_TYPE[action_type_tag_str]
             else:
                 action_type_tag = None
+
                    
             action = Action(
                 owner_ra=request.data.get('owner_ra'),
