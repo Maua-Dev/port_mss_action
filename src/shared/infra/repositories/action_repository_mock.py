@@ -108,7 +108,7 @@ class ActionRepositoryMock(IActionRepository):
             year=6,
             cellphone="11991759998",
             course=COURSE.ECM,
-            hired_date=1293036965000,
+            hired_date=1614567601000,
             active=ACTIVE.ACTIVE,
             projects=[
                 self.projects[0].code,
@@ -130,11 +130,11 @@ class ActionRepositoryMock(IActionRepository):
             year=4,
             cellphone="11991753208",
             course=COURSE.EMC,
-            hired_date=1545497765000,
+            hired_date=1614567601000,
             active=ACTIVE.DISCONNECTED,
             projects=[
             ],
-            deactivated_date=1577033765000
+            deactivated_date=1646103601000
             ),
             
             Member(
