@@ -1,6 +1,7 @@
 
 import abc
 from typing import List
+from pyparsing import Optional
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, EntityError
@@ -11,9 +12,9 @@ class Action(abc.ABC):
     end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
-    story_id: int = None
+    story_id: Optional[int] = None
     title: str
-    description: str = None
+    description: Optional[str] = None
     project_code: str
     associated_members_ra: List[str]
     stack_tags: List[STACK]
@@ -28,7 +29,7 @@ class Action(abc.ABC):
 
     
     
-    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: str = None, story_id: int = None):
+    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -53,10 +54,8 @@ class Action(abc.ABC):
                 raise EntityError('associated_members_ra')
             if len(associated_members_ra) != len(set(associated_members_ra)):
                 raise EntityError('associated_members_ra')
-            if len(associated_members_ra) > 0:
-                self.associated_members_ra = associated_members_ra
             else:
-                self.associated_members_ra = []
+                self.associated_members_ra = associated_members_ra
         else:
             raise EntityError('associated_members_ra')
         

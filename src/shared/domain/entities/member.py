@@ -1,6 +1,7 @@
 import abc
 import re
 from typing import List
+from pyparsing import Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -21,7 +22,7 @@ class Member(abc.ABC):
     cellphone: str
     course: COURSE
     hired_date: int # milliseconds
-    deactivated_date: int = None # milliseconds
+    deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     projects: List[str]
     MIN_NAME_LENGTH = 2
@@ -39,8 +40,8 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: int, 
                  active: ACTIVE,
-                 deactivated_date: int = None, 
-                 projects: List[str] = None
+                 deactivated_date: Optional[int] = None, 
+                 projects: Optional[List[str]] = None
                 ):
 
         if not Member.validate_name(name):
@@ -51,16 +52,13 @@ class Member(abc.ABC):
             raise EntityError('ra')
         self.ra = ra
 
-        if email_dev==email:
-            raise EntityError('email_dev and email')
-        else:        
-            if not Member.validate_email_dev(email_dev):
-                raise EntityError('email_dev')
-            self.email_dev = email_dev
+        if not Member.validate_email_dev(email_dev):
+            raise EntityError('email_dev')
+        self.email_dev = email_dev
 
-            if not Member.validate_email(email):
-                raise EntityError('email')
-            self.email = email
+        if not Member.validate_email(email):
+            raise EntityError('email')
+        self.email = email
         
         if type(role) != ROLE:
             raise EntityError("role")
@@ -83,10 +81,9 @@ class Member(abc.ABC):
         self.course = course
         
         if type(hired_date) == int:
-            if hired_date > 0:
-                self.hired_date = hired_date 
-            else:
+            if not 1000000000000 < hired_date < 10000000000000:
                 raise EntityError("hired_date")
+            self.hired_date = hired_date
         else:
             raise EntityError("hired_date")
             
@@ -106,9 +103,6 @@ class Member(abc.ABC):
                 self.projects = projects
         else:
             raise EntityError("projects")
-        
-        if hired_date < 0:
-                raise EntityError("hired_date")
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -117,7 +111,8 @@ class Member(abc.ABC):
                 raise EntityError("deactivated_date and hired_date") 
             if deactivated_date < 0:
                 raise EntityError("deactivated_date")
-            
+            if not 1000000000000 < deactivated_date < 10000000000000:
+                raise EntityError("deactivated_date")
             if active == ACTIVE.ACTIVE:
                 raise EntityError("active")
         self.deactivated_date = deactivated_date
