@@ -378,6 +378,10 @@ class ActionRepositoryMock(IActionRepository):
         self.associatedActions.append(associatedAction)
         return associatedAction
     
+    def create_project(self, project: Project) -> Project:
+        self.projects.append(project)
+        return project
+    
     def delete_project(self, code: str) -> Project:
         for i in range(len(self.projects)):
             if self.projects[i].code == code:

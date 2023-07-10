@@ -25,6 +25,14 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
+    def create_project(self, project: Project) -> Project:
+        '''
+        If project does not exist, creates it and returns it
+        else returns None
+        '''
+        pass
+    
+    @abstractmethod
     def delete_project(self, code: str) -> Optional[Project]:
         '''
         If project exists, deletes it and returns it

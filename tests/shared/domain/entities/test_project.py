@@ -17,6 +17,7 @@ class Test_Project():
                     'https://i.imgur.com/gHoRKJU.png']
         )
         assert type(project) == Project
+        assert project.photos != []
 
     def test_project_code_must_be_str(self):
         with pytest.raises(EntityError):
