@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Tuple
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
@@ -394,4 +394,18 @@ class ActionRepositoryMock(IActionRepository):
         for i in range(len(self.projects)):
             if self.projects[i].code == code:
                 return self.projects.pop(i)
+        return None
+
+    def get_members_by_project(self, project_code: str) -> List[Member]:
+        members = []
+        for member in self.members:
+            for code in member.projects:
+                if code == project_code:
+                    members.append(member)
+        return members
+    
+    def get_project(self, code: str) -> Tuple[Project, List[Member]] | None:
+        for project in self.projects:
+            if project.code == code:
+                return project, self.get_members_by_project(project.code)
         return None
