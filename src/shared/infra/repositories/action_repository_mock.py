@@ -412,3 +412,6 @@ class ActionRepositoryMock(IActionRepository):
     
     def get_all_projects(self) -> List[Project]:
         return self.projects
+    
+    def get_all_members(self) -> List[Member]:
+        return self.members

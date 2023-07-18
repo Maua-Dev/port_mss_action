@@ -67,3 +67,9 @@ class IActionRepository(ABC):
         Returns all projects
         '''
         pass
+    
+    def get_all_members(self) -> List[Member]:
+        '''
+        Returns all members
+        '''
+        pass
