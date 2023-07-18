@@ -70,14 +70,12 @@ class Test_ActionRepositoryMock:
 
     def test_get_members_by_project(self):
         repo = ActionRepositoryMock()
-        associated_members = repo.get_members_by_project(project_code='MF')
+        associated_members = repo.get_members_by_project('MF')
         assert type(associated_members) == list
-        assert len(associated_members) != 0
+        assert len(associated_members) == 3
         
     def test_get_project(self):
         repo = ActionRepositoryMock()
         project = repo.get_project(code='MF')
-        assert type(project) == tuple
-        assert project[0] == repo.projects[0]
-        assert type(project[1]) == list
-        assert project[1] == repo.get_members_by_project(project_code='MF')
+        assert type(project) == Project
+        assert project == repo.projects[0]

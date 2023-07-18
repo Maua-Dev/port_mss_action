@@ -21,4 +21,6 @@ class GetProjectUsecase:
         if project is None:
             raise NoItemsFound('code')
         
-        return project
+        tup = project, self.repo.get_members_by_project(code=code)
+        
+        return tup

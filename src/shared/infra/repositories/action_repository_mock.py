@@ -396,16 +396,16 @@ class ActionRepositoryMock(IActionRepository):
                 return self.projects.pop(i)
         return None
 
-    def get_members_by_project(self, project_code: str) -> List[Member]:
+    def get_members_by_project(self, code: str) -> List[Member]:
         members = []
         for member in self.members:
-            for code in member.projects:
-                if code == project_code:
+            for project_code in member.projects:
+                if project_code == code:
                     members.append(member)
         return members
     
-    def get_project(self, code: str) -> Optional[Tuple[Project, List[Member]]]:
+    def get_project(self, code: str) -> Project:
         for project in self.projects:
             if project.code == code:
-                return project, self.get_members_by_project(project.code)
+                return project
         return None

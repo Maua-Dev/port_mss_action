@@ -41,6 +41,14 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
+    def get_members_by_project(self, code: str) -> Optional[List[Member]]:
+        '''
+        Returns all members associated to the project with the given code, if any
+        else returns []
+        '''
+        pass
+    
+    @abstractmethod
     def get_project(self, code: str) -> Optional[Tuple[Project, List[Member]]]:
         '''
         If project exists, returns it with its members
