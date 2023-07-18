@@ -19,12 +19,6 @@ class GetProjectController:
             if request.data.get('code') is None:
                 raise MissingParameters('code')
             
-            if type(request.data.get('code')) is not str:
-                raise WrongTypeParameter('code', 'str', type(request.data.get('code')))
-            
-            if not Project.validate_project_code(request.data.get('code')):
-                raise EntityError('code')
-            
             project = self.usecase(request.data.get('code'))
             viewmodel = GetProjectViewmodel(project=project[0], members=project[1])
             return OK(viewmodel.to_dict())
