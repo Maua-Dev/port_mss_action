@@ -404,7 +404,7 @@ class ActionRepositoryMock(IActionRepository):
                     members.append(member)
         return members
     
-    def get_project(self, code: str) -> Tuple[Project, List[Member]] | None:
+    def get_project(self, code: str) -> Optional[Tuple[Project, List[Member]]]:
         for project in self.projects:
             if project.code == code:
                 return project, self.get_members_by_project(project.code)
