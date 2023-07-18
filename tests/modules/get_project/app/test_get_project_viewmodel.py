@@ -7,10 +7,10 @@ class Test_GetProjectViewmodel:
     def test_get_project_viewmodel(self):
         repo = ActionRepositoryMock()
         usecase = GetProjectUsecase(repo=repo)
-        project = usecase(code='MF')
+        project, members = usecase(code='MF')
 
         viewmodel = GetProjectViewmodel(
-            project=project[0], members=project[1]).to_dict()
+            project=project, members=members).to_dict()
 
         expected = {
             'project': {

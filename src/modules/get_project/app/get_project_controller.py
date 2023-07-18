@@ -19,8 +19,8 @@ class GetProjectController:
             if request.data.get('code') is None:
                 raise MissingParameters('code')
             
-            project = self.usecase(request.data.get('code'))
-            viewmodel = GetProjectViewmodel(project=project[0], members=project[1])
+            project, members = self.usecase(request.data.get('code'))
+            viewmodel = GetProjectViewmodel(project=project, members=members)
             return OK(viewmodel.to_dict())
         
         except MissingParameters as err:
