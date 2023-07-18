@@ -79,3 +79,8 @@ class Test_ActionRepositoryMock:
         project = repo.get_project(code='MF')
         assert type(project) == Project
         assert project == repo.projects[0]
+        
+    def test_get_all_projects(self):
+        repo = ActionRepositoryMock()
+        projects = repo.get_all_projects()
+        assert projects == repo.projects
