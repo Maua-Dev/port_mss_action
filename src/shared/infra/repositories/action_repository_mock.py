@@ -376,7 +376,7 @@ class ActionRepositoryMock(IActionRepository):
         
         return action
     
-    def get_action(self, action_id: str) -> Action:
+    def get_action(self, action_id: str) -> Optional[Action]:
         for action in self.actions:
             if action.action_id == action_id:
                 return action
@@ -386,7 +386,7 @@ class ActionRepositoryMock(IActionRepository):
         self.associatedActions.append(associatedAction)
         return associatedAction
     
-    def create_project(self, project: Project) -> Project:
+    def create_project(self, project: Project) -> Optional[Project]:
         self.projects.append(project)
         return project
     

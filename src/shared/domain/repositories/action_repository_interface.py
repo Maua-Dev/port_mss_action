@@ -17,18 +17,24 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def get_action(self, action_id: str) -> Action:
+    def get_action(self, action_id: str) -> Optional[Action]:
+        '''
+        If action exists, returns it
+        else returns None
+        '''
         pass
     
     @abstractmethod
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
+        '''
+        append associated_action to associated_actions
+        '''
         pass
     
     @abstractmethod
     def create_project(self, project: Project) -> Project:
         '''
         If project does not exist, creates it and returns it
-        else returns None
         '''
         pass
     
@@ -41,7 +47,7 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def get_members_by_project(self, code: str) -> Optional[List[Member]]:
+    def get_members_by_project(self, code: str) -> List[Member]:
         '''
         Returns all members associated to the project with the given code, if any
         else returns []
@@ -49,9 +55,9 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def get_project(self, code: str) -> Optional[Tuple[Project, List[Member]]]:
+    def get_project(self, code: str) -> Project:
         '''
-        If project exists, returns it with its members
+        If project exists, returns it
         else returns None
         '''
         pass
