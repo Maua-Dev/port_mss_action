@@ -67,3 +67,15 @@ class Test_ActionRepositoryMock:
         project = repo.delete_project(code='MF')
         assert len(repo.projects) == len_before - 1
         assert project.code == 'MF'
+
+    def test_get_members_by_project(self):
+        repo = ActionRepositoryMock()
+        associated_members = repo.get_members_by_project('MF')
+        assert type(associated_members) == list
+        assert len(associated_members) == 3
+        
+    def test_get_project(self):
+        repo = ActionRepositoryMock()
+        project = repo.get_project(code='MF')
+        assert type(project) == Project
+        assert project == repo.projects[0]
