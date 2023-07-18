@@ -61,3 +61,9 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
+    
+    def get_all_projects(self) -> List[Project]:
+        '''
+        Returns all projects
+        '''
+        pass

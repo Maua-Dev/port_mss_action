@@ -409,3 +409,6 @@ class ActionRepositoryMock(IActionRepository):
             if project.code == code:
                 return project
         return None
+    
+    def get_all_projects(self) -> List[Project]:
+        return self.projects
