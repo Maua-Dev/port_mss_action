@@ -13,7 +13,7 @@ class Test_Action:
             start_date=1577847600000,
             end_date=1577890800000,
             duration=10 * 60 * 60 * 1000,
-            action_id="1234",
+            action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
             story_id=100,
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -27,7 +27,7 @@ class Test_Action:
         assert action.owner_ra == "22011020"
         assert action.start_date == 1577847600000
         assert action.end_date == 1577890800000
-        assert action.action_id == "1234"
+        assert action.action_id == "a571c870-d7da-4a25-951c-2ca2d2398a14"
         assert action.story_id == 100
         assert action.associated_members_ra == ["22011021", "22011022"]
         assert action.title == "Teste"
@@ -42,7 +42,7 @@ class Test_Action:
             Action(
                 owner_ra="2201102",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -58,7 +58,7 @@ class Test_Action:
             Action(
                 owner_ra=22011020,
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -74,7 +74,7 @@ class Test_Action:
             Action(
                 owner_ra="vitor",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -90,7 +90,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date="2023-01-24",
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -106,7 +106,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577890800000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -122,7 +122,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577890800000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -138,7 +138,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="123",
+                action_id="1234",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -168,7 +168,7 @@ class Test_Action:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=None,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -179,13 +179,29 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
         assert action.story_id == None
+        
+    def test_action_action_id_not_uuid(self):
+        with pytest.raises(EntityError):
+            Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="fgh6s4xx266vnbgih97icvr0qhtsc7x99dgf",
+                story_id=None,
+                duration=10 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tag = ACTION_TYPE.CODE
+            )
 
     def test_action_story_id_not_int(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id="100",
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -201,7 +217,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=0,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -217,7 +233,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=1000000000,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -232,7 +248,7 @@ class Test_Action:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=[],
@@ -249,7 +265,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra="22011021",
@@ -265,7 +281,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "2201102"],
@@ -281,7 +297,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=[22011021, 22011022],
@@ -297,7 +313,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011020", "22011021"],
@@ -312,7 +328,7 @@ class Test_Action:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=[],
@@ -329,7 +345,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -345,7 +361,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -361,7 +377,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -376,7 +392,7 @@ class Test_Action:
         action = Action(
             owner_ra="22011020",
             start_date=1577847600000,
-            action_id="1234",
+            action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
             story_id=100,
             duration=10 * 60 * 60 * 1000,
             associated_members_ra=["22011021", "22011022"],
@@ -393,7 +409,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -410,7 +426,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -427,7 +443,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -444,7 +460,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -460,7 +476,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -477,7 +493,7 @@ class Test_Action:
         Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -493,7 +509,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -509,7 +525,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -525,7 +541,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -541,7 +557,7 @@ class Test_Action:
             Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],

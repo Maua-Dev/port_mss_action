@@ -1,6 +1,7 @@
 
 import abc
 from typing import List, Optional
+import uuid
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, EntityError
@@ -21,7 +22,7 @@ class Action(abc.ABC):
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 500
-    ACTION_ID_LENGTH = 4
+    ACTION_ID_LENGTH = 36
     PROJECT_CODE_LENGTH = 2
     MIN_STORY_ID = 1
     MAX_STORY_ID = 999999
@@ -117,7 +118,12 @@ class Action(abc.ABC):
             return False
         if len(action_id) != Action.ACTION_ID_LENGTH:
             return False
-        return True
+        try:
+            uuid.UUID(action_id)
+            return True
+        except ValueError:
+            return False
+
     
     @staticmethod
     def validate_story_id(story_id: int) -> bool:

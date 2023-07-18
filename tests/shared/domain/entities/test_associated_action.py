@@ -14,7 +14,7 @@ class Test_AssociatedAction:
             owner_ra="22011020",
             start_date=1577847600000,
             duration=3 * 60 * 60 * 1000, 
-            action_id="1234",
+            action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
             story_id= 100,
             associated_members_ra=["22011021", "22011022"],
             title="Teste",
@@ -33,7 +33,7 @@ class Test_AssociatedAction:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -50,7 +50,7 @@ class Test_AssociatedAction:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
@@ -67,7 +67,7 @@ class Test_AssociatedAction:
         action = Action(
                 owner_ra="22011020",
                 start_date=1577847600000,
-                action_id="1234",
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
                 duration=3 * 60 * 60 * 1000,
                 associated_members_ra=["22011021", "22011022"],
