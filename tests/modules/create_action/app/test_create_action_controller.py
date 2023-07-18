@@ -13,7 +13,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -30,7 +29,6 @@ class Test_CreateActionController:
         assert response.body['message'] == 'the action was created'
         assert response.body['action']['owner_ra'] == '17033730'
         assert response.body['action']['start_date'] == 1634526000000
-        assert response.body['action']['action_id'] == '82fc'
         assert response.body['action']['story_id'] == 100
         assert response.body['action']['title'] == 'Teste'
         assert response.body['action']['description'] == 'Apenas um teste'
@@ -40,29 +38,6 @@ class Test_CreateActionController:
         assert response.body['action']['stack_tags'] == ['BACKEND']
         assert response.body['action']['action_type_tag'] == 'CODE'
     
-    def test_create_action_controller_missing_action_id(self):
-        
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        controller = CreateActionController(usecase=usecase)
-        request = HttpRequest(body={
-            'owner_ra':'17033730',
-            'start_date':1634526000000,
-            'title':'Teste',
-            'description':'Apenas um teste',
-            'story_id': 100,
-            'end_date' : 1634533200000,
-            'duration' : 7200000,
-            'project_code':'MF',
-            'associated_members_ra':['19017310'],
-            'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE'
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field action_id is missing'
-    
     def test_create_action_controller_missing_owner_ra(self):
         
         repo = ActionRepositoryMock()
@@ -70,7 +45,6 @@ class Test_CreateActionController:
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -93,7 +67,6 @@ class Test_CreateActionController:
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
             'owner_ra':'17033730',
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -117,7 +90,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':'1634526000000',
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -141,7 +113,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'description':'Apenas um teste',
             'story_id': 100,
             'end_date' : 1634533200000,
@@ -164,7 +135,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -186,7 +156,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -209,7 +178,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -231,7 +199,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -254,7 +221,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -278,7 +244,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634533200000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -302,7 +267,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -325,7 +289,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -349,7 +312,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -373,7 +335,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -397,7 +358,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -421,7 +381,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -445,7 +404,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'title':'Teste',
             'description':'Apenas um teste',
             'end_date' : 1634533200000,
@@ -468,7 +426,6 @@ class Test_CreateActionController:
         request = HttpRequest(body={
             'owner_ra':'17033730',
             'start_date':1634526000000,
-            'action_id':'82fc',
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -483,30 +440,6 @@ class Test_CreateActionController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field action_type_tag is not valid'
-        
-    def test_create_action_controller_duplicated_action_id(self):
-        
-        repo = ActionRepositoryMock()
-        usecase = CreateActionUsecase(repo=repo)
-        controller = CreateActionController(usecase=usecase)
-        request = HttpRequest(body={
-            'owner_ra':'17033730',
-            'start_date':1634526000000,
-            'action_id':'9fc2',
-            'story_id': 100,
-            'title':'Teste',
-            'description':'Apenas um teste',
-            'end_date' : 1634533200000,
-            'duration' : 7200000,
-            'project_code':'MF',
-            'associated_members_ra':['19017310'],
-            'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE'
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'The item alredy exists for this action_id'
 
     def test_create_action_controller_duplicated_associated_members_ra(self):
         
@@ -540,7 +473,7 @@ class Test_CreateActionController:
             request = HttpRequest(body={
                 'owner_ra':'17033730',
                 'start_date':1634526000000,
-                'action_id':'82fc',
+
                 'story_id':'100',
                 'title':'Teste',
                 'end_date' : 1634533200000,

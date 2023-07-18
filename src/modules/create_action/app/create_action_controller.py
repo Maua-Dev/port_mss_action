@@ -26,8 +26,6 @@ class CreateActionController:
                 raise MissingParameters('end_date')
             if request.data.get('duration') is None:
                 raise MissingParameters('duration')
-            if request.data.get('action_id') is None:
-                raise MissingParameters('action_id')
             if request.data.get('title') is None:
                 raise MissingParameters('title')
             if request.data.get('project_code') is None:
@@ -65,12 +63,11 @@ class CreateActionController:
                 action_type_tag = None
 
                    
-            action = Action(
+            action = self.usecase(
                 owner_ra=request.data.get('owner_ra'),
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
-                action_id=request.data.get('action_id'),
                 story_id=request.data.get('story_id'),
                 title=request.data.get('title'),
                 description=request.data.get('description'),
@@ -80,7 +77,7 @@ class CreateActionController:
                 action_type_tag=action_type_tag
             )
             
-            viewmodel = CreateActionViewmodel(action=self.usecase(action=action))
+            viewmodel = CreateActionViewmodel(action=action)
             
             return Created(viewmodel.to_dict())
         

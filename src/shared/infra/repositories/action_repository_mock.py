@@ -369,11 +369,6 @@ class ActionRepositoryMock(IActionRepository):
 
     def create_action(self, action: Action) -> Action:
         self.actions.append(action)
-        self.create_associated_action(AssociatedAction(action.owner_ra, action))
-        if action.associated_members_ra is not None:
-            for ra in action.associated_members_ra:
-                self.create_associated_action(AssociatedAction(ra, action))
-        
         return action
     
     def get_action(self, action_id: str) -> Optional[Action]:
