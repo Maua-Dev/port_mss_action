@@ -84,3 +84,9 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         projects = repo.get_all_projects()
         assert projects == repo.projects
+
+    def test_get_member(self):
+        repo = ActionRepositoryMock()
+        member = repo.get_member(ra='21017310')
+        assert type(member) == Member
+        assert member == repo.members[0]
