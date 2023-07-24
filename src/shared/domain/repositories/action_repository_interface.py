@@ -61,6 +61,14 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
+
+    @abstractmethod
+    def update_project(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []) -> Project:
+        '''
+        If project exists, updates it and returns it
+        else returns None
+        '''
+        pass
     
     def get_all_projects(self) -> List[Project]:
         '''
