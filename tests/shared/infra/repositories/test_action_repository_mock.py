@@ -75,3 +75,19 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         projects = repo.get_all_projects()
         assert projects == repo.projects
+
+    def test_update_project(self):
+        repo = ActionRepositoryMock()
+        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459', new_start_date=1634526000000)
+        assert type(project) == Project
+        assert project.name == 'Teste'
+        assert project.description == 'Teste'
+        assert project.po_RA == '20006116'
+        assert project.scrum_RA == '21001459'
+        assert project.start_date == 1634526000000
+
+    def test_update_project_not_found(self):
+        repo = ActionRepositoryMock()
+        project = repo.update_project(code='DM', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459', new_start_date=1634526000000)
+        assert project is None
+
