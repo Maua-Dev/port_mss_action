@@ -36,7 +36,7 @@ class Test_ActionRepositoryMock:
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
         action = Action(owner_ra='17033730', start_date=1634526000000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
-        associatedAction = AssociatedAction(member_ra='12345678', action=action)
+        associatedAction = AssociatedAction(member_ra='12345678', action_id=action.action_id)
         len_before = len(repo.associatedActions)
         
         new_associated_action = repo.create_associated_action(associatedAction=associatedAction)

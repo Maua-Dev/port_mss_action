@@ -24,10 +24,10 @@ class Test_AssociatedAction:
             action_type_tag= ACTION_TYPE.CODE
         )
 
-        associated_action = AssociatedAction(member_ra="22011020", action=action)        
+        associated_action = AssociatedAction(member_ra="22011020", action_id=action.action_id)        
         
         assert associated_action.member_ra == "22011020"
-        assert associated_action.action == action
+        assert associated_action.action_id == action.action_id
         
     def test_associated_action_member_ra_not_string(self):
         action = Action(
@@ -44,7 +44,7 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra=22011020, action=action)
+            AssociatedAction(member_ra=22011020, action_id=action.action_id)
     
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
@@ -61,7 +61,7 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="vitor", action=action)
+            AssociatedAction(member_ra="vitor", action_id=action.action_id)
             
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
@@ -78,12 +78,10 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action=action)
+            AssociatedAction(member_ra="2201102", action_id=action.action_id)
 
-    def test_associated_action_action_must_be_Action(self):
+    def test_associated_action_action_id_must_be_uuid(self):
         action = 1
         
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action=action)
-    
-        
+            AssociatedAction(member_ra="2201102", action_id=action)

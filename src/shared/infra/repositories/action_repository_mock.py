@@ -323,47 +323,47 @@ class ActionRepositoryMock(IActionRepository):
         self.associatedActions = [
             AssociatedAction(
                 member_ra=self.members[0].ra,
-                action=self.actions[0]
+                action_id=self.actions[0].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[1].ra,
-                action=self.actions[1]
+                action_id=self.actions[1].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[2].ra,
-                action=self.actions[1]
+                action_id=self.actions[1].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[0].ra,
-                action=self.actions[1]
+                action_id=self.actions[1].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[3].ra,
-                action=self.actions[2]
+                action_id=self.actions[2].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[2].ra,
-                action=self.actions[2]
+                action_id=self.actions[2].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[3].ra,
-                action=self.actions[3]
+                action_id=self.actions[3].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[0].ra,
-                action=self.actions[4]
+                action_id=self.actions[4].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[5].ra,
-                action=self.actions[5]
+                action_id=self.actions[5].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[0].ra,
-                action=self.actions[6]
+                action_id=self.actions[6].action_id
             ),
             AssociatedAction(
                 member_ra=self.members[4].ra,
-                action=self.actions[7]
+                action_id=self.actions[7].action_id
             ),
         ]
 
