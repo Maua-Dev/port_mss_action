@@ -18,10 +18,10 @@ class CreateActionUsecase:
         action = Action(owner_ra, start_date, stack_tags, end_date, duration, action_id, title, project_code, action_type_tag, associated_members_ra, description, story_id)        
         
         self.repo.create_action(action)
-        self.repo.create_associated_action(AssociatedAction(owner_ra, action_id))
+        self.repo.create_associated_action(AssociatedAction(owner_ra, action_id, start_date))
         if action.associated_members_ra:
             for ra in action.associated_members_ra:
-                associated_action = AssociatedAction(ra, action_id)
+                associated_action = AssociatedAction(ra, action_id, start_date)
                 self.repo.create_associated_action(associated_action)
         
         return action

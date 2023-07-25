@@ -6,8 +6,9 @@ from src.shared.domain.entities.action import Action
 class AssociatedAction(abc.ABC):
     member_ra: str
     action_id: str
+    start_date: int
 
-    def __init__(self, member_ra: str, action_id: str):
+    def __init__(self, member_ra: str, action_id: str, start_date: int):
         if not AssociatedAction.validate_ra(member_ra):
             raise EntityError("ra")
         self.member_ra = member_ra
@@ -15,6 +16,10 @@ class AssociatedAction(abc.ABC):
         if not AssociatedAction.validate_action_id(action_id):
             raise EntityError("action_id")
         self.action_id = action_id
+        
+        if type(start_date) != int:
+            raise EntityError("start_date")
+        self.start_date = start_date
 
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -22,7 +27,7 @@ class AssociatedAction(abc.ABC):
             return False
         
         if type(ra) != str:
-            raise EntityParameterTypeError("ra must be a string")
+            return False
 
         return ra.isdecimal() and len(ra) == 8
     
