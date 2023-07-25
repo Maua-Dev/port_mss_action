@@ -73,3 +73,11 @@ class IActionRepository(ABC):
         Returns all members
         '''
         pass
+
+    @abstractmethod
+    def get_member(self, ra: str) -> Member:
+        '''
+        If member exists, returns it
+        else returns None
+        '''
+        pass
