@@ -405,7 +405,7 @@ class ActionRepositoryMock(IActionRepository):
                 return project
         return None
     
-    def update_project(self, code: str, new_name: str = None, new_description: str = None, new_po_RA: str = None, new_scrum_RA: str = None, new_start_date: int = None, new_photos: List[str] = None) -> Project:
+    def update_project(self, code: str, new_name: str = None, new_description: str = None, new_po_RA: str = None, new_scrum_RA: str = None, new_photos: List[str] = None) -> Project:
         for project in self.projects:
             if project.code == code:
                 if new_name is not None:
@@ -416,8 +416,6 @@ class ActionRepositoryMock(IActionRepository):
                     project.po_RA = new_po_RA
                 if new_scrum_RA is not None:
                     project.scrum_RA = new_scrum_RA
-                if new_start_date is not None:
-                    project.start_date = new_start_date
                 if new_photos is not None:
                     project.photos = new_photos
 
