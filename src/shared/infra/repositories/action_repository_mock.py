@@ -428,3 +428,9 @@ class ActionRepositoryMock(IActionRepository):
     
     def get_all_members(self) -> List[Member]:
         return self.members
+    
+    def get_member(self, ra: str) -> Member:
+        for member in self.members:
+            if member.ra == ra:
+                return member
+        return None
