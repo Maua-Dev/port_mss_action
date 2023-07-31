@@ -36,7 +36,9 @@ class Action(abc.ABC):
         self.owner_ra = owner_ra
         
         if type(start_date) != int:
-            raise EntityError('start_date')
+            raise EntityError("start_date")
+        if not 1000000000000 < start_date < 10000000000000:
+            raise EntityError("start_date")
         self.start_date = start_date
         
         if not self.validate_action_id(action_id):
@@ -68,9 +70,9 @@ class Action(abc.ABC):
         self.description = description
         
         if type(end_date) != int:
-            raise EntityError('end_date')
-        if end_date < start_date:
-            raise EntityError('start_date and end_date')
+            raise EntityError("end_date")
+        if not 1000000000000 < end_date < 10000000000000:
+            raise EntityError("end_date")
         self.end_date = end_date
         
         if not self.validate_duration(duration, start_date, end_date):

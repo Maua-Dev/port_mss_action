@@ -19,6 +19,8 @@ class AssociatedAction(abc.ABC):
         
         if type(start_date) != int:
             raise EntityError("start_date")
+        if not 1000000000000 < start_date < 10000000000000:
+            raise EntityError("start_date")
         self.start_date = start_date
 
     @staticmethod
