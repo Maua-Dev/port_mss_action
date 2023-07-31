@@ -23,7 +23,7 @@ class Member(abc.ABC):
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
-    projects: List[str]
+    projects: Optional[List[str]]
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
 
