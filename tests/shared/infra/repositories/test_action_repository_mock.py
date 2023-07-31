@@ -81,3 +81,19 @@ class Test_ActionRepositoryMock:
         member = repo.get_member(ra='21017310')
         assert type(member) == Member
         assert member == repo.members[0]
+        
+    def test_get_associated_actions_by_ra(self):
+        repo = ActionRepositoryMock()
+        associated_actions = repo.get_associated_actions_by_ra(ra='23017310')
+        assert type(associated_actions) == list
+        assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
+        assert all([associated_action.member_ra == '23017310' for associated_action in associated_actions])
+        
+    def test_batch_get_action(self):
+        repo = ActionRepositoryMock()
+        actions = repo.batch_get_action(action_ids=[repo.actions[0].action_id, repo.actions[1].action_id])
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert len(actions) == 2
+        assert actions[0] == repo.actions[0]
+        assert actions[1] == repo.actions[1]
