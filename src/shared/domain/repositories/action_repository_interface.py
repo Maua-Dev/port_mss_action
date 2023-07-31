@@ -83,7 +83,7 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def get_associated_actions_by_ra(self, ra: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
         '''
         Returns all associated_actions of the member with the given ra in between start and end sorted by date, if any
         else returns []
