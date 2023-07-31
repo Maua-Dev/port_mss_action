@@ -594,9 +594,9 @@ class ActionRepositoryMock(IActionRepository):
         associated_actions = sorted(self.associatedActions, key=lambda x: x.start_date, reverse=True)
         if exclusive_start_key:
             action0 = associated_actions[0]
-            while action0.action_id != exclusive_start_key:
+            while action0 != None and action0.action_id != exclusive_start_key:
                 associated_actions.pop(0)
-                action0 = associated_actions[0]
+                action0 = associated_actions[0] if len(associated_actions) > 0 else None
         if start:
             associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
         if end:
