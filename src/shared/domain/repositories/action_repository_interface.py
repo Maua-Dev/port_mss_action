@@ -85,8 +85,8 @@ class IActionRepository(ABC):
     @abstractmethod
     def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
         '''
-        Returns all associated_actions of the member with the given ra in between start and end sorted by date, if any
-        else returns []
+        Retrieves all associated actions of a member, filtered by an optional time range specified by start and end parameters. The method allows for pagination using the exclusive_start_key parameter to determine the starting point of the action list, and the amount parameter to determine the maximum number of actions to be retrieved.
+        If no actions are found, returns []
         '''
         pass
     

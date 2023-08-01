@@ -1,10 +1,5 @@
 from typing import Optional
-import uuid
-from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
-from src.shared.helpers.errors.controller_errors import WrongTypeParameter
-from src.shared.domain.entities.member import Member
-from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 
 
