@@ -13,34 +13,6 @@ class GetHistoryUsecase:
         self.repo = repo
         
     def __call__(self, ra: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None, amount: Optional[int] = 20):
-        if type(ra) is not str:
-            raise WrongTypeParameter('ra', 'str', type(ra))
-        
-        if not Member.validate_ra(ra):
-            raise EntityError('ra')
-        
-        if start:
-            if type(start) is not int:
-                raise WrongTypeParameter('start', 'int', type(start))
-            if not 1000000000000 < start < 10000000000000:
-                raise EntityError('start')
-        if end:
-            if type(end) is not int:
-                raise WrongTypeParameter('end', 'int', type(end))
-            if not 1000000000000 < end < 10000000000000:
-                raise EntityError('end')
-        if start and end:
-            if start > end:
-                raise EntityError('start')
-        if exclusive_start_key:
-            if not AssociatedAction.validate_action_id(exclusive_start_key):
-                raise EntityError('exclusive_start_key')
-                
-            
-        if type(amount) is not int:
-            raise WrongTypeParameter('amount', 'int', type(amount))
-        if amount < 1:
-            raise EntityError('amount')
         
         associated_actions = self.repo.get_associated_actions_by_ra(ra=ra, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
         
