@@ -42,3 +42,59 @@ class LambdaStack(Construct):
             mss_member_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
+        
+        self.create_member_function = self.create_lambda_api_gateway_integration(
+            module_name="create_member",
+            method="POST",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.create_project_function = self.create_lambda_api_gateway_integration(
+            module_name="create_project",
+            method="POST",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.delete_project_function = self.create_lambda_api_gateway_integration(
+            module_name="delete_project",
+            method="DELETE",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.get_all_actions_by_ra_function = self.create_lambda_api_gateway_integration(
+            module_name="get_all_actions_by_ra",
+            method="GET",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.get_all_projects_function = self.create_lambda_api_gateway_integration(
+            module_name="get_all_projects",
+            method="GET",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.get_history_function = self.create_lambda_api_gateway_integration(
+            module_name="get_history",
+            method="GET",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.get_member_function = self.create_lambda_api_gateway_integration(
+            module_name="get_member",
+            method="GET",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.get_project_function = self.create_lambda_api_gateway_integration(
+            module_name="get_project",
+            method="GET",
+            mss_member_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
