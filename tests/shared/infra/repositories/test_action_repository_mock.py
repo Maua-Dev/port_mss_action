@@ -89,4 +89,9 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         project = repo.update_project(code='DM', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459')
         assert project is None
-
+        
+    def test_get_member(self):
+        repo = ActionRepositoryMock()
+        member = repo.get_member(ra='21017310')
+        assert type(member) == Member
+        assert member == repo.members[0]
