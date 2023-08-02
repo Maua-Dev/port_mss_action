@@ -13,32 +13,23 @@ class UpdateProjectController:
 
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if not request.data.get('code'):
+            code = request.data.get('code')
+            new_name = request.data.get('new_name')
+            new_description = request.data.get('new_description')
+            new_po_RA = request.data.get('new_po_RA')
+            new_scrum_RA = request.data.get('new_scrum_RA')
+            new_photos = request.data.get('new_photos')
+
+            if code is None:
                 raise MissingParameters('code')
             
-            if request.data.get('new_name') is None:
-                raise MissingParameters('new_name')
-            
-            if request.data.get('new_description') is None:
-                raise MissingParameters('new_description')
-            
-            if request.data.get('new_po_RA') is None:
-                raise MissingParameters('new_po_RA')
-            
-            if request.data.get('new_scrum_RA') is None:
-                raise MissingParameters('new_scrum_RA')
-            
-            if request.data.get('new_photos') is None:
-                raise MissingParameters('new_photos')
-            
-
             update_project = self.UpdateProjectUsecase(
-                code = request.data.get('code'),
-                new_name = request.data.get('new_name'),
-                new_description = request.data.get('new_description'),
-                new_po_RA = request.data.get('new_po_RA'),
-                new_scrum_RA = request.data.get('new_scrum_RA'),
-                new_photos = request.data.get('new_photos')
+                code=code,
+                new_name=new_name if new_name is not None else None,
+                new_description=new_description if new_description is not None else None,
+                new_po_RA=new_po_RA if new_po_RA is not None else None,
+                new_scrum_RA=new_scrum_RA if new_scrum_RA is not None else None,
+                new_photos=new_photos if new_photos is not None else None
             )
 
             viewmodel = UpdateProjectViewmodel(update_project)
