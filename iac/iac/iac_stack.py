@@ -16,9 +16,9 @@ class IacStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        self.rest_api = RestApi(self, "Portfolio_RestApi",
-                                rest_api_name="Portfolio_RestApi",
-                                description="This is the Portfolio RestApi",
+        self.rest_api = RestApi(self, "PortalInterno_RestApi",
+                                rest_api_name="PortalInterno_RestApi",
+                                description="This is the Portal Interno RestApi",
                                 default_cors_preflight_options=
                                 {
                                     "allow_origins": Cors.ALL_ORIGINS,

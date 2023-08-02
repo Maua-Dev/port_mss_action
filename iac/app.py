@@ -14,6 +14,6 @@ print("Finished adjusting the layer directory")
 
 
 app = cdk.App()
-IacStack(app, "PortfolioStack-Dev", env=cdk.Environment(account='264055331071', region='sa-east-1'))
+IacStack(app, "PortalInternoStack-Dev", env=cdk.Environment(account='264055331071', region='sa-east-1'))
 
 app.synth()
