@@ -257,7 +257,7 @@ class Test_CreateActionController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field start_date and end_date is not valid'
+        assert response.body == 'Field duration is not valid'
     
     def test_create_action_controller_missing_duration(self):
                 

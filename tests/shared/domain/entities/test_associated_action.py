@@ -24,10 +24,11 @@ class Test_AssociatedAction:
             action_type_tag= ACTION_TYPE.CODE
         )
 
-        associated_action = AssociatedAction(member_ra="22011020", action=action)        
+        associated_action = AssociatedAction(member_ra="22011020", action_id=action.action_id, start_date=action.start_date)        
         
         assert associated_action.member_ra == "22011020"
-        assert associated_action.action == action
+        assert associated_action.action_id == action.action_id
+        assert associated_action.start_date == action.start_date
         
     def test_associated_action_member_ra_not_string(self):
         action = Action(
@@ -44,7 +45,7 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra=22011020, action=action)
+            AssociatedAction(member_ra=22011020, action_id=action.action_id, start_date=action.start_date)
     
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
@@ -61,7 +62,7 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="vitor", action=action)
+            AssociatedAction(member_ra="vitor", action_id=action.action_id, start_date=action.start_date)
             
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
@@ -78,12 +79,25 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action=action)
+            AssociatedAction(member_ra="2201102", action_id=action.action_id, start_date=action.start_date)
 
-    def test_associated_action_action_must_be_Action(self):
-        action = 1
-        
+    def test_associated_action_action_id_must_be_uuid(self):
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action=action)
-    
-        
+            AssociatedAction(member_ra="2201102", action_id=1, start_date=1577847600000)
+            
+    def test_associated_action_start_date_not_int(self):
+        action = Action(
+                owner_ra="22011020",
+                start_date=1577847600000,
+                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
+                story_id= 100,
+                duration=3 * 60 * 60 * 1000,
+                associated_members_ra=["22011021", "22011022"],
+                title="Teste",
+                end_date=1577890800000,
+                project_code="TS",
+                stack_tags = [STACK.BACKEND],
+                action_type_tag= ACTION_TYPE.CODE
+        )
+        with pytest.raises(EntityError):
+            AssociatedAction(member_ra="22011020", action_id=action.action_id, start_date="1577847600000")

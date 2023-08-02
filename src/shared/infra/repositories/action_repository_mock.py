@@ -10,6 +10,7 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.entities.member import Member
 
+
 class ActionRepositoryMock(IActionRepository):
     members: List[Member]
     projects: List[Project]
@@ -26,7 +27,7 @@ class ActionRepositoryMock(IActionRepository):
                 scrum_RA="21010757",
                 start_date=1634576165000,
                 photos=["https://i.imgur.com/gHoRKJU.png"]
-                ),
+            ),
             Project(
                 code="PT",
                 name="Portfólio",
@@ -61,330 +62,502 @@ class ActionRepositoryMock(IActionRepository):
                 start_date=1672585200000
             )
         ]
-        
+
         self.members = [
             Member(
-            name="Vitor Guirão MPNTM",
-            email_dev="vsoller.devmaua@gmail.com",
-            email="vsoller@airubio.com",
-            ra="21017310",
-            role=ROLE.DIRECTOR,
-            stack=STACK.INFRA,
-            year=1,
-            cellphone="11991758098",
-            course=COURSE.ECA,
-            hired_date=1634576165000,
-            active=ACTIVE.ACTIVE,
-            projects=[
-                self.projects[0].code
-            ]
+                name="Vitor Guirão MPNTM",
+                email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=1634576165000,
+                active=ACTIVE.ACTIVE,
+                projects=[
+                    self.projects[0].code
+                ]
             ),
-            
-            Member(
-            name="Joao Branco",
-            email_dev="jbranco.devmaua@gmail.com",
-            email="jbranco@gmail.com",
-            ra="21010757",
-            role=ROLE.HEAD,
-            stack=STACK.BACKEND,
-            year=3,
-            cellphone="11991152348",
-            course=COURSE.ECM,
-            hired_date=1634921765000,
-            active=ACTIVE.ACTIVE,
-            projects=[
-                self.projects[0].code,
-                self.projects[1].code,
-                self.projects[2].code
-            ]
-            ),
-            
-            Member(
-            name="Luigi Televisão",
-            email_dev="ltelevisao.devmaua@gmail.com",
-            email="lgtv@gmail.com",
-            ra="22017310",
-            role=ROLE.DEV,
-            stack=STACK.DATA_SCIENCE,
-            year=2,
-            cellphone="11991758228",
-            course=COURSE.CIC,
-            hired_date=1640192165000,
-            active=ACTIVE.FREEZE,
-            projects=[
-            ]
-            ),
-            
-            Member(
-            name="Little Ronald",
-            email_dev="lronald.devmaua@gmail.com",
-            email="lronald@gmail.com",
-            ra="10017310",
-            role=ROLE.DIRECTOR,
-            stack=STACK.FRONTEND,
-            year=6,
-            cellphone="11991759998",
-            course=COURSE.ECM,
-            hired_date=1614567601000,
-            active=ACTIVE.ACTIVE,
-            projects=[
-                self.projects[0].code,
-                self.projects[1].code,
-                self.projects[2].code,
-                self.projects[3].code
-            
 
-            ]
-            ),
-            
             Member(
-            name="Marcos Pereira Neto",
-            email_dev="mneto.devmaua@gmail.com",
-            email="mneto@gmail.com",
-            ra="19017310",
-            role=ROLE.PO,
-            stack=STACK.PO,
-            year=4,
-            cellphone="11991753208",
-            course=COURSE.EMC,
-            hired_date=1614567601000,
-            active=ACTIVE.DISCONNECTED,
-            projects=[
-            ],
-            deactivated_date=1646103601000
+                name="Joao Branco",
+                email_dev="jbranco.devmaua@gmail.com",
+                email="jbranco@gmail.com",
+                ra="21010757",
+                role=ROLE.HEAD,
+                stack=STACK.BACKEND,
+                year=3,
+                cellphone="11991152348",
+                course=COURSE.ECM,
+                hired_date=1634921765000,
+                active=ACTIVE.ACTIVE,
+                projects=[
+                    self.projects[0].code,
+                    self.projects[1].code,
+                    self.projects[2].code
+                ]
             ),
-            
+
             Member(
-            name="Rubicks Cube",
-            email_dev="rcube.devmaua@gmail.com",
-            email="rubikscube@gmail.com",
-            ra="19017311",
-            role=ROLE.DEV,
-            stack=STACK.BACKEND,
-            year=3,
-            cellphone="11911758098",
-            course=COURSE.ECM,
-            hired_date=1640192165000,
-            active=ACTIVE.ACTIVE,
-            projects=[
-                self.projects[3].code,
-                self.projects[2].code
-            ]
+                name="Luigi Televisão",
+                email_dev="ltelevisao.devmaua@gmail.com",
+                email="lgtv@gmail.com",
+                ra="22017310",
+                role=ROLE.DEV,
+                stack=STACK.DATA_SCIENCE,
+                year=2,
+                cellphone="11991758228",
+                course=COURSE.CIC,
+                hired_date=1640192165000,
+                active=ACTIVE.FREEZE,
+                projects=[
+                ]
             ),
-            
+
             Member(
-            name="Django Fett",
-            email_dev="dfett.devmaua@gmail.com",
-            email="djangofett@starwars.com",
-            ra="17033730",
-            role=ROLE.INTERNAL,
-            stack=STACK.INTERNAL,
-            year=2,
-            cellphone="11915758098",
-            course=COURSE.ECA,
-            hired_date=1609606565000,
-            active=ACTIVE.FREEZE,
-            projects=[
-            ]
+                name="Little Ronald",
+                email_dev="lronald.devmaua@gmail.com",
+                email="lronald@gmail.com",
+                ra="10017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.FRONTEND,
+                year=6,
+                cellphone="11991759998",
+                course=COURSE.ECM,
+                hired_date=1614567601000,
+                active=ACTIVE.ACTIVE,
+                projects=[
+                    self.projects[0].code,
+                    self.projects[1].code,
+                    self.projects[2].code,
+                    self.projects[3].code
+
+
+                ]
             ),
-            
+
             Member(
-            name="Henrique Gustavo de Souza",
-            email_dev="hsouza.devmaua@gmail.com",
-            email="hsouza@gmail.com",
-            ra="23017310",
-            role=ROLE.DEV,
-            stack=STACK.UX_UI,
-            year=1,
-            cellphone="11991123498",
-            course=COURSE.ECM,
-            hired_date=1672592165000,
-            active=ACTIVE.ACTIVE,
-            projects=[
-            ]
+                name="Marcos Pereira Neto",
+                email_dev="mneto.devmaua@gmail.com",
+                email="mneto@gmail.com",
+                ra="19017310",
+                role=ROLE.PO,
+                stack=STACK.PO,
+                year=4,
+                cellphone="11991753208",
+                course=COURSE.EMC,
+                hired_date=1614567601000,
+                active=ACTIVE.DISCONNECTED,
+                projects=[
+                ],
+                deactivated_date=1646103601000
+            ),
+
+            Member(
+                name="Rubicks Cube",
+                email_dev="rcube.devmaua@gmail.com",
+                email="rubikscube@gmail.com",
+                ra="19017311",
+                role=ROLE.DEV,
+                stack=STACK.BACKEND,
+                year=3,
+                cellphone="11911758098",
+                course=COURSE.ECM,
+                hired_date=1640192165000,
+                active=ACTIVE.ACTIVE,
+                projects=[
+                    self.projects[3].code,
+                    self.projects[2].code
+                ]
+            ),
+
+            Member(
+                name="Django Fett",
+                email_dev="dfett.devmaua@gmail.com",
+                email="djangofett@starwars.com",
+                ra="17033730",
+                role=ROLE.INTERNAL,
+                stack=STACK.INTERNAL,
+                year=2,
+                cellphone="11915758098",
+                course=COURSE.ECA,
+                hired_date=1609606565000,
+                active=ACTIVE.FREEZE,
+                projects=[
+                ]
+            ),
+
+            Member(
+                name="Henrique Gustavo de Souza",
+                email_dev="hsouza.devmaua@gmail.com",
+                email="hsouza@gmail.com",
+                ra="23017310",
+                role=ROLE.DEV,
+                stack=STACK.UX_UI,
+                year=1,
+                cellphone="11991123498",
+                course=COURSE.ECM,
+                hired_date=1672592165000,
+                active=ACTIVE.ACTIVE,
+                projects=[
+                ]
             )
         ]
-        
+
         self.actions = [
-            Action(
-                owner_ra=self.members[0].ra,
-                start_date=1634526000000,
-                end_date=1634533200000,
-                duration=7200000,
-                action_id="20876e6b-d06d-439e-a939-a47a428e1c5e",
-                story_id=100,
-                associated_members_ra=[],
-                title="Reunião de Diretoria",
-                description="Reunião de diretoria para discutir sobre o futuro do DEV",
-                project_code=self.projects[0].code,
-                stack_tags=[STACK.INTERNAL],
-                action_type_tag=ACTION_TYPE.MEETING
-            ),
-            
-            Action(
-                owner_ra=self.members[1].ra,
-                start_date=1635044400000,
-                end_date=1635060600000,
-                duration=7200000,
-                action_id="7aebb724-ec15-4075-87ad-3cac20ba99f7",
-                story_id=100,
-                associated_members_ra=[self.members[0].ra, self.members[2].ra],
-                title="Code",
-                description="Codando o site do DEV",
-                project_code=self.projects[1].code,
-                stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tag=ACTION_TYPE.CODE
-            ),
-            Action(
-                owner_ra=self.members[2].ra,
-                start_date=1636081200000,
-                end_date=1636086600000,
-                duration=5400000,
-                action_id="dd34c4eb-7d80-4c81-a0ce-65cb80e9b09f",
-                story_id=100,
-                associated_members_ra=[self.members[3].ra],
-                title="Design",
-                description="Criando o design do site do DEV",
-                project_code=self.projects[2].code,
-                stack_tags=[STACK.UX_UI],
-                action_type_tag=ACTION_TYPE.DESIGN
-            ),
-            
-            Action(
-                owner_ra=self.members[3].ra,
-                start_date=1636081200000,
-                end_date=1636083000000,
-                duration=1800000,
-                action_id="dcf34559-c2cd-4f98-abb9-1166818c4fd1",
-                story_id=100,
-                associated_members_ra=[],
-                title="Estudo",
-                project_code=self.projects[2].code,
-                stack_tags=[STACK.INTERNAL],
-                action_type_tag=ACTION_TYPE.LEARN
-            ),
-            Action(
-                owner_ra=self.members[0].ra,
-                start_date=1634526000000,
-                end_date=1634529600000,
-                duration=3600000,
-                action_id="bc873180-b3f1-43d9-b3d1-6fcfb843b612",
-                story_id=100,
-                associated_members_ra=[],
-                title="Code",
-                project_code=self.projects[0].code,
-                stack_tags=[STACK.BACKEND],
-                action_type_tag=ACTION_TYPE.CODE
-            ),
-            
-            Action(
-                owner_ra=self.members[5].ra,
-                start_date=1634526000000,
-                end_date=1634529600000,
-                duration=3600000,
-                action_id="0f1b60e5-2171-4cb6-9538-b67e3b58622a",
-                story_id=100,
-                associated_members_ra=[],
-                title="Reunião",
-                project_code=self.projects[0].code,
-                stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tag=ACTION_TYPE.CODE
-            ),
-            Action(
-                owner_ra=self.members[0].ra,
-                start_date=1666062000000,
-                end_date=1666065600000,
-                duration=3600000,
-                action_id="3af810f9-094e-4d7c-ac34-80be80fc271b",
-                story_id=100,
-                associated_members_ra=[],
-                title="Reunião",
-                project_code=self.projects[0].code,
-                stack_tags=[STACK.BACKEND, STACK.FRONTEND],
-                action_type_tag=ACTION_TYPE.CODE
-            ),
-            
-            Action(
-                owner_ra=self.members[4].ra,
-                start_date=1634526000000,
-                end_date=1634562000000,
-                duration=3600000,
-                action_id='85db77bb-ea3d-4a09-b9b5-017b3a87653c',
-                story_id=100,
-                associated_members_ra=[],
-                title="Hackathon",
-                project_code=self.projects[0].code,
-                stack_tags=[STACK.BACKEND],
-                action_type_tag=ACTION_TYPE.CODE
-            ),
-            
-            
+            Action(owner_ra="10017310",
+                   action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
+                   story_id=94,
+                   associated_members_ra=[
+                       "23017310",
+                       "21010757",
+                       "22017310",
+                       "21017310",
+                       "19017310",
+                       "19017311"
+                   ],
+                   stack_tags=[
+                       STACK.INFRA
+                   ],
+                   action_type_tag=ACTION_TYPE.CODEREVIEW,
+                   project_code="PT",
+                   title="Retrospectiva",
+                   description="Revisão de sprint",
+                   start_date=1644256000000,
+                   end_date=1653756000000,
+                   duration=9500000000),
+            Action(owner_ra="10017310",
+                   action_id="24c7d7a3-6560-4652-a8d6-f2e4f3f23460",
+                   story_id=368,
+                   associated_members_ra=[
+                       "19017311",
+                       "23017310",
+                       "21010757"
+                   ],
+                   stack_tags=[
+                       STACK.INTERNAL
+                   ],
+                   action_type_tag=ACTION_TYPE.DESIGN,
+                   project_code="SF",
+                   title="Retrospectiva",
+                   description="Front-End",
+                   start_date=1676476000000,
+                   end_date=1684306000000,
+                   duration=7830000000),
+            Action(owner_ra="10017310",
+                   action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a",
+                   story_id=983,
+                   associated_members_ra=[
+                       "21017310",
+                       "19017310",
+                       "19017311",
+                       "23017310",
+                       "17033730"
+                   ],
+                   stack_tags=[
+                       STACK.INFRA
+                   ],
+                   action_type_tag=ACTION_TYPE.WORK,
+                   project_code="SF",
+                   title="Retrospectiva",
+                   description="Revisão de sprint",
+                   start_date=1641896000000,
+                   end_date=1679686000000,
+                   duration=37790000000),
+            Action(owner_ra="19017311",
+                   action_id="ea95d4f7-d5ce-4944-9fa1-ab964655294b",
+                   story_id=435,
+                   associated_members_ra=[
+                       "17033730",
+                       "22017310",
+                       "10017310",
+                       "23017310",
+                       "21017310"
+                   ],
+                   stack_tags=[
+                       STACK.FRONTEND
+                   ],
+                   action_type_tag=ACTION_TYPE.DESIGN,
+                   project_code="SF",
+                   title="Retrospective",
+                   description="Reunião de planning",
+                   start_date=1658136000000,
+                   end_date=1678116000000,
+                   duration=19980000000),
+            Action(owner_ra="21017310",
+                   action_id="7778ee40-d98b-4187-8b02-052b70cc1ec1",
+                   story_id=848,
+                   associated_members_ra=[
+                       "19017311",
+                       "19017310"
+                   ],
+                   stack_tags=[
+                       STACK.INFRA
+                   ],
+                   action_type_tag=ACTION_TYPE.LEARN,
+                   project_code="SF",
+                   title="Daily",
+                   description="Sprint Planning",
+                   start_date=1656666000000,
+                   end_date=1687596000000,
+                   duration=30930000000),
+            Action(owner_ra="21010757",
+                   action_id="92cebaa4-02d5-4618-9b32-0c668b8361cd",
+                   story_id=144,
+                   associated_members_ra=[
+
+                   ],
+                   stack_tags=[
+                       STACK.INFRA
+                   ],
+                   action_type_tag=ACTION_TYPE.PRESENTATION,
+                   project_code="SM",
+                   title="Revisão",
+                   description="Review",
+                   start_date=1656646000000,
+                   end_date=1681286000000,
+                   duration=24640000000),
+            Action(owner_ra="19017310",
+                   action_id="eefe6db8-e03e-42c3-9fd2-1de796139501",
+                   story_id=497,
+                   associated_members_ra=[
+                       "23017310",
+                       "10017310",
+                       "17033730"
+                   ],
+                   stack_tags=[
+                       STACK.INTERNAL
+                   ],
+                   action_type_tag=ACTION_TYPE.ARCHITECT,
+                   project_code="SM",
+                   title="Retrospective",
+                   description="Reunião de planning",
+                   start_date=1667256000000,
+                   end_date=1690046000000,
+                   duration=22790000000),
+            Action(owner_ra="19017310",
+                   action_id="46b35022-1a68-4cc8-a2e5-ae449e43e867",
+                   story_id=237,
+                   associated_members_ra=[
+                       "10017310",
+                       "23017310",
+                       "19017311",
+                       "17033730",
+                       "22017310"
+                   ],
+                   stack_tags=[
+                       STACK.BACKEND
+                   ],
+                   action_type_tag=ACTION_TYPE.WORK,
+                   project_code="GM",
+                   title="Revisão",
+                   description="Sprint Planning",
+                   start_date=1688646000000,
+                   end_date=1689966000000,
+                   duration=1320000000),
+            Action(owner_ra="10017310",
+                   action_id="711d1d26-f7c6-49e9-b0a0-84bdcfc21349",
+                   story_id=43,
+                   associated_members_ra=[
+                       "22017310",
+                       "19017310",
+                       "21010757",
+                       "19017311"
+                   ],
+                   stack_tags=[
+                       STACK.INTERNAL
+                   ],
+                   action_type_tag=ACTION_TYPE.PRESENTATION,
+                   project_code="MF",
+                   title="Revisão",
+                   description="Planning Meeting",
+                   start_date=1637046000000,
+                   end_date=1678676000000,
+                   duration=41630000000),
+            Action(owner_ra="10017310",
+                   action_id="87d4a661-0752-4ce2-9440-05e752e636fc",
+                   story_id=932,
+                   associated_members_ra=[
+                       "21010757",
+                       "17033730",
+                       "19017310",
+                       "23017310"
+                   ],
+                   stack_tags=[
+                       STACK.INFRA
+                   ],
+                   action_type_tag=ACTION_TYPE.LEARN,
+                   project_code="MF",
+                   title="Desenvolvimento",
+                   description="Revisão de sprint",
+                   start_date=1663116000000,
+                   end_date=1683606000000,
+                   duration=20490000000)
         ]
         self.associatedActions = [
-            AssociatedAction(
-                member_ra=self.members[0].ra,
-                action=self.actions[0]
-            ),
-            AssociatedAction(
-                member_ra=self.members[1].ra,
-                action=self.actions[1]
-            ),
-            AssociatedAction(
-                member_ra=self.members[2].ra,
-                action=self.actions[1]
-            ),
-            AssociatedAction(
-                member_ra=self.members[0].ra,
-                action=self.actions[1]
-            ),
-            AssociatedAction(
-                member_ra=self.members[3].ra,
-                action=self.actions[2]
-            ),
-            AssociatedAction(
-                member_ra=self.members[2].ra,
-                action=self.actions[2]
-            ),
-            AssociatedAction(
-                member_ra=self.members[3].ra,
-                action=self.actions[3]
-            ),
-            AssociatedAction(
-                member_ra=self.members[0].ra,
-                action=self.actions[4]
-            ),
-            AssociatedAction(
-                member_ra=self.members[5].ra,
-                action=self.actions[5]
-            ),
-            AssociatedAction(
-                member_ra=self.members[0].ra,
-                action=self.actions[6]
-            ),
-            AssociatedAction(
-                member_ra=self.members[4].ra,
-                action=self.actions[7]
-            ),
+            AssociatedAction(member_ra='10017310',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='21010757',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='22017310',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='21017310',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
+                             start_date=1644256000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
+                             start_date=1676476000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
+                             start_date=1676476000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
+                             start_date=1676476000000),
+            AssociatedAction(member_ra='21010757',
+                             action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
+                             start_date=1676476000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='21017310',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='17033730',
+                             action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
+                             start_date=1641896000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='17033730',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='22017310',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='21017310',
+                             action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
+                             start_date=1658136000000),
+            AssociatedAction(member_ra='21017310',
+                             action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
+                             start_date=1656666000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
+                             start_date=1656666000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
+                             start_date=1656666000000),
+            AssociatedAction(member_ra='21010757',
+                             action_id='92cebaa4-02d5-4618-9b32-0c668b8361cd',
+                             start_date=1656646000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
+                             start_date=1667256000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
+                             start_date=1667256000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
+                             start_date=1667256000000),
+            AssociatedAction(member_ra='17033730',
+                             action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
+                             start_date=1667256000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='17033730',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='22017310',
+                             action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
+                             start_date=1688646000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
+                             start_date=1637046000000),
+            AssociatedAction(member_ra='22017310',
+                             action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
+                             start_date=1637046000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
+                             start_date=1637046000000),
+            AssociatedAction(member_ra='21010757',
+                             action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
+                             start_date=1637046000000),
+            AssociatedAction(member_ra='19017311',
+                             action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
+                             start_date=1637046000000),
+            AssociatedAction(member_ra='10017310',
+                             action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
+                             start_date=1663116000000),
+            AssociatedAction(member_ra='21010757',
+                             action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
+                             start_date=1663116000000),
+            AssociatedAction(member_ra='17033730',
+                             action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
+                             start_date=1663116000000),
+            AssociatedAction(member_ra='19017310',
+                             action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
+                             start_date=1663116000000),
+            AssociatedAction(member_ra='23017310',
+                             action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
+                             start_date=1663116000000)
         ]
 
     def create_action(self, action: Action) -> Action:
         self.actions.append(action)
         return action
-    
+
     def get_action(self, action_id: str) -> Optional[Action]:
         for action in self.actions:
             if action.action_id == action_id:
                 return action
         return None
-    
+
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         self.associatedActions.append(associatedAction)
         return associatedAction
-    
+
     def create_project(self, project: Project) -> Optional[Project]:
         self.projects.append(project)
         return project
-    
+
     def delete_project(self, code: str) -> Project:
         for i in range(len(self.projects)):
             if self.projects[i].code == code:
@@ -398,7 +571,7 @@ class ActionRepositoryMock(IActionRepository):
                 if project_code == code:
                     members.append(member)
         return members
-    
+
     def get_project(self, code: str) -> Project:
         for project in self.projects:
             if project.code == code:
@@ -425,12 +598,35 @@ class ActionRepositoryMock(IActionRepository):
     
     def get_all_projects(self) -> List[Project]:
         return self.projects
-    
+
     def get_all_members(self) -> List[Member]:
         return self.members
-    
+
     def get_member(self, ra: str) -> Member:
         for member in self.members:
             if member.ra == ra:
                 return member
         return None
+    
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
+        associated_actions = sorted(self.associatedActions, key=lambda x: x.start_date, reverse=True)
+        if exclusive_start_key:
+            action0 = associated_actions[0]
+            while action0 is not None and action0.action_id != exclusive_start_key:
+                associated_actions.pop(0)
+                action0 = associated_actions[0] if len(associated_actions) > 0 else None
+            associated_actions.pop(0)
+        if start:
+            associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
+        if end:
+            associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
+        associated_actions = list(filter(lambda x: x.member_ra == ra, associated_actions))
+        
+        return associated_actions[:amount]
+    
+    def batch_get_action(self, action_ids: List[str]) -> List[Action]:
+        actions = []
+        for action in self.actions:
+            if action.action_id in action_ids:
+                actions.append(action)
+        return actions

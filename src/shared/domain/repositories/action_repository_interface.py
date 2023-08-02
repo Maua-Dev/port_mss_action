@@ -89,3 +89,19 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
+    
+    @abstractmethod
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
+        '''
+        Retrieves all associated actions of a member, filtered by an optional time range specified by start and end parameters. The method allows for pagination using the exclusive_start_key parameter to determine the starting point of the action list, and the amount parameter to determine the maximum number of actions to be retrieved.
+        If no actions are found, returns []
+        '''
+        pass
+    
+    @abstractmethod
+    def batch_get_action(self, action_ids: List[str]) -> List[Action]:
+        '''
+        Returns all actions with the given ids, if any
+        else returns []
+        '''
+        pass
