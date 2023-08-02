@@ -22,23 +22,24 @@ class UpdateProjectUsecase:
         if project is None:
             raise NoItemsFound("project")
         
-        if type(new_name) != str:
+        if type(new_name) != str and new_name is not None:
             raise EntityError("name")
         
-        if type(new_description) != str:
+        if type(new_description) != str and new_description is not None:
             raise EntityError("description")
         
-        if not Project.validate_RA(new_po_RA):
+        if not Project.validate_RA(new_po_RA) and new_po_RA is not None:
             raise EntityError("po_RA")
         
-        if not Project.validate_RA(new_scrum_RA):
+        if not Project.validate_RA(new_scrum_RA) and new_scrum_RA is not None:
             raise EntityError("scrum_RA")
         
-        if type(new_photos) != list:
+        if type(new_photos) != list and new_photos is not None:
             raise EntityError("photos")
         
-        if not all(type(photo) == str for photo in new_photos):
-            raise EntityError("photos")
+        if new_photos != None:
+            if not all(type(photo) == str for photo in new_photos):
+                raise EntityError("photos")
         
         project = self.repo.update_project(code=code,
                                             new_name=new_name,

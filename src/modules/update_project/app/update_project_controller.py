@@ -25,11 +25,11 @@ class UpdateProjectController:
             
             update_project = self.UpdateProjectUsecase(
                 code=code,
-                new_name=new_name if new_name is not None else None,
-                new_description=new_description if new_description is not None else None,
-                new_po_RA=new_po_RA if new_po_RA is not None else None,
-                new_scrum_RA=new_scrum_RA if new_scrum_RA is not None else None,
-                new_photos=new_photos if new_photos is not None else None
+                new_name=new_name,
+                new_description=new_description,
+                new_po_RA=new_po_RA,
+                new_scrum_RA=new_scrum_RA,
+                new_photos=new_photos
             )
 
             viewmodel = UpdateProjectViewmodel(update_project)

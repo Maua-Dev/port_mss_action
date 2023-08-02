@@ -55,3 +55,16 @@ class TestUpdateProjectUsecase:
 
         with pytest.raises(NoItemsFound):
             usecase(code = "RR", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_RA = "21017311", new_scrum_RA = "21010755", new_photos = ["foto1", "foto2"])
+
+    def test_update_project_only_scrumRA(self):
+        repo = ActionRepositoryMock()
+        usecase = UpdateProjectUsecase(repo)
+        update_project = usecase(code = "PT", new_name = None, new_description = None, new_po_RA = None, new_scrum_RA = "21010757", new_photos = None)
+
+        assert type(update_project) == Project
+
+        assert repo.projects[1].name == update_project.name
+        assert repo.projects[1].description == update_project.description
+        assert repo.projects[1].po_RA == update_project.po_RA
+        assert repo.projects[1].scrum_RA == update_project.scrum_RA
+        assert repo.projects[1].photos == update_project.photos
