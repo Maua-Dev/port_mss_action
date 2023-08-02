@@ -93,3 +93,25 @@ class TestUpdateProjectController:
 
         assert response.status_code == 400
         assert response.body == 'Field code is not valid'
+
+    def test_update_project_controller_only_scrumRA(self):
+        repo = ActionRepositoryMock()
+        usecase = UpdateProjectUsecase(repo)
+        controller = UpdateProjectController(usecase)
+
+        request = HttpRequest(
+            body={
+                'code': 'PT',
+                'new_scrum_RA': '20005632'
+            }
+        )
+
+        response = controller(request)
+
+        assert response.status_code == 200
+        assert response.body['project']['code'] == 'PT'
+        assert response.body['project']['name'] == 'Portfólio'
+        assert response.body['project']['description'] == 'É um site'
+        assert response.body['project']['po_RA'] == '22011020'
+        assert response.body['project']['scrum_RA'] == '20005632'
+        assert response.body['project']['photos'] == ['https://i.imgur.com/gHoRKJU.png']
