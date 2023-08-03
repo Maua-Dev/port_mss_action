@@ -56,14 +56,7 @@ class LambdaStack(Construct):
             mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
-        
-        self.get_all_actions_by_ra_function = self.create_lambda_api_gateway_integration(
-            module_name="get_all_actions_by_ra",
-            method="GET",
-            mss_action_api_resource=api_gateway_resource,
-            environment_variables=environment_variables
-        )
-        
+
         self.get_all_projects_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_projects",
             method="GET",
