@@ -11,7 +11,7 @@ class LambdaStack(Construct):
 
     functions_that_need_dynamo_permissions = []
 
-    def create_lambda_api_gateway_integration(self, module_name: str, method: str, mss_member_api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}):
+    def create_lambda_api_gateway_integration(self, module_name: str, method: str, mss_action_api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}):
         function = lambda_.Function(
             self, module_name.title(),
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
@@ -22,7 +22,7 @@ class LambdaStack(Construct):
             timeout=Duration.seconds(15)
         )
 
-        mss_member_api_resource.add_resource(module_name.replace("_", "-")).add_method(method,
+        mss_action_api_resource.add_resource(module_name.replace("_", "-")).add_method(method,
                                                                                         integration=LambdaIntegration(
                                                                                             function))
 
@@ -39,62 +39,62 @@ class LambdaStack(Construct):
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.create_member_function = self.create_lambda_api_gateway_integration(
             module_name="create_member",
             method="POST",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.create_project_function = self.create_lambda_api_gateway_integration(
             module_name="create_project",
             method="POST",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.delete_project_function = self.create_lambda_api_gateway_integration(
             module_name="delete_project",
             method="DELETE",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.get_all_actions_by_ra_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_actions_by_ra",
             method="GET",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.get_all_projects_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_projects",
             method="GET",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.get_history_function = self.create_lambda_api_gateway_integration(
             module_name="get_history",
             method="GET",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.get_member_function = self.create_lambda_api_gateway_integration(
             module_name="get_member",
             method="GET",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
         
         self.get_project_function = self.create_lambda_api_gateway_integration(
             module_name="get_project",
             method="GET",
-            mss_member_api_resource=api_gateway_resource,
+            mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
