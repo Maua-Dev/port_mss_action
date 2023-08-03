@@ -76,12 +76,26 @@ class Test_ActionRepositoryMock:
         projects = repo.get_all_projects()
         assert projects == repo.projects
 
+    def test_update_project(self):
+        repo = ActionRepositoryMock()
+        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459')
+        assert type(project) == Project
+        assert project.name == 'Teste'
+        assert project.description == 'Teste'
+        assert project.po_RA == '20006116'
+        assert project.scrum_RA == '21001459'
+
+    def test_update_project_not_found(self):
+        repo = ActionRepositoryMock()
+        project = repo.update_project(code='DM', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459')
+        assert project is None
+        
     def test_get_member(self):
         repo = ActionRepositoryMock()
         member = repo.get_member(ra='21017310')
         assert type(member) == Member
         assert member == repo.members[0]
-        
+
     def test_get_associated_actions_by_ra(self):
         repo = ActionRepositoryMock()
         associated_actions = repo.get_associated_actions_by_ra(ra='23017310', amount=20)
