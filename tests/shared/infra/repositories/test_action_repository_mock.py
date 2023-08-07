@@ -134,3 +134,24 @@ class Test_ActionRepositoryMock:
         assert len(actions) == 2
         assert actions[0] == repo.actions[0]
         assert actions[1] == repo.actions[1]
+
+    def test_batch_update_associated_action_start(self):
+        repo = ActionRepositoryMock()
+        action_id = repo.actions[0].action_id
+        associated_actions = repo.batch_update_associated_action_start(action_id=action_id, new_start_date=1658136000000)
+        assert type(associated_actions) == list
+        assert all(associated_action.start_date == 1658136000000 for associated_action in repo.associatedActions if associated_action.action_id == action_id)
+        
+    def test_batch_update_associated_action_members(self):
+        repo = ActionRepositoryMock()
+        action_id = repo.actions[0].action_id
+        associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'])
+        assert type(associated_actions) == list
+        assert len([associated_action for associated_action in repo.associatedActions if associated_action.action_id == action_id]) == 1
+        assert all(associated_action.member_ra == '19009219' for associated_action in repo.associatedActions if associated_action.action_id == action_id)
+        
+    def test_update_action(self):
+        repo = ActionRepositoryMock()
+        action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_associated_members_ra=['19009219'])
+        assert type(action) == Action
+        assert repo.actions[0] == action

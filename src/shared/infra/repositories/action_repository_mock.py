@@ -630,3 +630,57 @@ class ActionRepositoryMock(IActionRepository):
             if action.action_id in action_ids:
                 actions.append(action)
         return actions
+    
+    def batch_update_associated_action_start(self, action_id: str, new_start_date: int) -> List[AssociatedAction]:
+        new_associated_actions = []
+        
+        for associated_action in self.associatedActions:
+            if associated_action.action_id == action_id:
+                associated_action.start_date = new_start_date
+                new_associated_actions.append(associated_action)
+        
+        return new_associated_actions
+    
+    def batch_update_associated_action_members(self, action_id: str, members: List[str]) -> List[AssociatedAction]:
+        new_associated_actions = []
+        start_date = None
+        for associated_action in self.associatedActions[:]:
+            if associated_action.action_id == action_id:
+                if start_date is None:
+                    start_date = associated_action.start_date
+                self.associatedActions.remove(associated_action)
+                
+        for member in members:
+            self.associatedActions.append(AssociatedAction(member_ra=member, action_id=action_id, start_date=start_date))
+        
+        return new_associated_actions
+    
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
+        new_action = None
+        for action in self.actions:
+            if action.action_id == action_id:
+                if new_owner_ra is not None:
+                    action.owner_ra = new_owner_ra
+                if new_start_date is not None:
+                    action.start_date = new_start_date
+                if new_end_date is not None:
+                    action.end_date = new_end_date
+                if new_duration is not None:
+                    action.duration = new_duration
+                if new_story_id is not None:
+                    action.story_id = new_story_id
+                if new_title is not None:
+                    action.title = new_title
+                if new_description is not None:
+                    action.description = new_description
+                if new_project_code is not None:
+                    action.project_code = new_project_code
+                if new_associated_members_ra is not None:
+                    action.associated_members_ra = new_associated_members_ra
+                if new_stack_tags is not None:
+                    action.stack_tags = new_stack_tags
+                if new_action_type_tag is not None:
+                    action.action_type_tag = new_action_type_tag
+                new_action = action
+        
+        return new_action
