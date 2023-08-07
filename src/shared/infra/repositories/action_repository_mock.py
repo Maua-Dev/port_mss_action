@@ -641,13 +641,10 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_associated_actions
     
-    def batch_update_associated_action_members(self, action_id: str, members: List[str]) -> List[AssociatedAction]:
-        new_associated_actions = []
-        start_date = None
+    def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
+        new_associated_actions = []  
         for associated_action in self.associatedActions[:]:
             if associated_action.action_id == action_id:
-                if start_date is None:
-                    start_date = associated_action.start_date
                 self.associatedActions.remove(associated_action)
                 
         for member in members:

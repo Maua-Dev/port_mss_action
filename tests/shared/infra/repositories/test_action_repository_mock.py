@@ -145,7 +145,7 @@ class Test_ActionRepositoryMock:
     def test_batch_update_associated_action_members(self):
         repo = ActionRepositoryMock()
         action_id = repo.actions[0].action_id
-        associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'])
+        associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'], start_date=1658136000000)
         assert type(associated_actions) == list
         assert len([associated_action for associated_action in repo.associatedActions if associated_action.action_id == action_id]) == 1
         assert all(associated_action.member_ra == '19009219' for associated_action in repo.associatedActions if associated_action.action_id == action_id)
