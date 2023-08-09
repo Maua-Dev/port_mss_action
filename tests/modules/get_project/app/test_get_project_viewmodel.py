@@ -24,53 +24,6 @@ class Test_GetProjectViewmodel:
                     'https://i.imgur.com/gHoRKJU.png'
                 ]
             },
-            # 'members': [
-            #     {
-            #         'name': 'Vitor Guirão MPNTM',
-            #         'email_dev': 'vsoller.devmaua@gmail.com',
-            #         'email': 'vsoller@airubio.com',
-            #         'ra': '21017310',
-            #         'role': 'DIRECTOR',
-            #         'stack': 'INFRA',
-            #         'year': 1,
-            #         'cellphone': '11991758098',
-            #         'course': 'ECA',
-            #         'hired_date': 1634576165000,
-            #         'deactivated_date': None,
-            #         'active': 'ACTIVE',
-            #         'projects': ['MF']
-            #     },
-            #     {
-            #         'name': 'Joao Branco',
-            #         'email_dev': 'jbranco.devmaua@gmail.com',
-            #         'email': 'jbranco@gmail.com',
-            #         'ra': '21010757',
-            #         'role': 'HEAD',
-            #         'stack': 'BACKEND',
-            #         'year': 3,
-            #         'cellphone': '11991152348',
-            #         'course': 'ECM',
-            #         'hired_date': 1634921765000,
-            #         'deactivated_date': None,
-            #         'active': 'ACTIVE',
-            #         'projects': ['MF','PT','SF']
-            #     },
-            #     {
-            #         'name': 'Little Ronald',
-            #         'email_dev': 'lronald.devmaua@gmail.com',
-            #         'email': 'lronald@gmail.com',
-            #         'ra': '10017310',
-            #         'role': 'DIRECTOR',
-            #         'stack': 'FRONTEND',
-            #         'year': 6,
-            #         'cellphone': '11991759998',
-            #         'course': 'ECM',
-            #         'hired_date': 1614567601000,
-            #         'deactivated_date': None,
-            #         'active': 'ACTIVE',
-            #         'projects': ['MF','PT','SF','SM']
-            #     }
-            # ],
             'message': 'the project was retrieved'
         }
 
