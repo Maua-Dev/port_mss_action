@@ -487,3 +487,47 @@ class Test_CreateActionController:
             response = controller(request)
             assert response.status_code == 400
             assert response.body == 'Field story_id is not valid'
+            
+    def test_create_action_controller_invalid_owner_ra(self):
+            
+            repo = ActionRepositoryMock()
+            usecase = CreateActionUsecase(repo=repo)
+            controller = CreateActionController(usecase=usecase)
+            request = HttpRequest(body={
+                'owner_ra':'3 21 18 9 15 19 15',
+                'start_date':1634526000000,
+                'story_id': 100,
+                'title':'Teste',
+                'end_date' : 1634533200000,
+                'duration' : 7200000,
+                'project_code':'MF',
+                'associated_members_ra':['19017310'],
+                'stack_tags':['BACKEND'],
+                'action_type_tag':'CODE'
+            })
+            
+            response = controller(request)
+            assert response.status_code == 400
+            assert response.body == 'Field owner_ra is not valid'
+            
+    def test_create_action_controller_invalid_associated_ra(self):
+            
+            repo = ActionRepositoryMock()
+            usecase = CreateActionUsecase(repo=repo)
+            controller = CreateActionController(usecase=usecase)
+            request = HttpRequest(body={
+                'owner_ra':'17033730',
+                'start_date':1634526000000,
+                'story_id': 100,
+                'title':'Teste',
+                'end_date' : 1634533200000,
+                'duration' : 7200000,
+                'project_code':'MF',
+                'associated_members_ra':['3 21 18 9 15 19 15'],
+                'stack_tags':['BACKEND'],
+                'action_type_tag':'CODE'
+            })
+            
+            response = controller(request)
+            assert response.status_code == 400
+            assert response.body == 'Field associated_members_ra is not valid'

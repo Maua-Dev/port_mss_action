@@ -15,6 +15,10 @@ class CreateActionUsecase:
         
         action_id = str(uuid.uuid4())
         
+        for ra in [owner_ra] + associated_members_ra:
+            if not self.repo.get_member(ra):
+                raise NoItemsFound(ra)
+        
         action = Action(owner_ra, start_date, stack_tags, end_date, duration, action_id, title, project_code, action_type_tag, associated_members_ra, description, story_id)        
         
         self.repo.create_action(action)

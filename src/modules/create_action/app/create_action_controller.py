@@ -1,4 +1,5 @@
 from src.shared.domain.entities.action import Action
+from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.controller_errors import MissingParameters
@@ -61,6 +62,14 @@ class CreateActionController:
                 action_type_tag = ACTION_TYPE[action_type_tag_str]
             else:
                 action_type_tag = None
+                
+            if not Member.validate_ra(request.data.get('owner_ra')):
+                raise EntityError('owner_ra')
+            
+            if request.data.get('associated_members_ra') is not None:
+                for ra in request.data.get('associated_members_ra'):
+                    if not Member.validate_ra(ra):
+                        raise EntityError('associated_members_ra')
 
                    
             action = self.usecase(
