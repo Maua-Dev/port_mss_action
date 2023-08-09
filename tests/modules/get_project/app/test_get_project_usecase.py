@@ -10,10 +10,9 @@ class Test_GetProjectUsecase:
         repo = ActionRepositoryMock()
         usecase = GetProjectUsecase(repo=repo)
 
-        project, members = usecase(code='MF')
+        project= usecase(code='MF')
         assert project.code == 'MF'
         assert type(project) == Project
-        assert type(members) == list
 
     def test_get_project_usecase_no_items_found(self):
         repo = ActionRepositoryMock()

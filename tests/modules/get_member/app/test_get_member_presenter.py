@@ -69,7 +69,6 @@ class Test_GetMemberPresenter:
         assert json.loads(response['body'])['member']['course'] == 'ECA'
         assert json.loads(response['body'])['member']['hired_date'] == 1634576165000
         assert json.loads(response['body'])['member']['active'] == 'ACTIVE'
-        assert json.loads(response['body'])['member']['projects'] == ['MF']
         assert json.loads(response['body'])['member']['deactivated_date'] == None
 
     def test_get_member_presenter_invalid_ra(self):

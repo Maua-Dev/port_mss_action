@@ -32,64 +32,61 @@ class ProjectViewModel:
             'photos' : self.photos
         }
         
-class MemberViewModel:
-    name: str
-    email_dev: str
-    email: str
-    ra: str
-    role: str
-    stack: str
-    year: int
-    cellphone: str
-    course: str
-    hired_date: int
-    deactivated_date: Optional[int] = None
-    active: str
-    projects: List[str]
+# class MemberViewModel:
+#     name: str
+#     email_dev: str
+#     email: str
+#     ra: str
+#     role: str
+#     stack: str
+#     year: int
+#     cellphone: str
+#     course: str
+#     hired_date: int
+#     deactivated_date: Optional[int] = None
+#     active: str
     
-    def __init__(self, member: Member):
-        self.name = member.name
-        self.email_dev = member.email_dev
-        self.email = member.email
-        self.ra = member.ra
-        self.role = member.role.value
-        self.stack = member.stack.value
-        self.year = member.year
-        self.cellphone = member.cellphone
-        self.course = member.course.value
-        self.hired_date = member.hired_date
-        self.deactivated_date = member.deactivated_date
-        self.active = member.active.value
-        self.projects = member.projects
+#     def __init__(self, member: Member):
+#         self.name = member.name
+#         self.email_dev = member.email_dev
+#         self.email = member.email
+#         self.ra = member.ra
+#         self.role = member.role.value
+#         self.stack = member.stack.value
+#         self.year = member.year
+#         self.cellphone = member.cellphone
+#         self.course = member.course.value
+#         self.hired_date = member.hired_date
+#         self.deactivated_date = member.deactivated_date
+#         self.active = member.active.value
         
-    def to_dict(self):
-        return {
-            'name' : self.name,
-            'email_dev' : self.email_dev,
-            'email' : self.email,
-            'ra' : self.ra,
-            'role' : self.role,
-            'stack' : self.stack,
-            'year' : self.year,
-            'cellphone' : self.cellphone,
-            'course' : self.course,
-            'hired_date' : self.hired_date,
-            'deactivated_date' : self.deactivated_date,
-            'active' : self.active,
-            'projects' : self.projects
-        }
+#     def to_dict(self):
+#         return {
+#             'name' : self.name,
+#             'email_dev' : self.email_dev,
+#             'email' : self.email,
+#             'ra' : self.ra,
+#             'role' : self.role,
+#             'stack' : self.stack,
+#             'year' : self.year,
+#             'cellphone' : self.cellphone,
+#             'course' : self.course,
+#             'hired_date' : self.hired_date,
+#             'deactivated_date' : self.deactivated_date,
+#             'active' : self.active
+#         }
 
 class GetProjectViewmodel:
     project: ProjectViewModel
-    members: List[MemberViewModel]
+    #members: List[MemberViewModel]
     
-    def __init__(self, project: Project, members: List[Member]):
+    def __init__(self, project: Project):
         self.project = ProjectViewModel(project)
-        self.members = [MemberViewModel(member) for member in members]
+        #self.members = [MemberViewModel(member) for member in members]
         
     def to_dict(self):
         return {
             'project' : self.project.to_dict(),
-            'members' : [member.to_dict() for member in self.members],
+            #'members' : [member.to_dict() for member in self.members],
             'message' : 'the project was retrieved'
         }

@@ -12,7 +12,4 @@ class Test_GetAllProjectsUsecase:
         projects = usecase()
         assert type(projects) == list
         assert len(projects) == 5
-        assert type(projects[0]) == tuple
-        assert type(projects[0][0]) == Project
-        for member in projects[0][1]:
-            assert type(member) == Member
+        assert type(projects[0]) == Project

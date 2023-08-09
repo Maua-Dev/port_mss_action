@@ -75,10 +75,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991758098",
                 course=COURSE.ECA,
                 hired_date=1634576165000,
-                active=ACTIVE.ACTIVE,
-                projects=[
-                    self.projects[0].code
-                ]
+                active=ACTIVE.ACTIVE
             ),
 
             Member(
@@ -92,12 +89,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991152348",
                 course=COURSE.ECM,
                 hired_date=1634921765000,
-                active=ACTIVE.ACTIVE,
-                projects=[
-                    self.projects[0].code,
-                    self.projects[1].code,
-                    self.projects[2].code
-                ]
+                active=ACTIVE.ACTIVE
             ),
 
             Member(
@@ -111,9 +103,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991758228",
                 course=COURSE.CIC,
                 hired_date=1640192165000,
-                active=ACTIVE.FREEZE,
-                projects=[
-                ]
+                active=ACTIVE.FREEZE
             ),
 
             Member(
@@ -127,15 +117,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991759998",
                 course=COURSE.ECM,
                 hired_date=1614567601000,
-                active=ACTIVE.ACTIVE,
-                projects=[
-                    self.projects[0].code,
-                    self.projects[1].code,
-                    self.projects[2].code,
-                    self.projects[3].code
-
-
-                ]
+                active=ACTIVE.ACTIVE
             ),
 
             Member(
@@ -149,10 +131,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991753208",
                 course=COURSE.EMC,
                 hired_date=1614567601000,
-                active=ACTIVE.DISCONNECTED,
-                projects=[
-                ],
-                deactivated_date=1646103601000
+                active=ACTIVE.DISCONNECTED
             ),
 
             Member(
@@ -166,11 +145,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11911758098",
                 course=COURSE.ECM,
                 hired_date=1640192165000,
-                active=ACTIVE.ACTIVE,
-                projects=[
-                    self.projects[3].code,
-                    self.projects[2].code
-                ]
+                active=ACTIVE.ACTIVE
             ),
 
             Member(
@@ -184,9 +159,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11915758098",
                 course=COURSE.ECA,
                 hired_date=1609606565000,
-                active=ACTIVE.FREEZE,
-                projects=[
-                ]
+                active=ACTIVE.FREEZE
             ),
 
             Member(
@@ -200,9 +173,7 @@ class ActionRepositoryMock(IActionRepository):
                 cellphone="11991123498",
                 course=COURSE.ECM,
                 hired_date=1672592165000,
-                active=ACTIVE.ACTIVE,
-                projects=[
-                ]
+                active=ACTIVE.ACTIVE
             )
         ]
 
@@ -563,14 +534,6 @@ class ActionRepositoryMock(IActionRepository):
             if self.projects[i].code == code:
                 return self.projects.pop(i)
         return None
-
-    def get_members_by_project(self, code: str) -> List[Member]:
-        members = []
-        for member in self.members:
-            for project_code in member.projects:
-                if project_code == code:
-                    members.append(member)
-        return members
 
     def get_project(self, code: str) -> Project:
         for project in self.projects:

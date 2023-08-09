@@ -10,8 +10,8 @@ class GetAllProjectsController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            projects_members = self.usecase()
-            viewmodel = GetAllProjectsViewmodel(projects_members)
+            projects = self.usecase()
+            viewmodel = GetAllProjectsViewmodel(projects)
             return OK(viewmodel.to_dict())
         
         except Exception as err:
