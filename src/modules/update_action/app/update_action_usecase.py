@@ -25,8 +25,17 @@ class UpdateActionUsecase:
         if not action:
             raise NoItemsFound('action')
         
-        if set([new_owner_ra] + new_associated_members_ra) != set([action.owner_ra] + action.associated_members_ra):
-            self.repo.batch_update_associated_action_members(action_id, [new_owner_ra] + new_associated_members_ra, start_date=new_start_date)
+        members = ['No members']
+        if new_associated_members_ra and new_owner_ra:
+            members = [new_owner_ra] + new_associated_members_ra
+        elif new_associated_members_ra:
+            members = new_associated_members_ra + [action.owner_ra]
+        elif new_owner_ra:
+            members = [new_owner_ra] + action.associated_members_ra
+        else:
+            members = action.associated_members_ra + [action.owner_ra]
+        if members != ['No members'] and set(members) != set([action.owner_ra] + action.associated_members_ra):
+            self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
         elif new_start_date != action.start_date:
             self.repo.batch_update_associated_action_start(action_id, new_start_date)
         
