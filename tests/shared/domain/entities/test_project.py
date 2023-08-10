@@ -14,7 +14,8 @@ class Test_Project():
             scrum_RA="22011020",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png',
-                    'https://i.imgur.com/gHoRKJU.png']
+                    'https://i.imgur.com/gHoRKJU.png'],
+            members=['22011020']
         )
         assert type(project) == Project
         assert project.photos != []
@@ -29,7 +30,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_code_must_be_2_characters(self):
@@ -42,7 +44,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_code_must_be_alphabetical(self):
@@ -55,7 +58,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_code_must_be_uppercase(self):
@@ -68,7 +72,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_name_must_be_str(self):
@@ -81,7 +86,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_description_must_be_str(self):
@@ -94,7 +100,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_po_RA_must_be_str(self):
@@ -107,7 +114,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_po_ra_must_be_8_characters(self):
@@ -120,7 +128,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
 
     def test_project_po_ra_must_be_decimal(self):
@@ -133,7 +142,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png']
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
     
     def test_project_scrum_RA_must_be_str(self):
@@ -146,7 +156,8 @@ class Test_Project():
                 scrum_RA=1,
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
             
     def test_project_scrum_ra_must_be_8_characters(self):
@@ -159,7 +170,8 @@ class Test_Project():
                 scrum_RA="2201102",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
             
     def test_project_scrum_ra_must_be_decimal(self):
@@ -172,7 +184,8 @@ class Test_Project():
                 scrum_RA="2201102a",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
             
     def test_project_start_date_must_be_int(self):
@@ -185,7 +198,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date="1672585200000",
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020'] 
             )
             
     def test_project_start_date_must_be_greater_than_0(self):
@@ -198,7 +212,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=-362,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'], 
+                members=['22011020']
             )
             
     def test_project_start_date_must_be_smaller_than_now(self):
@@ -212,7 +227,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=now + 3000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'] 
+                        'https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020']
             )
             
     def test_project_photos_can_be_none(self):
@@ -223,6 +239,7 @@ class Test_Project():
             po_RA="22011020",
             scrum_RA="22011020",
             start_date=1672585200000,
+            members=['22011020']
         )
         assert project.photos == []
         
@@ -235,5 +252,72 @@ class Test_Project():
                 po_RA="22011020",
                 scrum_RA="22011020",
                 start_date=1672585200000,
-                photos='https://i.imgur.com/gHoRKJU.png'
+                photos='https://i.imgur.com/gHoRKJU.png',
+                members=['22011020']
+            )
+
+    def test_project_members_must_be_list(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members='22011020'
+            )
+
+    def test_project_members_less_than_one(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=[]
+            )
+
+    def test_project_members_invalid_ra(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020', '2201102a']
+            )
+
+    def test_project_members_duplicated_member(self):
+        project = Project(
+            code='PQ',
+            name='test_project',
+            description='test_description',
+            po_RA="22011020",
+            scrum_RA="22011121",
+            start_date=1672585200000,
+            photos=['https://i.imgur.com/gHoRKJU.png'],
+            members=['22011020', '22011020', '22011121']
+        )
+
+        assert project.members == ['22011020','22011121']
+
+    def test_project_po_RA_not_in_members(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='PQ',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011121",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=['22011022', '22011121']
             )
