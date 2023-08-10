@@ -26,7 +26,8 @@ class ActionRepositoryMock(IActionRepository):
                 po_RA="21017310",
                 scrum_RA="21010757",
                 start_date=1634576165000,
-                photos=["https://i.imgur.com/gHoRKJU.png"]
+                photos=["https://i.imgur.com/gHoRKJU.png"],
+                members=["21017310", "21010757", "10017310"]
             ),
             Project(
                 code="PT",
@@ -35,7 +36,8 @@ class ActionRepositoryMock(IActionRepository):
                 po_RA="22011020",
                 scrum_RA="21010757",
                 start_date=1673535600000,
-                photos=["https://i.imgur.com/gHoRKJU.png"]
+                photos=["https://i.imgur.com/gHoRKJU.png"],
+                members=["22011020", "21010757", "10017310"]
             ),
             Project(
                 code="SF",
@@ -43,7 +45,8 @@ class ActionRepositoryMock(IActionRepository):
                 description="Aplicativo para reconhecimento facial",
                 po_RA="22931270",
                 scrum_RA="21020532",
-                start_date=1686754800000
+                start_date=1686754800000,
+                members=["22931270", "21020532", "21010757","19017311", "10017310"]
             ),
             Project(
                 code="SM",
@@ -51,7 +54,8 @@ class ActionRepositoryMock(IActionRepository):
                 description="Site do evento SMILE",
                 po_RA="15014025",
                 scrum_RA="21010757",
-                start_date=1639321200000
+                start_date=1639321200000,
+                members=["15014025", "21010757", "19017311", "10017310"]
             ),
             Project(
                 code="GM",
@@ -59,7 +63,8 @@ class ActionRepositoryMock(IActionRepository):
                 description="Projeto para organização dos membros do DEV",
                 po_RA="22084120",
                 scrum_RA="22015940",
-                start_date=1672585200000
+                start_date=1672585200000,
+                members=["22084120", "22015940"]
             )
         ]
 
@@ -541,7 +546,7 @@ class ActionRepositoryMock(IActionRepository):
                 return project
         return None
     
-    def update_project(self, code: str, new_name: str = None, new_description: str = None, new_po_RA: str = None, new_scrum_RA: str = None, new_photos: List[str] = None) -> Project:
+    def update_project(self, code: str, new_name: str = None, new_description: str = None, new_po_RA: str = None, new_scrum_RA: str = None, new_members: List[str] = None, new_photos: List[str] = None) -> Project:
         for project in self.projects:
             if project.code == code:
                 if new_name is not None:
@@ -554,6 +559,8 @@ class ActionRepositoryMock(IActionRepository):
                     project.scrum_RA = new_scrum_RA
                 if new_photos is not None:
                     project.photos = new_photos
+                if new_members is not None:
+                    project.members = new_members
 
                 return project
             
