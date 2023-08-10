@@ -1,5 +1,7 @@
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
+from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 
@@ -18,8 +20,8 @@ class UpdateActionUsecase:
                 new_description: Optional[str] = None, 
                 new_project_code: Optional[str] = None, 
                 new_associated_members_ra: Optional[List[str]] = None, 
-                new_stack_tags: Optional[List[str]] = None, 
-                new_action_type_tag: Optional[str] = None) -> Action:
+                new_stack_tags: Optional[List[STACK]] = None, 
+                new_action_type_tag: Optional[ACTION_TYPE] = None) -> Action:
         
         action = self.repo.get_action(action_id)
         if not action:
