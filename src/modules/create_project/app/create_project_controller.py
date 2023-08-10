@@ -2,13 +2,12 @@ from .create_project_usecase import CreateProjectUsecase
 from .create_project_viewmodel import CreateProjectViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
-from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError
+
 
 class CreateProjectController:
-    repo = ActionRepositoryMock()
 
     def __init__(self, usecase: CreateProjectUsecase):
         self.usecase = usecase

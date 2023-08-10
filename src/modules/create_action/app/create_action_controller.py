@@ -6,12 +6,10 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from .create_action_usecase import CreateActionUsecase
 from .create_action_viewmodel import CreateActionViewmodel
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 
 class CreateActionController:
-    repo = ActionRepositoryMock()
     
     def __init__(self, usecase: CreateActionUsecase):
         self.usecase = usecase
