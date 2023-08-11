@@ -554,9 +554,9 @@ class ActionRepositoryMock(IActionRepository):
                 if new_description is not None:
                     project.description = new_description
                 if new_po_RA is not None:
-                    project.po_RA = new_po_RA
+                    project.change_po_RA(new_po_RA)
                 if new_scrum_RA is not None:
-                    project.scrum_RA = new_scrum_RA
+                    project.change_scrum_RA(new_scrum_RA)
                 if new_photos is not None:
                     project.photos = new_photos
                 if new_members is not None:
