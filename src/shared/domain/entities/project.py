@@ -83,16 +83,18 @@ class Project(abc.ABC):
     def change_po_RA(self, new_po_RA: str):
         if not self.validate_RA(new_po_RA):
             raise EntityError("po_RA")
-        if new_po_RA not in self.members:
-            raise EntityError("po_RA")
+        self.members.remove(self.po_RA)
         self.po_RA = new_po_RA
+        self.members.append(new_po_RA)
+        self.members = sorted(list(set(self.members)))
 
     def change_scrum_RA(self, new_scrum_RA: str):
         if not self.validate_RA(new_scrum_RA):
             raise EntityError("scrum_RA")
-        if new_scrum_RA not in self.members:
-            raise EntityError("scrum_RA")
+        self.members.remove(self.scrum_RA)
         self.scrum_RA = new_scrum_RA
+        self.members.append(new_scrum_RA)
+        self.members = sorted(list(set(self.members)))
     
     def __repr__(self):
         return f"Project(code={self.code}, name={self.name}, description={self.description})"

@@ -321,3 +321,37 @@ class Test_Project():
                 photos=['https://i.imgur.com/gHoRKJU.png'],
                 members=['22011022', '22011121']
             )
+
+    def test_project_change_po_RA(self):
+        project = Project(
+            code='PQ',
+            name='test_project',
+            description='test_description',
+            po_RA="22011020",
+            scrum_RA="22011121",
+            start_date=1672585200000,
+            photos=['https://i.imgur.com/gHoRKJU.png'],
+            members=['22011020', '22011121']
+        )
+
+        project.change_po_RA('22001022')
+
+        assert project.po_RA == '22001022'
+        assert project.members == ['22001022', '22011121']
+
+    def test_project_change_scrum_RA(self):
+        project = Project(
+            code='PQ',
+            name='test_project',
+            description='test_description',
+            po_RA="22011020",
+            scrum_RA="22011121",
+            start_date=1672585200000,
+            photos=['https://i.imgur.com/gHoRKJU.png'],
+            members=['22011020', '22011121']
+        )
+
+        project.change_scrum_RA('22001022')
+
+        assert project.scrum_RA == '22001022'
+        assert project.members == ['22001022','22011020']
