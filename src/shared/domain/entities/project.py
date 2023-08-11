@@ -56,7 +56,7 @@ class Project(abc.ABC):
             raise EntityError("members")
         if po_RA not in members or scrum_RA not in members:
             raise EntityError("members")
-        self.members = list(set(members))
+        self.members = sorted(list(set(members)))
         
     @staticmethod
     def validate_project_code(code: str) -> bool:

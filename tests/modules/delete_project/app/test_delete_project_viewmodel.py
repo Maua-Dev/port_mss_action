@@ -11,6 +11,7 @@ class Test_DeleteProjectViewModel:
             po_RA='21021031', 
             scrum_RA='17033730', 
             start_date=1649955600000, 
+            members=['21021031', '17033730'],
             photos=['https://i.imgur.com/7QF7uCk.png']
             )
         viewmodel = DeleteProjectViewModel(project).to_dict()
@@ -22,9 +23,8 @@ class Test_DeleteProjectViewModel:
                 'po_RA':'21021031',
                 'scrum_RA':'17033730',
                 'start_date':1649955600000,
-                'photos':[
-                    'https://i.imgur.com/7QF7uCk.png'
-                ]
+                'members':['17033730','21021031'],
+                'photos':['https://i.imgur.com/7QF7uCk.png']
             },
             'message':'the project was deleted'
             }
@@ -38,7 +38,8 @@ class Test_DeleteProjectViewModel:
             description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', 
             po_RA='21021031', 
             scrum_RA='17033730', 
-            start_date=1649955600000
+            start_date=1649955600000,
+            members=['21021031', '17033730']
             )
         viewmodel = DeleteProjectViewModel(project).to_dict()
         expected = {
@@ -49,6 +50,7 @@ class Test_DeleteProjectViewModel:
                 'po_RA':'21021031',
                 'scrum_RA':'17033730',
                 'start_date':1649955600000,
+                'members':['17033730', '21021031'],
                 'photos':[]
             },
             'message':'the project was deleted'

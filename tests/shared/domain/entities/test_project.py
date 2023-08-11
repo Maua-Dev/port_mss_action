@@ -307,7 +307,7 @@ class Test_Project():
             members=['22011020', '22011020', '22011121']
         )
 
-        assert project.members == ['22011020','22011121']
+        assert project.members == ['22011020', '22011121']
 
     def test_project_po_RA_not_in_members(self):
         with pytest.raises(EntityError):
