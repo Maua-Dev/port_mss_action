@@ -67,6 +67,8 @@ class CreateActionController:
                 raise EntityError('owner_ra')
             
             if request.data.get('associated_members_ra') is not None:
+                if type(request.data.get('associated_members_ra')) is not list:
+                    raise EntityError('associated_members_ra')
                 for ra in request.data.get('associated_members_ra'):
                     if not Member.validate_ra(ra):
                         raise EntityError('associated_members_ra')
