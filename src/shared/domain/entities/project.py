@@ -10,10 +10,11 @@ class Project(abc.ABC):
     po_RA: str
     scrum_RA: str
     start_date: int # milliseconds
+    members: List[str]
     photos: List[str] = []
     PROJECT_CODE_LENGTH = 2
     
-    def __init__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []):
+    def __init__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, members: List[str], photos: List[str] = []):
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
@@ -47,6 +48,15 @@ class Project(abc.ABC):
                 raise EntityError("photos")
             self.photos = photos
         
+        if type(members) != list:
+            raise EntityError("members")
+        if len(members) < 1:
+            raise EntityError("members")
+        if not all([self.validate_RA(ra) for ra in members]):
+            raise EntityError("members")
+        if po_RA not in members or scrum_RA not in members:
+            raise EntityError("members")
+        self.members = sorted(list(set(members)))
         
     @staticmethod
     def validate_project_code(code: str) -> bool:
@@ -69,6 +79,22 @@ class Project(abc.ABC):
         if not ra.isdecimal():
             return False
         return True
+    
+    def change_po_RA(self, new_po_RA: str):
+        if not self.validate_RA(new_po_RA):
+            raise EntityError("po_RA")
+        self.members.remove(self.po_RA)
+        self.po_RA = new_po_RA
+        self.members.append(new_po_RA)
+        self.members = sorted(list(set(self.members)))
+
+    def change_scrum_RA(self, new_scrum_RA: str):
+        if not self.validate_RA(new_scrum_RA):
+            raise EntityError("scrum_RA")
+        self.members.remove(self.scrum_RA)
+        self.scrum_RA = new_scrum_RA
+        self.members.append(new_scrum_RA)
+        self.members = sorted(list(set(self.members)))
     
     def __repr__(self):
         return f"Project(code={self.code}, name={self.name}, description={self.description})"

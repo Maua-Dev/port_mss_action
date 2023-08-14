@@ -46,7 +46,7 @@ class Test_ActionRepositoryMock:
     def test_create_project(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.projects)
-        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_RA='21021031', scrum_RA='17033730', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png']))
+        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_RA='21021031', scrum_RA='17033730', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members=['21021031', '17033730']))
         assert len(repo.projects) == len_before + 1
         assert project == repo.projects[-1]
         assert repo.projects[-1].code == 'DM'
@@ -58,12 +58,6 @@ class Test_ActionRepositoryMock:
         project = repo.delete_project(code='MF')
         assert len(repo.projects) == len_before - 1
         assert project.code == 'MF'
-
-    def test_get_members_by_project(self):
-        repo = ActionRepositoryMock()
-        associated_members = repo.get_members_by_project('MF')
-        assert type(associated_members) == list
-        assert len(associated_members) == 3
         
     def test_get_project(self):
         repo = ActionRepositoryMock()

@@ -8,6 +8,7 @@ class ProjectViewModel:
     po_RA: str
     scrum_RA: str
     start_date: int
+    members: List[str]
     photos: List[str]
 
     def __init__(self, project: Project):
@@ -17,6 +18,7 @@ class ProjectViewModel:
         self.po_RA = project.po_RA
         self.scrum_RA = project.scrum_RA
         self.start_date = project.start_date
+        self.members = project.members
         self.photos = project.photos
 
     def to_dict(self):
@@ -27,6 +29,7 @@ class ProjectViewModel:
             'po_RA' : self.po_RA,
             'scrum_RA' : self.scrum_RA,
             'start_date' : self.start_date,
+            'members' : self.members,
             'photos' : self.photos
         }
 

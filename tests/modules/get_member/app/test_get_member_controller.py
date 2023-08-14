@@ -27,7 +27,6 @@ class Test_GetMemberController:
         assert response.body['member']['hired_date'] == repo.members[0].hired_date
         assert response.body['member']['active'] == repo.members[0].active.value
         assert response.body['member']['deactivated_date'] == repo.members[0].deactivated_date
-        assert response.body['member']['projects'] == repo.members[0].projects
         assert response.body['message'] == "the member was retrieved"
 
 

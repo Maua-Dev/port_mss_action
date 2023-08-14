@@ -18,7 +18,6 @@ class GetMemberViewModel:
     hired_date: int
     deactivated_date: Optional[int] = None
     active: ACTIVE
-    projects: Optional[List[str]] = None
 
     def __init__(self, member: Member):
         self.name = member.name
@@ -33,7 +32,6 @@ class GetMemberViewModel:
         self.hired_date = member.hired_date
         self.deactivated_date = member.deactivated_date
         self.active = member.active
-        self.projects = member.projects
 
     def to_dict(self):
         return {
@@ -49,8 +47,7 @@ class GetMemberViewModel:
                 'course' : self.course.value,
                 'hired_date' : self.hired_date,
                 'deactivated_date' : self.deactivated_date,
-                'active' : self.active.value,
-                'projects' : self.projects
+                'active' : self.active.value
             },
             "message" : "the member was retrieved"
         }

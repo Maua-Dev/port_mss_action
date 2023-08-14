@@ -16,7 +16,6 @@ class Test_GetProjectController:
         assert response.status_code == 200
         assert response.body['message'] == 'the project was retrieved'
         assert response.body['project']['code'] == 'MF'
-        assert len(response.body['members']) == 3
         
     def test_get_project_controller_missing_parameters(self):
         

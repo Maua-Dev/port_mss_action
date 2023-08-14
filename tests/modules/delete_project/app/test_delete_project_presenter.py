@@ -56,7 +56,7 @@ class Test_DeleteProjectPresenter:
         }
         
         response = lambda_handler(event, None)
-        expected = {'project': {'code': 'MF', 'name': 'Maua Food', 'description': 'É um aplicativo #foramoleza', 'po_RA': '21017310', 'scrum_RA': '21010757', 'start_date': 1634576165000, 'photos': ['https://i.imgur.com/gHoRKJU.png']}, 'message': 'the project was deleted'}
+        expected = {'project': {'code': 'MF', 'name': 'Maua Food', 'description': 'É um aplicativo #foramoleza', 'po_RA': '21017310', 'scrum_RA': '21010757', 'start_date': 1634576165000, 'members':['10017310','21010757', '21017310'], 'photos': ['https://i.imgur.com/gHoRKJU.png']}, 'message': 'the project was deleted'}
         
         assert response["statusCode"] == 200
         assert json.loads(response["body"]) == expected

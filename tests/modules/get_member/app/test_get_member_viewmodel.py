@@ -24,8 +24,7 @@ class Test_GetMemberViewModel:
                     'course': 'ECA',
                     'hired_date': 1634576165000,
                     'deactivated_date': None,
-                    'active': 'ACTIVE',
-                    'projects': ['MF']
+                    'active': 'ACTIVE'
             },
             "message" : "the member was retrieved"
         }

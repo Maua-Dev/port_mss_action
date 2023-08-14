@@ -39,8 +39,7 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: int, 
                  active: ACTIVE,
-                 deactivated_date: Optional[int] = None, 
-                 projects: Optional[List[str]] = None
+                 deactivated_date: Optional[int] = None
                 ):
 
         if not Member.validate_name(name):
@@ -90,18 +89,6 @@ class Member(abc.ABC):
         if type(active) != ACTIVE:
             raise EntityError("active")
         self.active = active
-        
-        if projects is None:
-            self.projects = []
-        elif type(projects) == list:
-            if not all([type(project) == str for project in projects]):
-                raise EntityError("projects")
-            elif not all([Member.validate_project_code(project) for project in projects]):
-                raise EntityError("projects")
-            else:
-                self.projects = projects
-        else:
-            raise EntityError("projects")
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -168,19 +155,6 @@ class Member(abc.ABC):
             return False
         
         if len(cellphone) != Member.CELLPHONE_LENGTH:
-            return False
-        
-        return True
-        
-    @staticmethod
-    def validate_project_code(code: str) -> bool:
-        if type(code) != str:
-            return False
-        
-        if len(code) != Project.PROJECT_CODE_LENGTH:
-            return False
-        
-        if not code.isupper() and not code.isalpha():
             return False
         
         return True
