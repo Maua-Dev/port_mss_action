@@ -2,7 +2,7 @@ from src.modules.get_all_members.app.get_all_members_usecase import GetAllMember
 from src.shared.domain.entities.member import Member
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
-class TestGetAllMembersUseCase:
+class Test_GetAllMembersUseCase:
     def test_get_all_members_usecase(self):
         repo = ActionRepositoryMock()
         usecase = GetAllMembersUsecase(repo=repo)
