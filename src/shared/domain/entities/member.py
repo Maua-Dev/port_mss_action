@@ -1,10 +1,8 @@
 import abc
 import re
 from typing import List, Optional
-from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
-
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityError, EntityParameterTypeError
@@ -23,7 +21,6 @@ class Member(abc.ABC):
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
-    projects: Optional[List[str]]
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
 
