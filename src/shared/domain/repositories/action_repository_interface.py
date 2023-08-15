@@ -97,3 +97,25 @@ class IActionRepository(ABC):
         else returns []
         '''
         pass
+    
+    @abstractmethod
+    def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None, members_ra: Optional[List[str]] = None) -> List[AssociatedAction]:
+        '''
+        Updates all associated actions with new_start_date and returns them, if any
+        '''
+        pass
+    
+    @abstractmethod
+    def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
+        '''
+        Removes all associated actions with action_id and recreates them with the given members and start_date
+        '''
+        pass
+    
+    @abstractmethod
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[str]] = None, new_action_type_tag : Optional[str] = None) -> Action:
+        '''
+        If action exists, updates it and its associated actions and returns it
+        else returns None
+        '''
+        pass
