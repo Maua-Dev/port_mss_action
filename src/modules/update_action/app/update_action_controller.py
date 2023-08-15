@@ -61,12 +61,14 @@ class UpdateActionController:
                 if not Action.validate_duration(duration=new_duration, start_date=new_start_date, end_date=new_end_date):
                     raise EntityError('new_duration')
             
-            new_story_id = request.data.get('new_story_id')
-            if new_story_id is not None:
-                if type(new_story_id) is not int:
-                    raise WrongTypeParameter(fieldName='new_story_id', fieldTypeExpected='int', fieldTypeReceived=type(new_story_id))
-                if not Action.validate_story_id(new_story_id):
-                    raise EntityError('new_story_id')
+            new_story_id = -1
+            if 'new_story_id' in request.data.keys():
+                new_story_id = request.data.get('new_story_id')
+                if new_story_id is not None:
+                    if type(new_story_id) is not int:
+                        raise WrongTypeParameter(fieldName='new_story_id', fieldTypeExpected='int', fieldTypeReceived=type(new_story_id))
+                    if not Action.validate_story_id(new_story_id):
+                        raise EntityError('new_story_id')
                 
             new_title = request.data.get('new_title')
             if new_title is not None:
@@ -75,12 +77,14 @@ class UpdateActionController:
                 if not Action.validate_title(new_title):
                     raise EntityError('new_title')
                 
-            new_description = request.data.get('new_description')
-            if new_description is not None:
-                if type(new_description) is not str:
-                    raise WrongTypeParameter(fieldName='new_description', fieldTypeExpected='str', fieldTypeReceived=type(new_description))
-                if not Action.validate_description(new_description):
-                    raise EntityError('new_description')
+            new_description = ''
+            if 'new_description' in request.data.keys():
+                new_description = request.data.get('new_description')
+                if new_description is not None:
+                    if type(new_description) is not str:
+                        raise WrongTypeParameter(fieldName='new_description', fieldTypeExpected='str', fieldTypeReceived=type(new_description))
+                    if not Action.validate_description(new_description):
+                        raise EntityError('new_description')
                 
             new_project_code = request.data.get('new_project_code')
             if new_project_code is not None:
