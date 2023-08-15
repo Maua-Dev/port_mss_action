@@ -741,3 +741,51 @@ class Test_UpdateActionController:
         response = controller(request)
         assert response.status_code == 404
         assert response.body == "No items found for action"
+        
+    def test_update_action_controller_with_none_story_id(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = UpdateActionUsecase(repo)
+        controller = UpdateActionController(usecase)
+        action_id = repo.actions[0].action_id
+        request = HttpRequest(body={
+            'action_id': action_id,
+            'new_owner_ra': '23017310',
+            'new_start_date' : 1634526000000,
+            'new_story_id' : None,
+            'new_associated_members_ra' : ["22011020"],
+            'new_description' : "Teste",
+            'new_title' : "Teste",
+            'new_end_date' : 1634536800000,
+            'new_project_code' : "MF",
+            'new_stack_tags' : ["BACKEND"],
+            'new_action_type_tag' : "CODE"
+        })
+        response = controller(request)
+        assert response.status_code == 200
+        assert response.body["message"] == "the action was updated"
+        assert response.body['action']['story_id'] == None
+        
+    def test_update_action_controller_with_none_description(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = UpdateActionUsecase(repo)
+        controller = UpdateActionController(usecase)
+        action_id = repo.actions[0].action_id
+        request = HttpRequest(body={
+            'action_id': action_id,
+            'new_owner_ra': '23017310',
+            'new_start_date' : 1634526000000,
+            'new_story_id' : 100,
+            'new_associated_members_ra' : ["22011020"],
+            'new_description' : None,
+            'new_title' : "Teste",
+            'new_end_date' : 1634536800000,
+            'new_project_code' : "MF",
+            'new_stack_tags' : ["BACKEND"],
+            'new_action_type_tag' : "CODE"
+        })
+        response = controller(request)
+        assert response.status_code == 200
+        assert response.body["message"] == "the action was updated"
+        assert response.body['action']['description'] == None
