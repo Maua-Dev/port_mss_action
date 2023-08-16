@@ -21,6 +21,7 @@ class Test_GetAllProjectsViewmodel:
                         'po_RA': '21017310',
                         'scrum_RA': '21010757',
                         'start_date': 1634576165000,
+                        'members': ['10017310','21010757','21017310'],
                         'photos': [
                             'https://i.imgur.com/gHoRKJU.png'
                         ]
@@ -34,6 +35,7 @@ class Test_GetAllProjectsViewmodel:
                         'po_RA': '22011020',
                         'scrum_RA': '21010757',
                         'start_date': 1673535600000,
+                        'members': ['10017310', '21010757', '22011020'],
                         'photos': [
                             'https://i.imgur.com/gHoRKJU.png'
                         ]
@@ -47,6 +49,7 @@ class Test_GetAllProjectsViewmodel:
                         'po_RA': '22931270',
                         'scrum_RA': '21020532',
                         'start_date': 1686754800000,
+                        'members':['10017310', '19017311', '21010757', '21020532', '22931270'],
                         'photos': [
 
                         ]
@@ -60,6 +63,7 @@ class Test_GetAllProjectsViewmodel:
                         'po_RA': '15014025',
                         'scrum_RA': '21010757',
                         'start_date': 1639321200000,
+                        'members': ['10017310', '15014025', '19017311', '21010757'],
                         'photos': [
 
                         ]
@@ -73,6 +77,7 @@ class Test_GetAllProjectsViewmodel:
                         'po_RA': '22084120',
                         'scrum_RA': '22015940',
                         'start_date': 1672585200000,
+                        'members': ['22015940', '22084120'],
                         'photos': [
 
                         ]

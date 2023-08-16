@@ -20,6 +20,7 @@ class Test_GetProjectViewmodel:
                 'po_RA': '21017310',
                 'scrum_RA': '21010757',
                 'start_date': 1634576165000,
+                'members': ['10017310','21010757','21017310'],
                 'photos': [
                     'https://i.imgur.com/gHoRKJU.png'
                 ]

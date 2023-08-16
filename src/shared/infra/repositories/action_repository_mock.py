@@ -27,7 +27,7 @@ class ActionRepositoryMock(IActionRepository):
                 scrum_RA="21010757",
                 start_date=1634576165000,
                 photos=["https://i.imgur.com/gHoRKJU.png"],
-                members=["21017310", "21010757", "10017310"]
+                members=["10017310", "21010757", "21017310"]
             ),
             Project(
                 code="PT",
@@ -37,7 +37,7 @@ class ActionRepositoryMock(IActionRepository):
                 scrum_RA="21010757",
                 start_date=1673535600000,
                 photos=["https://i.imgur.com/gHoRKJU.png"],
-                members=["22011020", "21010757", "10017310"]
+                members=["10017310", "21010757", "22011020"]
             ),
             Project(
                 code="SF",
@@ -46,7 +46,7 @@ class ActionRepositoryMock(IActionRepository):
                 po_RA="22931270",
                 scrum_RA="21020532",
                 start_date=1686754800000,
-                members=["22931270", "21020532", "21010757","19017311", "10017310"]
+                members=["10017310", "19017311", "21010757", "21020532", "22931270" ]
             ),
             Project(
                 code="SM",
@@ -55,7 +55,7 @@ class ActionRepositoryMock(IActionRepository):
                 po_RA="15014025",
                 scrum_RA="21010757",
                 start_date=1639321200000,
-                members=["15014025", "21010757", "19017311", "10017310"]
+                members=["10017310", "15014025", "19017311", "21010757"]
             ),
             Project(
                 code="GM",
@@ -64,7 +64,7 @@ class ActionRepositoryMock(IActionRepository):
                 po_RA="22084120",
                 scrum_RA="22015940",
                 start_date=1672585200000,
-                members=["22084120", "22015940"]
+                members=["22015940", "22084120"]
             )
         ]
 
