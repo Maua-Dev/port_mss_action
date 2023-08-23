@@ -97,7 +97,7 @@ class Action(abc.ABC):
         self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value()})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
     
     def __eq__(self, other):
         if type(other) != Action:
