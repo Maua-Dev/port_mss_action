@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
@@ -54,16 +55,16 @@ class ActionDynamoDTO:
         data = {
             "entity": "action",
             "owner_ra": self.owner_ra,
-            "start_date": self.start_date,
             "stack_tags": [tag.value for tag in self.stack_tags],
-            "end_date": self.end_date,
-            "duration": self.duration,
+            "start_date": Decimal(str(self.start_date)),
+            "end_date": Decimal(str(self.end_date)),
+            "duration": Decimal(str(self.duration)),
             "action_id": self.action_id,
             "title": self.title,
             "project_code": self.project_code,
             "action_type_tag": self.action_type_tag.value,
             "associated_members_ra": self.associated_members_ra,
-            "story_id": self.story_id,
+            "story_id": Decimal(str(self.story_id)) if self.story_id is not None else None,
             "description": self.description
         }
         
@@ -74,16 +75,16 @@ class ActionDynamoDTO:
     def from_dynamo(data: dict) -> "ActionDynamoDTO":
         return ActionDynamoDTO(
             owner_ra=data['owner_ra'],
-            start_date=data['start_date'],
+            start_date=int(data['start_date']),
             stack_tags=[STACK(tag) for tag in data['stack_tags']],
-            end_date=data['end_date'],
-            duration=data['duration'],
+            end_date=int(data['end_date']),
+            duration=int(data['duration']),
             action_id=data['action_id'],
             title=data['title'],
             project_code=data['project_code'],
             action_type_tag=ACTION_TYPE(data['action_type_tag']),
             associated_members_ra=data['associated_members_ra'],
-            story_id=data['story_id'] if 'story_id' in data else None,
+            story_id=int(data['story_id']) if 'story_id' in data else None,
             description=data['description'] if 'description' in data else None
         )
 
