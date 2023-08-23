@@ -22,14 +22,14 @@ class Test_CreateActionUsecase:
         repo = ActionRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         lenActionBefore = len(repo.actions)
-        lenAssociatedActionBefore = len(repo.associatedActions)
+        lenAssociatedActionBefore = len(repo.associated_actions)
         
         action = usecase(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_ra=['21017310', '21010757'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         assert repo.actions[-1] == action
         assert len(repo.actions) == lenActionBefore + 1
-        assert len(repo.associatedActions) == lenAssociatedActionBefore + 3
-        assert repo.associatedActions[-2].member_ra == '21017310'
-        assert repo.associatedActions[-1].member_ra == '21010757'
+        assert len(repo.associated_actions) == lenAssociatedActionBefore + 3
+        assert repo.associated_actions[-2].member_ra == '21017310'
+        assert repo.associated_actions[-1].member_ra == '21010757'
     
     def test_create_action_usecase_with_empty_list(self):
         repo = ActionRepositoryMock()

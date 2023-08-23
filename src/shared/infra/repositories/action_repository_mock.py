@@ -15,7 +15,7 @@ class ActionRepositoryMock(IActionRepository):
     members: List[Member]
     projects: List[Project]
     actions: List[Action]
-    associatedActions: List[AssociatedAction]
+    associated_actions: List[AssociatedAction]
 
     def __init__(self):
         self.projects = [
@@ -372,7 +372,7 @@ class ActionRepositoryMock(IActionRepository):
                    end_date=1683606000000,
                    duration=20490000000)
         ]
-        self.associatedActions = [
+        self.associated_actions = [
             AssociatedAction(member_ra='10017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
                              start_date=1644256000000),
@@ -527,7 +527,7 @@ class ActionRepositoryMock(IActionRepository):
         return None
 
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
-        self.associatedActions.append(associatedAction)
+        self.associated_actions.append(associatedAction)
         return associatedAction
 
     def create_project(self, project: Project) -> Optional[Project]:
@@ -579,7 +579,7 @@ class ActionRepositoryMock(IActionRepository):
         return None
     
     def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
-        associated_actions = sorted(self.associatedActions, key=lambda x: x.start_date, reverse=True)
+        associated_actions = sorted(self.associated_actions, key=lambda x: x.start_date, reverse=True)
         if exclusive_start_key:
             action0 = associated_actions[0]
             while action0 is not None and action0.action_id != exclusive_start_key:
@@ -604,7 +604,7 @@ class ActionRepositoryMock(IActionRepository):
     def batch_update_associated_action_start(self, action_id: str, new_start_date: int) -> List[AssociatedAction]:
         new_associated_actions = []
         
-        for associated_action in self.associatedActions:
+        for associated_action in self.associated_actions:
             if associated_action.action_id == action_id:
                 associated_action.start_date = new_start_date
                 new_associated_actions.append(associated_action)
@@ -613,12 +613,12 @@ class ActionRepositoryMock(IActionRepository):
     
     def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
         new_associated_actions = []  
-        for associated_action in self.associatedActions[:]:
+        for associated_action in self.associated_actions[:]:
             if associated_action.action_id == action_id:
-                self.associatedActions.remove(associated_action)
+                self.associated_actions.remove(associated_action)
                 
         for member in members:
-            self.associatedActions.append(AssociatedAction(member_ra=member, action_id=action_id, start_date=start_date))
+            self.associated_actions.append(AssociatedAction(member_ra=member, action_id=action_id, start_date=start_date))
         
         return new_associated_actions
     

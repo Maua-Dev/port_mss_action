@@ -37,10 +37,10 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         action = Action(owner_ra='17033730', start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         associatedAction = AssociatedAction(member_ra='12345678', action_id=action.action_id, start_date=action.start_date)
-        len_before = len(repo.associatedActions)
+        len_before = len(repo.associated_actions)
         
         new_associated_action = repo.create_associated_action(associatedAction=associatedAction)
-        assert len(repo.associatedActions) == len_before + 1
+        assert len(repo.associated_actions) == len_before + 1
         assert new_associated_action == associatedAction
         
     def test_create_project(self):
@@ -134,15 +134,15 @@ class Test_ActionRepositoryMock:
         action_id = repo.actions[0].action_id
         associated_actions = repo.batch_update_associated_action_start(action_id=action_id, new_start_date=1658136000000)
         assert type(associated_actions) == list
-        assert all(associated_action.start_date == 1658136000000 for associated_action in repo.associatedActions if associated_action.action_id == action_id)
+        assert all(associated_action.start_date == 1658136000000 for associated_action in repo.associated_actions if associated_action.action_id == action_id)
         
     def test_batch_update_associated_action_members(self):
         repo = ActionRepositoryMock()
         action_id = repo.actions[0].action_id
         associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'], start_date=1658136000000)
         assert type(associated_actions) == list
-        assert len([associated_action for associated_action in repo.associatedActions if associated_action.action_id == action_id]) == 1
-        assert all(associated_action.member_ra == '19009219' for associated_action in repo.associatedActions if associated_action.action_id == action_id)
+        assert len([associated_action for associated_action in repo.associated_actions if associated_action.action_id == action_id]) == 1
+        assert all(associated_action.member_ra == '19009219' for associated_action in repo.associated_actions if associated_action.action_id == action_id)
         
     def test_update_action(self):
         repo = ActionRepositoryMock()
