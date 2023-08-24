@@ -1,6 +1,6 @@
-# clean_mss_template 🌡🍽
+# port_mss_action 🚪⬅️
 
-Template for microservices repositories based in Clean Arch
+Template for action, product and member management in Portal Interno project for Dev. Community Mauá.
 
 ## The Project 📽
 
