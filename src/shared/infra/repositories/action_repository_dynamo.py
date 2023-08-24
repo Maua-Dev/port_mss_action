@@ -82,14 +82,20 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return action
     
-    def get_action(self, action_id: str) -> Optional[Action]:
-        pass
-    
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action), sort_key=self.associated_action_sort_key_format(associated_action), is_decimal=True)
         
         return associated_action
+    
+    def create_member(self, member: Member) -> Member:
+        item = MemberDynamoDTO.from_entity(member).to_dynamo()
+        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member), is_decimal=True)
+        
+        return member
+    
+    def get_action(self, action_id: str) -> Optional[Action]:
+        pass
             
     def delete_project(self, code: str) -> Optional[Project]:
         pass
@@ -124,8 +130,3 @@ class ActionRepositoryDynamo(IActionRepository):
     def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[str]] = None, new_action_type_tag : Optional[str] = None) -> Action:
         pass
     
-    def create_member(self, member: Member) -> Member:
-        item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member), is_decimal=True)
-        
-        return member
