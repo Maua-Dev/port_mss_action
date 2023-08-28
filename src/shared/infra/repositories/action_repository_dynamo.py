@@ -13,12 +13,12 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
-    def action_partition_key_format(action: Action) -> str:
-        return f'{action.action_id}'
+    def action_partition_key_format(action_id: str) -> str:
+        return f'{action_id}'
     
     @staticmethod
-    def action_sort_key_format(action: Action) -> str:
-        return f'action#{action.action_id}'
+    def action_sort_key_format(action_id: str) -> str:
+        return f'action#{action_id}'
     
     @staticmethod
     def project_partition_key_format(project: Project) -> str:
@@ -80,7 +80,7 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_action(self, action: Action) -> Action:
         item = ActionDynamoDTO.from_entity(action).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.action_partition_key_format(action), sort_key=self.action_sort_key_format(action), is_decimal=True)
+        resp = self.dynamo.put_item(item=item, partition_key=self.action_partition_key_format(action.action_id), sort_key=self.action_sort_key_format(action.action_id), is_decimal=True)
         
         return action
     
