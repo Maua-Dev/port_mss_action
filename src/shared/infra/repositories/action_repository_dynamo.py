@@ -10,6 +10,7 @@ from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDy
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.infra.dto.project_dynamo_dto import ProjectDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
+from boto3.dynamodb.conditions import Key
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
@@ -97,7 +98,17 @@ class ActionRepositoryDynamo(IActionRepository):
         return member
     
     def get_action(self, action_id: str) -> Optional[Action]:
-        pass
+        # query →  PK = action_id && SK Begins with action				
+        query_string = Key(self.dynamo.partition_key).eq(self.action_partition_key_format(action_id))
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
+        
+        if len(resp['Items']) == 0:
+            return None
+        elif resp.get("Items")[0]["entity"] != "action":
+            return None
+        
+        action = ActionDynamoDTO.from_dynamo(resp.get("Items")[0]).to_entity()
+        return action
             
     def delete_project(self, code: str) -> Optional[Project]:
         pass

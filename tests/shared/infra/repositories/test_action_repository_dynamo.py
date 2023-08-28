@@ -44,3 +44,10 @@ class Test_ActionRepositoryDynamo:
         resp = repo.create_member(member=member)
         
         assert resp == member
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_action(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.get_action(action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a")
+        
+        assert resp
