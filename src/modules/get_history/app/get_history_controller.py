@@ -49,8 +49,13 @@ class GetHistoryController:
                     raise EntityError('start')
             
             if request.data.get('exclusive_start_key') is not None:
-                if not AssociatedAction.validate_action_id(request.data.get('exclusive_start_key')):
-                    raise EntityError('exclusive_start_key')
+                if not AssociatedAction.validate_action_id(request.data.get('exclusive_start_key')[0]):
+                    raise EntityError('exclusive_start_key action_id')
+                if not 1000000000000 < int(request.data.get('exclusive_start_key')[1]) < 10000000000000:
+                    raise EntityError('exclusive_start_key start_date')
+                exclusive_start_key = (request.data.get('exclusive_start_key')[0], int(request.data.get('exclusive_start_key')[1]))
+            else:
+                exclusive_start_key = None
             
             if request.data.get('amount') is not None:
                 if type(request.data.get('amount')) is not str:
@@ -63,7 +68,7 @@ class GetHistoryController:
             else:
                 amount = None
                 
-            actions, last_evaluated_key = self.usecase(ra=request.data.get('ra'), start=start, end=end, exclusive_start_key=request.data.get('exclusive_start_key'), amount=amount)
+            actions, last_evaluated_key = self.usecase(ra=request.data.get('ra'), start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
 
             viewmodel = GetHistoryViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())

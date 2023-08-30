@@ -578,21 +578,22 @@ class ActionRepositoryMock(IActionRepository):
                 return member
         return None
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[Tuple[str, int]] = None) -> Tuple[List[AssociatedAction], Optional[Tuple[str, int]]]:
         associated_actions = sorted(self.associated_actions, key=lambda x: x.start_date, reverse=True)
+        associated_actions = list(filter(lambda x: x.member_ra == ra, associated_actions))
         if exclusive_start_key:
             action0 = associated_actions[0]
-            while action0 is not None and action0.action_id != exclusive_start_key:
+            while action0 is not None and action0.action_id != exclusive_start_key[0]:
                 associated_actions.pop(0)
                 action0 = associated_actions[0] if len(associated_actions) > 0 else None
-            associated_actions.pop(0)
+            associated_actions.pop(0) if len(associated_actions) > 0 else None
         if start:
             associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
         if end:
             associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
-        associated_actions = list(filter(lambda x: x.member_ra == ra, associated_actions))
         
-        return associated_actions[:amount]
+        tup = (associated_actions[-1].action_id, associated_actions[-1].start_date) if len(associated_actions) > 0 else None
+        return (associated_actions[:amount], tup)
     
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
         actions = []
