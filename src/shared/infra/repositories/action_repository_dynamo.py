@@ -10,15 +10,16 @@ from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDy
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.infra.dto.project_dynamo_dto import ProjectDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
+from boto3.dynamodb.conditions import Key
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
-    def action_partition_key_format(action: Action) -> str:
-        return f'{action.action_id}'
+    def action_partition_key_format(action_id: str) -> str:
+        return f'{action_id}'
     
     @staticmethod
-    def action_sort_key_format(action: Action) -> str:
-        return f'action#{action.action_id}'
+    def action_sort_key_format(action_id: str) -> str:
+        return f'action#{action_id}'
     
     @staticmethod
     def project_partition_key_format(project: Project) -> str:
@@ -80,7 +81,7 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_action(self, action: Action) -> Action:
         item = ActionDynamoDTO.from_entity(action).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.action_partition_key_format(action), sort_key=self.action_sort_key_format(action), is_decimal=True)
+        resp = self.dynamo.put_item(item=item, partition_key=self.action_partition_key_format(action.action_id), sort_key=self.action_sort_key_format(action.action_id), is_decimal=True)
         
         return action
     
@@ -97,7 +98,17 @@ class ActionRepositoryDynamo(IActionRepository):
         return member
     
     def get_action(self, action_id: str) -> Optional[Action]:
-        pass
+        # query →  PK = action_id && SK Begins with action				
+        query_string = Key(self.dynamo.partition_key).eq(self.action_partition_key_format(action_id))
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
+        
+        if len(resp['Items']) == 0:
+            return None
+        elif resp.get("Items")[0]["entity"] != "action":
+            return None
+        
+        action = ActionDynamoDTO.from_dynamo(resp.get("Items")[0]).to_entity()
+        return action
             
     def delete_project(self, code: str) -> Optional[Project]:
         pass
@@ -109,7 +120,16 @@ class ActionRepositoryDynamo(IActionRepository):
         pass
     
     def get_all_projects(self) -> List[Project]:
-        pass
+        # query →  PK = project 				
+        query_string = Key(self.dynamo.partition_key).eq("project")
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
+        
+        projects = []
+        for item in resp.get("Items"):
+            if item.get("entity") == "project":
+                projects.append(ProjectDynamoDTO.from_dynamo(item).to_entity())
+        
+        return projects
     
     def get_all_members(self) -> List[Member]:
         pass

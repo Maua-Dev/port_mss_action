@@ -71,7 +71,7 @@ class ProjectDynamoDTO:
             description=self.description,
             po_RA=self.po_RA,
             scrum_RA=self.scrum_RA,
-            start_date=self.start_date,
+            start_date=int(self.start_date),
             members=self.members,
             photos=self.photos
         )
