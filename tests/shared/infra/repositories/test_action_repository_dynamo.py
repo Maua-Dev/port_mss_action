@@ -79,3 +79,15 @@ class Test_ActionRepositoryDynamo:
         delected_project= repo_dynamo.delete_project(project.code)
 
         assert delected_project == project
+
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_project(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        project = repo_mock.projects[0]
+
+        resp = repo.get_project(project.code)
+
+        assert resp == project

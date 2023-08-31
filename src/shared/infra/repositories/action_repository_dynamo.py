@@ -10,6 +10,7 @@ from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDy
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.infra.dto.project_dynamo_dto import ProjectDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
+from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from boto3.dynamodb.conditions import Key
 
 class ActionRepositoryDynamo(IActionRepository):
@@ -113,10 +114,19 @@ class ActionRepositoryDynamo(IActionRepository):
     def delete_project(self, code: str) -> Optional[Project]:
         delete_project = self.dynamo.delete_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
 
+        if "Attributes" not in delete_project:
+            return None
+
         return ProjectDynamoDTO.from_dynamo(delete_project['Attributes']).to_entity()
     
     def get_project(self, code: str) -> Project:
-        pass
+        project = self.dynamo.get_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
+        
+        if "Item" not in project:
+            return None
+        
+        project_dto = ProjectDynamoDTO.from_dynamo(project['Item'])
+        return project_dto.to_entity()
 
     def update_project(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []) -> Project:
         pass
