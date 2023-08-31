@@ -26,8 +26,8 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'project'
     
     @staticmethod
-    def project_sort_key_format(project: Project) -> str:
-        return f'project#{project.code}'
+    def project_sort_key_format(code: str) -> str:
+        return f'project#{code}'
     
     @staticmethod
     def member_partition_key_format(member: Member) -> str:
@@ -75,7 +75,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def create_project(self, project: Project) -> Project:
         item = ProjectDynamoDTO.from_entity(project).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project))
+        resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project.code))
         
         return project
     
@@ -111,7 +111,9 @@ class ActionRepositoryDynamo(IActionRepository):
         return action
             
     def delete_project(self, code: str) -> Optional[Project]:
-        pass
+        delete_project = self.dynamo.delete_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
+
+        return ProjectDynamoDTO.from_dynamo(delete_project['Attributes']).to_entity()
     
     def get_project(self, code: str) -> Project:
         pass
