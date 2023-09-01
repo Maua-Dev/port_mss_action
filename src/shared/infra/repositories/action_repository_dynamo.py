@@ -144,7 +144,15 @@ class ActionRepositoryDynamo(IActionRepository):
         return projects
     
     def get_all_members(self) -> List[Member]:
-        pass
+        query_string = Key(self.dynamo.partition_key).eq("member")
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
+
+        members = []
+        for item in resp.get("Items"):
+            if item.get("entity") == "member":
+                members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
+
+        return members
 
     def get_member(self, ra: str) -> Member:
         pass
