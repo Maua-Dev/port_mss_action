@@ -35,8 +35,8 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'member'
     
     @staticmethod
-    def member_sort_key_format(member: Member) -> str:
-        return f'member#{member.ra}'
+    def member_sort_key_format(ra: str) -> str:
+        return f'member#{ra}'
     
     @staticmethod
     def associated_action_partition_key_format(associatedAction: AssociatedAction) -> str:
@@ -155,7 +155,13 @@ class ActionRepositoryDynamo(IActionRepository):
         return members
 
     def get_member(self, ra: str) -> Member:
-        pass
+        member = self.dynamo.get_item(partition_key=self.member_partition_key_format(ra), sort_key=self.member_sort_key_format(ra))
+
+        if "Item" not in member:
+            return None
+
+        member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
+        return member_dto.to_entity()
     
     def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
         pass

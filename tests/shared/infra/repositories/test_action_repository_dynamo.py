@@ -105,3 +105,15 @@ class Test_ActionRepositoryDynamo:
         members.sort(key=lambda x: x.ra)
 
         assert resp == members
+
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_member(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        member = repo_mock.members[0]
+
+        resp = repo.get_member(member.ra)
+
+        assert resp == member
