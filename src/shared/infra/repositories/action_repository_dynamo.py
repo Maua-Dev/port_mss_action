@@ -167,7 +167,18 @@ class ActionRepositoryDynamo(IActionRepository):
         pass
     
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        pass
+        # query →  PK = action_id && SK Begins with action				
+        keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
+
+        resp = self.dynamo.batch_get_items(keys=keys)
+
+        actions = []
+        for item in resp.get("Responses").get(self.dynamo.dynamo_table.name):
+            if item.get("entity") == "action":
+                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+
+        
+        return actions
     
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None, members_ra: Optional[List[str]] = None) -> List[AssociatedAction]:
         pass

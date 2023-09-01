@@ -20,8 +20,9 @@ class DynamoDatasource:
                  endpoint_url: str = None, sort_key: str = None):
 
         s = boto3.Session(region_name=region)
-        dynamo = s.resource('dynamodb', endpoint_url=endpoint_url)
-        self.dynamo_table = dynamo.Table(dynamo_table_name)
+        self.dynamo_resoruce = s.resource('dynamodb', endpoint_url=endpoint_url)
+        self.endpoint_url = endpoint_url
+        self.dynamo_table = self.dynamo_resoruce.Table(dynamo_table_name)
         self.partition_key = partition_key
         self.sort_key = sort_key
         self.gsi_partition_key = gsi_partition_key
@@ -199,3 +200,20 @@ class DynamoDatasource:
         with self.dynamo_table.batch_writer() as batch:
             for k in keys:
                 batch.delete_item(Key=k)
+    
+    def batch_get_items(self, keys):
+        """
+        Get a list of items from the table. Each item must have only the keys (Partition and Sort).
+        @param keys: list of dicts with the keys (Partition and Sort)
+        Example: keys=[ {'Partition': {'S': 'partition1'}, 'Sort': {'S': 'sort2'}}, {'Partition': {'S': 'partition1'}, 'Sort': {'S': 'sort2'}}}}]
+        """
+        # pk':{'S':item},'sk': {'S':'ITEM'}}
+
+        resp = self.dynamo_resoruce.batch_get_item(
+                RequestItems={
+                    self.dynamo_table.name: {
+                        'Keys': keys
+                    }
+            }
+        )
+        return resp
