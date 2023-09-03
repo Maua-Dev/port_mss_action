@@ -11,6 +11,8 @@ from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.infra.dto.project_dynamo_dto import ProjectDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.stack_enum import STACK
 from boto3.dynamodb.conditions import Key
 
 class ActionRepositoryDynamo(IActionRepository):
@@ -186,6 +188,32 @@ class ActionRepositoryDynamo(IActionRepository):
     def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
         pass
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[str]] = None, new_action_type_tag : Optional[str] = None) -> Action:
-        pass
-    
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+        
+        action = self.get_action(action_id=action_id)
+        
+        if action is None:
+            return None
+
+        update_dict = {
+            "owner_ra": new_owner_ra,
+            "start_date": new_start_date,
+            "end_date": new_end_date,
+            "duration": new_duration,
+            "story_id": new_story_id,
+            "title": new_title,
+            "description": new_description,
+            "project_code": new_project_code,
+            "associated_members_ra": new_associated_members_ra,
+            "stack_tags": new_stack_tags,
+            "action_type_tag": new_action_type_tag,
+        }
+
+        update_dict_without_none = {k: v for k, v in update_dict.items() if v is not None}
+
+        response = self.dynamo.update_item(partition_key=self.action_partition_key_format(action_id), sort_key=self.action_sort_key_format(action_id), update_dict=update_dict_without_none)
+
+        if "Attributes" not in response:
+            return None
+        
+        return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()

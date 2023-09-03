@@ -133,3 +133,17 @@ class Test_ActionRepositoryDynamo:
         resp.sort(key=lambda x: x.action_id)
 
         assert resp == repo_mock.actions
+
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_action(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action = repo_mock.actions[0]
+
+        resp = repo.update_action(action.action_id, new_description= "Nova descrição")
+
+
+        assert resp.action_id == action.action_id
+        assert resp.description == "Nova descrição"
