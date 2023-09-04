@@ -8,6 +8,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 class STAGE(Enum):
     DOTENV = "DOTENV"
     DEV = "DEV"
+    HOMOLOG = "HOMOLOG"
     PROD = "PROD"
     TEST = "TEST"
 
