@@ -67,7 +67,7 @@ class Test_ActionRepositoryDynamo:
 
         assert resp == [Project(code="GM",name="Gameficação",description="Projeto para organização dos membros do DEV",po_RA="22084120",scrum_RA="22015940",start_date=1672585200000,members=["22015940","22084120"]), Project(code="MF",name="Maua Food",description="É um aplicativo #foramoleza",po_RA="21017310",scrum_RA="21010757",start_date=1634576165000,photos=["https://i.imgur.com/gHoRKJU.png"],members=["10017310","21010757","21017310"]),Project(code="PT",name="Portfólio",description="É um site",po_RA="22011020",scrum_RA="21010757",start_date=1673535600000,photos=["https://i.imgur.com/gHoRKJU.png"],members=["10017310","21010757","22011020"]),Project(code="SF",name="Selfie Mauá",description="Aplicativo para reconhecimento facial",po_RA="22931270",scrum_RA="21020532",start_date=1686754800000,members=["10017310","19017311","21010757","21020532","22931270"]),Project(code="SM",name="SMILE",description="Site do evento SMILE",po_RA="15014025",scrum_RA="21010757",start_date=1639321200000,members=["10017310","15014025","19017311","21010757"]),]
         
-    # @pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_associated_actions_by_ra(self):
         repo = ActionRepositoryDynamo()
         resp = repo.get_associated_actions_by_ra(ra="21010757", amount=20, start=1624526000000, end=1676456000000, exclusive_start_key={'action_id' : "5f4f13df-e7d3-4a10-9219-197ceae9e3f0", 'start_date' : 1644256000000})
