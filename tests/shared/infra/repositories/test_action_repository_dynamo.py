@@ -147,7 +147,7 @@ class Test_ActionRepositoryDynamo:
         assert resp.action_id == action.action_id
         assert resp.description == "Nova descrição"
         
-    # @pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_associated_actions_by_ra(self):
         repo = ActionRepositoryDynamo()
         resp = repo.get_associated_actions_by_ra(ra="21010757", amount=20, start=1624526000000, end=1676456000000, exclusive_start_key={'action_id' : "5f4f13df-e7d3-4a10-9219-197ceae9e3f0", 'start_date' : 1644256000000})
