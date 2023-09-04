@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -41,28 +42,28 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'member#{ra}'
     
     @staticmethod
-    def associated_action_partition_key_format(associatedAction: AssociatedAction) -> str:
-        return f'{associatedAction.member_ra}'
+    def associated_action_partition_key_format(member_ra: str) -> str:
+        return f'{member_ra}'
     
     @staticmethod
-    def associated_action_sort_key_format(associatedAction: AssociatedAction) -> str:
-        return f'associated_action#{associatedAction.action_id}'
+    def associated_action_sort_key_format(action_id: str) -> str:
+        return f'associated_action#{action_id}'
     
     @staticmethod
-    def gsi1_associated_action_partition_key_format(associatedAction: AssociatedAction) -> str:
-        return f'{associatedAction.action_id}'
+    def gsi1_associated_action_partition_key_format(action_id: str) -> str:
+        return f'{action_id}'
     
     @staticmethod
-    def gsi1_associated_action_sort_key_format(associatedAction: AssociatedAction) -> str:
-        return f'associated_action#{associatedAction.member_ra}'
+    def gsi1_associated_action_sort_key_format(member_ra: str) -> str:
+        return f'associated_action#{member_ra}'
 
     @staticmethod
-    def associated_action_lsi1_partition_key_format(associatedAction: AssociatedAction) -> str:
-        return f'{associatedAction.member_ra}'
+    def associated_action_lsi1_partition_key_format(member_ra: str) -> str:
+        return f'{member_ra}'
     
     @staticmethod
-    def associated_action_lsi1_sort_key_format(associatedAction: AssociatedAction) -> str:
-        return f'{associatedAction.start_date}'
+    def associated_action_lsi1_sort_key_format(start_date: str) -> str:
+        return f'{start_date}'
     
     def __init__(self):
         self.dynamo = DynamoDatasource(
@@ -90,7 +91,7 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action), sort_key=self.associated_action_sort_key_format(associated_action), is_decimal=True)
+        resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.member_ra), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
         
         return associated_action
     
@@ -133,8 +134,7 @@ class ActionRepositoryDynamo(IActionRepository):
     def update_project(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []) -> Project:
         pass
     
-    def get_all_projects(self) -> List[Project]:
-        # query →  PK = project 				
+    def get_all_projects(self) -> List[Project]:			
         query_string = Key(self.dynamo.partition_key).eq("project")
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
         
@@ -165,9 +165,30 @@ class ActionRepositoryDynamo(IActionRepository):
         member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
         return member_dto.to_entity()
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
-        pass
-    
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
+        query_string = Key(self.dynamo.partition_key).eq(ra)
+
+        if start and end:
+            query_string = query_string & Key('start_date').between(start, end)
+        elif start and not end:
+            query_string = query_string & Key('start_date').gte(start)
+        elif end and not start:
+            query_string = query_string & Key('start_date').lte(end)
+            
+        query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount }
+        
+        if exclusive_start_key:
+            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(ra), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
+        
+        resp = self.dynamo.query(**query_params)
+        
+        associated_actions = []
+        for item in resp.get("Items"):
+            if item.get("entity") == "associated_action":
+                associated_actions.append(AssociatedActionDynamoDTO.from_dynamo(item).to_entity())
+        
+        return associated_actions
+        
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
         # query →  PK = action_id && SK Begins with action				
         keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
