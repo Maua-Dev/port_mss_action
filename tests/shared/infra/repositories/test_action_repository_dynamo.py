@@ -9,6 +9,7 @@ from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
+from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
 
 class Test_ActionRepositoryDynamo:
@@ -78,3 +79,20 @@ class Test_ActionRepositoryDynamo:
         assert all([action.start_date <= 1676456000000 for action in resp])
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) <= 20
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_project(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+        project = repo_mock.projects[0]
+        resp = repo.get_project(project.code)
+
+        assert resp == project
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_project(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.update_project(code="MF", new_name="Mauá Fud")
+
+        assert resp.code == "MF"
+        assert resp.name == "Mauá Fud"
