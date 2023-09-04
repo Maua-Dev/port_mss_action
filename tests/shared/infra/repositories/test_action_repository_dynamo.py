@@ -159,3 +159,12 @@ class Test_ActionRepositoryDynamo:
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) <= 20
 
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_batch_update_associated_action_start(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.batch_update_associated_action_start(action_id="7778ee40-d98b-4187-8b02-052b70cc1ec1", new_start_date=1644256000000)
+        
+        assert all(type(action) == AssociatedAction for action in resp)
+        assert all(action.start_date == 1644256000000 for action in resp)
+        assert all(action.action_id == "7778ee40-d98b-4187-8b02-052b70cc1ec1" for action in resp)
