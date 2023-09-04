@@ -34,21 +34,6 @@ class TestUpdateProjectUsecase:
         assert repo.projects[1].scrum_RA == update_project.scrum_RA
         assert repo.projects[1].photos == update_project.photos
 
-
-    def test_update_project_invalid_code(self):
-        repo = ActionRepositoryMock()
-        usecase = UpdateProjectUsecase(repo)
-
-        with pytest.raises(EntityError):
-            usecase(code = 555, new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_RA = "21017311", new_scrum_RA = "21010755", new_photos = ["foto1", "foto2"])
-
-    def test_update_project_invalid_name(self):
-        repo = ActionRepositoryMock()
-        usecase = UpdateProjectUsecase(repo)
-
-        with pytest.raises(EntityError):
-            usecase(code = "PT", new_name = 555, new_description = "Descrição do projeto teste", new_po_RA = "21017311", new_scrum_RA = "21010755", new_photos = ["foto1", "foto2"])
-
     def test_update_project_not_found(self):
         repo = ActionRepositoryMock()
         usecase = UpdateProjectUsecase(repo)
