@@ -196,7 +196,7 @@ class ActionRepositoryDynamo(IActionRepository):
         resp = self.dynamo.batch_get_items(keys=keys)
 
         actions = []
-        for item in resp.get("Responses").get(self.dynamo.dynamo_table.name):
+        for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
             if item.get("entity") == "action":
                 actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
 
