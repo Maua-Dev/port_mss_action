@@ -122,7 +122,7 @@ class Test_ActionRepositoryMock:
         
     def test_get_associated_actions_by_ra_exclusive_start_key(self):
         repo = ActionRepositoryMock()
-        resp = repo.get_associated_actions_by_ra(ra='23017310', exclusive_start_key=('87d4a661-0752-4ce2-9440-05e752e636fc', 1658136000000), amount=20)
+        resp = repo.get_associated_actions_by_ra(ra='23017310', exclusive_start_key={'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :1658136000000}, amount=20)
         associated_actions = resp[0]
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])

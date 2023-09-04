@@ -49,11 +49,11 @@ class GetHistoryController:
                     raise EntityError('start')
             
             if request.data.get('exclusive_start_key') is not None:
-                if not AssociatedAction.validate_action_id(request.data.get('exclusive_start_key')[0]):
+                if not AssociatedAction.validate_action_id(request.data.get('exclusive_start_key')["action_id"]):
                     raise EntityError('exclusive_start_key action_id')
-                if not 1000000000000 < int(request.data.get('exclusive_start_key')[1]) < 10000000000000:
+                if not 1000000000000 < int(request.data.get('exclusive_start_key')["start_date"]) < 10000000000000:
                     raise EntityError('exclusive_start_key start_date')
-                exclusive_start_key = (request.data.get('exclusive_start_key')[0], int(request.data.get('exclusive_start_key')[1]))
+                exclusive_start_key = {"action_id" : request.data.get('exclusive_start_key')["action_id"], "start_date" : int(request.data.get('exclusive_start_key')["start_date"])}
             else:
                 exclusive_start_key = None
             

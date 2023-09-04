@@ -120,8 +120,7 @@ class ActionRepositoryDynamo(IActionRepository):
     def update_project(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []) -> Project:
         pass
     
-    def get_all_projects(self) -> List[Project]:
-        # query →  PK = project 				
+    def get_all_projects(self) -> List[Project]:			
         query_string = Key(self.dynamo.partition_key).eq("project")
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
         
@@ -138,11 +137,7 @@ class ActionRepositoryDynamo(IActionRepository):
     def get_member(self, ra: str) -> Member:
         pass
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[str] = None) -> List[AssociatedAction]:
-        '''
-        Retrieves all associated actions of a member, filtered by an optional time range specified by start and end parameters. The method allows for pagination using the exclusive_start_key parameter to determine the starting point of the action list, and the amount parameter to determine the maximum number of actions to be retrieved.
-        If no actions are found, returns []
-        '''
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(ra)
 
         if start and end:
@@ -155,7 +150,7 @@ class ActionRepositoryDynamo(IActionRepository):
         query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount }
         
         if exclusive_start_key:
-            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(ra), "SK" : self.associated_action_sort_key_format(exclusive_start_key[0]), "start_date" : Decimal(str(exclusive_start_key[1]))}
+            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(ra), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
         
         resp = self.dynamo.query(**query_params)
         

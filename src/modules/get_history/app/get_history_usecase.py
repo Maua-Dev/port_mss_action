@@ -7,7 +7,7 @@ class GetHistoryUsecase:
     def __init__(self, repo: IActionRepository):
         self.repo = repo
         
-    def __call__(self, ra: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[Tuple[str, int]] = None, amount: Optional[int] = 20):
+    def __call__(self, ra: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = 20):
         
         associated_actions = self.repo.get_associated_actions_by_ra(ra=ra, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
         

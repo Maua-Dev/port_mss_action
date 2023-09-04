@@ -34,7 +34,7 @@ class Test_GetHistoryUsecase:
     def test_get_history_usecase_with_exclusive_start_key(self):
         repo = ActionRepositoryMock()
         usecase = GetHistoryUsecase(repo=repo)
-        actions, last_evaluated_key = usecase(ra='23017310', start=1634526000000, end=1676476000000, exclusive_start_key=('87d4a661-0752-4ce2-9440-05e752e636fc', 1634526000000))
+        actions, last_evaluated_key = usecase(ra='23017310', start=1634526000000, end=1676476000000, exclusive_start_key={'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' : 1634526000000})
         last_action_id = last_evaluated_key[0]
         start_date = last_evaluated_key[1]
 

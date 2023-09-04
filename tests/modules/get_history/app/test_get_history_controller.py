@@ -15,7 +15,7 @@ class Test_GetHistoryController:
             'start' : "1100000000000",
             'end' : "1800000000000",
             'amount' : "10",
-            'exclusive_start_key' : ('87d4a661-0752-4ce2-9440-05e752e636fc', "1634526000000")
+            'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' : 1634526000000}
             })
         
         response = controller(request)
@@ -163,7 +163,7 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'exclusive_start_key' : ('aaaaaaaaa0752-4ce2-9440-05e752e636fc', "1634526000000"),
+            'exclusive_start_key' : {'action_id' : 'aaaaaaaaa0752-4ce2-9440-05e752e636fc', 'start_date' : "1634526000000"},
             })
         
         response = controller(request)
@@ -176,7 +176,7 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={ 
             'ra' : '21010757',
-            'exclusive_start_key' : ('87d4a661-0752-4ce2-9440-05e752e636fc', "163452600000000000")
+            'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :"163452600000000000"}
             })
 
         response = controller(request)

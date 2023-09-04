@@ -578,12 +578,12 @@ class ActionRepositoryMock(IActionRepository):
                 return member
         return None
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[Tuple[str, int]] = None) -> Tuple[List[AssociatedAction], Optional[Tuple[str, int]]]:
+    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
         associated_actions = sorted(self.associated_actions, key=lambda x: x.start_date, reverse=True)
         associated_actions = list(filter(lambda x: x.member_ra == ra, associated_actions))
         if exclusive_start_key:
             action0 = associated_actions[0]
-            while action0 is not None and action0.action_id != exclusive_start_key[0]:
+            while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
                 associated_actions.pop(0)
                 action0 = associated_actions[0] if len(associated_actions) > 0 else None
             associated_actions.pop(0) if len(associated_actions) > 0 else None
