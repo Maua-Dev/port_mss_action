@@ -1,3 +1,4 @@
+from src.shared.domain.entities.project import Project
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
@@ -22,6 +23,28 @@ class UpdateProjectController:
 
             if code is None:
                 raise MissingParameters('code')
+            
+            if not Project.validate_project_code(code):
+                raise EntityError("code")
+                    
+            if new_name is not None and type(new_name) != str:
+                raise EntityError("name")
+            
+            if new_description is not None and type(new_description) != str:
+                raise EntityError("description")
+            
+            if new_po_RA is not None and not Project.validate_RA(new_po_RA):
+                raise EntityError("po_RA")
+            
+            if new_scrum_RA is not None and not Project.validate_RA(new_scrum_RA):
+                raise EntityError("scrum_RA")
+            
+            if new_photos is not None and type(new_photos) != list:
+                raise EntityError("photos")
+            
+            if new_photos != None:
+                if not all(type(photo) == str for photo in new_photos):
+                    raise EntityError("photos")
             
             update_project = self.UpdateProjectUsecase(
                 code=code,

@@ -159,3 +159,19 @@ class Test_ActionRepositoryDynamo:
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) <= 20
 
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_project(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+        project = repo_mock.projects[0]
+        resp = repo.get_project(project.code)
+
+        assert resp == project
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_project(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.update_project(code="MF", new_name="Mauá Fud")
+
+        assert resp.code == "MF"
+        assert resp.name == "Mauá Fud"

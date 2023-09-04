@@ -127,12 +127,44 @@ class ActionRepositoryDynamo(IActionRepository):
         
         if "Item" not in project:
             return None
-        
+
         project_dto = ProjectDynamoDTO.from_dynamo(project['Item'])
         return project_dto.to_entity()
 
-    def update_project(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, photos: List[str] = []) -> Project:
-        pass
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_RA: Optional[str] = None, new_scrum_RA: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members: Optional[List[str]] = None) -> Project:
+        project_to_update = self.get_project(code=code)
+        
+        if project_to_update is None:
+            return None
+        
+        if new_name is not None:
+            project_to_update.name = new_name
+        if new_description is not None:
+            project_to_update.description = new_description
+        if new_po_RA is not None:
+            project_to_update.po_RA = new_po_RA
+        if new_scrum_RA is not None:
+            project_to_update.scrum_RA = new_scrum_RA
+        if new_photos is not None:
+            project_to_update.photos = new_photos
+        if new_members is not None:
+            project_to_update.members = new_members
+            
+        update_dict = {
+            "name": project_to_update.name,
+            "description": project_to_update.description,
+            "po_RA": project_to_update.po_RA,
+            "scrum_RA": project_to_update.scrum_RA,
+            "photos": project_to_update.photos,
+            "members": project_to_update.members
+        }
+        
+        resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)
+        
+        if "Attributes" not in resp:
+            return None
+        
+        return ProjectDynamoDTO.from_dynamo(resp["Attributes"]).to_entity()
     
     def get_all_projects(self) -> List[Project]:			
         query_string = Key(self.dynamo.partition_key).eq("project")
