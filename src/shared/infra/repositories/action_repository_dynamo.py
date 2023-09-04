@@ -91,6 +91,8 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
+        item['GSI1-PK'] = self.gsi1_associated_action_partition_key_format(associated_action.action_id)
+        item['GSI1-SK'] = self.gsi1_associated_action_sort_key_format(associated_action.member_ra)
         resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.member_ra), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
         
         return associated_action
