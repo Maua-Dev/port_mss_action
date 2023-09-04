@@ -14,7 +14,8 @@ class Test_GetHistoryController:
             'ra': '21010757',
             'start' : "1100000000000",
             'end' : "1800000000000",
-            'amount' : "10"
+            'amount' : "10",
+            'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' : 1634526000000}
             })
         
         response = controller(request)
@@ -156,18 +157,31 @@ class Test_GetHistoryController:
         assert response.status_code == 400
         assert response.body == 'Field start is not valid'
         
-    def test_get_history_controller_invalid_exclusive_start_key(self):                                       
+    def test_get_history_controller_invalid_exclusive_start_key_action_id(self):                                       
         repo = ActionRepositoryMock()
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'exclusive_start_key' : '1512137600000',
+            'exclusive_start_key' : {'action_id' : 'aaaaaaaaa0752-4ce2-9440-05e752e636fc', 'start_date' : "1634526000000"},
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field exclusive_start_key is not valid'
+        assert response.body == 'Field exclusive_start_key action_id is not valid'
+        
+    def test_get_history_controller_invalid_exclusive_start_key_start_date(self):                                      
+        repo = ActionRepositoryMock()
+        usecase = GetHistoryUsecase(repo)
+        controller = GetHistoryController(usecase)
+        request = HttpRequest(body={ 
+            'ra' : '21010757',
+            'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :"163452600000000000"}
+            })
+
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field exclusive_start_key start_date is not valid'
         
     def test_get_history_controller_wrong_type_amount(self):
         
@@ -210,19 +224,3 @@ class Test_GetHistoryController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field amount is not valid'
-
-    def test_get_history_controller_no_items_found(self):
-            
-        repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
-        controller = GetHistoryController(usecase)
-        request = HttpRequest(body={
-            'ra': '21010757',
-            'start': "1612137600000",
-            'end': "1612137600000",
-            'amount': "1"
-            })
-        
-        response = controller(request)
-        assert response.status_code == 404
-        assert response.body == 'No items found for ra'

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Tuple
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
@@ -49,15 +49,15 @@ class ActionViewModel:
 
 class GetHistoryViewmodel:
     actions: List[ActionViewModel]
-    last_evaluated_key: str
+    last_evaluated_key: Optional[Tuple[str, int]] = None
     
-    def __init__(self, actions: List[Action], last_evaluated_key: str):
+    def __init__(self, actions: List[Action], last_evaluated_key: Optional[Tuple[str, int]] = None):
         self.actions = [ActionViewModel(action) for action in actions]
         self.last_evaluated_key = last_evaluated_key
         
     def to_dict(self) -> dict:
         return {
             'actions' : [action.to_dict() for action in self.actions],
-            'last_evaluated_key' : self.last_evaluated_key,
+            'last_evaluated_key' : {'action_id' : self.last_evaluated_key[0], 'start_date' : self.last_evaluated_key[1]} if self.last_evaluated_key else None,
             'message' : 'the history was retrieved'
         }

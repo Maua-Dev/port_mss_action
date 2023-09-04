@@ -121,7 +121,22 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag':'WORK'
                 }
             ],
-            'last_evaluated_key': '42e01f11-283c-4925-b0aa-e80ac6c1815a',
+            'last_evaluated_key': {'action_id' : '42e01f11-283c-4925-b0aa-e80ac6c1815a', 'start_date' : 1641896000000},
+            'message': 'the history was retrieved'
+        }
+
+        assert viewmodel == expected
+        
+    def test_get_history_viewmodel_with_no_actions(self):
+        repo = ActionRepositoryMock()
+        usecase = GetHistoryUsecase(repo)
+        actions, last_evaluated_key = usecase(ra='21310757')
+        viewmodel = GetHistoryViewmodel(
+            actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
+
+        expected = {
+            'actions': [],
+            'last_evaluated_key': None,
             'message': 'the history was retrieved'
         }
 
