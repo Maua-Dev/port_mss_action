@@ -91,6 +91,8 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
+        item['GSI1-PK'] = self.gsi1_associated_action_partition_key_format(associated_action.action_id)
+        item['GSI1-SK'] = self.gsi1_associated_action_sort_key_format(associated_action.member_ra)
         resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.member_ra), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
         
         return associated_action
@@ -235,8 +237,30 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return actions
     
-    def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None, members_ra: Optional[List[str]] = None) -> List[AssociatedAction]:
-        pass
+    def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
+        '''
+        Updates all associated actions with new_start_date and returns them, if any
+        '''
+        
+        # we need to query all associated actions with action_id as sort key to get the partition keys, so we can batch_write_items
+        
+        query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
+        
+        if resp["Count"] == 0:
+            return []
+        
+        member_ras = [item['PK'] for item in resp['Items']]
+        
+        update_dict = {"start_date": new_start_date}
+        
+        actions = []
+        for ra in member_ras:
+            update_resp = self.dynamo.update_item(partition_key=self.associated_action_partition_key_format(ra), sort_key=self.associated_action_sort_key_format(action_id), update_dict=update_dict)
+            actions.append(AssociatedActionDynamoDTO.from_dynamo(update_resp['Attributes']).to_entity())
+            
+        return actions
+        
     
     def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
         pass

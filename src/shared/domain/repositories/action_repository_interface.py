@@ -99,7 +99,7 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None, members_ra: Optional[List[str]] = None) -> List[AssociatedAction]:
+    def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
         '''
         Updates all associated actions with new_start_date and returns them, if any
         '''
