@@ -48,8 +48,8 @@ class DynamoStack(Construct):
                 self.dynamo_table_action.add_local_secondary_index(
                     index_name="LSI1",
                     sort_key=aws_dynamodb.Attribute(
-                        name="LSI1-SK",
-                        type=aws_dynamodb.AttributeType.STRING
+                        name="start_date",
+                        type=aws_dynamodb.AttributeType.NUMBER
                     ),
                     
                 )

@@ -11,6 +11,9 @@ from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDy
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.infra.dto.project_dynamo_dto import ProjectDynamoDTO
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
+from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.stack_enum import STACK
 from boto3.dynamodb.conditions import Key
 
 class ActionRepositoryDynamo(IActionRepository):
@@ -76,7 +79,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def create_project(self, project: Project) -> Project:
         item = ProjectDynamoDTO.from_entity(project).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project))
+        resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project.code))
         
         return project
     
@@ -112,11 +115,16 @@ class ActionRepositoryDynamo(IActionRepository):
         return action
             
     def delete_project(self, code: str) -> Optional[Project]:
-        pass
+        delete_project = self.dynamo.delete_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
+
+        if "Attributes" not in delete_project:
+            return None
+
+        return ProjectDynamoDTO.from_dynamo(delete_project['Attributes']).to_entity()
     
     def get_project(self, code: str) -> Project:
         project = self.dynamo.get_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
-
+        
         if "Item" not in project:
             return None
 
@@ -170,10 +178,24 @@ class ActionRepositoryDynamo(IActionRepository):
         return projects
     
     def get_all_members(self) -> List[Member]:
-        pass
+        query_string = Key(self.dynamo.partition_key).eq("member")
+        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
+
+        members = []
+        for item in resp.get("Items"):
+            if item.get("entity") == "member":
+                members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
+
+        return members
 
     def get_member(self, ra: str) -> Member:
-        pass
+        member = self.dynamo.get_item(partition_key=self.member_partition_key_format(ra), sort_key=self.member_sort_key_format(ra))
+
+        if "Item" not in member:
+            return None
+
+        member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
+        return member_dto.to_entity()
     
     def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(ra)
@@ -200,7 +222,18 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        pass
+        # query →  PK = action_id && SK Begins with action				
+        keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
+
+        resp = self.dynamo.batch_get_items(keys=keys)
+
+        actions = []
+        for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
+            if item.get("entity") == "action":
+                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+
+        
+        return actions
     
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None, members_ra: Optional[List[str]] = None) -> List[AssociatedAction]:
         pass
@@ -208,6 +241,32 @@ class ActionRepositoryDynamo(IActionRepository):
     def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
         pass
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[str]] = None, new_action_type_tag : Optional[str] = None) -> Action:
-        pass
-    
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+        
+        action = self.get_action(action_id=action_id)
+        
+        if action is None:
+            return None
+
+        update_dict = {
+            "owner_ra": new_owner_ra,
+            "start_date": new_start_date,
+            "end_date": new_end_date,
+            "duration": new_duration,
+            "story_id": new_story_id,
+            "title": new_title,
+            "description": new_description,
+            "project_code": new_project_code,
+            "associated_members_ra": new_associated_members_ra,
+            "stack_tags": new_stack_tags,
+            "action_type_tag": new_action_type_tag,
+        }
+
+        update_dict_without_none = {k: v for k, v in update_dict.items() if v is not None}
+
+        response = self.dynamo.update_item(partition_key=self.action_partition_key_format(action_id), sort_key=self.action_sort_key_format(action_id), update_dict=update_dict_without_none)
+
+        if "Attributes" not in response:
+            return None
+        
+        return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()

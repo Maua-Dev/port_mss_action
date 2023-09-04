@@ -67,6 +67,85 @@ class Test_ActionRepositoryDynamo:
         resp = repo.get_all_projects()
 
         assert resp == [Project(code="GM",name="Gameficação",description="Projeto para organização dos membros do DEV",po_RA="22084120",scrum_RA="22015940",start_date=1672585200000,members=["22015940","22084120"]), Project(code="MF",name="Maua Food",description="É um aplicativo #foramoleza",po_RA="21017310",scrum_RA="21010757",start_date=1634576165000,photos=["https://i.imgur.com/gHoRKJU.png"],members=["10017310","21010757","21017310"]),Project(code="PT",name="Portfólio",description="É um site",po_RA="22011020",scrum_RA="21010757",start_date=1673535600000,photos=["https://i.imgur.com/gHoRKJU.png"],members=["10017310","21010757","22011020"]),Project(code="SF",name="Selfie Mauá",description="Aplicativo para reconhecimento facial",po_RA="22931270",scrum_RA="21020532",start_date=1686754800000,members=["10017310","19017311","21010757","21020532","22931270"]),Project(code="SM",name="SMILE",description="Site do evento SMILE",po_RA="15014025",scrum_RA="21010757",start_date=1639321200000,members=["10017310","15014025","19017311","21010757"]),]
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_delete_project(self):
+        repo_dynamo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        project = repo_mock.projects[0]
+
+        delected_project= repo_dynamo.delete_project(project.code)
+
+        assert delected_project == project
+
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_project(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        project = repo_mock.projects[0]
+
+        resp = repo.get_project(project.code)
+
+        assert resp == project
+
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_members(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        members = repo_mock.members
+
+        resp = repo.get_all_members()
+
+        members.sort(key=lambda x: x.ra)
+
+        assert resp == members
+
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_member(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        member = repo_mock.members[0]
+
+        resp = repo.get_member(member.ra)
+
+        assert resp == member
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_batch_get_action(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action_ids = [action.action_id for action in repo_mock.actions]
+
+        resp = repo.batch_get_action(action_ids)
+
+        expected_actions = repo_mock.actions
+        expected_actions.sort(key=lambda x: x.action_id)
+
+        resp.sort(key=lambda x: x.action_id)
+
+        assert resp == repo_mock.actions
+
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_action(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action = repo_mock.actions[0]
+
+        resp = repo.update_action(action.action_id, new_description= "Nova descrição")
+
+
+        assert resp.action_id == action.action_id
+        assert resp.description == "Nova descrição"
         
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_associated_actions_by_ra(self):
@@ -79,7 +158,7 @@ class Test_ActionRepositoryDynamo:
         assert all([action.start_date <= 1676456000000 for action in resp])
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) <= 20
-        
+
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_project(self):
         repo = ActionRepositoryDynamo()
