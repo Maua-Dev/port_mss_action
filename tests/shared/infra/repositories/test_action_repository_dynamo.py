@@ -175,3 +175,14 @@ class Test_ActionRepositoryDynamo:
         resp = repo.get_project(project.code)
 
         assert resp == project
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_batch_update_associated_action_members(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.batch_update_associated_action_members(action_id="7778ee40-d98b-4187-8b02-052b70cc1ec1", new_members=["21010757", "19017311"], new_start_date=1644256000000)
+        
+        assert all(type(action) == AssociatedAction for action in resp)
+        assert all(action.action_id == "7778ee40-d98b-4187-8b02-052b70cc1ec1" for action in resp)
+        assert all(action.member_ra in ["21010757", "19017311"] for action in resp)
+        assert all(action.start_date == 1644256000000 for action in resp)
