@@ -8,6 +8,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 class STAGE(Enum):
     DOTENV = "DOTENV"
     DEV = "DEV"
+    HOMOLOG = "HOMOLOG"
     PROD = "PROD"
     TEST = "TEST"
 
@@ -46,6 +47,8 @@ class Environments:
             self.dynamo_table_name = "port_mss_action-table"
             self.dynamo_partition_key = "PK"
             self.dynamo_sort_key = "SK"
+            self.dynamo_gsi_1_partition_key = "GSI1-PK"
+            self.dynamo_gsi_1_sort_key = "GSI1-SK"
             self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
 
         else:
@@ -55,6 +58,8 @@ class Environments:
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
             self.dynamo_partition_key = os.environ.get("DYNAMO_PARTITION_KEY")
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
+            self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
+            self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
 
     @staticmethod
@@ -62,9 +67,9 @@ class Environments:
         if Environments.get_envs().stage == STAGE.TEST:
             from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
             return ActionRepositoryMock
-        # elif Environments.get_envs().stage == STAGE.PROD:
-        #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-        #     return UserRepositoryDynamo
+        elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+            from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
+            return ActionRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
         
