@@ -37,7 +37,9 @@ class IacStack(Stack):
             "allow_headers": Cors.DEFAULT_HEADERS
         }
                                                                    )
-
+        
+        self.dynamo_stack = DynamoStack(self)
+        
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
             "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table.table_name,
@@ -50,8 +52,3 @@ class IacStack(Stack):
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
                                         environment_variables=ENVIRONMENT_VARIABLES)
-
-        self.dynamo_stack = DynamoStack(self)
-
-
-
