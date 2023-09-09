@@ -105,3 +105,17 @@ class LambdaStack(Construct):
             mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
+
+        functions_that_need_dynamo_permissions = [
+                self.create_action_function,
+                self.create_project_function,
+                self.delete_project_function,
+                self.get_all_projects_function,
+                self.get_history_function,
+                self.get_member_function,
+                self.get_project_function,
+                self.get_all_members_function,
+                self.update_project_function,
+                self.update_action_function
+        ]
+        
