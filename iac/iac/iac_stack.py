@@ -42,9 +42,9 @@ class IacStack(Stack):
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
-            "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table.table_name,
-            "DYNAMO_PARTITION_KEY": self.dynamo_stack.partition_key_name,
-            "DYNAMO_SORT_KEY": self.dynamo_stack.sort_key_name,
+            "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table_action.table_name,
+            "DYNAMO_PARTITION_KEY": "PK",
+            "DYNAMO_SORT_KEY": "SK",
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.region,
