@@ -106,7 +106,7 @@ class LambdaStack(Construct):
             environment_variables=environment_variables
         )
 
-        functions_that_need_dynamo_permissions = [
+        self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
                 self.delete_project_function,
