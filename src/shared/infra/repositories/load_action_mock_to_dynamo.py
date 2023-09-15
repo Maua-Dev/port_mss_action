@@ -124,7 +124,40 @@ def load_mock_to_local_dynamo():
 
     print('Done!')
 
+def load_mock_to_real_dynamo():
+    repo_dynamo = ActionRepositoryDynamo()
+    repo_mock = ActionRepositoryMock()
+
+    print('Loading mock data to dynamo...')
+
+    print('Loading actions...')
+    count = 0
+    for action in repo_mock.actions:
+        print(f'Loading action {action.action_id}...')
+        repo_dynamo.create_action(action=action)
+        count += 1
+        print(action)
+    print(f'{count} actions loaded!\n')
+    count = 0
+    for project in repo_mock.projects:
+        print(f'Loading project {project.code}...')
+        repo_dynamo.create_project(project=project)
+        count += 1
+        print(project)
+    for associated_action in repo_mock.associated_actions:
+        print(f'Loading associated action {associated_action.action_id}...')
+        repo_dynamo.create_associated_action(associated_action=associated_action)
+        count += 1
+        print(associated_action)
+    for member in repo_mock.members:
+        print(f'Loading member {member.ra}...')
+        repo_dynamo.create_member(member=member)
+        count += 1
+        print(member)
+
+    print('Done!')
+
 
 if __name__ == '__main__':
-    setup_dynamo_table()
-    load_mock_to_local_dynamo()
+    # setup_dynamo_table()
+    load_mock_to_real_dynamo()
