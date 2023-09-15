@@ -99,7 +99,7 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def create_member(self, member: Member) -> Member:
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member), is_decimal=True)
+        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.ra), is_decimal=True)
         
         return member
     
