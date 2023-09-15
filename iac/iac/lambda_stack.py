@@ -66,7 +66,7 @@ class LambdaStack(Construct):
         
         self.get_history_function = self.create_lambda_api_gateway_integration(
             module_name="get_history",
-            method="GET",
+            method="POST",
             mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
