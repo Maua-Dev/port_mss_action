@@ -12,9 +12,9 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra': '21010757',
-            'start' : "1100000000000",
-            'end' : "1800000000000",
-            'amount' : "10",
+            'start' : 1100000000000,
+            'end' : 1800000000000,
+            'amount' : 10,
             'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' : 1634526000000}
             })
         
@@ -68,12 +68,12 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'start' : 1612137600000,
+            'start' : "1612137600000",
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field start isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field start isn\'t in the right type.\n Received: <class \'str\'>.\n Expected: int'
                             
     def test_get_history_controller_invalid_start(self):
                                 
@@ -82,21 +82,7 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'start' : "10",
-            })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field start is not valid'
-        
-    def test_get_history_controller_not_decimal_start(self):
-                                
-        repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
-        controller = GetHistoryController(usecase)
-        request = HttpRequest(body={
-            'ra' : '21010757',
-            'start' : "Olá, curioso!",
+            'start' : 10,
             })
         
         response = controller(request)
@@ -110,12 +96,12 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'end' : 1612137600000,
+            'end' : "1612137600000",
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field end isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field end isn\'t in the right type.\n Received: <class \'str\'>.\n Expected: int'
         
     def test_get_history_controller_invalid_end(self):                                       
         repo = ActionRepositoryMock()
@@ -123,20 +109,7 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'end' : "10",
-            })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field end is not valid'
-        
-    def test_get_history_controller_not_decimal_end(self):                                       
-        repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
-        controller = GetHistoryController(usecase)
-        request = HttpRequest(body={
-            'ra' : '21010757',
-            'end' : "Olá, curioso!",
+            'end' : 10,
             })
         
         response = controller(request)
@@ -149,8 +122,8 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'start' : "1612137600000",
-            'end' : "1512137600000",
+            'start' : 1612137600000,
+            'end' : 1512137600000,
             })
         
         response = controller(request)
@@ -190,12 +163,12 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'amount' : 20,
+            'amount' : "20",
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field amount isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field amount isn\'t in the right type.\n Received: <class \'str\'>.\n Expected: int'
         
     def test_get_history_controller_invalid_amount(self):
         
@@ -204,21 +177,7 @@ class Test_GetHistoryController:
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
             'ra' : '21010757',
-            'amount' : "0",
-            })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field amount is not valid'
-        
-    def test_get_history_controller_not_decimal_amount(self):
-        
-        repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
-        controller = GetHistoryController(usecase)
-        request = HttpRequest(body={
-            'ra' : '21010757',
-            'amount' : "Olá, curioso!",
+            'amount' : 0,
             })
         
         response = controller(request)

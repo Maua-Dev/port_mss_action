@@ -23,24 +23,20 @@ class GetHistoryController:
                 raise EntityError('ra')
             
             if request.data.get('start') is not None:
-                if type(request.data.get('start')) is not str:
-                    raise WrongTypeParameter(fieldName='start', fieldTypeExpected='str', fieldTypeReceived=type(request.data.get('start')))
-                if not request.data.get('start').isdecimal():
+                if type(request.data.get('start')) is not int:
+                    raise WrongTypeParameter(fieldName='start', fieldTypeExpected='int', fieldTypeReceived=type(request.data.get('start')))
+                if not 1000000000000 < request.data.get('start') < 10000000000000:
                     raise EntityError('start')
-                if not 1000000000000 < int(request.data.get('start')) < 10000000000000:
-                    raise EntityError('start')
-                start = int(request.data.get('start'))
+                start = request.data.get('start')
             else:
                 start = None
             
             if request.data.get('end') is not None:
-                if type(request.data.get('end')) is not str:
-                    raise WrongTypeParameter(fieldName='end', fieldTypeExpected='str', fieldTypeReceived=type(request.data.get('end')))
-                if not request.data.get('end').isdecimal():
+                if type(request.data.get('end')) is not int:
+                    raise WrongTypeParameter(fieldName='end', fieldTypeExpected='int', fieldTypeReceived=type(request.data.get('end')))
+                if not 1000000000000 < request.data.get('end') < 10000000000000:
                     raise EntityError('end')
-                if not 1000000000000 < int(request.data.get('end')) < 10000000000000:
-                    raise EntityError('end')
-                end = int(request.data.get('end'))
+                end = request.data.get('end')
             else:
                 end = None
 
@@ -58,11 +54,9 @@ class GetHistoryController:
                 exclusive_start_key = None
             
             if request.data.get('amount') is not None:
-                if type(request.data.get('amount')) is not str:
-                    raise WrongTypeParameter(fieldName='amount', fieldTypeExpected='str', fieldTypeReceived=type(request.data.get('amount')))
-                if not request.data.get('amount').isdecimal():
-                    raise EntityError('amount')
-                amount = int(request.data.get('amount'))
+                if type(request.data.get('amount')) is not int:
+                    raise WrongTypeParameter(fieldName='amount', fieldTypeExpected='int', fieldTypeReceived=type(request.data.get('amount')))
+                amount = request.data.get('amount')
                 if amount < 1:
                     raise EntityError('amount')
             else:
