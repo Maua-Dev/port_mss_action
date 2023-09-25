@@ -592,8 +592,8 @@ class ActionRepositoryMock(IActionRepository):
         if end:
             associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
         
-        tup = (associated_actions[-1].action_id, associated_actions[-1].start_date) if len(associated_actions) > 0 else None
-        return (associated_actions[:amount], tup)
+        
+        return associated_actions[:amount]
     
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
         actions = []
