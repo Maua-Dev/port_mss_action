@@ -187,7 +187,7 @@ class Test_ActionRepositoryDynamo:
         assert all(action.member_ra in ["21010757", "19017311"] for action in resp)
         assert all(action.start_date == 1644256000000 for action in resp)
         
-    # @pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_batch_get_member(self):
         repo = ActionRepositoryDynamo()
         repo_mock = ActionRepositoryMock()
