@@ -652,3 +652,10 @@ class ActionRepositoryMock(IActionRepository):
                 new_action = action
         
         return new_action
+    
+    def batch_get_member(self, ras: List[str]) -> List[Member]:
+        members = []
+        for member in self.members:
+            if member.ra in ras:
+                members.append(member)
+        return members

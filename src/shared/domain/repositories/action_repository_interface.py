@@ -119,3 +119,11 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
+    
+    @abstractmethod
+    def batch_get_member(self, ras: List[str]) -> List[Member]:
+        '''
+        Returns all members with the given ras, if any
+        else returns []
+        '''
+        pass
