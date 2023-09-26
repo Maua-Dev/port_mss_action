@@ -17,7 +17,7 @@ class BatchGetMemberUsecase:
         members = self.repo.batch_get_member(ras=ras)
         
         if len(members) == 0:
-            raise NoItemsFound('Member')
+            raise NoItemsFound('ras')
         
         unique_members = []
         for member in members:
