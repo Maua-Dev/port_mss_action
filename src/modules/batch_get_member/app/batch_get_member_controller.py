@@ -1,5 +1,5 @@
-from src.modules.batch_get_member.app.batch_get_member_usecase import BatchGetMemberUsecase
-from src.modules.batch_get_member.app.batch_get_member_viewmodel import BatchGetMemberViewmodel
+from .batch_get_member_usecase import BatchGetMemberUsecase
+from .batch_get_member_viewmodel import BatchGetMemberViewmodel
 from src.shared.domain.entities.member import Member
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
