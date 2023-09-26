@@ -14,14 +14,10 @@ class BatchGetMemberUsecase:
         self.repo = repo
 
     def __call__(self, ras: List[str]) -> List[Member]:
+        ras = list(set(ras))
         members = self.repo.batch_get_member(ras=ras)
         
         if len(members) == 0:
             raise NoItemsFound('ras')
-        
-        unique_members = []
-        for member in members:
-            if member not in unique_members:
-                unique_members.append(member)
             
-        return unique_members
+        return members
