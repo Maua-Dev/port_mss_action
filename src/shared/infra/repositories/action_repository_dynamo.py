@@ -199,15 +199,19 @@ class ActionRepositoryDynamo(IActionRepository):
         member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
         return member_dto.to_entity()
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
+    def get_associated_actions_by_ra(self, ra: str, amount: int = 20, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(ra)
 
+        if amount is None:
+            amount = 20
+            
         if start and end:
             query_string = query_string & Key('start_date').between(start, end)
         elif start and not end:
             query_string = query_string & Key('start_date').gte(start)
         elif end and not start:
             query_string = query_string & Key('start_date').lte(end)
+            
             
         query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         
