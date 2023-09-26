@@ -105,6 +105,13 @@ class LambdaStack(Construct):
             mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
         )
+        
+        self.batch_get_member_function = self.create_lambda_api_gateway_integration(
+            module_name="batch_get_member",
+            method="POST",
+            mss_action_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
 
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
@@ -116,6 +123,7 @@ class LambdaStack(Construct):
                 self.get_project_function,
                 self.get_all_members_function,
                 self.update_project_function,
-                self.update_action_function
+                self.update_action_function,
+                self.batch_get_member_function
         ]
         

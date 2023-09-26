@@ -150,3 +150,12 @@ class Test_ActionRepositoryMock:
         action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_associated_members_ra=['19009219'])
         assert type(action) == Action
         assert repo.actions[0] == action
+        
+    def test_batch_get_member(self):
+        repo = ActionRepositoryMock()
+        members = repo.batch_get_member(ras=[repo.members[0].ra, repo.members[1].ra])
+        assert type(members) == list
+        assert all([type(member) == Member for member in members])
+        assert len(members) == 2
+        assert members[0] == repo.members[0]
+        assert members[1] == repo.members[1]
