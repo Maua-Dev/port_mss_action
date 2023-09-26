@@ -290,16 +290,16 @@ class ActionRepositoryDynamo(IActionRepository):
 
         update_dict = {
             "owner_ra": new_owner_ra,
-            "start_date": new_start_date,
-            "end_date": new_end_date,
-            "duration": new_duration,
-            "story_id": new_story_id,
+            "start_date": Decimal(str(new_start_date)) if new_start_date is not None else None,
+            "end_date": Decimal(str(new_end_date)) if new_end_date is not None else None,
+            "duration": Decimal(str(new_duration)) if new_duration is not None else None,
+            "story_id": Decimal(new_story_id) if new_story_id is not None else None,
             "title": new_title,
             "description": new_description,
             "project_code": new_project_code,
             "associated_members_ra": new_associated_members_ra,
-            "stack_tags": new_stack_tags,
-            "action_type_tag": new_action_type_tag,
+            "stack_tags": [stack.value for stack in new_stack_tags] if new_stack_tags is not None else None,
+            "action_type_tag": new_action_type_tag.value if new_action_type_tag is not None else None,
         }
 
         update_dict_without_none = {k: v for k, v in update_dict.items() if v is not None}
