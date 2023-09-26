@@ -310,3 +310,16 @@ class ActionRepositoryDynamo(IActionRepository):
             return None
         
         return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()
+    
+    def batch_get_member(self, ras: List[str]) -> List[Member]:
+        keys = [{self.dynamo.partition_key: self.member_partition_key_format(ra), self.dynamo.sort_key: self.member_sort_key_format(ra)} for ra in ras]
+
+        resp = self.dynamo.batch_get_items(keys=keys)
+
+        members = []
+        for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
+            if item.get("entity") == "member":
+                members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
+
+        
+        return members
