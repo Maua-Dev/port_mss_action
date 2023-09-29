@@ -6,7 +6,7 @@ from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from .create_member_usecase import CreateActionUsecase
-from .create_action_viewmodel import CreateActionViewmodel
+from .create_member_viewmodel import CreateActionViewmodel
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 
