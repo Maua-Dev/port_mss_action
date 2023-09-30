@@ -1,8 +1,9 @@
-from tkinter import ACTIVE
+
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 
@@ -53,7 +54,7 @@ class MemberViewModel:
             'deactivated_date' : self.deactivated_date
         }
 
-class CreateModelViewmodel:
+class CreateMemberViewmodel:
     model: Member
     
     def __init__(self, member: Member):

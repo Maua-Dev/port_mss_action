@@ -1,8 +1,8 @@
 from src.modules.create_action.app.create_action_viewmodel import CreateActionViewmodel
-from src.modules.create_member.app.create_member_viewmodel import CreateModelViewmodel
+from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
-
+import cgi
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -31,7 +31,7 @@ class Test_CreateMemberViewmodel:
         # action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_ra=['19017310'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         
         # viewmodel = CreateActionViewmodel(action=action).to_dict()
-        viewmodel = CreateModelViewmodel(member=member).to_dict()
+        viewmodel = CreateMemberViewmodel(member=member).to_dict()
         expected = {
                     'member':{
             'name' : 'Vitor Guirão MPNTM',
