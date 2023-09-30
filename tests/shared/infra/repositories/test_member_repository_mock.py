@@ -40,6 +40,25 @@ class Test_MemberRepositoryMock:
         assert len(members) == len(repo.members)
         assert members == repo.members
         
+    def test_create_member(self):
+        repo = MemberRepositoryMock()
+        member = Member(
+            name="Rubicks Cube",
+            email_dev="rcube.devmaua@gmail.com",
+            email="rubikscube@gmail.com",
+            ra="19017311",
+            role=ROLE.DEV,
+            stack=STACK.BACKEND,
+            year=3,
+            cellphone="11911758098",
+            course=COURSE.ECM,
+            hired_date=1640192165000,
+            active=ACTIVE.ACTIVE
+        )
+        repo.create_member(member)
+        assert member in repo.members
+        
+        
 
         
     
