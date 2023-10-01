@@ -13,14 +13,12 @@ class CreateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, ra: str, name: Optional[str] = None, email_dev: Optional[str] = None, email: Optional[str] = None, role: Optional[ROLE] = None, stack: Optional[STACK] = None, year: Optional[int] = None, cellphone: Optional[str] = None, course: Optional[COURSE] = None, hired_date: Optional[int] = None, deactivated_date: Optional[int] = None, active: Optional[ACTIVE] = None) -> Member:
+    def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, hired_date: int, deactivated_date: int) -> Member:
       
         
-        # for ra in [owner_ra] + associated_members_ra:
-        #     if not self.repo.get_member(ra):
-        #         raise NoItemsFound(ra)
+
         
-        member = Member( name, email_dev, email,ra, role, stack, year, cellphone, course, hired_date,  active,deactivated_date)        
+        member = Member( name, email_dev, email,ra, role, stack, year, cellphone, course, hired_date,  ACTIVE.ACTIVE,deactivated_date)        
         
         self.repo.create_member(member)
         
