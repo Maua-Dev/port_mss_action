@@ -18,17 +18,16 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            'name':"Vitor Guirão MPNTM",
+            "name":"Vitor Guirão MPNTM",
             'email_dev':"vsoller.devmaua@gmail.com",
             'email':"vsoller@airubio.com",
             'ra':"21017310",
-            'role':ROLE.DIRECTOR,
-            'stack':STACK.INFRA,
+            'role':'DIRECTOR',
+            'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
-            'course':COURSE.ECA,
+            'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE  ,
             'deactivated_date':None
         })
         
@@ -39,13 +38,13 @@ class Test_CreateMemberController:
         assert response.body['member']['email_dev'] == "vsoller.devmaua@gmail.com"
         assert response.body['member']['email'] == "vsoller@airubio.com"
         assert response.body['member']['ra'] == "21017310"
-        assert response.body['member']['role'] == ROLE.DIRECTOR
-        assert response.body['member']['stack'] == STACK.INFRA
+        assert response.body['member']['role'] == 'DIRECTOR'
+        assert response.body['member']['stack'] == STACK.INFRA.value
         assert response.body['member']['year'] == 1
         assert response.body['member']['cellphone'] == "11991758098"
-        assert response.body['member']['course'] == COURSE.ECA
+        assert response.body['member']['course'] == COURSE.ECA.value
         assert response.body['member']['hired_date'] == 1614567601000
-        assert response.body['member']['active'] == ACTIVE.ACTIVE
+        # assert response.body['member']['active'] == ACTIVE.ACTIVE.value
         assert response.body['member']['deactivated_date'] == None        
     
     def test_create_member_controller_missing_ra(self):

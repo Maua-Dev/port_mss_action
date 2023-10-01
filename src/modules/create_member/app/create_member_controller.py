@@ -1,5 +1,7 @@
 
 from src.shared.domain.entities.member import Member
+from src.shared.domain.enums.course_enum import COURSE
+from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
@@ -24,27 +26,35 @@ class CreateMemberController:
                 raise MissingParameters('email')
             if request.data.get('ra') is None:
                 raise MissingParameters('ra')
+
+            role = request.data.get('role')
+            if role not in [role_value.value for role_value in ROLE]:
+                raise EntityError('role')
+            role = ROLE[role]
+            
             if request.data.get('role') is None:
                 raise MissingParameters('role')
+            
+            stack = request.data.get('stack')
+            if stack not in [stack_value.value for stack_value in STACK]:
+                raise EntityError('stack')
+            stack = STACK[stack]
             if request.data.get('stack') is None:
                 raise MissingParameters('stack')
             if request.data.get('year') is None:
                 raise MissingParameters('year')
             if request.data.get('cellphone') is None:
                 raise MissingParameters('cellphone')
+            course = request.data.get('course')
+            if course not in [course_value.value for course_value in COURSE]:
+                raise EntityError('course')
+            course = COURSE[course]
             if request.data.get('course') is None:
                 raise MissingParameters('course')
             if request.data.get('hired_date') is None:
                 raise MissingParameters('hired_date')
-            if request.data.get('active') is None:
-                raise MissingParameters('active')
-       
-            # if request.data.get('story_id') is not None:
-            #     if type(request.data.get('story_id')) is not int:
-            #         raise EntityError('story_id')
-            #     story_id = request.data.get('story_id')
-            # else:
-            #     story_id = None
+  
+
             # if request.data.get('stack_tags') is not None:
             #     if type(request.data.get('stack_tags')) is not list:
             #         raise EntityError('stack_tags')
@@ -81,13 +91,14 @@ class CreateMemberController:
                 email_dev=request.data.get('email_dev'),
                 email=request.data.get('email'),
                 ra=request.data.get('ra'),
-                role=request.data.get('role'),
-                stack=request.data.get('stack'),
+                # role=request.data.get('role'),
+                role=role,
+                stack=stack,
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
-                course=request.data.get('course'),
+                course=course,
                 hired_date=request.data.get('hired_date'),   
-                active=request.data.get('active'), 
+                # active=request.data.get('active'), 
                 deactivated_date=request.data.get('deactivated_date')                            
                 # stack_tags=stack_tags,
                 # action_type_tag=action_type_tag
