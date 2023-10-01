@@ -1,8 +1,6 @@
 
 from typing import List, Optional
-from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
-from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
@@ -44,13 +42,13 @@ class MemberViewModel:
             'email_dev' : self.email_dev,
             'email' : self.email,
             'ra' : self.ra,
-            'role' : self.role,
-            'stack' : self.stack,
+            'role' : self.role.value,
+            'stack' : self.stack.value,
             'year' : self.year,
             'cellphone' : self.cellphone,
-            'course' : self.course,
+            'course' : self.course.value,
             'hired_date' : self.hired_date,
-            'active' : self.active,
+            'active' : self.active.value,
             'deactivated_date' : self.deactivated_date
         }
 

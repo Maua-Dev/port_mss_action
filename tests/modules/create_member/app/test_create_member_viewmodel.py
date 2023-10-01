@@ -25,12 +25,10 @@ class Test_CreateMemberViewmodel:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1614567601000,
-             active=ACTIVE.ACTIVE  ,
-                  deactivated_date=None)
+            active=ACTIVE.ACTIVE  ,
+            deactivated_date=None)
         
-        # action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_ra=['19017310'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
-        
-        # viewmodel = CreateActionViewmodel(action=action).to_dict()
+     
         viewmodel = CreateMemberViewmodel(member=member).to_dict()
         expected = {
                     'member':{
@@ -38,13 +36,13 @@ class Test_CreateMemberViewmodel:
             'email_dev' : "vsoller.devmaua@gmail.com",
             'email' : "vsoller@airubio.com",
             'ra' : "21017310",
-            'role' : ROLE.DIRECTOR,
-            'stack' : STACK.INFRA,
+            'role' : ROLE.DIRECTOR.value,
+            'stack' : STACK.INFRA.value,
             'year' : 1,
             'cellphone' : "11991758098",
-            'course' : COURSE.ECA,
+            'course' : COURSE.ECA.value,
             'hired_date' : 1614567601000,
-            'active' : ACTIVE.ACTIVE,
+            'active' : ACTIVE.ACTIVE.value,
             'deactivated_date' : None
                     },
                     'message':'the member was created'
