@@ -53,28 +53,28 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Vitor Guirão MPNTM","email_dev":"vsoller.devmaua@gmail.com","email":"vsoller@airubio.com","ra":"21017310", "role":ROLE.DIRECTOR, "stack":STACK.INFRA,"year":1,"cellphone":"11991758098","course":COURSE.ECA, "hired_date":1614567601000,"active":ACTIVE.ACTIVE,"deactivated_date":None}',
+            "body": '{"name":"Vitor Guirão MPNTM","email_dev":"vsoller.devmaua@gmail.com","email":"vsoller@airubio.com","ra":"21017310","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
         }
-        
         response = lambda_handler(event, None)
 
-        assert json.loads(response["body"])["member"]["name"] == 'Vitor Guirão MPNTM'
-        assert json.loads(response["body"])["member"]['email_dev'] == "vsoller.devmaua@gmail.com"
-        assert json.loads(response["body"])["member"]['email'] == "vsoller@airubio.com"
-        assert json.loads(response["body"])["member"]['ra'] == "21017310"
-        assert json.loads(response["body"])["member"]['role'] == ROLE.DIRECTOR
-        assert json.loads(response["body"])["member"]['stack'] == STACK.INFRA
-        assert json.loads(response["body"])["member"]['year'] == 1
-        assert json.loads(response["body"])["member"]['cellphone'] == "11991758098"
-        assert json.loads(response["body"])["member"]['course'] == COURSE.ECA
-        assert json.loads(response["body"])["member"]['hired_date'] == 1614567601000
-        assert json.loads(response["body"])["member"]['active'] == ACTIVE.ACTIVE
-        assert json.loads(response["body"])["member"]['deactivated_date'] == None    
+        assert response["statusCode"] == 201
+        assert json.loads(response["body"])['member']['name'] == 'Vitor Guirão MPNTM'
+        assert json.loads(response["body"])['member']['email_dev'] == "vsoller.devmaua@gmail.com"
+        assert json.loads(response["body"])['member']['email'] == "vsoller@airubio.com"
+        assert json.loads(response["body"])['member']['ra'] == "21017310"
+        assert json.loads(response["body"])['member']['role'] == ROLE.DIRECTOR.value
+        assert json.loads(response["body"])['member']['stack'] == STACK.INFRA.value
+        assert json.loads(response["body"])['member']['year'] == 1
+        assert json.loads(response["body"])['member']['cellphone'] == "11991758098"
+        assert json.loads(response["body"])['member']['course'] == COURSE.ECA.value
+        assert json.loads(response["body"])['member']['hired_date'] == 1614567601000
+        assert json.loads(response["body"])['member']['active'] == ACTIVE.ACTIVE.value
+        assert json.loads(response["body"])['member']['deactivated_date'] == None   
         assert json.loads(response["body"])["message"] == 'the member was created'
-        assert response["statusCode"] == 201 
+    
 
     def test_create_action_presenter_missing_parameters(self):
         
