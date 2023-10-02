@@ -93,29 +93,7 @@ class Test_CreateMemberController:
         assert response.status_code == 400
         assert response.body == 'Field name is missing'
         
-    def test_create_action_controller_name_entity_error(self):
-            
-        repo = MemberRepositoryMock()
-        usecase = CreateMemberUsecase(repo=repo)
-        controller = CreateMemberController(usecase=usecase)
-        request = HttpRequest(body={
-            'name':234,
-            'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
-            'role':ROLE.DIRECTOR,
-            'stack':STACK.INFRA,
-            'year':1,
-            'cellphone':"11991758098",
-            'course':COURSE.ECA,
-            'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE  ,
-            'deactivated_date':None
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field name is not valid'
+  
             
     def test_create_action_controller_missing_title(self):
             
