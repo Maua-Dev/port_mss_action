@@ -89,7 +89,7 @@ class Test_UpdateMemberController:
         controller = UpdateMemberController(usecase)
         request = HttpRequest(body={
             'ra': '123234234',
-            'new_name':"Joao Branco",
+            'name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
             'role':ROLE.HEAD.value,
             'stack':STACK.BACKEND.value,
@@ -111,18 +111,40 @@ class Test_UpdateMemberController:
         ra = repo.members[0].ra
         request = HttpRequest(body={
              'ra': ra,
-            'new_name':234,
-            'email_dev':"jbranco.devmaua@gmail.com",
-            'role':ROLE.HEAD.value,
-            'stack':STACK.BACKEND.value,
-            'year':3,
-            'cellphone':"11991152348",
-            'course':COURSE.ECM.value,
-            'active':ACTIVE.ACTIVE.value
+            'new_name':123,
+            'new_email_dev':"jbranco.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11991152348",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value
             })
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field new_name isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        
+    def test_update_member_controller_wrong_type_new_email_dev(self):
+                        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_name':"Joao Branco",
+            'new_email_dev':123,
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11991152348",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value
+            })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field new_email_dev isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
  
