@@ -34,14 +34,14 @@ class UpdateMemberController:
             
             new_email_dev = request.data.get('new_email_dev')
             if new_email_dev is not None:
-                if type(new_email_dev) is not int:
+                if type(new_email_dev) is not str:
                     raise WrongTypeParameter(fieldName='new_email_dev', fieldTypeExpected='str', fieldTypeReceived=type(new_email_dev))
                 if not Member.validate_email_dev(new_email_dev):
                     raise EntityError('new_email_dev')
 
             new_role = request.data.get('new_role')
             if new_role is not None:
-                if type(new_role) is not ROLE:
+                if type(new_role) is not str:
                     raise WrongTypeParameter(fieldName='new_role', fieldTypeExpected='ROLE', fieldTypeReceived=type(new_role))
                 if new_role not in [role_value.value for role_value in ROLE]:
                     raise EntityError('new_role')
@@ -50,7 +50,7 @@ class UpdateMemberController:
 
             new_stack = request.data.get('new_stack')
             if new_stack is not None:
-                if type(new_stack) is not STACK:
+                if type(new_stack) is not str:
                     raise WrongTypeParameter(fieldName='new_stack', fieldTypeExpected='STACK', fieldTypeReceived=type(new_stack))
                 if new_stack not in [stack_value.value for stack_value in STACK]:
                     raise EntityError('new_stack')
@@ -67,14 +67,14 @@ class UpdateMemberController:
                 
             new_cellphone = request.data.get('new_cellphone')
             if new_cellphone is not None:
-                if type(new_cellphone) is not int:
+                if type(new_cellphone) is not str:
                     raise WrongTypeParameter(fieldName='new_cellphone', fieldTypeExpected='str', fieldTypeReceived=type(new_cellphone))
                 if not Member.validate_cellphone(new_cellphone):
                     raise EntityError('new_cellphone')
 
             new_course = request.data.get('new_course')
             if new_course is not None:
-                if type(new_course) is not COURSE:
+                if type(new_course) is not str:
                     raise WrongTypeParameter(fieldName='new_course', fieldTypeExpected='COURSE', fieldTypeReceived=type(new_course))
                 if new_course not in [course_value.value for course_value in COURSE]:
                     raise EntityError('new_course')
@@ -90,7 +90,7 @@ class UpdateMemberController:
                             
             new_active = request.data.get('new_active')
             if new_active is not None:
-                if type(new_active) is not ACTIVE:
+                if type(new_active) is not str:
                     raise WrongTypeParameter(fieldName='new_active', fieldTypeExpected='ACTIVE', fieldTypeReceived=type(new_active))
                 if new_active not in [active_value.value for active_value in ACTIVE]:
                     raise EntityError('new_active')

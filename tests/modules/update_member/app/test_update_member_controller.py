@@ -20,23 +20,25 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_user = repo.members[0]
         request = HttpRequest(body={
             'ra': ra,
             'new_name':"Joao Branco",
-            'email_dev':"jbranco.devmaua@gmail.com",
-            'role':ROLE.HEAD.value,
-            'stack':STACK.BACKEND.value,
-            'year':3,
-            'cellphone':"11991152348",
-            'course':COURSE.ECM.value,
-            'active':ACTIVE.ACTIVE.value
+            'new_email_dev':"jbranco.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11991152348",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value
            
             })
         
         response = controller(request)
+       
         assert response.status_code == 200
         assert response.body["message"] == "the member was updated"
-        
+
     def test_update_member_controller_missing_ra(self):
             
         repo = MemberRepositoryMock()
