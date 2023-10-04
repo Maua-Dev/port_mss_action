@@ -3,7 +3,7 @@ from .delete_member_usecase import DeleteMemberUseCase
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
-repo = Environments.get_action_repo()()
+repo = Environments.get_member_repo()()
 usecase =   DeleteMemberUseCase(repo=repo)
 controller = DeleteMemberController(usecase=usecase)
 
