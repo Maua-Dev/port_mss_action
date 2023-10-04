@@ -1,12 +1,9 @@
-from src.modules.update_action.app.update_action_usecase import UpdateActionUsecase
-from src.modules.update_action.app.update_action_viewmodel import UpdateActionViewmodel
 from src.modules.update_member.app.update_member_usecase import UpdateMemberUsecase
 from src.modules.update_member.app.update_member_viewmodel import UpdateMemberViewmodel
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 

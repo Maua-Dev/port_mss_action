@@ -148,15 +148,13 @@ class MemberRepositoryMock(IMemberRepository):
         return None
     
     
-    def update_member(self, ra: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_email: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None, new_hired_date: Optional[int] = None, new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def update_member(self, ra: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
         for member in self.members:
             if member.ra == ra:
                 if new_name is not None:
                     member.name = new_name
                 if new_email_dev is not None:
                     member.email_dev = new_email_dev
-                if new_email is not None:
-                    member.email = new_email
                 if new_role is not None:
                     member.role = new_role
                 if new_stack is not None:
@@ -167,8 +165,6 @@ class MemberRepositoryMock(IMemberRepository):
                     member.cellphone = new_cellphone
                 if new_course is not None:
                     member.course = new_course
-                if new_hired_date is not None:
-                    member.hired_date = new_hired_date 
                 if new_active is not None:
                     member.active = new_active
                 if new_deactivated_date is not None:

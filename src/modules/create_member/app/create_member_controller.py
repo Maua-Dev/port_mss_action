@@ -31,7 +31,6 @@ class CreateMemberController:
             if role not in [role_value.value for role_value in ROLE]:
                 raise EntityError('role')
             role = ROLE[role]
-            
             if request.data.get('role') is None:
                 raise MissingParameters('role')
             
@@ -91,17 +90,12 @@ class CreateMemberController:
                 email_dev=request.data.get('email_dev'),
                 email=request.data.get('email'),
                 ra=request.data.get('ra'),
-                # role=request.data.get('role'),
                 role=role,
                 stack=stack,
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
-                hired_date=request.data.get('hired_date'),   
-                # active=request.data.get('active'), 
                 deactivated_date=request.data.get('deactivated_date')                            
-                # stack_tags=stack_tags,
-                # action_type_tag=action_type_tag
             )
             
             viewmodel = CreateMemberViewmodel(member=member)
