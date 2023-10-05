@@ -40,6 +40,7 @@ class CreateMemberController:
             stack = STACK[stack]
             if request.data.get('stack') is None:
                 raise MissingParameters('stack')
+            
             if request.data.get('year') is None:
                 raise MissingParameters('year')
             if request.data.get('cellphone') is None:
@@ -50,6 +51,7 @@ class CreateMemberController:
             course = COURSE[course]
             if request.data.get('course') is None:
                 raise MissingParameters('course')
+ 
             if request.data.get('hired_date') is None:
                 raise MissingParameters('hired_date')
   
@@ -95,6 +97,7 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
+                hired_date=request.data.get('hired_date'),
                 deactivated_date=request.data.get('deactivated_date')                            
             )
             
