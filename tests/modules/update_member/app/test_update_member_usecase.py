@@ -12,8 +12,6 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-#  ra: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_email: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None, new_hired_date: Optional[int] = None, new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None)
-
         member = usecase(     ra="21017310",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
