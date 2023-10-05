@@ -19,7 +19,6 @@ class Test_UpdateMemberViewmodel:
             'member': {
                 'name':"Joao Brancas",
                 'email_dev':"vsoller.devmaua@gmail.com",
-                'email':"vsoller@airubio.com",
                 'ra':"21017310",
                 'role':ROLE.DIRECTOR.value,
                 'stack':STACK.INFRA.value,

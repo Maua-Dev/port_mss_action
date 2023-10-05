@@ -37,7 +37,6 @@ class MemberViewModel:
         return {
             'name' : self.name,
             'email_dev' : self.email_dev,
-            'email' : self.email,
             'ra' : self.ra,
             'role' : self.role.value,
             'stack' : self.stack.value,

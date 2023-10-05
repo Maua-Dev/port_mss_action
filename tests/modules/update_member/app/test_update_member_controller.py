@@ -19,12 +19,12 @@ class Test_UpdateMemberController:
         first_user = repo.members[0]
         request = HttpRequest(body={
             'ra': ra,
-            'new_name':"Joao Branco",
-            'new_email_dev':"jbranco.devmaua@gmail.com",
+            'new_name':"Teste Tester",
+            'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
-            'new_cellphone':"11991152348",
+            'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
             'new_deactivated_date': 16345761650222  
@@ -108,7 +108,7 @@ class Test_UpdateMemberController:
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
         request = HttpRequest(body={
-             'ra': ra,
+            'ra': ra,
             'new_name':123,
             'new_email_dev':"jbranco.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
