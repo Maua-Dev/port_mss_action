@@ -85,7 +85,7 @@ class UpdateMemberController:
             if new_deactivated_date is not None:
                 if type(new_deactivated_date) is not int:
                     raise WrongTypeParameter(fieldName='new_deactivated_date', fieldTypeExpected='int', fieldTypeReceived=type(new_deactivated_date))
-                if new_deactivated_date < 0:
+                if new_deactivated_date < 0 :
                     raise EntityError('new_deactivated_date')
                             
             new_active = request.data.get('new_active')

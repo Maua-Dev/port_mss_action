@@ -59,6 +59,22 @@ class Test_MemberRepositoryMock:
         assert member in repo.members
         
         
+    def test_update_member(self):
+        repo = MemberRepositoryMock()
+        member = repo.update_member(ra='21017310', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_deactivated_date=1234567890)
 
+        assert type(member) == Member
+        assert member.name == 'Teste'
+        assert member.email_dev == "teste.devmaua@gmail.com"
+        assert member.role == ROLE.INTERNAL
+        assert member.stack ==   STACK.DATA_SCIENCE
+        assert member.year ==  234
+        assert member.cellphone == "11234567890"
+        assert member.course ==   COURSE.ECM
+        assert member.active ==  ACTIVE.DISCONNECTED
+        assert member.deactivated_date == 1234567890                     
         
-    
+    def test_update_member_not_found(self):
+        repo = MemberRepositoryMock()
+        member = repo.update_member(ra='11111111', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE)
+        assert member is None    
