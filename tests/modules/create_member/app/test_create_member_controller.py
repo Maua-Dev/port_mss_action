@@ -93,5 +93,27 @@ class Test_CreateMemberController:
         assert response.status_code == 400
         assert response.body == 'Field name is missing'
         
-  
+    def test_create_member_controller_invalid_email_dev(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':23424,
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR,
+            'stack':STACK.INFRA,
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field email_dev is not valid"  
             
