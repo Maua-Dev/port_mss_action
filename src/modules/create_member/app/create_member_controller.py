@@ -26,14 +26,12 @@ class CreateMemberController:
                 raise MissingParameters('email')
             if request.data.get('ra') is None:
                 raise MissingParameters('ra')
-
             role = request.data.get('role')
             if role not in [role_value.value for role_value in ROLE]:
                 raise EntityError('role')
             role = ROLE[role]
             if request.data.get('role') is None:
                 raise MissingParameters('role')
-            
             stack = request.data.get('stack')
             if stack not in [stack_value.value for stack_value in STACK]:
                 raise EntityError('stack')
@@ -51,42 +49,9 @@ class CreateMemberController:
             course = COURSE[course]
             if request.data.get('course') is None:
                 raise MissingParameters('course')
- 
             if request.data.get('hired_date') is None:
                 raise MissingParameters('hired_date')
-  
 
-            # if request.data.get('stack_tags') is not None:
-            #     if type(request.data.get('stack_tags')) is not list:
-            #         raise EntityError('stack_tags')
-            #     for value in request.data.get('stack_tags'):
-            #         if value not in [stack.value for stack in STACK]:
-            #             raise EntityError('stack_tags')
-            #     stack_tags = [STACK[value] for value in request.data.get('stack_tags')]
-            # else:
-            #     stack_tags = None
-                
-            # if request.data.get('action_type_tag') is not None:
-            #     action_type_tag_str = request.data.get('action_type_tag')
-
-            #     if action_type_tag_str not in [action_type.value for action_type in ACTION_TYPE]:
-            #         raise EntityError('action_type_tag')
-                    
-            #     action_type_tag = ACTION_TYPE[action_type_tag_str]
-            # else:
-            #     action_type_tag = None
-                
-            # if not Member.validate_ra(request.data.get('owner_ra')):
-            #     raise EntityError('owner_ra')
-            
-            # if request.data.get('associated_members_ra') is not None:
-            #     if type(request.data.get('associated_members_ra')) is not list:
-            #         raise EntityError('associated_members_ra')
-            #     for ra in request.data.get('associated_members_ra'):
-            #         if not Member.validate_ra(ra):
-            #             raise EntityError('associated_members_ra')
-
-                   
             member = self.usecase(
                 name=request.data.get('name'),
                 email_dev=request.data.get('email_dev'),
