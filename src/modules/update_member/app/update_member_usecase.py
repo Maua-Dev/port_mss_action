@@ -24,23 +24,6 @@ class UpdateMemberUsecase:
         if not member:
             raise NoItemsFound('member')
         
-        
-        # members = None
-        # start_date = new_start_date if new_start_date is not None else action.start_date
-        # if new_associated_members_ra and new_owner_ra:
-        #     members = [new_owner_ra] + new_associated_members_ra
-        # elif new_associated_members_ra:
-        #     members = new_associated_members_ra + [action.owner_ra]
-        # elif new_owner_ra:
-        #     members = [new_owner_ra] + action.associated_members_ra
-        # else:
-        #     members = action.associated_members_ra + [action.owner_ra]
-        # if members != None and set(members) != set([action.owner_ra] + action.associated_members_ra):
-        #     self.repo.batch_update_associated_action_members(action_id, members, start_date=start_date)
-        # elif start_date != action.start_date:
-        #     self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
-            
-        # description = new_description if new_description is not '' else action.description
-        # story_id = new_story_id if new_story_id is not -1 else action.story_id        
+           
 
         return self.repo.update_member(ra, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
