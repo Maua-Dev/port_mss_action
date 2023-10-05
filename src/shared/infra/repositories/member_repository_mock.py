@@ -125,6 +125,21 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECM,
                 hired_date=1672592165000,
                 active=ACTIVE.ACTIVE
+            ),
+                        Member(
+                name="Joao Pedro Soares",
+                email_dev="jp.devmaua@gmail.com",
+                email="jp@gmail.com",
+                ra="21004102",
+                role=ROLE.DEV,
+                stack=STACK.BACKEND,
+                year=1,
+                cellphone="1199343434",
+                course=COURSE.ECM,
+                hired_date=1672592165000,
+                active=ACTIVE.DISCONNECTED,
+                deactivated_date=2672592165000
+                
             )
         ]
 
