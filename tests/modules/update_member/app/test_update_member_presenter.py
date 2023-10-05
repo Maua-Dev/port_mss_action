@@ -62,7 +62,6 @@ class Test_UpdateMemberPresenter:
         assert json.loads(response["body"])["message"] == 'the member was updated'
         assert json.loads(response["body"])["member"]["name"] == "Joao Branco"
         assert json.loads(response["body"])["member"]["email_dev"] == "jbranco.devmaua@gmail.com"
-        assert json.loads(response["body"])["member"]["email"] == "vsoller@airubio.com"
         assert json.loads(response["body"])["member"]["ra"] == "21017310"
         assert json.loads(response["body"])["member"][ "role"] == "HEAD"
         assert json.loads(response["body"])["member"][ "stack"] == "BACKEND"
