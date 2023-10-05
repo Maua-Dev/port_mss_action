@@ -56,13 +56,13 @@ class Test_CreateMemberController:
            'name':"Vitor Guirão MPNTM",
             'email_dev':"vsoller.devmaua@gmail.com",
             'email':"vsoller@airubio.com",
-            'role':ROLE.DIRECTOR,
-            'stack':STACK.INFRA,
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
-            'course':COURSE.ECA,
+            'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE  ,
+            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None
         })
         
@@ -79,13 +79,13 @@ class Test_CreateMemberController:
             'email_dev':"vsoller.devmaua@gmail.com",
             'email':"vsoller@airubio.com",
             'ra':"21017310",
-            'role':ROLE.DIRECTOR,
-            'stack':STACK.INFRA,
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
-            'course':COURSE.ECA,
+            'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE  ,
+            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None
         })
         
@@ -103,7 +103,79 @@ class Test_CreateMemberController:
             'email_dev':23424,
             'email':"vsoller@airubio.com",
             'ra':"21017310",
-            'role':ROLE.DIRECTOR,
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field email_dev is not valid"  
+            
+    def test_create_member_controller_invalid_email(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':1,
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field email is not valid"  
+       
+    def test_create_member_controller_invalid_ra(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':'345',
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field ra is not valid"  
+
+    def test_create_member_controller_invalid_role(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':'ROLE.DIRECTOR',
             'stack':STACK.INFRA,
             'year':1,
             'cellphone':"11991758098",
@@ -115,5 +187,150 @@ class Test_CreateMemberController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field email_dev is not valid"  
-            
+        assert response.body == "Field role is not valid"  
+
+    def test_create_member_controller_invalid_stack(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':'STACK.INFRA',
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field stack is not valid"  
+
+    def test_create_member_controller_invalid_year(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':'1',
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field year is not valid"  
+
+    def test_create_member_controller_invalid_cellphone(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':11991758098,
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field cellphone is not valid"  
+
+    def test_create_member_controller_invalid_course(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':'11991758098',
+            'course':'COURSE.ECA.value',
+            'hired_date':1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field course is not valid"  
+
+    def test_create_member_controller_negative_hired_date(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':'11991758098',
+            'course':COURSE.ECA.value,
+            'hired_date':-1614567601000,
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field hired_date is not valid"  
+
+    def test_create_member_controller_invalid_hired_date(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':ROLE.DIRECTOR.value,
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':'11991758098',
+            'course':COURSE.ECA.value,
+            'hired_date':'1614567601000',
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field hired_date is not valid"  
+
+  
