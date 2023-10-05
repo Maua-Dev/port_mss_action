@@ -147,4 +147,17 @@ class Test_UpdateMemberController:
         assert response.status_code == 400
         assert response.body == 'Field new_email_dev isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
- 
+    def test_update_member_controller_deactivate_date_sooner_than_hired_date(self):
+                        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_deactivated_date':1
+            })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field new_deactivated_date is not valid"

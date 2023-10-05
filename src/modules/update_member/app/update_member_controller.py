@@ -1,3 +1,4 @@
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from .update_member_usecase import UpdateMemberUsecase
 from .update_member_viewmodel import UpdateMemberViewmodel
 from src.shared.domain.entities.member import Member
@@ -18,6 +19,8 @@ class UpdateMemberController:
 
     def __call__(self, request: IRequest) -> IResponse:
         try:
+
+
             ra = request.data.get('ra')
             if ra is None:
                 raise MissingParameters('ra')
@@ -25,6 +28,8 @@ class UpdateMemberController:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type(ra))
             if not Member.validate_ra(ra):
                 raise EntityError('ra')
+            repo = MemberRepositoryMock()
+            member = repo.get_member(ra=request.data.get('ra'))
 
             new_name = request.data.get('new_name')
             if new_name is not None:
@@ -85,7 +90,7 @@ class UpdateMemberController:
             if new_deactivated_date is not None:
                 if type(new_deactivated_date) is not int:
                     raise WrongTypeParameter(fieldName='new_deactivated_date', fieldTypeExpected='int', fieldTypeReceived=type(new_deactivated_date))
-                if new_deactivated_date < 0 :
+                if new_deactivated_date < 0 or new_deactivated_date<member.hired_date:
                     raise EntityError('new_deactivated_date')
                             
             new_active = request.data.get('new_active')
