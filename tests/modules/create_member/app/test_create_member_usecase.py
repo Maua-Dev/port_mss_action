@@ -30,7 +30,7 @@ class Test_CreateMemberUsecase:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1614567601000,
-            deactivated_date=None
+   
             )
         
         assert len(repo.members) == lenBefore + 1

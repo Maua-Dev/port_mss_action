@@ -13,12 +13,12 @@ class CreateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, hired_date: int, deactivated_date: int) -> Member:
+    def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, hired_date: int) -> Member:
       
         
 
         
-        member = Member( name, email_dev, email,ra, role, stack, year, cellphone, course, hired_date,  ACTIVE.ACTIVE,deactivated_date)        
+        member = Member( name, email_dev, email,ra, role, stack, year, cellphone, course, hired_date,  ACTIVE.ACTIVE,None)        
         
         self.repo.create_member(member)
         

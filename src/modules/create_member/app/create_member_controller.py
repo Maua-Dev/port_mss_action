@@ -62,8 +62,8 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
-                hired_date=request.data.get('hired_date'),
-                deactivated_date=request.data.get('deactivated_date')                            
+                hired_date=request.data.get('hired_date')
+                                          
             )
             
             viewmodel = CreateMemberViewmodel(member=member)
