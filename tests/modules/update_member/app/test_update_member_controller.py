@@ -37,6 +37,64 @@ class Test_UpdateMemberController:
         assert response.body["member"]["deactivated_date"] == 16345761650222
         assert response.body["message"] == "the member was updated"
 
+    def test_update_Member_controller_only_name(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        first_user = repo.members[0]
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_name':"Teste Tester"
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 200
+        assert response.body["member"]["name"] == "Teste Tester"
+        assert response.body["message"] == "the member was updated"
+
+    def test_update_Member_controller_only_year(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        first_user = repo.members[0]
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_year':3
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 200
+        assert response.body["member"]["year"] == 3
+        assert response.body["message"] == "the member was updated"
+    
+    
+    def test_update_Member_controller_only_role(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        first_user = repo.members[0]
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_role':ROLE.HEAD.value
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 200
+        assert response.body["member"]["role"] == ROLE.HEAD.value
+        assert response.body["message"] == "the member was updated"
+
     def test_update_member_controller_missing_ra(self):
             
         repo = MemberRepositoryMock()

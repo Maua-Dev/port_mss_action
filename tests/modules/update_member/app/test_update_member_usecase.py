@@ -23,6 +23,29 @@ class Test_UpdateMemberUsecase:
         
         assert repo.members[0] == member
 
+    def test_update_member_usecase_new_name(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(     ra="21017310",new_name="Teste Testudo"
+              )
+        
+        assert repo.members[0].name == "Teste Testudo"
+
+    def test_update_member_usecase_new_year(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(     ra="21017310",    new_year=35
+              )
+        
+        assert repo.members[0].year == 35
+
+    def test_update_member_usecase_new_role(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(     ra="21017310", new_role=ROLE.HEAD
+              )
+        
+        assert repo.members[0].role == ROLE.HEAD
     def test_update_member_no_items_found(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
