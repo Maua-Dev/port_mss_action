@@ -10,13 +10,12 @@ from src.shared.infra.repositories.member_repository_mock import MemberRepositor
 
 
 class Test_UpdateMemberController:
-    def test_update_Member_controller(self):
+    def test_update_member_controller(self):
         
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
-        first_user = repo.members[0]
         request = HttpRequest(body={
             'ra': ra,
             'new_name':"Teste Tester",
@@ -36,8 +35,8 @@ class Test_UpdateMemberController:
         assert response.status_code == 200
         assert response.body["member"]["deactivated_date"] == 16345761650222
         assert response.body["message"] == "the member was updated"
-
-    def test_update_Member_controller_only_name(self):
+        assert response.body["member"]["year"] == 3
+    def test_update_member_controller_only_name(self):
         
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
@@ -56,7 +55,7 @@ class Test_UpdateMemberController:
         assert response.body["member"]["name"] == "Teste Tester"
         assert response.body["message"] == "the member was updated"
 
-    def test_update_Member_controller_only_year(self):
+    def test_update_member_controller_only_year(self):
         
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
@@ -76,7 +75,7 @@ class Test_UpdateMemberController:
         assert response.body["message"] == "the member was updated"
     
     
-    def test_update_Member_controller_only_role(self):
+    def test_update_member_controller_only_role(self):
         
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
@@ -158,7 +157,33 @@ class Test_UpdateMemberController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field ra is not valid"
+
+    def test_update_member_controller_invalid_year(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        ra = repo.members[0].ra
+        request = HttpRequest(body={
+            'ra': ra,
+            'new_name':"Teste Tester",
+            'new_email_dev':"test.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':7,
+            'new_cellphone':"11987654321",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value,
+            'new_deactivated_date': 16345761650222  
+             
+            })
         
+        response = controller(request)
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field new_year is not valid"
+
     def test_update_member_controller_wrong_type_new_name(self):
                         
         repo = MemberRepositoryMock()

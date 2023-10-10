@@ -19,7 +19,7 @@ class Test_UpdateMemberUsecase:
                 new_year=3,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
-                new_active=ACTIVE.ACTIVE,new_deactivated_date=1231212323)
+                new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000)
         
         assert repo.members[0] == member
 
@@ -34,10 +34,10 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(     ra="21017310",    new_year=35
+        member = usecase(     ra="21017310",    new_year=3
               )
         
-        assert repo.members[0].year == 35
+        assert repo.members[0].year == 3
 
     def test_update_member_usecase_new_role(self):
         repo = MemberRepositoryMock()

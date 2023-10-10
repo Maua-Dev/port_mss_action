@@ -67,7 +67,7 @@ class UpdateMemberController:
             if new_year is not None:
                 if type(new_year) is not int:
                     raise WrongTypeParameter(fieldName='new_year', fieldTypeExpected='int', fieldTypeReceived=type(new_year))
-                if new_year < 0:
+                if new_year < 0 or new_year>6:
                     raise EntityError('new_year')
                 
             new_cellphone = request.data.get('new_cellphone')
