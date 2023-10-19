@@ -79,6 +79,12 @@ class CreateMemberController:
             else:
                 raise EntityError("hired_date")
             
+            if request.data.get('user_id') is None:
+                raise MissingParameters('user_id')
+            if not Member.validate_user_id(request.data.get('user_id')):
+                raise EntityError('user_id')
+            
+            
             member = self.usecase(
                 name=request.data.get('name'),
                 email_dev=request.data.get('email_dev'),
@@ -89,7 +95,8 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
-                hired_date=request.data.get('hired_date')
+                hired_date=request.data.get('hired_date'),
+                user_id=request.data.get('user_id')
                                           
             )
             

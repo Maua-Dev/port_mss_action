@@ -18,7 +18,8 @@ class Test_DeleteMemberViewModel:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1634576165000,
-            active=ACTIVE.ACTIVE
+            active=ACTIVE.ACTIVE,
+            user_id="164fg536-c0d1-7054-66ab-e17414c48ae3"
         )
         viewmodel = DeleteMemberViewModel(member).to_dict()
         expected = {
@@ -34,7 +35,8 @@ class Test_DeleteMemberViewModel:
                 'course': 'ECA',
                 'hired_date': 1634576165000,
                 'deactivated_date': None,
-                'active': 'ACTIVE'
+                'active': 'ACTIVE',
+                'user_id': "164fg536-c0d1-7054-66ab-e17414c48ae3"
             },
             'message': 'the member was deleted'
         }
@@ -53,7 +55,8 @@ class Test_DeleteMemberViewModel:
             course=COURSE.ECA,
             hired_date=1634576165000,
             deactivated_date=1634576165600,
-            active=ACTIVE.DISCONNECTED
+            active=ACTIVE.DISCONNECTED,
+            user_id="164fg536-c0d1-7054-66ab-e17414c48ae3"
         )
         viewmodel = DeleteMemberViewModel(member).to_dict()
         expected = {
@@ -69,7 +72,8 @@ class Test_DeleteMemberViewModel:
                 'course': 'ECA',
                 'hired_date': 1634576165000,
                 'deactivated_date': 1634576165600,
-                'active': 'DISCONNECTED'
+                'active': 'DISCONNECTED',
+                'user_id': "164fg536-c0d1-7054-66ab-e17414c48ae3"
             },
             'message': 'the member was deleted'
         }

@@ -22,13 +22,15 @@ class Test_CreateMemberController:
             'email_dev':"vsoller.devmaua@gmail.com",
             'email':"vsoller@airubio.com",
             'ra':"21017310",
-            'role':'DIRECTOR',
+            'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None
+            'active':ACTIVE.ACTIVE.value  ,
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -45,7 +47,7 @@ class Test_CreateMemberController:
         assert response.body['member']['course'] == COURSE.ECA.value
         assert response.body['member']['hired_date'] == 1614567601000
         assert response.body['member']['active'] == ACTIVE.ACTIVE.value
-        assert response.body['member']['deactivated_date'] == None        
+        assert response.body['member']['user_id'] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"     
     
     def test_create_member_controller_missing_ra(self):
         
@@ -62,8 +64,10 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'active':ACTIVE.ACTIVE.value ,
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            
         })
         
         response = controller(request)
@@ -86,7 +90,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -110,7 +115,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -134,7 +140,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -158,7 +165,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -182,7 +190,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -206,7 +215,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -230,7 +240,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -254,7 +265,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -278,7 +290,8 @@ class Test_CreateMemberController:
             'course':'COURSE.ECA.value',
             'hired_date':1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -302,7 +315,8 @@ class Test_CreateMemberController:
             'course':COURSE.ECA.value,
             'hired_date':-1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
@@ -324,13 +338,38 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':'11991758098',
             'course':COURSE.ECA.value,
-            'hired_date':'1614567601000',
+            'hired_date':-1614567601000,
             'active':ACTIVE.ACTIVE.value  ,
-            'deactivated_date':None
+            'deactivated_date':None,
+            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field hired_date is not valid"  
+        
+    def test_create_member_controller_invalid_user_id(self):
+                    
+        repo = MemberRepositoryMock()
+        usecase = CreateMemberUsecase(repo=repo)
+        controller = CreateMemberController(usecase=usecase)
+        request = HttpRequest(body={
+            "name":"Vitor Guirão MPNTM",
+            'email_dev':"vsoller.devmaua@gmail.com",
+            'email':"vsoller@airubio.com",
+            'ra':"21017310",
+            'role':'DIRECTOR',
+            'stack':STACK.INFRA.value,
+            'year':1,
+            'cellphone':"11991758098",
+            'course':COURSE.ECA.value,
+            'hired_date':1614567601000,
+            'deactivated_date':None,
+            'user_id': "1"
+        })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field user_id is not valid"  
 
   

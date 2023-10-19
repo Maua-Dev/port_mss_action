@@ -27,6 +27,7 @@ class Test_DeleteMemberController:
         assert response.body["member"]["course"] == "ECA"
         assert response.body["member"]["hired_date"] == 1634576165000
         assert response.body["member"]["active"] == "ACTIVE"
+        assert response.body["member"]["user_id"] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         
         
         

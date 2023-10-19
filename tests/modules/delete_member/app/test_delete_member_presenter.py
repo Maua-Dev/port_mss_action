@@ -56,7 +56,7 @@ class Test_DeleteMemberPresenter:
         }
         
         response = lambda_handler(event, None)
-        expected = {'member':{'name': "Vitor Guirão MPNTM",'email_dev': "vsoller.devmaua@gmail.com",'email': "vsoller@airubio.com",'ra': "21017310",'role': 'DIRECTOR','stack': 'INFRA','year': 1,'cellphone': "11991758098",'course': 'ECA','hired_date': 1634576165000,'deactivated_date': None,'active': 'ACTIVE'}, 'message': 'the member was deleted'}
+        expected = {'member':{'name': "Vitor Guirão MPNTM",'email_dev': "vsoller.devmaua@gmail.com",'email': "vsoller@airubio.com",'ra': "21017310",'role': 'DIRECTOR','stack': 'INFRA','year': 1,'cellphone': "11991758098",'course': 'ECA','hired_date': 1634576165000,'deactivated_date': None,'active': 'ACTIVE','user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"}, 'message': 'the member was deleted'}
         assert response["statusCode"] == 200
         assert json.loads(response["body"]) == expected
 

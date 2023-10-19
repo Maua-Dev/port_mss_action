@@ -53,7 +53,8 @@ class Test_MemberRepositoryMock:
             cellphone="11911758098",
             course=COURSE.ECM,
             hired_date=1640192165000,
-            active=ACTIVE.ACTIVE
+            active=ACTIVE.ACTIVE,
+            user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"
         )
         repo.create_member(member)
         assert member in repo.members
