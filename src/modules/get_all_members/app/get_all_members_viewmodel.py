@@ -18,6 +18,7 @@ class MemberViewModel:
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
+    user_id: str
 
     def __init__(self, member: Member):
         self.name = member.name
@@ -32,6 +33,7 @@ class MemberViewModel:
         self.hired_date = member.hired_date
         self.deactivated_date = member.deactivated_date
         self.active = member.active
+        self.user_id = member.user_id
 
     def to_dict(self):
         return {
@@ -46,7 +48,8 @@ class MemberViewModel:
             'course' : self.course.value,
             'hired_date' : self.hired_date,
             'deactivated_date' : self.deactivated_date,
-            'active' : self.active.value
+            'active' : self.active.value,
+            'user_id' : self.user_id
         }
     
 class GetMemberViewmodel:
