@@ -53,7 +53,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Vitor Guirão MPNTM","email_dev":"vsoller.devmaua@gmail.com","email":"vsoller@airubio.com","ra":"21017310","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000}',
+            "body": '{"name":"Vitor Guirão MPNTM","email_dev":"vsoller.devmaua@gmail.com","email":"vsoller@airubio.com","ra":"21017310","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000,"user_id":"75648hbr-184n-1985-91han-7ghn4HgF182"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -72,6 +72,7 @@ class Test_CreateMemberPresenter:
         assert json.loads(response["body"])['member']['course'] == COURSE.ECA.value
         assert json.loads(response["body"])['member']['hired_date'] == 1614567601000
         assert json.loads(response["body"])['member']['active'] == ACTIVE.ACTIVE.value
+        assert json.loads(response["body"])['member']['user_id'] == "75648hbr-184n-1985-91han-7ghn4HgF182"
         assert json.loads(response["body"])['member']['deactivated_date'] == None   
         assert json.loads(response["body"])["message"] == 'the member was created'
     
