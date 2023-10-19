@@ -21,8 +21,10 @@ class Member(abc.ABC):
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
+    user_id: str
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
+    USER_ID_LENGTH = 36
 
     def __init__(self,
                  name:str,
@@ -36,6 +38,7 @@ class Member(abc.ABC):
                  course: COURSE,
                  hired_date: int, 
                  active: ACTIVE,
+                 user_id: str,
                  deactivated_date: Optional[int] = None
                 ):
 
@@ -86,6 +89,10 @@ class Member(abc.ABC):
         if type(active) != ACTIVE:
             raise EntityError("active")
         self.active = active
+
+        if not self.validate_user_id(user_id):
+            raise EntityError("user_id")
+        self.user_id = user_id
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -164,6 +171,12 @@ class Member(abc.ABC):
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email))
+    
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Member.USER_ID_LENGTH: return False
+        return True
     
     def __repr__(self):
         return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active})"

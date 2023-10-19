@@ -22,7 +22,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1614567601000,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
         
         assert member.name == "Vitor Guirão MPNTM"
@@ -36,6 +37,7 @@ class Test_Member:
         assert member.course == COURSE.ECA
         assert member.hired_date == 1614567601000
         assert member.active == ACTIVE.FREEZE
+        assert member.user_id == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
 
             
     def test_member_name_not_str(self): 
@@ -51,7 +53,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_name_smaller_than_minimum(self): 
@@ -67,7 +70,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_ra_not_str(self): 
@@ -83,7 +87,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_ra_not_decimal(self): 
@@ -99,7 +104,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_lenght_ra_not_8(self): 
@@ -115,7 +121,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
 
@@ -132,7 +139,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_email_dev_is_not_in_right_format(self): 
@@ -148,7 +156,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     
@@ -165,7 +174,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_email_is_not_str(self):
@@ -181,7 +191,8 @@ class Test_Member:
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )
 
     def test_member_email_is_not_in_right_format(self):
@@ -197,7 +208,8 @@ class Test_Member:
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )    
 
     def test_member_email_is_the_same_as_email_dev(self):
@@ -213,7 +225,8 @@ class Test_Member:
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )
     
     def test_member_role_not_enum(self): 
@@ -229,7 +242,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_stack_not_enum(self): 
@@ -245,7 +259,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_year_not_int(self): 
@@ -261,7 +276,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_year_bigger_than_6(self): 
@@ -277,7 +293,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_year_smaller_than_0(self): 
@@ -293,7 +310,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_cellphone_not_str(self): 
@@ -309,7 +327,8 @@ class Test_Member:
             cellphone=11991758098,
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
     def test_member_cellphone_not_in_right_format(self): 
@@ -325,7 +344,8 @@ class Test_Member:
             cellphone="551991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
 
@@ -342,7 +362,8 @@ class Test_Member:
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
 
@@ -359,7 +380,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date="10/10/2002",
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_hired_date_less_than_zero(self): 
@@ -375,7 +397,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=-1671728165,
-            active=ACTIVE.FREEZE
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_active_not_enum(self): 
@@ -391,7 +414,8 @@ class Test_Member:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
-            active="ACTIVE.FREEZE"
+            active="ACTIVE.FREEZE",
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
     def test_member_active_with_deactivated_date(self): 
@@ -408,7 +432,8 @@ class Test_Member:
             course=COURSE.ECA,
             hired_date=1671728165,
             deactivated_date=1671728165,
-            active=ACTIVE.ACTIVE
+            active=ACTIVE.ACTIVE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
                  
     def test_member_deactivated_date_smaller_than_hired_date(self): 
@@ -425,5 +450,43 @@ class Test_Member:
                 course=COURSE.ECA,
                 hired_date=1671728165,
                 active=ACTIVE.DISCONNECTED,
-                deactivated_date=1640192165
+                deactivated_date=1640192165,
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )          
+
+    def test_member_user_id_not_str(self):
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=1671728165,
+                active=ACTIVE.DISCONNECTED,
+                deactivated_date=1640192165,
+                user_id= 2 
+            )
+
+    def test_member_user_id_wrong_length(self):
+        with pytest.raises(EntityError):
+            Member(
+                name="Vitor Guirão MPNTM",
+                email_dev="vsoller.devmaua@gmail.com",
+                email="vsoller@airubio.com",
+                ra="21017310",
+                role=ROLE.DIRECTOR,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11991758098",
+                course=COURSE.ECA,
+                hired_date=1671728165,
+                active=ACTIVE.DISCONNECTED,
+                deactivated_date=1640192165,
+                user_id="1"
+            )
+    
