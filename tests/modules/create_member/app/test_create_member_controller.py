@@ -28,7 +28,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -64,7 +63,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             
@@ -89,7 +87,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -114,7 +111,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -139,7 +135,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -164,7 +159,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -189,7 +183,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -214,7 +207,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -239,7 +231,6 @@ class Test_CreateMemberController:
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -264,7 +255,6 @@ class Test_CreateMemberController:
             'cellphone':11991758098,
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -289,7 +279,6 @@ class Test_CreateMemberController:
             'cellphone':'11991758098',
             'course':'COURSE.ECA.value',
             'hired_date':1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -314,7 +303,6 @@ class Test_CreateMemberController:
             'cellphone':'11991758098',
             'course':COURSE.ECA.value,
             'hired_date':-1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
@@ -339,7 +327,6 @@ class Test_CreateMemberController:
             'cellphone':'11991758098',
             'course':COURSE.ECA.value,
             'hired_date':-1614567601000,
-            'active':ACTIVE.ACTIVE.value  ,
             'deactivated_date':None,
             'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         })
