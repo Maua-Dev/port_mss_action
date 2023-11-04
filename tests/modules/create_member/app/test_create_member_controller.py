@@ -21,7 +21,7 @@ class Test_CreateMemberController:
             "name":"Vitor Guirão MPNTM",
             'email_dev':"vsoller.devmaua@gmail.com",
             'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
@@ -38,7 +38,7 @@ class Test_CreateMemberController:
         assert response.body['member']['name'] == "Vitor Guirão MPNTM"
         assert response.body['member']['email_dev'] == "vsoller.devmaua@gmail.com"
         assert response.body['member']['email'] == "vsoller@airubio.com"
-        assert response.body['member']['ra'] == "21017310"
+        assert response.body['member']['ra'] == "21017315"
         assert response.body['member']['role'] == 'DIRECTOR'
         assert response.body['member']['stack'] == STACK.INFRA.value
         assert response.body['member']['year'] == 1
