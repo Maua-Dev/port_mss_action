@@ -161,9 +161,9 @@ class MemberRepositoryMock(IMemberRepository):
         return member
 
 
-    def delete_member(self, ra: str) -> Optional[Member]:
+    def delete_member(self, user_id: str) -> Optional[Member]:
         for i in range(len(self.members)):
-            if self.members[i].ra == ra:
+            if self.members[i].user_id == user_id:
                 return self.members.pop(i)
         return None
 

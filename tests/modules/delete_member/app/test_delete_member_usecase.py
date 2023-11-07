@@ -12,20 +12,22 @@ class Test_DeleteMemberUserCase:
         usecase = DeleteMemberUseCase(repo=repo)
         len_before = len(repo.members)
         
-        member = usecase(ra='21017310')
+        user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+        
+        member = usecase(user_id=user_id)
         assert type(member) == Member 
         assert len(repo.members) == len_before - 1
-        assert member.ra == '21017310'
+        assert member.user_id == user_id
         
-    def test_delete_member_usecase_no_ra_found(self):
+    def test_delete_member_usecase_no_user_id_found(self):
         repo = MemberRepositoryMock()
         usecase = DeleteMemberUseCase(repo=repo)
         with pytest.raises(NoItemsFound):
-            member = usecase(ra='21017311')
+            member = usecase(user_id='93bc6ada-gh46-7054-66ab-e17414c48ae3')
             
     def test_delete_member_usecase_invalid_code(self):
         repo = MemberRepositoryMock()
         usecase = DeleteMemberUseCase(repo=repo)
         with pytest.raises(EntityError):
-            member = usecase(ra=123456789)
+            member = usecase(user_id=123456789)
           
