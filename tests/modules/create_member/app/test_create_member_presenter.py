@@ -28,14 +28,11 @@ class Test_CreateMemberPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
+                     "claims":{
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
                     }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
@@ -53,7 +50,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"Vitor Guirão MPNTM","email_dev":"vsoller.devmaua@gmail.com","email":"vsoller@airubio.com","ra":"21017315","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000,"user_id":"75648hbr-184n-1985-91han-7ghn4HgF182"}',
+            "body": '{"email_dev":"vsoller.devmaua@gmail.com","ra":"21017315","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -72,7 +69,7 @@ class Test_CreateMemberPresenter:
         assert json.loads(response["body"])['member']['course'] == COURSE.ECA.value
         assert json.loads(response["body"])['member']['hired_date'] == 1614567601000
         assert json.loads(response["body"])['member']['active'] == ACTIVE.ACTIVE.value
-        assert json.loads(response["body"])['member']['user_id'] == "75648hbr-184n-1985-91han-7ghn4HgF182"
+        assert json.loads(response["body"])['member']['user_id'] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert json.loads(response["body"])['member']['deactivated_date'] == None   
         assert json.loads(response["body"])["message"] == 'the member was created'
     
