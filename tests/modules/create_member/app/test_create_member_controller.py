@@ -84,7 +84,6 @@ class Test_CreateMemberController:
         request = HttpRequest(body={
                "requester_user": {
                 "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
             },
