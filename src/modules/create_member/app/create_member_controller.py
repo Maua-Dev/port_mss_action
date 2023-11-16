@@ -27,8 +27,12 @@ class CreateMemberController:
                 raise MissingParameters('ra')
             if type(request.data.get('ra')) is not str:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type( request.data.get('ra') ))
-            if not Member.validate_ra(request.data.get('ra')):
-                raise EntityError('ra')
+           
+            if str(requester_user.name) is None:
+                raise MissingParameters('name')
+            if type(str(requester_user.name)) is not str:
+                raise WrongTypeParameter(fieldName='name', fieldTypeExpected='str', fieldTypeReceived=type( str(requester_user.name)))
+    
         
 
 
