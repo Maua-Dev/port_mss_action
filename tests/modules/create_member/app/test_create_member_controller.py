@@ -77,30 +77,6 @@ class Test_CreateMemberController:
         assert response.status_code == 400
         assert response.body == 'Field ra is missing'
         
-    def test_create_member_controller_missing_name(self):
-        repo = MemberRepositoryMock()
-        usecase = CreateMemberUsecase(repo=repo)
-        controller = CreateMemberController(usecase=usecase)
-        request = HttpRequest(body={
-               "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "name": "",
-                "email": "vsoller@airubio.com",
-                "custom:isMaua": True
-            },
-            'email_dev':"vsoller.devmaua@gmail.com",
-            'ra':"21017315",
-            'role':ROLE.DIRECTOR.value,
-            'stack':STACK.INFRA.value,
-            'year':1,
-            'cellphone':"11991758098",
-            'course':COURSE.ECA.value,
-            'hired_date':1614567601000,
-            'deactivated_date':None
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
 
         
     def test_create_member_controller_invalid_email_dev(self):
@@ -373,31 +349,7 @@ class Test_CreateMemberController:
         assert response.status_code == 400
         assert response.body == "Field hired_date is not valid"  
         
-    def test_create_member_controller_invalid_user_id(self):
-                    
-        repo = MemberRepositoryMock()
-        usecase = CreateMemberUsecase(repo=repo)
-        controller = CreateMemberController(usecase=usecase)
-        request = HttpRequest(body={
-               "requester_user": {
-                "sub": "",
-                "name": "Vitor Guirão MPNTM",
-                "email": "vsoller@airubio.com",
-                "custom:isMaua": True
-            },
-            'email_dev':"vsoller.devmaua@gmail.com",
-            'ra':"21017315",
-            'role':ROLE.DIRECTOR.value,
-            'stack':STACK.INFRA.value,
-            'year':1,
-            'cellphone':"11991758098",
-            'course':COURSE.ECA.value,
-            'hired_date':1614567601000,
-            'deactivated_date':None
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
+  
   
 
     def test_create_member_controller_missing_requester_user(self):

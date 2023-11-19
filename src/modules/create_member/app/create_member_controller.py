@@ -30,8 +30,8 @@ class CreateMemberController:
            
             if str(requester_user.name) is None:
                 raise MissingParameters('name')
-            if type(str(requester_user.name)) is not str:
-                raise WrongTypeParameter(fieldName='name', fieldTypeExpected='str', fieldTypeReceived=type( str(requester_user.name)))
+            # if type(str(requester_user.name)) is not str:
+            #     raise WrongTypeParameter(fieldName='name', fieldTypeExpected='str', fieldTypeReceived=type( str(requester_user.name)))
     
         
 
