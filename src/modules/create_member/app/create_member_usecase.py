@@ -18,7 +18,7 @@ class CreateMemberUsecase:
         
 
         
-        member = Member( name, email_dev, email,ra, role, stack, year, cellphone, course, hired_date, ACTIVE.ACTIVE,user_id,None)        
+        member = Member(name, email_dev, email, ra, role, stack, year, cellphone, course, hired_date, ACTIVE.ACTIVE, user_id, None)        
         
         self.repo.create_member(member)
         
