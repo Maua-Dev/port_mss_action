@@ -16,7 +16,15 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_member = repo.members[0];
+        
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
@@ -42,8 +50,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
-        first_user = repo.members[0]
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_name':"Teste Tester"
              
@@ -61,8 +75,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
-        first_user = repo.members[0]
-        request = HttpRequest(body={
+        first_member = repo.members[0]
+        request = HttpRequest(body={  
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_year':3
              
@@ -81,8 +101,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
-        first_user = repo.members[0]
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_role':ROLE.HEAD.value
              
@@ -99,8 +125,14 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'new_name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
             'role':ROLE.HEAD.value,
@@ -120,8 +152,15 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
+        first_member = repo.members[0]
 
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': 123234234,
             'new_name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
@@ -142,7 +181,14 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': '123234234',
             'name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
@@ -164,7 +210,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
@@ -190,7 +243,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_name':123,
             'new_email_dev':"jbranco.devmaua@gmail.com",
@@ -212,7 +272,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_name':"Joao Branco",
             'new_email_dev':123,
@@ -234,7 +301,14 @@ class Test_UpdateMemberController:
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
         ra = repo.members[0].ra
+        first_member = repo.members[0]
         request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
             'ra': ra,
             'new_deactivated_date':1
             })

@@ -17,23 +17,18 @@ class Test_UpdateMemberPresenter:
                 "header1": "value1",
                 "header2": "value1,value2"
             },
-            "queryStringParameters": {
-                "parameter1": "1"
-            },
             "requestContext": {
                 "accountId": "123456789012",
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                            "name": "Lucas Duez",
+                            "email": "lucas.santos@gmail.com",
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",

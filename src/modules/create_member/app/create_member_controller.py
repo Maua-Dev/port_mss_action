@@ -6,6 +6,7 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .create_member_usecase import  CreateMemberUsecase
 from .create_member_viewmodel import  CreateMemberViewmodel
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
@@ -18,27 +19,24 @@ class CreateMemberController:
 
     def __call__(self, request: IRequest) -> IResponse:
         try:
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
             if request.data.get('ra') is None:
                 raise MissingParameters('ra')
             if type(request.data.get('ra')) is not str:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type( request.data.get('ra') ))
-            if not Member.validate_ra(request.data.get('ra')):
-                raise EntityError('ra')
-        
-            if request.data.get('name') is None:
-                raise MissingParameters('name')
-            if not Member.validate_name(request.data.get('name')):
-                raise EntityError('name') 
+           
+
+
             
             if not Member.validate_email_dev(request.data.get('email_dev')):
                 raise EntityError('email_dev')   
             if request.data.get('email_dev') is None:
                 raise MissingParameters('email_dev')
           
-            if not Member.validate_email(request.data.get('email')):
-                raise EntityError('email')            
-            if request.data.get('email') is None:
-                raise MissingParameters('email')
+
             
             role = request.data.get('role')
             if role not in [role_value.value for role_value in ROLE]:
@@ -79,16 +77,13 @@ class CreateMemberController:
             else:
                 raise EntityError("hired_date")
             
-            if request.data.get('user_id') is None:
-                raise MissingParameters('user_id')
-            if not Member.validate_user_id(request.data.get('user_id')):
-                raise EntityError('user_id')
+
             
             
             member = self.usecase(
-                name=request.data.get('name'),
+                name=str(requester_user.name),
                 email_dev=request.data.get('email_dev'),
-                email=request.data.get('email'),
+                email=str(requester_user.email),
                 ra=request.data.get('ra'),
                 role=role,
                 stack=stack,
@@ -96,7 +91,7 @@ class CreateMemberController:
                 cellphone=request.data.get('cellphone'),
                 course=course,
                 hired_date=request.data.get('hired_date'),
-                user_id=request.data.get('user_id')
+                user_id=str(requester_user.user_id)
                                           
             )
             

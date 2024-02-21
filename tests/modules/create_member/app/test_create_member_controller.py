@@ -18,18 +18,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -38,7 +41,7 @@ class Test_CreateMemberController:
         assert response.body['member']['name'] == "Vitor Guirão MPNTM"
         assert response.body['member']['email_dev'] == "vsoller.devmaua@gmail.com"
         assert response.body['member']['email'] == "vsoller@airubio.com"
-        assert response.body['member']['ra'] == "21017310"
+        assert response.body['member']['ra'] == "21017315"
         assert response.body['member']['role'] == 'DIRECTOR'
         assert response.body['member']['stack'] == STACK.INFRA.value
         assert response.body['member']['year'] == 1
@@ -54,46 +57,27 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-           'name':"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
-            
+            'deactivated_date':None
         })
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field ra is missing'
         
-    def test_create_member_controller_missing_name(self):
-            
-        repo = MemberRepositoryMock()
-        usecase = CreateMemberUsecase(repo=repo)
-        controller = CreateMemberController(usecase=usecase)
-        request = HttpRequest(body={
-            'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
-            'role':ROLE.DIRECTOR.value,
-            'stack':STACK.INFRA.value,
-            'year':1,
-            'cellphone':"11991758098",
-            'course':COURSE.ECA.value,
-            'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
-        })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field name is missing'
+
         
     def test_create_member_controller_invalid_email_dev(self):
                     
@@ -101,18 +85,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
-            'email_dev':23424,
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
+            'email_dev':"vsoller.d.com",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -125,23 +112,26 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "email": "",
+                "name": "Vitor Guirão MPNTM",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':1,
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field email is not valid"  
+ 
        
     def test_create_member_controller_invalid_ra(self):
                     
@@ -149,18 +139,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':'345',
+            'ra':"21017ertert315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -173,18 +166,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
-            'role':'ROLE.DIRECTOR',
-            'stack':STACK.INFRA,
+            'ra':"21017315",
+            'role':'ROLE',
+            'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
-            'course':COURSE.ECA,
+            'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -197,18 +193,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
-            'stack':'STACK.INFRA',
+            'stack':'STACK.INFRA.value',
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -221,18 +220,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':'1',
+            'year':56,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -245,18 +247,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
-            'cellphone':11991758098,
+            'cellphone':"18098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -269,18 +274,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
-            'cellphone':'11991758098',
+            'cellphone':"11991758098",
             'course':'COURSE.ECA.value',
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -293,18 +301,21 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
-            'cellphone':'11991758098',
+            'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':-1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'deactivated_date':None
         })
         
         response = controller(request)
@@ -317,46 +328,46 @@ class Test_CreateMemberController:
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+               "requester_user": {
+                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+            },
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
+            'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
-            'cellphone':'11991758098',
+            'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'hired_date':-1614567601000,
-            'deactivated_date':None,
-            'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            'hired_date':1000,
+            'deactivated_date':None
         })
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field hired_date is not valid"  
         
-    def test_create_member_controller_invalid_user_id(self):
-                    
+  
+  
+
+    def test_create_member_controller_missing_requester_user(self):
         repo = MemberRepositoryMock()
         usecase = CreateMemberUsecase(repo=repo)
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
-            "name":"Vitor Guirão MPNTM",
+              
             'email_dev':"vsoller.devmaua@gmail.com",
-            'email':"vsoller@airubio.com",
-            'ra':"21017310",
-            'role':'DIRECTOR',
+            'ra':"21017315",
+            'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'hired_date':1614567601000,
-            'deactivated_date':None,
-            'user_id': "1"
+            'deactivated_date':None
         })
-        
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field user_id is not valid"  
-
-  
+        assert response.body == "Field requester_user is missing"  

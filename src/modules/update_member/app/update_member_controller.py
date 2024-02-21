@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from .update_member_usecase import UpdateMemberUsecase
 from .update_member_viewmodel import UpdateMemberViewmodel
@@ -19,7 +20,10 @@ class UpdateMemberController:
 
     def __call__(self, request: IRequest) -> IResponse:
         try:
-
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
             ra = request.data.get('ra')
             if ra is None:

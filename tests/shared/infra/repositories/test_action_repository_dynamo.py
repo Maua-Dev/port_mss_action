@@ -45,7 +45,7 @@ class Test_ActionRepositoryDynamo:
     def test_create_member(self):
         repo = ActionRepositoryDynamo()
         member = Member(name="Joao Branco", email_dev="jbranco.devmaua@gmail.com", email="jbranco@gmail.com", ra="21010757", role=ROLE.HEAD,
-                        stack=STACK.BACKEND, year=3, cellphone="11991152348", course=COURSE.ECM, hired_date=1634921765000, active=ACTIVE.ACTIVE)
+                        stack=STACK.BACKEND, year=3, cellphone="11991152348", course=COURSE.ECM, hired_date=1634921765000, active=ACTIVE.ACTIVE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
 
         resp = repo.create_member(member=member)
 
