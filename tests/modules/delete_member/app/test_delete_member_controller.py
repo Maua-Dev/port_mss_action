@@ -8,14 +8,22 @@ class Test_DeleteMemberController:
     def test_delete_member_controller(self):
         
         repo = MemberRepositoryMock()
-        usecase = DeleteMemberUseCase(repo)
-        controller = DeleteMemberController(usecase)
-        request = HttpRequest(body={
-            'ra': '21017310'
-        })
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member = repo.members[0]
+        request = HttpRequest(
+            headers={
+                'requester_user': {
+                    "sub": member.user_id,
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                }
+            }
+        )
+
         response = controller(request)
         assert response.status_code == 200
-        assert response.body["message"] == "the member was deleted"
         assert response.body["member"]["name"] == "Vitor Guirão MPNTM"
         assert response.body["member"]["email_dev"] == "vsoller.devmaua@gmail.com"
         assert response.body["member"]["email"] == "vsoller@airubio.com"
@@ -27,40 +35,69 @@ class Test_DeleteMemberController:
         assert response.body["member"]["course"] == "ECA"
         assert response.body["member"]["hired_date"] == 1634576165000
         assert response.body["member"]["active"] == "ACTIVE"
+        assert response.body["member"]["user_id"] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         
-        
-        
-        
-    def test_delete_member_controller_missing_ra(self):
-        
+    def test_delete_controller_invalid_id(self):
+            
         repo = MemberRepositoryMock()
-        usecase = DeleteMemberUseCase(repo)
-        controller = DeleteMemberController(usecase)
-        request = HttpRequest(body={})
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == "Field ra is missing"
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member = repo.members[0]
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": 666,
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                }
+            }
+        )
         
-    def test_delete_member_controller_invalid_ra(self): 
-            
-            repo = MemberRepositoryMock()
-            usecase = DeleteMemberUseCase(repo)
-            controller = DeleteMemberController(usecase)
-            request = HttpRequest(body={
-                'ra': '2000822843'
-            })
-            response = controller(request)
-            assert response.status_code == 400
-            assert response.body == "Field ra is not valid"
-            
-    def test_delete_member_controller_member_not_found(self):
-                
-                repo = MemberRepositoryMock()
-                usecase = DeleteMemberUseCase(repo)
-                controller = DeleteMemberController(usecase)
-                request = HttpRequest(body={
-                    'ra': '20008228'
-                })
-                response = controller(request)
-                assert response.status_code == 404
-                assert response.body == "No items found for member"
+        response = controller(request=request)
+
+        assert response.status_code == 400
+        
+    def test_delete_controller_user_id_none(self):
+        repo = MemberRepositoryMock()
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member = repo.members[0]
+
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": None,
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                }
+            }
+        )
+
+        response = controller(request=request)
+
+        assert response.status_code == 400
+
+    def test_delete_controller_user_id_not_found(self):
+        repo = MemberRepositoryMock()
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member = repo.members[0]
+
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                }
+            }
+        )
+
+        response = controller(request=request)
+
+        assert response.status_code == 404
+        
+    

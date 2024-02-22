@@ -19,7 +19,7 @@ class IMemberRepository(ABC):
     
 
     @abstractmethod
-    def delete_member(self, ra: str) -> Optional[Member]:
+    def delete_member(self, user_id: str) -> Optional[Member]:
         '''
         If member exists, deletes it and returns it
         else returns None

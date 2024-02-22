@@ -25,7 +25,8 @@ class Test_CreateMemberViewmodel:
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1614567601000,
-            active=ACTIVE.ACTIVE  ,
+            active=ACTIVE.ACTIVE ,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             deactivated_date=None)
         
      
@@ -43,6 +44,7 @@ class Test_CreateMemberViewmodel:
             'course' : COURSE.ECA.value,
             'hired_date' : 1614567601000,
             'active' : ACTIVE.ACTIVE.value,
+            'user_id' : "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             'deactivated_date' : None
                     },
                     'message':'the member was created'
