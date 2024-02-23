@@ -1,12 +1,12 @@
 from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
 from src.modules.get_member.app.get_member_viewmodel import GetMemberViewModel
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 class Test_GetMemberViewModel:
     def test_get_member_viewmodel(self):
-        repo = ActionRepositoryMock()
+        repo = MemberRepositoryMock()
         usecase = GetMemberUsecase(repo=repo)
-        member = usecase(ra='21017310')
+        member = usecase(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
 
         viewmodel = GetMemberViewModel(
             member=member).to_dict()

@@ -15,13 +15,13 @@ class UpdateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, ra: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
         
-        if not Member.validate_ra(ra):
-            raise EntityError("ra")
+        if not Member.validate_user_id(user_id):
+            raise EntityError("user_id")
 
 
-        member = self.repo.get_member(ra)
+        member = self.repo.get_member(user_id)
         if not member:
             raise NoItemsFound('member')
         
@@ -80,4 +80,4 @@ class UpdateMemberUsecase:
                 raise WrongTypeParameter(fieldName='new_active', fieldTypeExpected='ACTIVE', fieldTypeReceived=type(new_active))
 
 
-        return self.repo.update_member(ra, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
+        return self.repo.update_member(user_id, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)

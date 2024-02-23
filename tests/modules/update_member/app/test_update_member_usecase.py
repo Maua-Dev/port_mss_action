@@ -12,7 +12,7 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(     ra="21017310",new_name="Joao Branco",
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
@@ -26,24 +26,21 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_new_name(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(     ra="21017310",new_name="Teste Testudo"
-              )
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Teste Testudo")
         
         assert repo.members[0].name == "Teste Testudo"
 
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(     ra="21017310",    new_year=3
-              )
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_year=3)
         
         assert repo.members[0].year == 3
 
     def test_update_member_usecase_new_role(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(     ra="21017310", new_role=ROLE.HEAD
-              )
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.HEAD)
         
         assert repo.members[0].role == ROLE.HEAD
     def test_update_member_no_items_found(self):
@@ -51,7 +48,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
 
         with pytest.raises(NoItemsFound):
-            member = usecase(ra="11111111",new_name="Joao Branco",
+            member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e11111c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,

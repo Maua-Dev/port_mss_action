@@ -6,7 +6,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 
 class MemberViewModel:
-    ra: str
+    user_id: str
     name: str
     email_dev: str
     email: str
@@ -23,7 +23,7 @@ class MemberViewModel:
         self.name = member.name
         self.email_dev = member.email_dev
         self.email = member.email
-        self.ra = member.ra
+        self.user_id = member.user_id
         self.role = member.role
         self.stack = member.stack
         self.year = member.year
@@ -37,7 +37,7 @@ class MemberViewModel:
         return {
             'name' : self.name,
             'email_dev' : self.email_dev,
-            'ra' : self.ra,
+            'user_id' : self.user_id,
             'role' : self.role.value,
             'stack' : self.stack.value,
             'year' : self.year,
