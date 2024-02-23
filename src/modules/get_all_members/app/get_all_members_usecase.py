@@ -1,7 +1,7 @@
-from src.shared.domain.repositories.action_repository_interface import IActionRepository
+from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 
 class GetAllMembersUsecase:
-    def __init__(self, repo: IActionRepository):
+    def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
     def __call__(self):

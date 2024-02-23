@@ -1,11 +1,11 @@
 from src.modules.get_all_members.app.get_all_members_usecase import GetAllMembersUsecase
 from src.modules.get_all_members.app.get_all_members_viewmodel import GetAllMembersViewmodel
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 class Test_GetAllMembersViewModel:
 
     def test_get_all_members_viewmodel(self):
-        repo = ActionRepositoryMock()
+        repo = MemberRepositoryMock()
         usecase = GetAllMembersUsecase(repo=repo)
         members = usecase()
 
@@ -147,6 +147,23 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182"
+                        }
+                },
+                {
+                    'member': {
+                        'name': 'Joao Pedro Soares',
+                        'email_dev': 'jp.devmaua@gmail.com',
+                        'email': 'jp@gmail.com',
+                        'ra': '21004102',
+                        'role': 'DEV',
+                        'stack': 'UX_UI',
+                        'year': 1,
+                        'cellphone': '11991123498',
+                        'course': 'ECM',
+                        'hired_date': 1672592165000,
+                        'deactivated_date': 2672592165000,
+                        'active': 'DISCONNECTED',
+                        'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh"
                         }
                 }
             ],
