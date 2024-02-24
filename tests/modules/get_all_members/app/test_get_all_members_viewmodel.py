@@ -7,7 +7,7 @@ class Test_GetAllMembersViewModel:
     def test_get_all_members_viewmodel(self):
         repo = MemberRepositoryMock()
         usecase = GetAllMembersUsecase(repo=repo)
-        members = usecase()
+        members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
 
         viewmodel = GetAllMembersViewmodel(members).to_dict()
 
