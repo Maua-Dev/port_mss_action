@@ -50,7 +50,7 @@ class Test_BatchGetMemberPresenter:
                 "timeEpoch": 1583348638390
             },
             "body": {
-                "ras" : ["21017310"]
+                "user_ids" : ["9183jBnh-997H-1010-10god-914gHy46tBh"]
                 },
             "pathParameters": None,
             "isBase64Encoded": None,
@@ -59,4 +59,4 @@ class Test_BatchGetMemberPresenter:
 
         response = lambda_handler(event, None)
         assert response['statusCode'] == 200
-        assert json.loads(response['body'])['members'][0]['ra'] == '21017310'
+        assert json.loads(response['body'])['members'][0]['user_id'] == '9183jBnh-997H-1010-10god-914gHy46tBh'

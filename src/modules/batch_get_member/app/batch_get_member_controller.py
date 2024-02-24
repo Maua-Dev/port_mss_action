@@ -14,16 +14,16 @@ class BatchGetMemberController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('ras') is None:
-                raise MissingParameters('ras')
+            if request.data.get('user_ids') is None:
+                raise MissingParameters('user_ids')
             
-            for ra in request.data.get('ras'):
-                if type(ra) != str:
-                    raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type(ra))
-                if not Member.validate_ra(ra):
-                    raise EntityError('ra')
+            for user_id in request.data.get('user_ids'):
+                if type(user_id) != str:
+                    raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(user_id))
+                if not Member.validate_user_id(user_id):
+                    raise EntityError('user_id')
             
-            members = self.usecase(ras=request.data.get('ras'))
+            members = self.usecase(user_ids=request.data.get('user_ids'))
             viewmodel = BatchGetMemberViewmodel(members=members)
 
             return OK(viewmodel.to_dict())

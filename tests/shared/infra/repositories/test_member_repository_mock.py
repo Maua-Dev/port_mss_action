@@ -25,7 +25,7 @@ class Test_MemberRepositoryMock:
 
     def test_batch_get_member(self):
         repo = MemberRepositoryMock()
-        members = repo.batch_get_member(ras=[repo.members[0].ra, repo.members[1].ra])
+        members = repo.batch_get_member(user_ids=[repo.members[0].user_id, repo.members[1].user_id])
         assert type(members) == list
         assert all([type(member) == Member for member in members])
         assert len(members) == 2

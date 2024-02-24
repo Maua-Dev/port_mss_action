@@ -50,7 +50,7 @@ class IMemberRepository(ABC):
         pass
 
     @abstractmethod
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
+    def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         '''
         Returns all members with the given ras, if any
         else returns []

@@ -1,13 +1,13 @@
 from src.modules.batch_get_member.app.batch_get_member_usecase import BatchGetMemberUsecase
 from src.modules.batch_get_member.app.batch_get_member_viewmodel import BatchGetMemberViewmodel
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_BatchGetMemberViewmodel:
     def test_batch_get_member_viewmodel(self):
-        repo = ActionRepositoryMock()
+        repo = MemberRepositoryMock()
         usecase = BatchGetMemberUsecase(repo=repo)
-        members = usecase(ras=[repo.members[0].ra, repo.members[1].ra])
+        members = usecase(user_ids=[repo.members[0].user_id, repo.members[1].user_id])
         viewmodel = BatchGetMemberViewmodel(members).to_dict()
 
         expected = {

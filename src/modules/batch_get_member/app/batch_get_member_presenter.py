@@ -3,7 +3,7 @@ from .batch_get_member_controller import BatchGetMemberController
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
-repo = Environments.get_action_repo()()
+repo = Environments.get_member_repo()()
 usecase = BatchGetMemberUsecase(repo=repo)
 controller = BatchGetMemberController(usecase=usecase)
 

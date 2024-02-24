@@ -205,9 +205,9 @@ class MemberRepositoryMock(IMemberRepository):
         return self.members
 
  
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
+    def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         members = []
         for member in self.members:
-            if member.ra in ras:
+            if member.user_id in user_ids:
                 members.append(member)
         return members
