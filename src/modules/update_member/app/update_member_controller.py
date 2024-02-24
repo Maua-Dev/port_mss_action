@@ -109,7 +109,7 @@ class UpdateMemberController:
                           
             
             member = self.usecase(
-                user_id=user_id,
+                user_id=requester_user.user_id,
                 new_name=new_name,
                 new_email_dev=new_email_dev,
                 new_role=new_role,

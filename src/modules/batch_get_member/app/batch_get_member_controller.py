@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .batch_get_member_usecase import BatchGetMemberUsecase
 from .batch_get_member_viewmodel import BatchGetMemberViewmodel
 from src.shared.domain.entities.member import Member
@@ -14,16 +15,22 @@ class BatchGetMemberController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('user_ids') is None:
-                raise MissingParameters('user_ids')
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            user_id = request.data.get('user_ids')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
             
             for user_id in request.data.get('user_ids'):
+                if user_id is None:
+                    raise MissingParameters('user_id')
                 if type(user_id) != str:
                     raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(user_id))
                 if not Member.validate_user_id(user_id):
                     raise EntityError('user_id')
-            
-            members = self.usecase(user_ids=request.data.get('user_ids'))
+        
+            members = self.usecase(user_id=requester_user.user_id, user_ids=request.data.get('user_ids'))
             viewmodel = BatchGetMemberViewmodel(members=members)
 
             return OK(viewmodel.to_dict())

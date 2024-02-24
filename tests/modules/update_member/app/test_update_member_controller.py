@@ -128,7 +128,7 @@ class Test_UpdateMemberController:
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
-                    "sub": first_member.user_id,
+                    "sub": None,
                     "name": first_member.name,
                     "email": first_member.email,
                     "custom:isMaua": True
@@ -156,7 +156,7 @@ class Test_UpdateMemberController:
 
         request = HttpRequest(body={
             'requester_user': {
-                    "sub": first_member.user_id,
+                    "sub": 123234234,
                     "name": first_member.name,
                     "email": first_member.email,
                     "custom:isMaua": True

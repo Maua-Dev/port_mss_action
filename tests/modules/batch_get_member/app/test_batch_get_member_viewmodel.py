@@ -7,7 +7,7 @@ class Test_BatchGetMemberViewmodel:
     def test_batch_get_member_viewmodel(self):
         repo = MemberRepositoryMock()
         usecase = BatchGetMemberUsecase(repo=repo)
-        members = usecase(user_ids=[repo.members[0].user_id, repo.members[1].user_id])
+        members = usecase(user_id=repo.members[0].user_id, user_ids=[repo.members[0].user_id, repo.members[1].user_id])
         viewmodel = BatchGetMemberViewmodel(members).to_dict()
 
         expected = {

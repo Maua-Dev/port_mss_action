@@ -8,7 +8,7 @@ class Test_BatchGetMemberUsecase:
         repo = MemberRepositoryMock()
         usecase = BatchGetMemberUsecase(repo=repo)
         
-        members = usecase(user_ids=[repo.members[0].user_id, repo.members[1].user_id])
+        members = usecase(user_id=repo.members[0].user_id, user_ids=[repo.members[0].user_id, repo.members[1].user_id])
         assert len(members) == 2
         assert all([type(member) == Member for member in members])
         assert members[0] == repo.members[0]
@@ -18,7 +18,7 @@ class Test_BatchGetMemberUsecase:
         repo = MemberRepositoryMock()
         usecase = BatchGetMemberUsecase(repo=repo)
         
-        members = usecase(user_ids=[repo.members[0].user_id, repo.members[0].user_id])
+        members = usecase(user_id=repo.members[0].user_id, user_ids=[repo.members[0].user_id, repo.members[0].user_id])
         assert len(members) == 1
         assert all([type(member) == Member for member in members])
         assert members[0] == repo.members[0]
