@@ -20,4 +20,4 @@ class Test_GetAllMembersUseCase:
         usecase = GetAllMembersUsecase(repo=repo)
         
         with pytest.raises(NoItemsFound):
-            members = usecase(user_id="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+            members = usecase(user_id="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdxxxxxx")
