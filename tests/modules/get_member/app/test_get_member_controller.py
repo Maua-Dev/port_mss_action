@@ -94,3 +94,15 @@ class Test_GetMemberController:
         assert response.status_code == 404
         assert response.body == "No items found for Member"
 
+    def test_get_controller_with_no_request_user(self):
+        request = HttpRequest(
+            body={
+
+            }
+        )
+
+        response = self.controller(request)
+        
+        assert response.status_code == 400
+        assert response.body == "Field requester_user is missing"
+

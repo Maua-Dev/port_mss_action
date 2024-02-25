@@ -43,6 +43,7 @@ class Test_UpdateMemberUsecase:
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.HEAD)
         
         assert repo.members[0].role == ROLE.HEAD
+        
     def test_update_member_no_items_found(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)

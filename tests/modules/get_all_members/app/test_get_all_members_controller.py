@@ -22,4 +22,13 @@ class Test_GetAllMembersController:
         assert response.body['message'] == 'the members were retrieved'
         assert len(response.body['members']) == len(repo.members)
     
-    
+    def test_get_all_members_controller__requester_user_none(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = GetAllMembersUsecase(repo=repo)
+        controller = GetAllMembersController(usecase=usecase)
+        request = HttpRequest(body={})
+        response = controller(request=request)
+        
+        assert response.status_code == 400
+        assert response.body == "Field requester_user is missing"

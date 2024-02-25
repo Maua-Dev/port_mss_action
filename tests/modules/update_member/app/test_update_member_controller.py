@@ -316,3 +316,20 @@ class Test_UpdateMemberController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field new_deactivated_date is not valid"
+
+    def test_update_member_controller_with_no_request_user(self):
+                        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        user_id = repo.members[0].user_id
+        first_member = repo.members[0]
+        request = HttpRequest(body={
+            
+            'user_id': user_id,
+            'new_deactivated_date':1
+            })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field requester_user is missing"
