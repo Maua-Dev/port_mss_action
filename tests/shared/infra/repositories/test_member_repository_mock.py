@@ -14,18 +14,18 @@ class Test_MemberRepositoryMock:
           
     def test_get_member_not_found(self):
         repo = MemberRepositoryMock()
-        member = repo.get_member(ra="1234")
+        member = repo.get_member(user_id="1234")
         assert member is None
         
     def test_get_member(self):
         repo = MemberRepositoryMock()
-        member = repo.get_member(ra='21017310')
+        member = repo.get_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
         assert type(member) == Member
         assert member == repo.members[0]
 
     def test_batch_get_member(self):
         repo = MemberRepositoryMock()
-        members = repo.batch_get_member(ras=[repo.members[0].ra, repo.members[1].ra])
+        members = repo.batch_get_member(user_ids=[repo.members[0].user_id, repo.members[1].user_id])
         assert type(members) == list
         assert all([type(member) == Member for member in members])
         assert len(members) == 2
@@ -62,7 +62,7 @@ class Test_MemberRepositoryMock:
         
     def test_update_member(self):
         repo = MemberRepositoryMock()
-        member = repo.update_member(ra='21017310', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_deactivated_date=1234567890)
+        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_deactivated_date=1234567890)
 
         assert type(member) == Member
         assert member.name == 'Teste'
@@ -77,5 +77,5 @@ class Test_MemberRepositoryMock:
         
     def test_update_member_not_found(self):
         repo = MemberRepositoryMock()
-        member = repo.update_member(ra='11111111', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE)
+        member = repo.update_member(user_id='13bc6ada-c0d1-7054-66ab-e17414c48ae3', new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.DATA_SCIENCE)
         assert member is None    

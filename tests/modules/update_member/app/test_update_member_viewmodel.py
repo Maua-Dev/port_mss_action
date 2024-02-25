@@ -12,14 +12,14 @@ class Test_UpdateMemberViewmodel:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         member = usecase(
-            ra=repo.members[0].ra, new_name='Joao Brancas')
+            user_id=repo.members[0].user_id, new_name='Joao Brancas')
 
         viewmodel = UpdateMemberViewmodel(member=member).to_dict()
         expected = {
             'member': {
                 'name':"Joao Brancas",
                 'email_dev':"vsoller.devmaua@gmail.com",
-                'ra':"21017310",
+                'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 'role':ROLE.DIRECTOR.value,
                 'stack':STACK.INFRA.value,
                 'year':1,

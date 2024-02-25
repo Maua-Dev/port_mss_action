@@ -93,6 +93,9 @@ class Member(abc.ABC):
         if not self.validate_user_id(user_id):
             raise EntityError("user_id")
         self.user_id = user_id
+        
+        if type(user_id) != str:
+            raise EntityError("user_id")
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -179,7 +182,7 @@ class Member(abc.ABC):
         return True
     
     def __repr__(self):
-        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active})"
+        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
     
     def __eq__(self, other):
         if not isinstance(other, Member):

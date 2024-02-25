@@ -19,7 +19,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -49,7 +49,7 @@ class Test_CreateMemberController:
         assert response.body['member']['course'] == COURSE.ECA.value
         assert response.body['member']['hired_date'] == 1614567601000
         assert response.body['member']['active'] == ACTIVE.ACTIVE.value
-        assert response.body['member']['user_id'] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"     
+        assert response.body['member']['user_id'] == "13bc6ada-c0d1-7054-66ab-e17414c48ae3"     
     
     def test_create_member_controller_missing_ra(self):
         
@@ -86,7 +86,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -113,7 +113,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "email": "",
                 "name": "Vitor Guirão MPNTM",
                 "custom:isMaua": True
@@ -140,7 +140,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -167,7 +167,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -194,7 +194,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -221,7 +221,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -248,7 +248,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -275,7 +275,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -302,7 +302,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
@@ -329,7 +329,7 @@ class Test_CreateMemberController:
         controller = CreateMemberController(usecase=usecase)
         request = HttpRequest(body={
                "requester_user": {
-                "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "name": "Vitor Guirão MPNTM",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
