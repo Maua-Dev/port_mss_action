@@ -120,3 +120,20 @@ class Test_BatchGetMemberController:
         
         assert response.status_code == 404
         assert response.body == "No items found for user_ids"
+    def test_batch_get_member_controller_no_requester_user(self): 
+        
+        repo = MemberRepositoryMock()
+        usecase = BatchGetMemberUsecase(repo=repo)
+        controller = BatchGetMemberController(usecase=usecase)
+        first_member = repo.members[0]
+        second_member = repo.members[1]
+        third_member = repo.members[2]
+        request = HttpRequest(body={
+       
+            'user_ids': ['13bc6bda-c0d1-7054-66ab-e17414c48ae3','23bc6ada-c0d1-7054-66ab-e17414c48ae3']
+        })
+
+        response = controller(request=request)
+        
+        assert response.status_code == 400
+        assert response.body == "Field requester_user is missing"

@@ -43,7 +43,42 @@ class Test_UpdateMemberUsecase:
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.HEAD)
         
         assert repo.members[0].role == ROLE.HEAD
+
+    def test_update_member_usecase_new_stack(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_stack=STACK.FRONTEND)
         
+        assert repo.members[0].stack == STACK.FRONTEND
+
+    def test_update_member_usecase_new_year(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_year=5)
+        
+        assert repo.members[0].year == 5
+
+    def test_update_member_usecase_new_cellphone(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_cellphone="11991751111")
+        
+        assert repo.members[0].cellphone == "11991751111"
+
+    def test_update_member_usecase_new_course(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_course=COURSE.DSG)
+        
+        assert repo.members[0].course == COURSE.DSG
+
+    def test_update_member_usecase_new_actice(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_active=ACTIVE.DISCONNECTED)
+        
+        assert repo.members[0].active == ACTIVE.DISCONNECTED
+
     def test_update_member_no_items_found(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
