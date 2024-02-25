@@ -13,7 +13,9 @@ class Test_GetAllMembersUseCase:
         assert len(members) == 9
         assert all([type(member) == Member for member in members])
 
+
     def test_get_all_members_usecase_user_id_not_found(self):
+
         repo = MemberRepositoryMock()
         usecase = GetAllMembersUsecase(repo=repo)
         
