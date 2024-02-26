@@ -28,7 +28,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
     def create_member(self, member: Member) -> Member:
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
+        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format("member"), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
         
         return member
     
@@ -44,7 +44,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         return members
 
     def get_member(self, user_id: str) -> Member:
-        member = self.dynamo.get_item(partition_key=self.member_partition_key_format(user_id), sort_key=self.member_sort_key_format(user_id))
+        member = self.dynamo.get_item(partition_key=self.member_partition_key_format("member"), sort_key=self.member_sort_key_format(user_id))
 
         if "Item" not in member:
             return None
@@ -53,7 +53,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         return member_dto.to_entity()
     
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
-        keys = [{self.dynamo.partition_key: self.member_partition_key_format(user_id), self.dynamo.sort_key: self.member_sort_key_format(user_id)} for user_id in user_ids]
+        keys = [{self.dynamo.partition_key: self.member_partition_key_format("member"), self.dynamo.sort_key: self.member_sort_key_format(user_id)} for user_id in user_ids]
 
         resp = self.dynamo.batch_get_items(keys=keys)
 
@@ -63,7 +63,7 @@ class MemberRepositoryDynamo(IMemberRepository):
                 members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
 
     def delete_member(self, user_id: str) -> Optional[Member]:
-        delete_member = self.dynamo.delete_item(partition_key=self.member_partition_key_format(user_id), sort_key=self.member_sort_key_format(user_id))
+        delete_member = self.dynamo.delete_item(partition_key=self.member_partition_key_format("member"), sort_key=self.member_sort_key_format(user_id))
         
         if "Attributes" not in delete_member:
             return None
