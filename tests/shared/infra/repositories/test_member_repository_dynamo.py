@@ -32,9 +32,7 @@ class Test_MemberRepositoryDynamo:
         resp = repo.get_all_members()
 
         members.sort(key=lambda x: x.user_id)
-        print(members)
-        print(resp)
-
+        
         assert resp == members
 
     @pytest.mark.skip("Can't run test in github actions")
@@ -69,7 +67,6 @@ class Test_MemberRepositoryDynamo:
         members_user_id = [member.user_id for member in repo_mock.members]
 
         resp = repo.batch_get_member(members_user_id)
-
         expected_members = repo_mock.members
         expected_members.sort(key=lambda x: x.user_id)
 
