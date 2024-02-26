@@ -15,8 +15,8 @@ class CreateMemberUsecase:
         
     def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, hired_date: int, user_id:str) -> Member:
       
-        if self.repo.get_member(ra=ra) is not None:
-            raise DuplicatedItem("ra")
+        if self.repo.get_member(user_id=user_id) is not None:
+            raise DuplicatedItem("user_id")
 
         
         member = Member(name, email_dev, email, ra, role, stack, year, cellphone, course, hired_date, ACTIVE.ACTIVE, user_id, None)        

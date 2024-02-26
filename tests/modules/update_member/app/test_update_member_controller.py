@@ -15,8 +15,8 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
-        first_member = repo.members[0];
+        user_id = repo.members[0].user_id
+        first_member = repo.members[0]
         
         request = HttpRequest(body={
             'requester_user': {
@@ -25,7 +25,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
@@ -49,7 +49,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -58,7 +58,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_name':"Teste Tester"
              
             })
@@ -74,7 +74,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={  
             'requester_user': {
@@ -83,7 +83,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_year':3
              
             })
@@ -100,7 +100,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -109,7 +109,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_role':ROLE.HEAD.value
              
             })
@@ -120,7 +120,7 @@ class Test_UpdateMemberController:
         assert response.body["member"]["role"] == ROLE.HEAD.value
         assert response.body["message"] == "the member was updated"
 
-    def test_update_member_controller_missing_ra(self):
+    def test_update_member_controller_missing_user_id(self):
             
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
@@ -128,7 +128,7 @@ class Test_UpdateMemberController:
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
-                    "sub": first_member.user_id,
+                    "sub": None,
                     "name": first_member.name,
                     "email": first_member.email,
                     "custom:isMaua": True
@@ -146,9 +146,9 @@ class Test_UpdateMemberController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field ra is missing"
+        assert response.body == "Field user_id is missing"
             
-    def test_update_member_controller_wrong_type_ra(self):
+    def test_update_member_controller_wrong_type_user_id(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
@@ -156,12 +156,12 @@ class Test_UpdateMemberController:
 
         request = HttpRequest(body={
             'requester_user': {
-                    "sub": first_member.user_id,
+                    "sub": 123234234,
                     "name": first_member.name,
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': 123234234,
+            'user_id': 123234234,
             'new_name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
             'role':ROLE.HEAD.value,
@@ -174,9 +174,9 @@ class Test_UpdateMemberController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field ra isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field user_id isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
-    def test_update_member_controller_invalid_ra(self):
+    def test_update_member_controller_invalid_user_id(self):
                     
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
@@ -184,12 +184,12 @@ class Test_UpdateMemberController:
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
-                    "sub": first_member.user_id,
+                    "sub": '123234234',
                     "name": first_member.name,
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': '123234234',
+            'user_id': '123234234',
             'name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
             'role':ROLE.HEAD.value,
@@ -202,14 +202,14 @@ class Test_UpdateMemberController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field ra is not valid"
+        assert response.body == "Field user_id is not valid"
 
     def test_update_member_controller_invalid_year(self):
                     
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -218,7 +218,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
@@ -242,7 +242,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -251,7 +251,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_name':123,
             'new_email_dev':"jbranco.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
@@ -271,7 +271,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -280,7 +280,7 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_name':"Joao Branco",
             'new_email_dev':123,
             'new_role':ROLE.HEAD.value,
@@ -300,7 +300,7 @@ class Test_UpdateMemberController:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         controller = UpdateMemberController(usecase)
-        ra = repo.members[0].ra
+        user_id = repo.members[0].user_id
         first_member = repo.members[0]
         request = HttpRequest(body={
             'requester_user': {
@@ -309,10 +309,27 @@ class Test_UpdateMemberController:
                     "email": first_member.email,
                     "custom:isMaua": True
                 },
-            'ra': ra,
+            'user_id': user_id,
             'new_deactivated_date':1
             })
         
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field new_deactivated_date is not valid"
+
+    def test_update_member_controller_with_no_request_user(self):
+                        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        user_id = repo.members[0].user_id
+        first_member = repo.members[0]
+        request = HttpRequest(body={
+            
+            'user_id': user_id,
+            'new_deactivated_date':1
+            })
+        
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == "Field requester_user is missing"
