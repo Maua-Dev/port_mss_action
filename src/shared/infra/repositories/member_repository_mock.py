@@ -125,7 +125,7 @@ class MemberRepositoryMock(IMemberRepository):
                 name="Henrique Gustavo de Souza",
                 email_dev="hsouza.devmaua@gmail.com",
                 email="hsouza@gmail.com",
-                ra="23017310",
+                ra="22015320",
                 role=ROLE.DEV,
                 stack=STACK.UX_UI,
                 year=1,
