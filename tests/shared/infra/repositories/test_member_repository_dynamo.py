@@ -13,15 +13,7 @@ from src.shared.infra.repositories.member_repository_mock import MemberRepositor
 
 
 class Test_MemberRepositoryDynamo:
-    @pytest.mark.skip("Can't run test in github actions")
-    def test_create_member(self):
-        repo = MemberRepositoryDynamo()
-        member = Member(name="Joao Branco", email_dev="jbranco.devmaua@gmail.com", email="jbranco@gmail.com", ra="21010757", role=ROLE.HEAD,
-                        stack=STACK.BACKEND, year=3, cellphone="11991152348", course=COURSE.ECM, hired_date=1634921765000, active=ACTIVE.ACTIVE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
-        resp = repo.create_member(member=member)
-
-        assert resp == member
-
+    
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_all_members(self):
         repo = MemberRepositoryDynamo()
@@ -34,23 +26,35 @@ class Test_MemberRepositoryDynamo:
         members.sort(key=lambda x: x.user_id)
         
         assert resp == members
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_create_member(self):
+        repo = MemberRepositoryDynamo()
+        member = Member(name="Gabriel Bianconi", email_dev="gbianconi.devmaua@gmail.com", email="gabrielbianconiconi@gmail.com", ra="20008228", role=ROLE.DEV,
+                        stack=STACK.BACKEND, year=3, cellphone="11998472553", course=COURSE.ECM, hired_date=1634921765000, active=ACTIVE.ACTIVE, user_id="15648hbr-154n-1983-91hab-7ghn4HgF182")
+        resp = repo.create_member(member=member)
+
+        assert resp == member
 
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_member(self):
         repo = MemberRepositoryDynamo()
         repo_mock = MemberRepositoryMock()
 
-        member = repo_mock.members[0]
+        member = repo_mock.members[1]
 
         resp = repo.get_member(member.user_id)
 
         assert resp == member
     @pytest.mark.skip("Can't run test in github actions")    
     def test_delete_member(self):
-        repo = MemberRepositoryMock()
-        len_before = len(repo.members)
-        project = repo.delete_member(user_id="9183jBnh-997H-1010-10god-914gHy46tBh")
-        assert len(repo.members) == len_before - 1    
+        repo_mock = MemberRepositoryMock()
+        repo = MemberRepositoryDynamo()
+        
+        member = repo_mock.members[0]
+        deleted_member = repo.delete_member(member.user_id)
+        
+        assert deleted_member == member    
         
     @pytest.mark.skip("Can't run test in github actions")
     def test_update_member(self):
@@ -64,10 +68,10 @@ class Test_MemberRepositoryDynamo:
         repo = MemberRepositoryDynamo()
         repo_mock = MemberRepositoryMock()
 
-        members_user_id = [member.user_id for member in repo_mock.members]
+        members_user_id = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"]
 
         resp = repo.batch_get_member(members_user_id)
-        expected_members = repo_mock.members
+        expected_members = [repo_mock.members[1], repo_mock.members[2]]
         expected_members.sort(key=lambda x: x.user_id)
 
         resp.sort(key=lambda x: x.user_id)

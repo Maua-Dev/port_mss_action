@@ -65,6 +65,8 @@ class MemberRepositoryDynamo(IMemberRepository):
         for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
             if item.get("entity") == "member":
                 members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
+        
+        return members
 
     def delete_member(self, user_id: str) -> Optional[Member]:
         delete_member = self.dynamo.delete_item(partition_key=self.member_partition_key_format(user_id), sort_key=self.member_sort_key_format(user_id))
