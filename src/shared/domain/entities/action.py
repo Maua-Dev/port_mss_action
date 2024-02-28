@@ -12,6 +12,7 @@ class Action(abc.ABC):
     end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
+    is_valid: bool
     story_id: Optional[int] = None
     title: str
     description: Optional[str] = None
@@ -29,7 +30,7 @@ class Action(abc.ABC):
 
     
     
-    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -44,6 +45,10 @@ class Action(abc.ABC):
         if not self.validate_action_id(action_id):
             raise EntityError('action_id')
         self.action_id = action_id
+
+        if type(is_valid) != bool:
+            raise EntityError('is_valid')
+        self.is_valid = is_valid
 
         if not self.validate_story_id(story_id):
              raise EntityError('story_id')
@@ -97,12 +102,12 @@ class Action(abc.ABC):
         self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid} title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
