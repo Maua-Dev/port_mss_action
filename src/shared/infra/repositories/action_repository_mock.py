@@ -194,6 +194,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="10017310",
                    action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
                    story_id=94,
+                   is_valid=True,
                    associated_members_ra=[
                        "23017310",
                        "21010757",
@@ -215,6 +216,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="10017310",
                    action_id="24c7d7a3-6560-4652-a8d6-f2e4f3f23460",
                    story_id=368,
+                   is_valid=True,
                    associated_members_ra=[
                        "19017311",
                        "23017310",
@@ -233,6 +235,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="10017310",
                    action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a",
                    story_id=983,
+                   is_valid=True,
                    associated_members_ra=[
                        "21017310",
                        "19017310",
@@ -253,6 +256,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="19017311",
                    action_id="ea95d4f7-d5ce-4944-9fa1-ab964655294b",
                    story_id=435,
+                   is_valid=True,
                    associated_members_ra=[
                        "17033730",
                        "22017310",
@@ -273,6 +277,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="21017310",
                    action_id="7778ee40-d98b-4187-8b02-052b70cc1ec1",
                    story_id=848,
+                   is_valid=True,
                    associated_members_ra=[
                        "19017311",
                        "19017310"
@@ -290,6 +295,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="21010757",
                    action_id="92cebaa4-02d5-4618-9b32-0c668b8361cd",
                    story_id=144,
+                   is_valid=True,
                    associated_members_ra=[
 
                    ],
@@ -306,6 +312,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="19017310",
                    action_id="eefe6db8-e03e-42c3-9fd2-1de796139501",
                    story_id=497,
+                   is_valid=True,
                    associated_members_ra=[
                        "23017310",
                        "10017310",
@@ -324,6 +331,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="19017310",
                    action_id="46b35022-1a68-4cc8-a2e5-ae449e43e867",
                    story_id=237,
+                   is_valid=True,
                    associated_members_ra=[
                        "10017310",
                        "23017310",
@@ -344,6 +352,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="10017310",
                    action_id="711d1d26-f7c6-49e9-b0a0-84bdcfc21349",
                    story_id=43,
+                   is_valid=True,
                    associated_members_ra=[
                        "22017310",
                        "19017310",
@@ -363,6 +372,7 @@ class ActionRepositoryMock(IActionRepository):
             Action(owner_ra="10017310",
                    action_id="87d4a661-0752-4ce2-9440-05e752e636fc",
                    story_id=932,
+                   is_valid=True,
                    associated_members_ra=[
                        "21010757",
                        "17033730",
