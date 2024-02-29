@@ -12,6 +12,7 @@ class ActionDynamoDTO:
     end_date: int
     duration: int
     action_id: str
+    is_valid: bool
     story_id: Optional[int] = None
     title: str
     description: Optional[str] = None
@@ -20,13 +21,14 @@ class ActionDynamoDTO:
     stack_tags: List[STACK]
     action_type_tag: ACTION_TYPE
     
-    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         self.owner_ra = owner_ra
         self.start_date = start_date
         self.stack_tags = stack_tags
         self.end_date = end_date
         self.duration = duration
         self.action_id = action_id
+        self.is_valid = is_valid
         self.story_id = story_id
         self.title = title
         self.description = description
@@ -43,6 +45,7 @@ class ActionDynamoDTO:
             end_date=action.end_date,
             duration=action.duration,
             action_id=action.action_id,
+            is_valid=action.is_valid,
             story_id=action.story_id,
             title=action.title,
             description=action.description,
@@ -60,6 +63,7 @@ class ActionDynamoDTO:
             "end_date": Decimal(str(self.end_date)),
             "duration": Decimal(str(self.duration)),
             "action_id": self.action_id,
+            "is_valid": self.is_valid,
             "title": self.title,
             "project_code": self.project_code,
             "action_type_tag": self.action_type_tag.value,
@@ -80,6 +84,7 @@ class ActionDynamoDTO:
             end_date=int(data['end_date']),
             duration=int(data['duration']),
             action_id=data['action_id'],
+            is_valid=data['is_valid'],
             title=data['title'],
             project_code=data['project_code'],
             action_type_tag=ACTION_TYPE(data['action_type_tag']),
@@ -96,6 +101,7 @@ class ActionDynamoDTO:
             end_date=self.end_date,
             duration=self.duration,
             action_id=self.action_id,
+            is_valid=self.is_valid,
             title=self.title,
             project_code=self.project_code,
             action_type_tag=self.action_type_tag,
@@ -105,11 +111,11 @@ class ActionDynamoDTO:
         )
         
     def __repr__(self): 
-        return f"Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})"
+        return f"Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})"
     
     def __eq__(self, other):
         if type(other) != ActionDynamoDTO:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
         
