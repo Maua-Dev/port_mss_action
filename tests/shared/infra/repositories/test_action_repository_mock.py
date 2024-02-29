@@ -159,3 +159,10 @@ class Test_ActionRepositoryMock:
         assert len(members) == 2
         assert members[0] == repo.members[0]
         assert members[1] == repo.members[1]
+
+    def test_update_validation(self):
+        repo = ActionRepositoryMock()
+        action = repo.update_validation(action_id=repo.actions[0].action_id, is_valid=False)
+        assert type(action) == Action
+        assert action.is_valid == False
+        assert repo.actions[0] == action

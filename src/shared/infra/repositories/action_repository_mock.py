@@ -677,3 +677,10 @@ class ActionRepositoryMock(IActionRepository):
             if member.ra in ras:
                 members.append(member)
         return members
+    
+    def update_validation(self, action_id: str, is_valid: bool) -> Action:
+        for action in self.actions:
+            if action.action_id == action_id:
+                action.is_valid = is_valid
+                return action
+        return None
