@@ -53,7 +53,17 @@ class DynamoStack(Construct):
                     ),
                     
                 )
-                
+            
+                self.dynamo_table_member = aws_dynamodb.Table(
+                self, "PortalInterno_member_Table",
+                partition_key=aws_dynamodb.Attribute(
+                    name="PK",
+                    type=aws_dynamodb.AttributeType.STRING
+                ),
+                point_in_time_recovery=True,
+                billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+                removal_policy=REMOVAL_POLICY
+            )    
                 CfnOutput(self, 'DynamoActionRemovalPolicy',
                     value=REMOVAL_POLICY.value,
                     export_name=f'PortalInterno{self.github_ref_name}DynamoActionRemovalPolicyValue')
