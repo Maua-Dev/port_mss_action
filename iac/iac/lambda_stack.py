@@ -10,6 +10,7 @@ from aws_cdk.aws_apigateway import Resource, LambdaIntegration
 class LambdaStack(Construct):
 
     functions_that_need_dynamo_permissions = []
+    functions_that_need_dynamo_member_permissions = []
 
     def create_lambda_api_gateway_integration(self, module_name: str, method: str, api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}):
         function = lambda_.Function(
