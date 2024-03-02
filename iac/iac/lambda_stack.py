@@ -50,8 +50,22 @@ class LambdaStack(Construct):
             environment_variables=environment_variables
         )
         
+        self.create_member_function = self.create_lambda_api_gateway_integration(
+            module_name="create_member",
+            method="POST",
+            mss_action_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
         self.delete_project_function = self.create_lambda_api_gateway_integration(
             module_name="delete_project",
+            method="DELETE",
+            mss_action_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
+        self.delete_member_function = self.create_lambda_api_gateway_integration(
+            module_name="delete_member",
             method="DELETE",
             mss_action_api_resource=api_gateway_resource,
             environment_variables=environment_variables
@@ -99,6 +113,13 @@ class LambdaStack(Construct):
             environment_variables=environment_variables
         )
         
+        self.update_member_function = self.create_lambda_api_gateway_integration(
+            module_name="update_member",
+            method="PUT",
+            mss_action_api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+        
         self.update_action_function = self.create_lambda_api_gateway_integration(
             module_name="update_action",
             method="PUT",
@@ -126,4 +147,14 @@ class LambdaStack(Construct):
                 self.update_action_function,
                 self.batch_get_member_function
         ]
+        
+        self.functions_that_need_dynamo_member_permissions = [
+                self.create_member_function,
+                self.delete_member_function,
+                self.update_member_function,
+                self.get_all_members_function,
+                self.batch_get_member_function,
+                self.get_member_function
+        ]
+
         
