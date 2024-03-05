@@ -285,7 +285,7 @@ class ActionRepositoryDynamo(IActionRepository):
                 
         return actions
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+    def update_action(self, action_id: str, is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
         
         action = self.get_action(action_id=action_id)
         
@@ -298,6 +298,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "end_date": Decimal(str(new_end_date)) if new_end_date is not None else None,
             "duration": Decimal(str(new_duration)) if new_duration is not None else None,
             "story_id": Decimal(new_story_id) if new_story_id is not None else None,
+            "is_valid": is_valid,
             "title": new_title,
             "description": new_description,
             "project_code": new_project_code,

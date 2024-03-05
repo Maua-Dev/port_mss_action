@@ -202,3 +202,16 @@ class Test_ActionRepositoryDynamo:
         resp.sort(key=lambda x: x.ra)
 
         assert resp == expected_members
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_action_validation(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action = repo_mock.actions[0]
+
+        resp = repo.update_action(action.action_id, is_valid=False)
+
+
+        assert resp.action_id == action.action_id
+        assert resp.is_valid == False
