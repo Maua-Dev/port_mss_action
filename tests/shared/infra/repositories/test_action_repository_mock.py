@@ -162,7 +162,7 @@ class Test_ActionRepositoryMock:
 
     def test_update_validation(self):
         repo = ActionRepositoryMock()
-        action = repo.update_validation(action_id=repo.actions[0].action_id, is_valid=False)
+        action = repo.update_action(action_id=repo.actions[0].action_id, new_is_valid=False)
         assert type(action) == Action
         assert action.is_valid == False
         assert repo.actions[0] == action

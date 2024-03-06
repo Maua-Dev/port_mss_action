@@ -641,7 +641,7 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_associated_actions
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
         new_action = None
         for action in self.actions:
             if action.action_id == action_id:
@@ -655,6 +655,8 @@ class ActionRepositoryMock(IActionRepository):
                     action.duration = new_duration
                 if new_story_id is not -1:
                     action.story_id = new_story_id
+                if new_is_valid is not None:
+                    action.is_valid = new_is_valid
                 if new_title is not None:
                     action.title = new_title
                 if new_description is not '':
@@ -677,10 +679,3 @@ class ActionRepositoryMock(IActionRepository):
             if member.ra in ras:
                 members.append(member)
         return members
-    
-    def update_validation(self, action_id: str, is_valid: bool) -> Action:
-        for action in self.actions:
-            if action.action_id == action_id:
-                action.is_valid = is_valid
-                return action
-        return None
