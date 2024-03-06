@@ -45,7 +45,7 @@ class Test_UpdateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"ra": "21017310","new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"ACTIVE"}',
+            "body": '{"user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3","new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"ACTIVE"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -57,7 +57,7 @@ class Test_UpdateMemberPresenter:
         assert json.loads(response["body"])["message"] == 'the member was updated'
         assert json.loads(response["body"])["member"]["name"] == "Joao Branco"
         assert json.loads(response["body"])["member"]["email_dev"] == "jbranco.devmaua@gmail.com"
-        assert json.loads(response["body"])["member"]["ra"] == "21017310"
+        assert json.loads(response["body"])["member"]["user_id"] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert json.loads(response["body"])["member"][ "role"] == "HEAD"
         assert json.loads(response["body"])["member"][ "stack"] == "BACKEND"
         assert json.loads(response["body"])["member"]["year"] == 3

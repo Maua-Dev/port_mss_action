@@ -1,21 +1,21 @@
 from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
 from src.shared.domain.entities.member import Member
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 import pytest
 
 class Test_GetMemberUsecase:
     def test_get_member_usecase(self):
-        repo = ActionRepositoryMock()
+        repo = MemberRepositoryMock()
         usecase = GetMemberUsecase(repo=repo)
 
-        member = usecase(ra='19017311')
-        assert member == repo.members[5]
+        member = usecase(user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3')
+        assert member == repo.members[1]
         assert type(member) == Member
 
-    def test_get_member_usecase_not_found_ra(self):
-        repo = ActionRepositoryMock()
+    def test_get_member_usecase_not_found_user_id(self):
+        repo = MemberRepositoryMock()
         usecase = GetMemberUsecase(repo=repo)
 
         with pytest.raises(NoItemsFound):
-            usecase(ra='19010000')
+            usecase(user_id='5bah5aaj-c9jm-1345-666ab-e12341c14a3')

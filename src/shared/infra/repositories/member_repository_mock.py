@@ -167,16 +167,16 @@ class MemberRepositoryMock(IMemberRepository):
                 return self.members.pop(i)
         return None
 
-    def get_member(self, ra: str) -> Member:
+    def get_member(self, user_id: str) -> Optional[Member]:
         for member in self.members:
-            if member.ra == ra:
+            if member.user_id == user_id:
                 return member
         return None
     
     
-    def update_member(self, ra: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
         for member in self.members:
-            if member.ra == ra:
+            if member.user_id == user_id:
                 if new_name is not None:
                     member.name = new_name
                 if new_email_dev is not None:
@@ -205,9 +205,9 @@ class MemberRepositoryMock(IMemberRepository):
         return self.members
 
  
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
+    def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         members = []
         for member in self.members:
-            if member.ra in ras:
+            if member.user_id in user_ids:
                 members.append(member)
         return members
