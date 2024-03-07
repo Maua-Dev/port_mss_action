@@ -14,7 +14,7 @@ from src.shared.infra.repositories.member_repository_mock import MemberRepositor
 
 class Test_MemberRepositoryDynamo:
     
-    #@pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_all_members(self):
         repo = MemberRepositoryDynamo()
         repo_mock = MemberRepositoryMock()
@@ -27,7 +27,7 @@ class Test_MemberRepositoryDynamo:
         
         assert resp == members
         
-    #@pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_create_member(self):
         repo = MemberRepositoryDynamo()
         member = Member(name="Gabriel Bianconi", email_dev="gbianconi.devmaua@gmail.com", email="gabrielbianconiconi@gmail.com", ra="20008228", role=ROLE.DEV,
@@ -36,7 +36,7 @@ class Test_MemberRepositoryDynamo:
 
         assert resp == member
 
-    #@pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_member(self):
         repo = MemberRepositoryDynamo()
         repo_mock = MemberRepositoryMock()
@@ -46,7 +46,7 @@ class Test_MemberRepositoryDynamo:
         resp = repo.get_member(member.user_id)
 
         assert resp == member
-    #@pytest.mark.skip("Can't run test in github actions")    
+    @pytest.mark.skip("Can't run test in github actions")    
     def test_delete_member(self):
         repo_mock = MemberRepositoryMock()
         repo = MemberRepositoryDynamo()
@@ -56,14 +56,14 @@ class Test_MemberRepositoryDynamo:
         
         assert deleted_member == member    
         
-    #@pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_update_member(self):
         repo = MemberRepositoryDynamo()
         resp = repo.update_member(user_id="9183jBnh-997H-1010-10god-914gHy46tBh", new_name="Gabriel Bianconi")
 
         assert resp.name == "Gabriel Bianconi"
         
-    #@pytest.mark.skip("Can't run test in github actions") 
+    @pytest.mark.skip("Can't run test in github actions") 
     def test_batch_get_member(self):
         repo = MemberRepositoryDynamo()
         repo_mock = MemberRepositoryMock()

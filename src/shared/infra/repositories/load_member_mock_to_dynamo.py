@@ -25,6 +25,42 @@ def setup_dynamo_table():
                     'KeyType': 'RANGE'
                 }
             ],
+            LocalSecondaryIndexes=[
+                {
+                    'IndexName': 'LSI1',
+                    'KeySchema': [
+                        {
+                            'KeyType': 'HASH',
+                            'AttributeName': 'PK'
+                        },
+                        {
+                            'KeyType': 'RANGE',
+                            'AttributeName': 'start_date'
+                        }
+                    ],
+                    'Projection': {
+                        'ProjectionType': 'ALL',
+                    }
+                }
+            ],
+            GlobalSecondaryIndexes=[
+                {
+                    'IndexName': 'GSI1',
+                    'KeySchema': [
+                        {
+                            'KeyType': 'HASH',
+                            'AttributeName': 'GSI1-PK'
+                        },
+                        {
+                            'KeyType': 'RANGE',
+                            'AttributeName': 'GSI1-SK'
+                        }
+                    ],
+                    'Projection': {
+                        'ProjectionType': 'ALL',
+                    }
+                }
+                ],
             AttributeDefinitions=[
                 {
                     'AttributeName': 'PK',
@@ -38,7 +74,16 @@ def setup_dynamo_table():
                     'AttributeName': 'start_date',
                     'AttributeType': 'N'
                 },
+                {
+                    'AttributeName': 'GSI1-PK',
+                    'AttributeType': 'S'
+                },
+                {
+                    'AttributeName': 'GSI1-SK',
+                    'AttributeType': 'S'
+                }
             ],
+            
             BillingMode='PAY_PER_REQUEST',
 
         )
