@@ -26,11 +26,17 @@ class Test_AssociatedAction:
             action_type_tag= ACTION_TYPE.CODE
         )
 
-        associated_action = AssociatedAction(member_ra="22011020", action_id=action.action_id, start_date=action.start_date)        
+        associated_action = AssociatedAction(
+            member_ra="22011020", 
+            action_id=action.action_id, 
+            start_date=action.start_date,
+            user_id=action.user_id
+            )        
         
         assert associated_action.member_ra == "22011020"
         assert associated_action.action_id == action.action_id
         assert associated_action.start_date == action.start_date
+        assert associated_action.user_id == action.user_id
         
     def test_associated_action_member_ra_not_string(self):
         action = Action(
@@ -49,7 +55,10 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra=22011020, action_id=action.action_id, start_date=action.start_date)
+            AssociatedAction(member_ra=22011020, 
+                             action_id=action.action_id, 
+                             start_date=action.start_date,
+                             user_id=action.user_id)
     
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
@@ -68,7 +77,10 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="vitor", action_id=action.action_id, start_date=action.start_date)
+            AssociatedAction(member_ra="vitor", 
+                             action_id=action.action_id, 
+                             start_date=action.start_date,
+                             user_id=action.user_id)
             
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
@@ -87,11 +99,17 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action_id=action.action_id, start_date=action.start_date)
+            AssociatedAction(member_ra="2201102", 
+                             action_id=action.action_id, 
+                             start_date=action.start_date, 
+                             user_id=action.user_id)
 
     def test_associated_action_action_id_must_be_uuid(self):
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="2201102", action_id=1, start_date=1577847600000)
+            AssociatedAction(member_ra="2201102", 
+                             action_id=1, 
+                             start_date=1577847600000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3")
             
     def test_associated_action_start_date_not_int(self):
         action = Action(
@@ -110,4 +128,21 @@ class Test_AssociatedAction:
                 action_type_tag= ACTION_TYPE.CODE
         )
         with pytest.raises(EntityError):
-            AssociatedAction(member_ra="22011020", action_id=action.action_id, start_date="1577847600000")
+            AssociatedAction(member_ra="22011020", 
+                             action_id=action.action_id, 
+                             start_date="1577847600000",
+                             user_id=action.user_id)
+            
+    def test_associated_action_user_id_not_string(self):
+        with pytest.raises(EntityError):
+            AssociatedAction(member_ra="22011020", 
+                             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14", 
+                             start_date=1577847600000,
+                             user_id=1)
+            
+    def test_associated_action_user_id_invalid_length(self):
+        with pytest.raises(EntityError):
+            AssociatedAction(member_ra="22011020", 
+                             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14", 
+                             start_date=1577847600000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae")

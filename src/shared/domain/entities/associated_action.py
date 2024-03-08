@@ -7,8 +7,9 @@ class AssociatedAction(abc.ABC):
     member_ra: str
     action_id: str
     start_date: int
+    user_id: str
 
-    def __init__(self, member_ra: str, action_id: str, start_date: int):
+    def __init__(self, member_ra: str, action_id: str, start_date: int, user_id: str) -> None:
         if not AssociatedAction.validate_ra(member_ra):
             raise EntityError("ra")
         self.member_ra = member_ra
@@ -22,6 +23,10 @@ class AssociatedAction(abc.ABC):
         if not 1000000000000 < start_date < 10000000000000:
             raise EntityError("start_date")
         self.start_date = start_date
+
+        if not self.validate_user_id(user_id):
+            raise EntityError('user_id')
+        self.user_id = user_id
 
     @staticmethod
     def validate_ra(ra: str) -> bool:
@@ -44,6 +49,12 @@ class AssociatedAction(abc.ABC):
             return True
         except ValueError:
             return False
+        
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Action.USER_ID_LENGTH: return False
+        return True
 
     def __repr__(self) -> str:
         return f"AssociatedAction(member_ra={self.member_ra}, action={self.action_id})"
