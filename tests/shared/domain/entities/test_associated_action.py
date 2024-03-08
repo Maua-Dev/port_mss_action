@@ -12,6 +12,7 @@ class Test_AssociatedAction:
     def test_associated_action(self):
         action = Action(
             owner_ra="22011020",
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1577847600000,
             duration=3 * 60 * 60 * 1000, 
             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -33,6 +34,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_string(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
@@ -50,6 +52,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_not_decimal(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
@@ -67,6 +70,7 @@ class Test_AssociatedAction:
     def test_associated_action_member_ra_invalid_length(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,
@@ -88,6 +92,7 @@ class Test_AssociatedAction:
     def test_associated_action_start_date_not_int(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 story_id= 100,

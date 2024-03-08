@@ -8,6 +8,7 @@ from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, En
 
 class Action(abc.ABC):
     owner_ra: str
+    user_id: str
     start_date: int # milisseconds
     end_date: int # milisseconds
     duration: int # milisseconds
@@ -27,14 +28,19 @@ class Action(abc.ABC):
     PROJECT_CODE_LENGTH = 2
     MIN_STORY_ID = 1
     MAX_STORY_ID = 999999
+    USER_ID_LENGTH = 36
 
     
     
-    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, owner_ra: str, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
         self.owner_ra = owner_ra
+
+        if not self.validate_user_id(user_id):
+            raise EntityError('user_id')
+        self.user_id = user_id
         
         if type(start_date) != int:
             raise EntityError("start_date")
@@ -174,4 +180,10 @@ class Action(abc.ABC):
             return False
         if duration > end_date - start_date:
             return False
+        return True
+    
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Action.USER_ID_LENGTH: return False
         return True

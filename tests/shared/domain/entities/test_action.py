@@ -10,6 +10,7 @@ class Test_Action:
     def test_action(self):
         action = Action(
             owner_ra="22011020",
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1577847600000,
             end_date=1577890800000,
             duration=10 * 60 * 60 * 1000,
@@ -26,6 +27,7 @@ class Test_Action:
         
         assert type(action) == Action
         assert action.owner_ra == "22011020"
+        assert action.user_id == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert action.start_date == 1577847600000
         assert action.end_date == 1577890800000
         assert action.action_id == "a571c870-d7da-4a25-951c-2ca2d2398a14"
@@ -43,6 +45,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="2201102",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -60,6 +63,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra=22011020,
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -77,6 +81,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="vitor",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -94,6 +99,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date="2023-01-24",
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -111,6 +117,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577890800000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -128,6 +135,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577890800000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -145,6 +153,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="1234",
                 is_valid=True,
@@ -162,6 +171,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id=1234,
                 is_valid=True,
@@ -177,6 +187,7 @@ class Test_Action:
     def test_action_story_id_is_none(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -195,6 +206,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="fgh6s4xx266vnbgih97icvr0qhtsc7x99dgf",
                 is_valid=True,
@@ -212,6 +224,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -229,6 +242,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -246,6 +260,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -262,6 +277,7 @@ class Test_Action:
     def test_action_associated_members_ra_none(self):   
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -280,6 +296,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -297,6 +314,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -314,6 +332,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -331,6 +350,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -347,6 +367,7 @@ class Test_Action:
     def test_action_associated_members_ra_is_empty_list(self):
         action = Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -365,6 +386,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -382,6 +404,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -399,6 +422,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -415,6 +439,7 @@ class Test_Action:
     def test_action_description_none(self):
         action = Action(
             owner_ra="22011020",
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1577847600000,
             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
             is_valid=True,
@@ -433,6 +458,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -451,6 +477,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -469,6 +496,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -487,6 +515,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -504,6 +533,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -522,6 +552,7 @@ class Test_Action:
        with pytest.raises(EntityError):
         Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -539,6 +570,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -556,6 +588,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -573,6 +606,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -590,6 +624,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
                 is_valid=True,
@@ -607,6 +642,7 @@ class Test_Action:
         with pytest.raises(EntityError):
             action = Action(
                 owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -624,7 +660,8 @@ class Test_Action:
     def test_action_duration_none(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -641,7 +678,8 @@ class Test_Action:
     def test_action_duration_not_int(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -658,7 +696,8 @@ class Test_Action:
     def test_action_duration_negative(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -674,7 +713,8 @@ class Test_Action:
     def test_action_duration_zero(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -691,7 +731,8 @@ class Test_Action:
     def test_action_invalid_duration(self): #duration > end_date - start_date
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100,
@@ -708,7 +749,8 @@ class Test_Action:
     def test_action_is_valid_not_boolean(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730', 
+                owner_ra='17033730',
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
                 story_id=100, 
@@ -720,4 +762,41 @@ class Test_Action:
                 stack_tags=[STACK.BACKEND], 
                 action_type_tag=ACTION_TYPE.CODE,
                 is_valid=1
+            )
+
+
+    def test_action_user_id_not_string(self):
+        with pytest.raises(EntityError):
+            action = Action(
+                owner_ra='17033730',
+                user_id=93, 
+                start_date=1577847600000, 
+                action_id='82fc', 
+                story_id=100, 
+                duration = 36000000, 
+                associated_members_ra=['21017310', '21010757'], 
+                title='Teste', 
+                end_date=1577890800000, 
+                project_code='MF', 
+                stack_tags=[STACK.BACKEND], 
+                action_type_tag=ACTION_TYPE.CODE,
+                is_valid=True
+            )
+
+    def test_action_user_id_wrong_length(self):
+        with pytest.raises(EntityError):
+            action = Action(
+                owner_ra='17033730',
+                user_id='1', 
+                start_date=1577847600000, 
+                action_id='82fc', 
+                story_id=100, 
+                duration = 36000000, 
+                associated_members_ra=['21017310', '21010757'], 
+                title='Teste', 
+                end_date=1577890800000, 
+                project_code='MF', 
+                stack_tags=[STACK.BACKEND], 
+                action_type_tag=ACTION_TYPE.CODE,
+                is_valid=True
             )
