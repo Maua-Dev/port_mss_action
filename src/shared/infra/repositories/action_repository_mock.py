@@ -68,127 +68,6 @@ class ActionRepositoryMock(IActionRepository):
             )
         ]
 
-        self.members = [
-            Member(
-                name="Vitor Guirão MPNTM",
-                email_dev="vsoller.devmaua@gmail.com",
-                email="vsoller@airubio.com",
-                ra="21017310",
-                role=ROLE.DIRECTOR,
-                stack=STACK.INFRA,
-                year=1,
-                cellphone="11991758098",
-                course=COURSE.ECA,
-                hired_date=1634576165000,
-                active=ACTIVE.ACTIVE,
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
-            ),
-
-            Member(
-                name="Joao Branco",
-                email_dev="jbranco.devmaua@gmail.com",
-                email="jbranco@gmail.com",
-                ra="21010757",
-                role=ROLE.HEAD,
-                stack=STACK.BACKEND,
-                year=3,
-                cellphone="11991152348",
-                course=COURSE.ECM,
-                hired_date=1634921765000,
-                active=ACTIVE.ACTIVE,
-                user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-            ),
-
-            Member(
-                name="Luigi Televisão",
-                email_dev="ltelevisao.devmaua@gmail.com",
-                email="lgtv@gmail.com",
-                ra="22017310",
-                role=ROLE.DEV,
-                stack=STACK.DATA_SCIENCE,
-                year=2,
-                cellphone="11991758228",
-                course=COURSE.CIC,
-                hired_date=1640192165000,
-                active=ACTIVE.FREEZE,
-                user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
-            ),
-
-            Member(
-                name="Little Ronald",
-                email_dev="lronald.devmaua@gmail.com",
-                email="lronald@gmail.com",
-                ra="10017310",
-                role=ROLE.DIRECTOR,
-                stack=STACK.FRONTEND,
-                year=6,
-                cellphone="11991759998",
-                course=COURSE.ECM,
-                hired_date=1614567601000,
-                active=ACTIVE.ACTIVE,
-                user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
-            ),
-
-            Member(
-                name="Marcos Pereira Neto",
-                email_dev="mneto.devmaua@gmail.com",
-                email="mneto@gmail.com",
-                ra="19017310",
-                role=ROLE.PO,
-                stack=STACK.PO,
-                year=4,
-                cellphone="11991753208",
-                course=COURSE.EMC,
-                hired_date=1614567601000,
-                active=ACTIVE.DISCONNECTED,
-                user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"
-            ),
-
-            Member(
-                name="Rubicks Cube",
-                email_dev="rcube.devmaua@gmail.com",
-                email="rubikscube@gmail.com",
-                ra="19017311",
-                role=ROLE.DEV,
-                stack=STACK.BACKEND,
-                year=3,
-                cellphone="11911758098",
-                course=COURSE.ECM,
-                hired_date=1640192165000,
-                active=ACTIVE.ACTIVE,
-                user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"
-            ),
-
-            Member(
-                name="Django Fett",
-                email_dev="dfett.devmaua@gmail.com",
-                email="djangofett@starwars.com",
-                ra="17033730",
-                role=ROLE.INTERNAL,
-                stack=STACK.INTERNAL,
-                year=2,
-                cellphone="11915758098",
-                course=COURSE.ECA,
-                hired_date=1609606565000,
-                active=ACTIVE.FREEZE,
-                user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"
-            ),
-
-            Member(
-                name="Henrique Gustavo de Souza",
-                email_dev="hsouza.devmaua@gmail.com",
-                email="hsouza@gmail.com",
-                ra="23017310",
-                role=ROLE.DEV,
-                stack=STACK.UX_UI,
-                year=1,
-                cellphone="11991123498",
-                course=COURSE.ECM,
-                hired_date=1672592165000,
-                active=ACTIVE.ACTIVE,
-                user_id="75648hbr-184n-1985-91han-7ghn4HgF182"
-            )
-        ]
 
         self.actions = [
             Action(owner_ra="10017310",
@@ -587,9 +466,6 @@ class ActionRepositoryMock(IActionRepository):
     def get_all_projects(self) -> List[Project]:
         return self.projects
 
-    def get_all_members(self) -> List[Member]:
-        return self.members
-
     def get_member(self, ra: str) -> Member:
         for member in self.members:
             if member.ra == ra:
@@ -673,9 +549,3 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_action
     
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
-        members = []
-        for member in self.members:
-            if member.ra in ras:
-                members.append(member)
-        return members
