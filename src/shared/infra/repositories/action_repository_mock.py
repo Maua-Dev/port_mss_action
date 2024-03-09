@@ -1,7 +1,4 @@
 from typing import List, Optional, Tuple
-from src.shared.domain.enums.active_enum import ACTIVE
-from src.shared.domain.enums.course_enum import COURSE
-from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.project import Project

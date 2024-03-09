@@ -1,11 +1,7 @@
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
-from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
-from src.shared.domain.enums.active_enum import ACTIVE
-from src.shared.domain.enums.course_enum import COURSE
-from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 
