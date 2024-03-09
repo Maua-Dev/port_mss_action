@@ -26,7 +26,8 @@ class Test_ActionRepositoryDynamo:
     def test_create_action(self):
         repo = ActionRepositoryDynamo()
         action = Action(owner_ra="19017310", action_id="eefe6db8-e03e-42c3-9fd2-1de796139501", story_id=497, associated_members_ra=["23017310", "10017310", "17033730"], stack_tags=[
-                        STACK.INTERNAL], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000)
+                        STACK.INTERNAL], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
+                        user_id="148c6ada-c0d1-7054-66ab-e17414c48ae3", is_valid=True)
         resp = repo.create_action(action=action)
 
         assert resp == action
@@ -58,7 +59,8 @@ class Test_ActionRepositoryDynamo:
             action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a")
 
         expected = Action(owner_ra="10017310", action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a", story_id=983, associated_members_ra=["21017310", "19017310", "19017311", "23017310", "17033730"], stack_tags=[
-                          STACK.INFRA], action_type_tag=ACTION_TYPE.WORK, project_code="SF", title="Retrospectiva", description="Revisão de sprint", start_date=1641896000000, end_date=1679686000000, duration=37790000000)
+                          STACK.INFRA], action_type_tag=ACTION_TYPE.WORK, project_code="SF", title="Retrospectiva", description="Revisão de sprint", start_date=1641896000000, end_date=1679686000000, duration=37790000000,
+                          user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", is_valid=True)
         assert resp == expected
 
     @pytest.mark.skip("Can't run test in github actions")
