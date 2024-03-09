@@ -92,7 +92,7 @@ class IActionRepository(ABC):
         pass
     
     @abstractmethod
-    def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
+    def batch_update_associated_action_members(self, action_id: str, members: List[str], user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         '''
         Removes all associated actions with action_id and recreates them with the given members and start_date
         '''
