@@ -38,8 +38,8 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'member'
     
     @staticmethod
-    def member_sort_key_format(ra: str) -> str:
-        return f'member#{ra}'
+    def member_sort_key_format(user_id: str) -> str:
+        return f'member#{user_id}'
     
     @staticmethod
     def associated_action_partition_key_format(user_id: str) -> str:
@@ -92,8 +92,8 @@ class ActionRepositoryDynamo(IActionRepository):
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
         item['GSI1-PK'] = self.gsi1_associated_action_partition_key_format(associated_action.action_id)
-        item['GSI1-SK'] = self.gsi1_associated_action_sort_key_format(associated_action.member_ra)
-        resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.member_ra), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
+        item['GSI1-SK'] = self.gsi1_associated_action_sort_key_format(associated_action.user_id)
+        resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.user_id), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
         
         return associated_action
     
@@ -173,8 +173,8 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return projects
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int = 20, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
-        query_string = Key(self.dynamo.partition_key).eq(ra)
+    def get_associated_actions_by_user_id(self, user_id: str, amount: int = 20, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
+        query_string = Key(self.dynamo.partition_key).eq(user_id)
 
         if amount is None:
             amount = 20
@@ -190,7 +190,7 @@ class ActionRepositoryDynamo(IActionRepository):
         query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         
         if exclusive_start_key:
-            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(ra), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
+            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(user_id), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
         
         resp = self.dynamo.query(**query_params)
         
@@ -228,38 +228,38 @@ class ActionRepositoryDynamo(IActionRepository):
         if resp["Count"] == 0:
             return []
         
-        member_ras = [item['PK'] for item in resp['Items']]
+        user_ids = [item['PK'] for item in resp['Items']]
         
         update_dict = {"start_date": new_start_date}
         
         actions = []
-        for ra in member_ras:
-            update_resp = self.dynamo.update_item(partition_key=self.associated_action_partition_key_format(ra), sort_key=self.associated_action_sort_key_format(action_id), update_dict=update_dict)
+        for user_id in user_ids:
+            update_resp = self.dynamo.update_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id), update_dict=update_dict)
             actions.append(AssociatedActionDynamoDTO.from_dynamo(update_resp['Attributes']).to_entity())
             
         return actions
         
     
-    def batch_update_associated_action_members(self, action_id: str, new_members: List[str], start_date: int) -> List[AssociatedAction]:
+    def batch_update_associated_action_members(self, action_id: str, members: List[str], user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
             
         if resp["Count"] == 0:
             return []
             
-        member_ras = [item['PK'] for item in resp['Items']]
+        member_user_ids = [item['PK'] for item in resp['Items']]
             
-        for ra in member_ras:
-            self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(ra), sort_key=self.associated_action_sort_key_format(action_id))
+        for user_id in member_user_ids:
+            self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id))
             
         actions = []
-        for ra in new_members:
-            associated_action = AssociatedAction(action_id=action_id, member_ra=ra, start_date=start_date)
+        for ra, user_id in zip(members, user_ids):
+            associated_action = AssociatedAction(action_id=action_id, member_ra=ra, start_date=start_date, user_id=user_id)
             actions.append(self.create_associated_action(associated_action))
                 
         return actions
     
-    def update_action(self, action_id: str, is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+    def update_action(self, action_id: str, new_is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
         
         action = self.get_action(action_id=action_id)
         
@@ -268,11 +268,12 @@ class ActionRepositoryDynamo(IActionRepository):
 
         update_dict = {
             "owner_ra": new_owner_ra,
+            "user_id": new_user_id,
             "start_date": Decimal(str(new_start_date)) if new_start_date is not None else None,
             "end_date": Decimal(str(new_end_date)) if new_end_date is not None else None,
             "duration": Decimal(str(new_duration)) if new_duration is not None else None,
             "story_id": Decimal(new_story_id) if new_story_id is not None else None,
-            "is_valid": is_valid,
+            "is_valid": new_is_valid,
             "title": new_title,
             "description": new_description,
             "project_code": new_project_code,
