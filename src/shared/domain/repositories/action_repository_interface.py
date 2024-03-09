@@ -68,22 +68,8 @@ class IActionRepository(ABC):
         '''
         pass
     
-    def get_all_members(self) -> List[Member]:
-        '''
-        Returns all members
-        '''
-        pass
-
     @abstractmethod
-    def get_member(self, ra: str) -> Member:
-        '''
-        If member exists, returns it
-        else returns None
-        '''
-        pass
-    
-    @abstractmethod
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
+    def get_associated_actions_by_user_id(self, user_id: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
         '''
         Retrieves all associated actions of a member, filtered by an optional time range specified by start and end parameters. The method allows for pagination using the exclusive_start_key parameter to determine the starting point of the action list, and the amount parameter to determine the maximum number of actions to be retrieved.
         If no actions are found, returns []
@@ -117,13 +103,5 @@ class IActionRepository(ABC):
         '''
         If action exists, updates it and its associated actions and returns it
         else returns None
-        '''
-        pass
-    
-    @abstractmethod
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
-        '''
-        Returns all members with the given ras, if any
-        else returns []
         '''
         pass

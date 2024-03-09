@@ -13,7 +13,7 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 class Test_ActionRepositoryMock:
     def test_create_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', start_date=1634526000000, is_valid=True, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, is_valid=True, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         len_before = len(repo.actions)
         
         new_action = repo.create_action(action=action)
@@ -35,8 +35,8 @@ class Test_ActionRepositoryMock:
         
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', is_valid=True, story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
-        associatedAction = AssociatedAction(member_ra='12345678', action_id=action.action_id, start_date=action.start_date)
+        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', is_valid=True, story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        associatedAction = AssociatedAction(member_ra='21017310', action_id=action.action_id, start_date=action.start_date, user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         len_before = len(repo.associated_actions)
         
         new_associated_action = repo.create_associated_action(associatedAction=associatedAction)
@@ -83,42 +83,36 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         project = repo.update_project(code='DM', new_name='Teste', new_description='Teste', new_po_RA='20006116', new_scrum_RA='21001459')
         assert project is None
-        
-    def test_get_member(self):
-        repo = ActionRepositoryMock()
-        member = repo.get_member(ra='21017310')
-        assert type(member) == Member
-        assert member == repo.members[0]
 
-    def test_get_associated_actions_by_ra(self):
+    def test_get_associated_actions_by_user_id(self):
         repo = ActionRepositoryMock()
-        associated_actions = repo.get_associated_actions_by_ra(ra='23017310', amount=20)
+        associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=20)
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
-        assert all([associated_action.member_ra == '23017310' for associated_action in associated_actions])
+        assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         
-    def test_get_associated_actions_by_ra_with_start(self):
+    def test_get_associated_actions_by_user_id_with_start(self):
         repo = ActionRepositoryMock()
-        associated_actions = repo.get_associated_actions_by_ra(ra='23017310', start=1658136000000, amount=20)
+        associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', start=1658136000000, amount=20)
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
-        assert all([associated_action.member_ra == '23017310' for associated_action in associated_actions])
+        assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.start_date >= 1658136000000 for associated_action in associated_actions])
         
-    def test_get_associated_actions_by_ra_with_end(self):
+    def test_get_associated_actions_by_user_id_with_end(self):
         repo = ActionRepositoryMock()
-        associated_actions = repo.get_associated_actions_by_ra(ra='23017310', end=1676476000000, amount=20)
+        associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', end=1676476000000, amount=20)
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
-        assert all([associated_action.member_ra == '23017310' for associated_action in associated_actions])
+        assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.start_date <= 1676476000000 for associated_action in associated_actions])
         
-    def test_get_associated_actions_by_ra_exclusive_start_key(self):
+    def test_get_associated_actions_by_user_id_exclusive_start_key(self):
         repo = ActionRepositoryMock()
-        associated_actions = repo.get_associated_actions_by_ra(ra='23017310', exclusive_start_key={'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :1658136000000}, amount=20)
+        associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', exclusive_start_key={'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :1658136000000}, amount=20)
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
-        assert all([associated_action.member_ra == '23017310' for associated_action in associated_actions])
+        assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.action_id != '87d4a661-0752-4ce2-9440-05e752e636fc' for associated_action in associated_actions])
         
     def test_batch_get_action(self):
@@ -140,29 +134,14 @@ class Test_ActionRepositoryMock:
     def test_batch_update_associated_action_members(self):
         repo = ActionRepositoryMock()
         action_id = repo.actions[0].action_id
-        associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'], start_date=1658136000000)
+        associated_actions = repo.batch_update_associated_action_members(action_id=action_id, members=['19009219'], start_date=1658136000000, user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3'])
         assert type(associated_actions) == list
         assert len([associated_action for associated_action in repo.associated_actions if associated_action.action_id == action_id]) == 1
         assert all(associated_action.member_ra == '19009219' for associated_action in repo.associated_actions if associated_action.action_id == action_id)
+        assert all(associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in repo.associated_actions if associated_action.action_id == action_id)
         
     def test_update_action(self):
         repo = ActionRepositoryMock()
-        action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_associated_members_ra=['19009219'])
+        action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_associated_members_ra=['19009219'], new_is_valid=False, new_story_id=200, new_duration=2*60*60*1000, new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
         assert type(action) == Action
-        assert repo.actions[0] == action
-        
-    def test_batch_get_member(self):
-        repo = ActionRepositoryMock()
-        members = repo.batch_get_member(ras=[repo.members[0].ra, repo.members[1].ra])
-        assert type(members) == list
-        assert all([type(member) == Member for member in members])
-        assert len(members) == 2
-        assert members[0] == repo.members[0]
-        assert members[1] == repo.members[1]
-
-    def test_update_validation(self):
-        repo = ActionRepositoryMock()
-        action = repo.update_action(action_id=repo.actions[0].action_id, new_is_valid=False)
-        assert type(action) == Action
-        assert action.is_valid == False
         assert repo.actions[0] == action

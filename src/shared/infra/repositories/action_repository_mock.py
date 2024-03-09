@@ -72,6 +72,7 @@ class ActionRepositoryMock(IActionRepository):
         self.actions = [
             Action(owner_ra="10017310",
                    action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
+                   user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=94,
                    is_valid=True,
                    associated_members_ra=[
@@ -94,6 +95,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=9500000000),
             Action(owner_ra="10017310",
                    action_id="24c7d7a3-6560-4652-a8d6-f2e4f3f23460",
+                   user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=368,
                    is_valid=True,
                    associated_members_ra=[
@@ -113,6 +115,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=7830000000),
             Action(owner_ra="10017310",
                    action_id="42e01f11-283c-4925-b0aa-e80ac6c1815a",
+                   user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=983,
                    is_valid=True,
                    associated_members_ra=[
@@ -134,6 +137,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=37790000000),
             Action(owner_ra="19017311",
                    action_id="ea95d4f7-d5ce-4944-9fa1-ab964655294b",
+                   user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                    story_id=435,
                    is_valid=True,
                    associated_members_ra=[
@@ -155,6 +159,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=19980000000),
             Action(owner_ra="21017310",
                    action_id="7778ee40-d98b-4187-8b02-052b70cc1ec1",
+                   user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                    story_id=848,
                    is_valid=True,
                    associated_members_ra=[
@@ -173,6 +178,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=30930000000),
             Action(owner_ra="21010757",
                    action_id="92cebaa4-02d5-4618-9b32-0c668b8361cd",
+                   user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                    story_id=144,
                    is_valid=True,
                    associated_members_ra=[
@@ -190,6 +196,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=24640000000),
             Action(owner_ra="19017310",
                    action_id="eefe6db8-e03e-42c3-9fd2-1de796139501",
+                   user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                    story_id=497,
                    is_valid=True,
                    associated_members_ra=[
@@ -209,6 +216,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=22790000000),
             Action(owner_ra="19017310",
                    action_id="46b35022-1a68-4cc8-a2e5-ae449e43e867",
+                   user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                    story_id=237,
                    is_valid=True,
                    associated_members_ra=[
@@ -230,6 +238,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=1320000000),
             Action(owner_ra="10017310",
                    action_id="711d1d26-f7c6-49e9-b0a0-84bdcfc21349",
+                   user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=43,
                    is_valid=True,
                    associated_members_ra=[
@@ -250,6 +259,7 @@ class ActionRepositoryMock(IActionRepository):
                    duration=41630000000),
             Action(owner_ra="10017310",
                    action_id="87d4a661-0752-4ce2-9440-05e752e636fc",
+                   user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=932,
                    is_valid=True,
                    associated_members_ra=[
@@ -272,145 +282,192 @@ class ActionRepositoryMock(IActionRepository):
         self.associated_actions = [
             AssociatedAction(member_ra='10017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='23017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='21010757',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"),
             AssociatedAction(member_ra='22017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                              user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"),
             AssociatedAction(member_ra='21017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"),
             AssociatedAction(member_ra='19017310',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='19017311',
                              action_id='5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
-                             start_date=1644256000000),
+                             start_date=1644256000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='10017310',
                              action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
-                             start_date=1676476000000),
+                             start_date=1676476000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='19017311',
                              action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
-                             start_date=1676476000000),
+                             start_date=1676476000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='23017310',
                              action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
-                             start_date=1676476000000),
+                             start_date=1676476000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='21010757',
                              action_id='24c7d7a3-6560-4652-a8d6-f2e4f3f23460',
-                             start_date=1676476000000),
+                             start_date=1676476000000,
+                             user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"),
             AssociatedAction(member_ra='10017310',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='21017310',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"),
             AssociatedAction(member_ra='19017310',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='19017311',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='23017310',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='17033730',
                              action_id='42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                             start_date=1641896000000),
+                             start_date=1641896000000,
+                             user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"),
             AssociatedAction(member_ra='19017311',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='17033730',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"),
             AssociatedAction(member_ra='22017310',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"),
             AssociatedAction(member_ra='10017310',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='23017310',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='21017310',
                              action_id='ea95d4f7-d5ce-4944-9fa1-ab964655294b',
-                             start_date=1658136000000),
+                             start_date=1658136000000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"),
             AssociatedAction(member_ra='21017310',
                              action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
-                             start_date=1656666000000),
+                             start_date=1656666000000,
+                             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"),
             AssociatedAction(member_ra='19017311',
                              action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
-                             start_date=1656666000000),
+                             start_date=1656666000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='19017310',
                              action_id='7778ee40-d98b-4187-8b02-052b70cc1ec1',
-                             start_date=1656666000000),
+                             start_date=1656666000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='21010757',
                              action_id='92cebaa4-02d5-4618-9b32-0c668b8361cd',
-                             start_date=1656646000000),
+                             start_date=1656646000000,
+                             user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"),
             AssociatedAction(member_ra='19017310',
                              action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
-                             start_date=1667256000000),
+                             start_date=1667256000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='23017310',
                              action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
-                             start_date=1667256000000),
+                             start_date=1667256000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='10017310',
                              action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
-                             start_date=1667256000000),
+                             start_date=1667256000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='17033730',
                              action_id='eefe6db8-e03e-42c3-9fd2-1de796139501',
-                             start_date=1667256000000),
+                             start_date=1667256000000,
+                             user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"),
             AssociatedAction(member_ra='19017310',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='10017310',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='23017310',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182"),
             AssociatedAction(member_ra='19017311',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='17033730',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"),
             AssociatedAction(member_ra='22017310',
                              action_id='46b35022-1a68-4cc8-a2e5-ae449e43e867',
-                             start_date=1688646000000),
+                             start_date=1688646000000,
+                             user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"),
             AssociatedAction(member_ra='10017310',
                              action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
-                             start_date=1637046000000),
+                             start_date=1637046000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='22017310',
                              action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
-                             start_date=1637046000000),
+                             start_date=1637046000000,
+                             user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"),
             AssociatedAction(member_ra='19017310',
                              action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
-                             start_date=1637046000000),
+                             start_date=1637046000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='21010757',
                              action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
-                             start_date=1637046000000),
+                             start_date=1637046000000,
+                             user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"),
             AssociatedAction(member_ra='19017311',
                              action_id='711d1d26-f7c6-49e9-b0a0-84bdcfc21349',
-                             start_date=1637046000000),
+                             start_date=1637046000000,
+                             user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"),
             AssociatedAction(member_ra='10017310',
                              action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
-                             start_date=1663116000000),
+                             start_date=1663116000000,
+                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"),
             AssociatedAction(member_ra='21010757',
                              action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
-                             start_date=1663116000000),
+                             start_date=1663116000000,
+                             user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"),
             AssociatedAction(member_ra='17033730',
                              action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
-                             start_date=1663116000000),
+                             start_date=1663116000000,
+                             user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"),
             AssociatedAction(member_ra='19017310',
                              action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
-                             start_date=1663116000000),
+                             start_date=1663116000000,
+                             user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"),
             AssociatedAction(member_ra='23017310',
                              action_id='87d4a661-0752-4ce2-9440-05e752e636fc',
-                             start_date=1663116000000)
+                             start_date=1663116000000,
+                             user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
         ]
 
     def create_action(self, action: Action) -> Action:
@@ -465,16 +522,10 @@ class ActionRepositoryMock(IActionRepository):
     
     def get_all_projects(self) -> List[Project]:
         return self.projects
-
-    def get_member(self, ra: str) -> Member:
-        for member in self.members:
-            if member.ra == ra:
-                return member
-        return None
     
-    def get_associated_actions_by_ra(self, ra: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
+    def get_associated_actions_by_user_id(self, user_id: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
         associated_actions = sorted(self.associated_actions, key=lambda x: x.start_date, reverse=True)
-        associated_actions = list(filter(lambda x: x.member_ra == ra, associated_actions))
+        associated_actions = list(filter(lambda x: x.user_id == user_id, associated_actions))
         if exclusive_start_key:
             action0 = associated_actions[0]
             while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
@@ -506,23 +557,28 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_associated_actions
     
-    def batch_update_associated_action_members(self, action_id: str, members: List[str], start_date: int) -> List[AssociatedAction]:
+    def batch_update_associated_action_members(self, action_id: str, members: List[str], user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         new_associated_actions = []  
         for associated_action in self.associated_actions[:]:
             if associated_action.action_id == action_id:
                 self.associated_actions.remove(associated_action)
                 
         for member in members:
-            self.associated_actions.append(AssociatedAction(member_ra=member, action_id=action_id, start_date=start_date))
+            count = 0
+            up_associated_action = self.associated_actions.append(AssociatedAction(member_ra=member, action_id=action_id, start_date=start_date, user_id=user_ids[count]))
+            count += 1
+            new_associated_actions.append(up_associated_action)        
         
         return new_associated_actions
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
         new_action = None
         for action in self.actions:
             if action.action_id == action_id:
                 if new_owner_ra is not None:
                     action.owner_ra = new_owner_ra
+                if new_user_id is not None:
+                    action.user_id = new_user_id
                 if new_start_date is not None:
                     action.start_date = new_start_date
                 if new_end_date is not None:
