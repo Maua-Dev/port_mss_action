@@ -42,8 +42,8 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'member#{ra}'
     
     @staticmethod
-    def associated_action_partition_key_format(member_ra: str) -> str:
-        return f'{member_ra}'
+    def associated_action_partition_key_format(user_id: str) -> str:
+        return f'{user_id}'
     
     @staticmethod
     def associated_action_sort_key_format(action_id: str) -> str:
@@ -54,12 +54,12 @@ class ActionRepositoryDynamo(IActionRepository):
         return f'{action_id}'
     
     @staticmethod
-    def gsi1_associated_action_sort_key_format(member_ra: str) -> str:
-        return f'associated_action#{member_ra}'
+    def gsi1_associated_action_sort_key_format(user_id: str) -> str:
+        return f'associated_action#{user_id}'
 
     @staticmethod
-    def associated_action_lsi1_partition_key_format(member_ra: str) -> str:
-        return f'{member_ra}'
+    def associated_action_lsi1_partition_key_format(user_id: str) -> str:
+        return f'{user_id}'
     
     @staticmethod
     def associated_action_lsi1_sort_key_format(start_date: str) -> str:
@@ -96,12 +96,6 @@ class ActionRepositoryDynamo(IActionRepository):
         resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.member_ra), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
         
         return associated_action
-    
-    def create_member(self, member: Member) -> Member:
-        item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.ra), is_decimal=True)
-        
-        return member
     
     def get_action(self, action_id: str) -> Optional[Action]:
         # query →  PK = action_id && SK Begins with action				
@@ -178,26 +172,6 @@ class ActionRepositoryDynamo(IActionRepository):
                 projects.append(ProjectDynamoDTO.from_dynamo(item).to_entity())
         
         return projects
-    
-    def get_all_members(self) -> List[Member]:
-        query_string = Key(self.dynamo.partition_key).eq("member")
-        resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
-
-        members = []
-        for item in resp.get("Items"):
-            if item.get("entity") == "member":
-                members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
-
-        return members
-
-    def get_member(self, ra: str) -> Member:
-        member = self.dynamo.get_item(partition_key=self.member_partition_key_format(ra), sort_key=self.member_sort_key_format(ra))
-
-        if "Item" not in member:
-            return None
-
-        member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
-        return member_dto.to_entity()
     
     def get_associated_actions_by_ra(self, ra: str, amount: int = 20, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(ra)
@@ -316,15 +290,3 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()
     
-    def batch_get_member(self, ras: List[str]) -> List[Member]:
-        keys = [{self.dynamo.partition_key: self.member_partition_key_format(ra), self.dynamo.sort_key: self.member_sort_key_format(ra)} for ra in ras]
-
-        resp = self.dynamo.batch_get_items(keys=keys)
-
-        members = []
-        for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
-            if item.get("entity") == "member":
-                members.append(MemberDynamoDTO.from_dynamo(item).to_entity())
-
-        
-        return members
