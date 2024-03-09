@@ -5,11 +5,9 @@ from src.shared.domain.entities.project import Project
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
-from src.shared.domain.entities.member import Member
 
 
 class ActionRepositoryMock(IActionRepository):
-    members: List[Member]
     projects: List[Project]
     actions: List[Action]
     associated_actions: List[AssociatedAction]
