@@ -71,4 +71,8 @@ class DynamoStack(Construct):
                 CfnOutput(self, 'DynamoActionRemovalPolicy',
                     value=REMOVAL_POLICY.value,
                     export_name=f'PortalInterno{self.github_ref_name}DynamoActionRemovalPolicyValue')
+                
+                CfnOutput(self, 'DynamoMemberRemovalPolicy',
+                    value=REMOVAL_POLICY.value,
+                    export_name=f'PortalInterno{self.github_ref_name}DynamoMemberRemovalPolicyValue') 
             

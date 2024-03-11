@@ -26,8 +26,6 @@ class MemberRepositoryDynamo(IMemberRepository):
             region=Environments.get_envs().region,
             partition_key=Environments.get_envs().dynamo_partition_key,
             sort_key=Environments.get_envs().dynamo_sort_key,
-            gsi_partition_key=Environments.get_envs().dynamo_gsi_1_partition_key,
-            gsi_sort_key=Environments.get_envs().dynamo_gsi_1_sort_key,
         )
         
     def create_member(self, member: Member) -> Member:
