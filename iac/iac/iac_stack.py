@@ -19,6 +19,9 @@ class IacStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
+        
+        self.dev_auth_system_userpool_arn = os.environ.get(
+            "AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV")
 
         self.rest_api = RestApi(self, "PortalInterno_RestApi",
                                 rest_api_name="PortalInterno_RestApi",
