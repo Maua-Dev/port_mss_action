@@ -3,12 +3,13 @@ from aws_cdk import (
     # Duration,
     Stack,
     # aws_sqs as sqs,
+    aws_cognito
 )
 from constructs import Construct
 
 from .dynamo_stack import DynamoStack
 from .lambda_stack import LambdaStack
-from aws_cdk.aws_apigateway import RestApi, Cors
+from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
 
 class IacStack(Stack):
@@ -50,9 +51,19 @@ class IacStack(Stack):
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.region,
         }
+        
+        self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
+                                                       cognito_user_pools=[aws_cognito.UserPool.from_user_pool_arn(
+                                                           self, f"port_cognito_auth_userpool_{self.github_ref_name}",
+                                                           self.dev_auth_system_userpool_arn
+                                                       )]
+                                                       )
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
-                                        environment_variables=ENVIRONMENT_VARIABLES)
+                                        environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth)
 
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
+        
+        for f in self.lambda_stack.functions_that_need_dynamo_permissions:
+            self.dynamo_stack.dynamo_table_member.grant_read_write_data(f)
