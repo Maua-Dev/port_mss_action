@@ -15,7 +15,8 @@ class Test_Project():
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png',
                     'https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020']
+            members=['22011020'],
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
         )
         assert type(project) == Project
         assert project.photos != []
@@ -31,7 +32,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_code_must_be_2_characters(self):
@@ -45,7 +47,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_code_must_be_alphabetical(self):
@@ -59,7 +62,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_code_must_be_uppercase(self):
@@ -73,7 +77,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_name_must_be_str(self):
@@ -87,7 +92,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_description_must_be_str(self):
@@ -101,7 +107,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_po_RA_must_be_str(self):
@@ -115,7 +122,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_po_ra_must_be_8_characters(self):
@@ -129,7 +137,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_po_ra_must_be_decimal(self):
@@ -143,7 +152,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
     
     def test_project_scrum_RA_must_be_str(self):
@@ -157,7 +167,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_scrum_ra_must_be_8_characters(self):
@@ -171,7 +182,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_scrum_ra_must_be_decimal(self):
@@ -185,7 +197,8 @@ class Test_Project():
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_start_date_must_be_int(self):
@@ -199,7 +212,8 @@ class Test_Project():
                 start_date="1672585200000",
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'] 
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_start_date_must_be_greater_than_0(self):
@@ -213,7 +227,8 @@ class Test_Project():
                 start_date=-362,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'], 
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_start_date_must_be_smaller_than_now(self):
@@ -228,7 +243,8 @@ class Test_Project():
                 start_date=now + 3000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
     def test_project_photos_can_be_none(self):
@@ -239,7 +255,8 @@ class Test_Project():
             po_RA="22011020",
             scrum_RA="22011020",
             start_date=1672585200000,
-            members=['22011020']
+            members=['22011020'],
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
         )
         assert project.photos == []
         
@@ -253,7 +270,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos='https://i.imgur.com/gHoRKJU.png',
-                members=['22011020']
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_members_must_be_list(self):
@@ -266,7 +284,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members='22011020'
+                members='22011020',
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_members_less_than_one(self):
@@ -279,7 +298,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=[]
+                members=[],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_members_invalid_ra(self):
@@ -292,7 +312,8 @@ class Test_Project():
                 scrum_RA="22011020",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020', '2201102a']
+                members=['22011020', '2201102a'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_members_duplicated_member(self):
@@ -304,7 +325,8 @@ class Test_Project():
             scrum_RA="22011121",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011020', '22011121']
+            members=['22011020', '22011020', '22011121'],
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
         assert project.members == ['22011020', '22011121']
@@ -319,7 +341,8 @@ class Test_Project():
                 scrum_RA="22011121",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011022', '22011121']
+                members=['22011022', '22011121'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_change_po_RA(self):
@@ -331,7 +354,8 @@ class Test_Project():
             scrum_RA="22011121",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011121']
+            members=['22011020', '22011121'],
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
         project.change_po_RA('22001022')
@@ -348,10 +372,53 @@ class Test_Project():
             scrum_RA="22011121",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011121']
+            members=['22011020', '22011121'],
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
         project.change_scrum_RA('22001022')
 
         assert project.scrum_RA == '22001022'
         assert project.members == ['22001022','22011020']
+
+    def test_project_members_user_ids_must_be_list(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020'],
+                members_user_ids='76h35dg4-h76v-1875-987hn-h67gfv45Gt4'
+            )
+
+    def test_project_members_user_ids_must_have_same_length_as_members(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+            )
+
+    def test_project_members_user_ids_must_be_valid_user_ids(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_RA="22011020",
+                scrum_RA="22011020",
+                start_date=1672585200000,
+                photos=['https://i.imgur.com/gHoRKJU.png'],
+                members=['22011020'],
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+            )
