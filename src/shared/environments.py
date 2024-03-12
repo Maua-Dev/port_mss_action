@@ -46,6 +46,7 @@ class Environments:
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
+            self.dynamo_table_name_member = "port_mss_member-table"
             self.dynamo_partition_key = "PK"
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
@@ -57,6 +58,7 @@ class Environments:
             self.region = os.environ.get("REGION")
             self.endpoint_url = os.environ.get("ENDPOINT_URL")
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
+            self.dynamo_table_name_member = os.environ.get("DYNAMO_TABLE_NAME_MEMBER")
             self.dynamo_partition_key = os.environ.get("DYNAMO_PARTITION_KEY")
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")

@@ -89,7 +89,7 @@ class MemberDynamoDTO:
             cellphone=member_data["cellphone"],
             course=COURSE(member_data["course"]),
             hired_date=int(member_data["hired_date"]),
-            deactivated_date=int(member_data["deactivated_date"]) if "deactivated_date" in member_data else None,
+            deactivated_date=int(member_data.get("deactivated_date")) if member_data.get("deactivated_date") is not None else None,
             active=ACTIVE(member_data["active"]),
             user_id=member_data["user_id"]
         )

@@ -43,6 +43,7 @@ class IacStack(Stack):
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
             "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table_action.table_name,
+            "DYNAMO_TABLE_NAME_MEMBER": self.dynamo_stack.dynamo_table_member.table_name,
             "DYNAMO_PARTITION_KEY": "PK",
             "DYNAMO_SORT_KEY": "SK",
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
