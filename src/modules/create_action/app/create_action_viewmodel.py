@@ -11,6 +11,7 @@ class ActionViewModel:
     end_date: int
     duration: int
     action_id: str
+    is_valid: bool
     story_id: int = None
     title: str
     description: str
@@ -26,6 +27,7 @@ class ActionViewModel:
         self.end_date = action.end_date
         self.duration = action.duration
         self.action_id = action.action_id
+        self.is_valid = action.is_valid
         self.story_id = action.story_id
         self.title = action.title
         self.description = action.description
@@ -42,6 +44,7 @@ class ActionViewModel:
             'end_date' : self.end_date,
             'duration' : self.duration,
             'action_id' : self.action_id,
+            'is_valid' : self.is_valid,
             'story_id' : self.story_id,
             'title' : self.title,
             'description' : self.description,
