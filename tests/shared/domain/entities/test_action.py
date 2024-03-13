@@ -17,7 +17,7 @@ class Test_Action:
             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
             is_valid=True,
             story_id=100,
-            associated_members_ra=["22011021", "22011022"],
+            associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
             title="Teste",
             description="Apenas um teste",
             project_code="TS",
@@ -33,7 +33,7 @@ class Test_Action:
         assert action.action_id == "a571c870-d7da-4a25-951c-2ca2d2398a14"
         assert action.is_valid == True
         assert action.story_id == 100
-        assert action.associated_members_ra == ["22011021", "22011022"]
+        assert action.associated_members_user_ids == ["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"]
         assert action.title == "Teste"
         assert action.description == "Apenas um teste"
         assert action.project_code == "TS"
@@ -51,7 +51,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -69,7 +69,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -87,7 +87,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -105,7 +105,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -123,7 +123,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date="ontem",
                 project_code="TS",
@@ -141,7 +141,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577847600000,
                 project_code="TS",
@@ -159,7 +159,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -177,7 +177,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -193,7 +193,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=None,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -212,7 +212,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=None,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -230,7 +230,7 @@ class Test_Action:
                 is_valid=True,
                 story_id="100",
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -248,7 +248,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=0,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -266,7 +266,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=1000000000,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -274,7 +274,7 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )            
 
-    def test_action_associated_members_ra_none(self):   
+    def test_action_associated_members_user_ids_none(self):   
         action = Action(
                 owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -283,16 +283,16 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=[],
+                associated_members_user_ids=[],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tag = ACTION_TYPE.CODE
             )
-        assert action.associated_members_ra == []
+        assert action.associated_members_user_ids == []
             
-    def test_action_associated_members_ra_not_list(self):
+    def test_action_associated_members_user_ids_not_list(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
@@ -302,7 +302,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra="22011021",
+                associated_members_user_ids="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -310,7 +310,7 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
             
-    def test_action_invalid_associated_members_ra(self):
+    def test_action_invalid_associated_members_user_ids(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
@@ -320,7 +320,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "2201102"],
+                associated_members_user_ids=["51ah5jaj--1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -328,7 +328,25 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
             
-    def test_action_associated_members_ra_is_not_list_of_str(self):
+    # def test_action_associated_members_user_ids_is_not_list_of_str(self):
+    #     with pytest.raises(EntityError):
+    #         Action(
+    #             owner_ra="22011020",
+    #             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+    #             start_date=1577847600000,
+    #             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
+    #             is_valid=True,
+    #             story_id=100,
+    #             duration=10 * 60 * 60 * 1000,
+    #             associated_members_user_ids=[22011021, 22011022],
+    #             title="Teste",
+    #             end_date=1577890800000,
+    #             project_code="TS",
+    #             stack_tags = [STACK.BACKEND],
+    #             action_type_tag = ACTION_TYPE.CODE
+    #         )
+            
+    def test_action_user_id_is_in_associated_members_user_ids(self):
         with pytest.raises(EntityError):
             Action(
                 owner_ra="22011020",
@@ -338,7 +356,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=[22011021, 22011022],
+                associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "nsdijfn1-c0d1-7054-66ab-e17414c48ae3"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -346,25 +364,7 @@ class Test_Action:
                 action_type_tag = ACTION_TYPE.CODE
             )
             
-    def test_action_owner_ra_is_in_associated_members_ra(self):
-        with pytest.raises(EntityError):
-            Action(
-                owner_ra="22011020",
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                start_date=1577847600000,
-                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
-                is_valid=True,
-                story_id=100,
-                duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011020", "22011021"],
-                title="Teste",
-                end_date=1577890800000,
-                project_code="TS",
-                stack_tags = [STACK.BACKEND],
-                action_type_tag = ACTION_TYPE.CODE
-            )
-            
-    def test_action_associated_members_ra_is_empty_list(self):
+    def test_action_associated_members_user_ids_is_empty_list(self):
         action = Action(
                 owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -373,14 +373,14 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=[],
+                associated_members_user_ids=[],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
                 stack_tags = [STACK.BACKEND],
                 action_type_tag = ACTION_TYPE.CODE
             )
-        assert action.associated_members_ra == []
+        assert action.associated_members_user_ids == []
     
     def test_action_title_not_string(self):
         with pytest.raises(EntityError):
@@ -392,7 +392,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title=1,
                 end_date=1577890800000,
                 project_code="TS",
@@ -410,7 +410,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="A",
                 end_date=1577890800000,
                 project_code="TS",
@@ -428,7 +428,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
                 end_date=1577890800000,
                 project_code="TS",
@@ -445,7 +445,7 @@ class Test_Action:
             is_valid=True,
             story_id=100,
             duration=10 * 60 * 60 * 1000,
-            associated_members_ra=["22011021", "22011022"],
+            associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
             title="Teste",
             end_date=1577890800000,
             project_code="TS",
@@ -464,7 +464,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title=123,
                 description=1,
                 end_date=1577890800000,
@@ -483,7 +483,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 description="A",
                 end_date=1577890800000,
@@ -502,7 +502,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non neque ligula. Sed tempor eu purus quis fringilla. Donec quis maximus neque, sed ullamcorper neque. Quisque varius, nibh sed laoreet egestas, neque turpis egestas nisi, sit amet gravida sem dui sed lacus. Integer non velit sit amet lacus ultrices sagittis vitae nec justo. In hac habitasse platea dictumst. Nullam eu magna id tellus molestie cursus sit amet et massa. Donec varius pulvinar quam id ullamcorper. Nulla sit amet quam purus. Suspendisse a nulla vel ante finibus interdum. Quisque volutpat accumsan orci a sagittis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam eu.",
                 end_date=1577890800000,
@@ -521,7 +521,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code=1,
@@ -539,7 +539,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="PORTFOLIO",
@@ -558,7 +558,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -576,7 +576,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -594,7 +594,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -612,7 +612,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -630,7 +630,7 @@ class Test_Action:
                 is_valid=True,
                 story_id=100,
                 duration=10 * 60 * 60 * 1000,
-                associated_members_ra=["22011021", "22011022"],
+                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                 title="Teste",
                 end_date=1577890800000,
                 project_code="TS",
@@ -648,7 +648,7 @@ class Test_Action:
                 story_id=100,
                 is_valid=True, 
                 duration = 10 * 60 * 60 * 1000, 
-                associated_members_ra=['21017310', '21010757', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -667,7 +667,7 @@ class Test_Action:
                 story_id=100,
                 is_valid=True, 
                 duration = None, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -685,7 +685,7 @@ class Test_Action:
                 story_id=100,
                 is_valid=True, 
                 duration = '10', 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -702,7 +702,7 @@ class Test_Action:
                 action_id='82fc', 
                 story_id=100,
                 is_valid=True, duration = -1, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -720,7 +720,7 @@ class Test_Action:
                 story_id=100,
                 is_valid=True, 
                 duration = 0, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -738,7 +738,7 @@ class Test_Action:
                 story_id=100,
                 is_valid=True, 
                 duration = 48000000, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -755,7 +755,7 @@ class Test_Action:
                 action_id='82fc', 
                 story_id=100, 
                 duration = 36000000, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -774,7 +774,7 @@ class Test_Action:
                 action_id='82fc', 
                 story_id=100, 
                 duration = 36000000, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 
@@ -792,7 +792,7 @@ class Test_Action:
                 action_id='82fc', 
                 story_id=100, 
                 duration = 36000000, 
-                associated_members_ra=['21017310', '21010757'], 
+                associated_members_user_ids=['21017310', '21010757'], 
                 title='Teste', 
                 end_date=1577890800000, 
                 project_code='MF', 

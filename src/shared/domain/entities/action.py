@@ -18,7 +18,7 @@ class Action(abc.ABC):
     title: str
     description: Optional[str] = None
     project_code: str
-    associated_members_ra: List[str]
+    associated_members_user_ids: List[str]
     stack_tags: List[STACK]
     action_type_tag: ACTION_TYPE
     MIN_TITLE_LENGTH = 4
@@ -32,7 +32,7 @@ class Action(abc.ABC):
 
     
     
-    def __init__(self, owner_ra: str, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, owner_ra: str, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_user_ids: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         
         if not self.validate_ra(owner_ra):
             raise EntityError('owner_ra')
@@ -60,17 +60,17 @@ class Action(abc.ABC):
              raise EntityError('story_id')
         self.story_id = story_id
         
-        if type(associated_members_ra) == list:
-            if not all([self.validate_ra(ra) for ra in associated_members_ra]):
-                raise EntityError('associated_members_ra')
-            if owner_ra in associated_members_ra:
-                raise EntityError('associated_members_ra')
-            if len(associated_members_ra) != len(set(associated_members_ra)):
-                raise EntityError('associated_members_ra')
+        if type(associated_members_user_ids) == list:
+            if not all([self.validate_user_id(user_id) for user_id in associated_members_user_ids]):
+                raise EntityError('associated_members_user_ids')
+            if user_id in associated_members_user_ids:
+                raise EntityError('associated_members_user_ids')
+            if len(associated_members_user_ids) != len(set(associated_members_user_ids)):
+                raise EntityError('associated_members_user_ids')
             else:
-                self.associated_members_ra = associated_members_ra
+                self.associated_members_user_ids = associated_members_user_ids
         else:
-            raise EntityError('associated_members_ra')
+            raise EntityError('associated_members_user_ids')
         
         if not self.validate_title(title):
             raise EntityError('title')
@@ -108,12 +108,12 @@ class Action(abc.ABC):
         self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid} title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
+        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid} title={self.title}, project_code={self.project_code}, associated_members_user_ids={self.associated_members_user_ids}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
+        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_user_ids == other.associated_members_user_ids and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
