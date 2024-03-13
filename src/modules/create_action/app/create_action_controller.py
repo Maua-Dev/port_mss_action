@@ -31,6 +31,8 @@ class CreateActionController:
                 raise MissingParameters('project_code')
             if request.data.get('associated_members_ra') is None:
                 raise MissingParameters('associated_members_ra')
+            if request.data.get('user_id') is None:
+                raise MissingParameters('user_id')
             
            
             if request.data.get('story_id') is not None:
@@ -64,6 +66,9 @@ class CreateActionController:
             if not Member.validate_ra(request.data.get('owner_ra')):
                 raise EntityError('owner_ra')
             
+            if not Member.validate_user_id(request.data.get('user_id')):
+                raise EntityError('user_id')
+            
             if request.data.get('associated_members_ra') is not None:
                 if type(request.data.get('associated_members_ra')) is not list:
                     raise EntityError('associated_members_ra')
@@ -74,6 +79,7 @@ class CreateActionController:
                    
             action = self.usecase(
                 owner_ra=request.data.get('owner_ra'),
+                user_id=request.data.get('user_id'),
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
