@@ -6,6 +6,7 @@ from src.shared.domain.enums.stack_enum import STACK
 
 class ActionViewModel:
     owner_ra: str
+    user_id: str
     start_date: int
     end_date: int
     duration: int
@@ -20,6 +21,7 @@ class ActionViewModel:
     
     def __init__(self, action: Action):
         self.owner_ra = action.owner_ra
+        self.user_id = action.user_id
         self.start_date = action.start_date
         self.end_date = action.end_date
         self.duration = action.duration
@@ -35,6 +37,7 @@ class ActionViewModel:
     def to_dict(self):
         return {
             'owner_ra' : self.owner_ra,
+            'user_id' : self.user_id,
             'start_date' : self.start_date,
             'end_date' : self.end_date,
             'duration' : self.duration,
