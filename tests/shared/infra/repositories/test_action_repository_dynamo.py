@@ -27,7 +27,7 @@ class Test_ActionRepositoryDynamo:
     @pytest.mark.skip("Can't run test in github actions")
     def test_create_action(self):
         repo = ActionRepositoryDynamo()
-        action = Action(owner_ra="19017310", action_id="eefe6db8-e03e-42c3-9fd2-1de796139501", story_id=497, associated_members_ra=["23017310", "10017310", "17033730"], stack_tags=[
+        action = Action(owner_ra="19017310", action_id="eefe6db8-e03e-42c3-9fd2-1de796139501", story_id=497, associated_members_user_ids=["148c6ada-c0d1-7054-66ab-e17414c48ae3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "148caada-c0d1-7054-66ab-e17414c48ae3"], stack_tags=[
                         STACK.INTERNAL], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
                         user_id="148c6ada-c0d1-7054-66ab-e17414c48ae3", is_valid=True)
         resp = repo.create_action(action=action)

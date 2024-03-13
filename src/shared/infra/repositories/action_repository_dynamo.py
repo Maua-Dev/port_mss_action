@@ -262,7 +262,7 @@ class ActionRepositoryDynamo(IActionRepository):
                 
         return actions
     
-    def update_action(self, action_id: str, new_is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_ra : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+    def update_action(self, action_id: str, new_is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_user_ids : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
         
         action = self.get_action(action_id=action_id)
         
@@ -280,7 +280,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "title": new_title,
             "description": new_description,
             "project_code": new_project_code,
-            "associated_members_ra": new_associated_members_ra,
+            "associated_members_ra": new_associated_members_user_ids,
             "stack_tags": [stack.value for stack in new_stack_tags] if new_stack_tags is not None else None,
             "action_type_tag": new_action_type_tag.value if new_action_type_tag is not None else None,
         }
