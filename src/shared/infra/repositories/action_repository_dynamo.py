@@ -127,7 +127,7 @@ class ActionRepositoryDynamo(IActionRepository):
         project_dto = ProjectDynamoDTO.from_dynamo(project['Item'])
         return project_dto.to_entity()
 
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_RA: Optional[str] = None, new_scrum_RA: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members: Optional[List[str]] = None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_RA: Optional[str] = None, new_scrum_RA: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         project_to_update = self.get_project(code=code)
         
         if project_to_update is None:
@@ -145,6 +145,8 @@ class ActionRepositoryDynamo(IActionRepository):
             project_to_update.photos = new_photos
         if new_members is not None:
             project_to_update.members = new_members
+        if new_members_user_ids is not None:
+            project_to_update.members_user_ids = new_members_user_ids
             
         update_dict = {
             "name": project_to_update.name,
@@ -152,7 +154,8 @@ class ActionRepositoryDynamo(IActionRepository):
             "po_RA": project_to_update.po_RA,
             "scrum_RA": project_to_update.scrum_RA,
             "photos": project_to_update.photos,
-            "members": project_to_update.members
+            "members": project_to_update.members,
+            "members_user_ids": new_members_user_ids
         }
         
         resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)
