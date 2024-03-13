@@ -13,11 +13,13 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 
 
 class Test_ActionRepositoryDynamo:
+    
     @pytest.mark.skip("Can't run test in github actions")
     def test_create_project(self):
         repo = ActionRepositoryDynamo()
         project = Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza", po_RA="21017310", scrum_RA="21010757",
-                          start_date=1634576165000, photos=["https://i.imgur.com/gHoRKJU.png"], members=["10017310", "21010757", "21017310"])
+                          start_date=1634576165000, photos=["https://i.imgur.com/gHoRKJU.png"], members=["10017310", "21010757", "21017310"],
+                          members_user_ids=["148c6ada-c0d1-7054-66ab-e17414c48ae3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "148caada-c0d1-7054-66ab-e17414c48ae3"])
         resp = repo.create_project(project=project)
 
         assert resp == project
@@ -219,3 +221,14 @@ class Test_ActionRepositoryDynamo:
 
         assert resp.action_id == action.action_id
         assert resp.is_valid == False
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_update_project_with_member_ids(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        project = repo_mock.projects[1]
+
+        resp = repo.update_project(project.code, new_members_user_ids=["148c6ada-c0d1-7054-66ab-e17414c48ae3", "ab1743gs-c0d1-7054-66ab-e17414c48ae3", "pp1239af-c0d1-7054-66ab-e17414c48ae3"])
+
+        assert resp.members_user_ids == ["148c6ada-c0d1-7054-66ab-e17414c48ae3", "ab1743gs-c0d1-7054-66ab-e17414c48ae3", "pp1239af-c0d1-7054-66ab-e17414c48ae3"]
