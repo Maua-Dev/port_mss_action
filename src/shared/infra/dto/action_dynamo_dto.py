@@ -18,11 +18,11 @@ class ActionDynamoDTO:
     title: str
     description: Optional[str] = None
     project_code: str
-    associated_members_ra: List[str]
+    associated_members_user_ids: List[str]
     stack_tags: List[STACK]
     action_type_tag: ACTION_TYPE
     
-    def __init__(self, owner_ra: str, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, owner_ra: str, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_user_ids: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         self.owner_ra = owner_ra
         self.user_id = user_id
         self.start_date = start_date
@@ -35,7 +35,7 @@ class ActionDynamoDTO:
         self.title = title
         self.description = description
         self.project_code = project_code
-        self.associated_members_ra = associated_members_ra
+        self.associated_members_user_ids = associated_members_user_ids
         self.action_type_tag = action_type_tag
         
     @staticmethod
@@ -53,7 +53,7 @@ class ActionDynamoDTO:
             title=action.title,
             description=action.description,
             project_code=action.project_code,
-            associated_members_ra=action.associated_members_ra,
+            associated_members_user_ids=action.associated_members_user_ids,
             action_type_tag=action.action_type_tag
         )
         
@@ -71,7 +71,7 @@ class ActionDynamoDTO:
             "title": self.title,
             "project_code": self.project_code,
             "action_type_tag": self.action_type_tag.value,
-            "associated_members_ra": self.associated_members_ra,
+            "associated_members_user_ids": self.associated_members_user_ids,
             "story_id": Decimal(str(self.story_id)) if self.story_id is not None else None,
             "description": self.description
         }
@@ -93,7 +93,7 @@ class ActionDynamoDTO:
             title=data['title'],
             project_code=data['project_code'],
             action_type_tag=ACTION_TYPE(data['action_type_tag']),
-            associated_members_ra=data['associated_members_ra'],
+            associated_members_user_ids=data['associated_members_user_ids'],
             story_id=int(data['story_id']) if 'story_id' in data else None,
             description=data['description'] if 'description' in data else None
         )
@@ -111,17 +111,17 @@ class ActionDynamoDTO:
             title=self.title,
             project_code=self.project_code,
             action_type_tag=self.action_type_tag,
-            associated_members_ra=self.associated_members_ra,
+            associated_members_user_ids=self.associated_members_user_ids,
             story_id=self.story_id,
             description=self.description
         )
         
     def __repr__(self): 
-        return f"Action(owner_ra={self.owner_ra}, user_id={self.user_id}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})"
+        return f"Action(owner_ra={self.owner_ra}, user_id={self.user_id}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid}, title={self.title}, project_code={self.project_code}, associated_members_user_ids={self.associated_members_user_ids}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag})"
     
     def __eq__(self, other):
         if type(other) != ActionDynamoDTO:
             return False
-        return self.owner_ra == other.owner_ra and self.user_id == other.user_id and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
+        return self.owner_ra == other.owner_ra and self.user_id == other.user_id and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_user_ids == other.associated_members_user_ids and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
         
