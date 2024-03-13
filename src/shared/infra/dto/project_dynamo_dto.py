@@ -66,7 +66,7 @@ class ProjectDynamoDTO:
             start_date=data["start_date"],
             members=data["members"],
             photos=data["photos"] if "photos" in data else [],
-            members_user_ids=data["members_user_ids"] if "members_user_ids" in data else []
+            members_user_ids=data["members_user_ids"]
         )
         
     def to_entity(self) -> Project:      
