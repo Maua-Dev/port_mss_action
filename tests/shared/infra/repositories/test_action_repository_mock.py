@@ -9,7 +9,7 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 class Test_ActionRepositoryMock:
     def test_create_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, is_valid=True, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, is_valid=True, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000,  associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         len_before = len(repo.actions)
         
         new_action = repo.create_action(action=action)
@@ -31,7 +31,7 @@ class Test_ActionRepositoryMock:
         
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
-        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', is_valid=True, story_id=100, duration=2*60*60*1000, associated_members_ra=['12345678'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(owner_ra='17033730', user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', is_valid=True, story_id=100, duration=2*60*60*1000, associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         associatedAction = AssociatedAction(member_ra='21017310', action_id=action.action_id, start_date=action.start_date, user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         len_before = len(repo.associated_actions)
         
@@ -143,6 +143,6 @@ class Test_ActionRepositoryMock:
         
     def test_update_action(self):
         repo = ActionRepositoryMock()
-        action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_associated_members_ra=['19009219'], new_is_valid=False, new_story_id=200, new_duration=2*60*60*1000, new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
+        action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_owner_ra='21017310', new_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_associated_members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4'], new_is_valid=False, new_story_id=200, new_duration=2*60*60*1000, new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
         assert type(action) == Action
         assert repo.actions[0] == action

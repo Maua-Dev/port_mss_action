@@ -76,14 +76,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=94,
                    is_valid=True,
-                   associated_members_ra=[
-                       "23017310",
-                       "21010757",
-                       "22017310",
-                       "21017310",
-                       "19017310",
-                       "19017311"
-                   ],
+                   associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"],
                    stack_tags=[
                        STACK.INFRA
                    ],
@@ -99,11 +92,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=368,
                    is_valid=True,
-                   associated_members_ra=[
-                       "19017311",
-                       "23017310",
-                       "21010757"
-                   ],
+                   associated_members_user_ids=["7gh5yf5H-857H-1234-75hng-94832hvng1s", "75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3" ],
                    stack_tags=[
                        STACK.INTERNAL
                    ],
@@ -119,13 +108,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=983,
                    is_valid=True,
-                   associated_members_ra=[
-                       "21017310",
-                       "19017310",
-                       "19017311",
-                       "23017310",
-                       "17033730"
-                   ],
+                   associated_members_user_ids=["6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s", "75648hbr-184n-1985-91han-7ghn4HgF182", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "7465hvnb-143g-1675-86HnG-75hgnFbcg36"],
                    stack_tags=[
                        STACK.INFRA
                    ],
@@ -141,13 +124,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                    story_id=435,
                    is_valid=True,
-                   associated_members_ra=[
-                       "17033730",
-                       "22017310",
-                       "10017310",
-                       "23017310",
-                       "21017310"
-                   ],
+                   associated_members_user_ids=["7465hvnb-143g-1675-86HnG-75hgnFbcg36", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "75648hbr-184n-1985-91han-7ghn4HgF182"],
                    stack_tags=[
                        STACK.FRONTEND
                    ],
@@ -163,10 +140,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                    story_id=848,
                    is_valid=True,
-                   associated_members_ra=[
-                       "19017311",
-                       "19017310"
-                   ],
+                   associated_members_user_ids=["7gh5yf5H-857H-1234-75hng-94832hvng1s", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
                    stack_tags=[
                        STACK.INFRA
                    ],
@@ -182,9 +156,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                    story_id=144,
                    is_valid=True,
-                   associated_members_ra=[
-
-                   ],
+                   associated_members_user_ids=[],
                    stack_tags=[
                        STACK.INFRA
                    ],
@@ -200,11 +172,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                    story_id=497,
                    is_valid=True,
-                   associated_members_ra=[
-                       "23017310",
-                       "10017310",
-                       "17033730"
-                   ],
+                   associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "75648hbr-184n-1985-91han-7ghn4HgF182", "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
                    stack_tags=[
                        STACK.INTERNAL
                    ],
@@ -220,13 +188,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                    story_id=237,
                    is_valid=True,
-                   associated_members_ra=[
-                       "10017310",
-                       "23017310",
-                       "19017311",
-                       "17033730",
-                       "22017310"
-                   ],
+                   associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "75648hbr-184n-1985-91han-7ghn4HgF182", "7gh5yf5H-857H-1234-75hng-94832hvng1s", "7465hvnb-143g-1675-86HnG-75hgnFbcg36", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"],
                    stack_tags=[
                        STACK.BACKEND
                    ],
@@ -242,12 +204,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=43,
                    is_valid=True,
-                   associated_members_ra=[
-                       "22017310",
-                       "19017310",
-                       "21010757",
-                       "19017311"
-                   ],
+                   associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"],
                    stack_tags=[
                        STACK.INTERNAL
                    ],
@@ -263,12 +220,7 @@ class ActionRepositoryMock(IActionRepository):
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=932,
                    is_valid=True,
-                   associated_members_ra=[
-                       "21010757",
-                       "17033730",
-                       "19017310",
-                       "23017310"
-                   ],
+                   associated_members_user_ids=["6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "75648hbr-184n-1985-91han-7ghn4HgF182", "7465hvnb-143g-1675-86HnG-75hgnFbcg36", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"],
                    stack_tags=[
                        STACK.INFRA
                    ],
@@ -574,7 +526,7 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_associated_actions
     
-    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_ra: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
+    def update_action(self, action_id: str, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_user_ids: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
         new_action = None
         for action in self.actions:
             if action.action_id == action_id:
@@ -598,8 +550,8 @@ class ActionRepositoryMock(IActionRepository):
                     action.description = new_description
                 if new_project_code is not None:
                     action.project_code = new_project_code
-                if new_associated_members_ra is not None:
-                    action.associated_members_ra = new_associated_members_ra
+                if new_associated_members_user_ids is not None:
+                    action.associated_members_ra = new_associated_members_user_ids
                 if new_stack_tags is not None:
                     action.stack_tags = new_stack_tags
                 if new_action_type_tag is not None:
