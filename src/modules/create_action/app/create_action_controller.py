@@ -29,8 +29,8 @@ class CreateActionController:
                 raise MissingParameters('title')
             if request.data.get('project_code') is None:
                 raise MissingParameters('project_code')
-            if request.data.get('associated_members_ra') is None:
-                raise MissingParameters('associated_members_ra')
+            if request.data.get('associated_members_user_ids') is None:
+                raise MissingParameters('associated_members_user_ids')
             if request.data.get('user_id') is None:
                 raise MissingParameters('user_id')
             if request.data.get('is_valid') is None:
@@ -71,12 +71,12 @@ class CreateActionController:
             if not Member.validate_user_id(request.data.get('user_id')):
                 raise EntityError('user_id')
             
-            if request.data.get('associated_members_ra') is not None:
-                if type(request.data.get('associated_members_ra')) is not list:
-                    raise EntityError('associated_members_ra')
-                for ra in request.data.get('associated_members_ra'):
+            if request.data.get('associated_members_user_ids') is not None:
+                if type(request.data.get('associated_members_user_ids')) is not list:
+                    raise EntityError('associated_members_user_ids')
+                for ra in request.data.get('associated_members_user_ids'):
                     if not Member.validate_ra(ra):
-                        raise EntityError('associated_members_ra')
+                        raise EntityError('associated_members_user_ids')
 
                    
             action = self.usecase(
@@ -89,7 +89,7 @@ class CreateActionController:
                 story_id=request.data.get('story_id'),
                 title=request.data.get('title'),
                 description=request.data.get('description'),
-                associated_members_ra=request.data.get('associated_members_ra'),
+                associated_members_user_ids=request.data.get('associated_members_user_ids'),
                 project_code=request.data.get('project_code'),
                 stack_tags=stack_tags,
                 action_type_tag=action_type_tag

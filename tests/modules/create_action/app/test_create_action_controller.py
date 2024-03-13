@@ -2,6 +2,7 @@ from src.modules.create_action.app.create_action_controller import CreateActionC
 from src.modules.create_action.app.create_action_usecase import CreateActionUsecase
 from src.shared.helpers.external_interfaces.http_models import HttpRequest, HttpResponse
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_CreateActionController:
@@ -21,7 +22,9 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_ra':['19017310'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE'
+            'action_type_tag':'CODE',
+            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+            "is_valid": True
         })
         
         response = controller(request)
@@ -37,6 +40,8 @@ class Test_CreateActionController:
         assert response.body['action']['associated_members_ra'] == ['19017310']
         assert response.body['action']['stack_tags'] == ['BACKEND']
         assert response.body['action']['action_type_tag'] == 'CODE'
+        assert response.body['action']['user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['action']['is_valid'] == True
     
     def test_create_action_controller_missing_owner_ra(self):
         
@@ -443,7 +448,7 @@ class Test_CreateActionController:
 
     def test_create_action_controller_duplicated_associated_members_ra(self):
         
-        repo = ActionRepositoryMock()
+        repo = MemberRepositoryMock()
         usecase = CreateActionUsecase(repo=repo)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
@@ -458,7 +463,9 @@ class Test_CreateActionController:
         'project_code':'MF',
         'associated_members_ra':['19017310','19017310'],
         'stack_tags':['BACKEND'],
-        'action_type_tag':'CODE'
+        'action_type_tag':'CODE',
+        'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+        "is_valid": True
         })
         
         response = controller(request)
@@ -481,7 +488,9 @@ class Test_CreateActionController:
                 'project_code':'MF',
                 'associated_members_ra':['19017310'],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE'
+                'action_type_tag':'CODE',
+                'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "is_valid": True
             })
             
             response = controller(request)
@@ -503,7 +512,9 @@ class Test_CreateActionController:
                 'project_code':'MF',
                 'associated_members_ra':['19017310'],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE'
+                'action_type_tag':'CODE',
+                'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "is_valid": True
             })
             
             response = controller(request)
@@ -525,7 +536,9 @@ class Test_CreateActionController:
                 'project_code':'MF',
                 'associated_members_ra':['3 21 18 9 15 19 15'],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE'
+                'action_type_tag':'CODE',
+                'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "is_valid": True
             })
             
             response = controller(request)
