@@ -7,8 +7,7 @@ from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
 class Test_ActionDynamoDTO:
 
     def test_action_dynamo_dto_from_entity(self):
-        action = Action(owner_ra="10017310",
-                        user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+        action = Action(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                         action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
                         is_valid=True,
                         story_id=94,
@@ -23,18 +22,16 @@ class Test_ActionDynamoDTO:
                         duration=9500000000)
 
         action_dto = ActionDynamoDTO.from_entity(action)
-        assert action_dto == ActionDynamoDTO(owner_ra="10017310",
-                                             user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+        assert action_dto == ActionDynamoDTO(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
          action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
         
     def test_action_dynamo_dto_to_dynamo(self):
-        action_dto = ActionDynamoDTO(owner_ra="10017310", user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
+        action_dto = ActionDynamoDTO(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
         
         action_dynamo = action_dto.to_dynamo()
         
         assert action_dynamo == {
             'entity': 'action',
-            'owner_ra': '10017310',
             'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
             'start_date': 1644256000000,
             'stack_tags': ['INFRA'],
@@ -53,7 +50,6 @@ class Test_ActionDynamoDTO:
     def test_action_dynamo_dto_from_dynamo(self): 
         action_dynamo = {
             'entity': 'action',
-            'owner_ra': '10017310',
             'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
             'start_date': 1644256000000,
             'stack_tags': ['INFRA'],
@@ -71,15 +67,14 @@ class Test_ActionDynamoDTO:
         
         action_dto = ActionDynamoDTO.from_dynamo(action_dynamo)
         
-        assert action_dto == ActionDynamoDTO(owner_ra="10017310", user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
+        assert action_dto == ActionDynamoDTO(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
         
     def test_action_dynamo_dto_to_entity(self):
-        action_dto = ActionDynamoDTO(owner_ra="10017310", user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
+        action_dto = ActionDynamoDTO(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0", is_valid=True, story_id=94, associated_members_user_ids=["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"], stack_tags=[STACK.INFRA], action_type_tag=ACTION_TYPE.CODEREVIEW, project_code="PT", title="Retrospectiva", description="Revisão de sprint", start_date=1644256000000, end_date=1653756000000, duration=9500000000)
         
         action = action_dto.to_entity()
         
-        assert action == Action(owner_ra="10017310",
-                        user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+        assert action == Action(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                         action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
                         is_valid=True,
                         story_id=94,
@@ -94,8 +89,7 @@ class Test_ActionDynamoDTO:
                         duration=9500000000)
         
     def test_action_dynamo_dto_from_entity_to_dynamo(self):
-        action = Action(owner_ra="10017310",
-                        user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+        action = Action(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                         action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
                         is_valid=True,
                         story_id=94,
@@ -113,7 +107,6 @@ class Test_ActionDynamoDTO:
         
         assert action_dynamo == {
             'entity': 'action',
-            'owner_ra': '10017310',
             'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
             'start_date': 1644256000000,
             'stack_tags': ['INFRA'],
@@ -132,7 +125,6 @@ class Test_ActionDynamoDTO:
     def test_action_dynamo_dto_from_dynamo_to_entity(self): 
         action_dynamo = {
             'entity': 'action',
-            'owner_ra': '10017310',
             'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
             'start_date': 1644256000000,
             'stack_tags': ['INFRA'],
@@ -150,8 +142,7 @@ class Test_ActionDynamoDTO:
         
         action = ActionDynamoDTO.from_dynamo(action_dynamo).to_entity()
         
-        assert action == Action(owner_ra="10017310",
-                        action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
+        assert action == Action(action_id="5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
                         user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                         is_valid=True,
                         story_id=94,
