@@ -8,8 +8,8 @@ class Test_DeleteProjectViewModel:
             code='DM', 
             name='DevMedias', 
             description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', 
-            po_RA='21021031', 
-            scrum_RA='17033730', 
+            po_user_id='21021031', 
+            scrum_user_id='17033730', 
             start_date=1649955600000, 
             members=['21021031', '17033730'],
             photos=['https://i.imgur.com/7QF7uCk.png']
@@ -20,8 +20,8 @@ class Test_DeleteProjectViewModel:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_RA':'21021031',
-                'scrum_RA':'17033730',
+                'po_user_id':'21021031',
+                'scrum_user_id':'17033730',
                 'start_date':1649955600000,
                 'members':['17033730','21021031'],
                 'photos':['https://i.imgur.com/7QF7uCk.png']
@@ -36,8 +36,8 @@ class Test_DeleteProjectViewModel:
             code='DM', 
             name='DevMedias', 
             description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', 
-            po_RA='21021031', 
-            scrum_RA='17033730', 
+            po_user_id='21021031', 
+            scrum_user_id='17033730', 
             start_date=1649955600000,
             members=['21021031', '17033730']
             )
@@ -47,8 +47,8 @@ class Test_DeleteProjectViewModel:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_RA':'21021031',
-                'scrum_RA':'17033730',
+                'po_user_id':'21021031',
+                'scrum_user_id':'17033730',
                 'start_date':1649955600000,
                 'members':['17033730', '21021031'],
                 'photos':[]

@@ -16,8 +16,8 @@ class TestUpdateProjectController:
                 'code': 'PT',
                 'new_name': 'Portfolio',
                 'new_description': 'Projeto do site portfolio',
-                'new_po_RA': '22456178',
-                'new_scrum_RA': '20005632',
+                'new_po_user_id': '22456178',
+                'new_scrum_user_id': '20005632',
                 'new_photos': ['new_photos']
             }
         )
@@ -28,8 +28,8 @@ class TestUpdateProjectController:
         assert response.body['project']['code'] == 'PT'
         assert response.body['project']['name'] == 'Portfolio'
         assert response.body['project']['description'] == 'Projeto do site portfolio'
-        assert response.body['project']['po_RA'] == '22456178'
-        assert response.body['project']['scrum_RA'] == '20005632'
+        assert response.body['project']['po_user_id'] == '22456178'
+        assert response.body['project']['scrum_user_id'] == '20005632'
         assert response.body['project']['photos'] == ['new_photos']
 
     def test_update_project_controller_missing_code(self):
@@ -41,8 +41,8 @@ class TestUpdateProjectController:
             body={
                 'new_name': 'Portfolio',
                 'new_description': 'Projeto do site portfolio',
-                'new_po_RA': '22456178',
-                'new_scrum_RA': '20005632',
+                'new_po_user_id': '22456178',
+                'new_scrum_user_id': '20005632',
                 'new_photos': ['new_photos']
             }
         )
@@ -62,8 +62,8 @@ class TestUpdateProjectController:
                 'code': 'RR',
                 'new_name': 'Portfolio',
                 'new_description': 'Projeto do site portfolio',
-                'new_po_RA': '22456178',
-                'new_scrum_RA': '20005632',
+                'new_po_user_id': '22456178',
+                'new_scrum_user_id': '20005632',
                 'new_photos': ['new_photos']
             }
         )
@@ -83,8 +83,8 @@ class TestUpdateProjectController:
                 'code': 25,
                 'new_name': 'Portfolio',
                 'new_description': 'Projeto do site portfolio',
-                'new_po_RA': '22456178',
-                'new_scrum_RA': '20005632',
+                'new_po_user_id': '22456178',
+                'new_scrum_user_id': '20005632',
                 'new_photos': ['new_photos']
             }
         )
@@ -102,7 +102,7 @@ class TestUpdateProjectController:
         request = HttpRequest(
             body={
                 'code': 'PT',
-                'new_scrum_RA': '20005632'
+                'new_scrum_user_id': '20005632'
             }
         )
 
@@ -112,8 +112,8 @@ class TestUpdateProjectController:
         assert response.body['project']['code'] == 'PT'
         assert response.body['project']['name'] == 'Portfólio'
         assert response.body['project']['description'] == 'É um site'
-        assert response.body['project']['po_RA'] == '22011020'
-        assert response.body['project']['scrum_RA'] == '20005632'
+        assert response.body['project']['po_user_id'] == '22011020'
+        assert response.body['project']['scrum_user_id'] == '20005632'
         assert response.body['project']['photos'] == ['https://i.imgur.com/gHoRKJU.png']
         
     def test_update_project_controller_invalid_name(self):
@@ -150,7 +150,7 @@ class TestUpdateProjectController:
         assert response.status_code == 400
         assert response.body == "Field description is not valid"
         
-    def test_update_project_controller_invalid_po_RA(self):
+    def test_update_project_controller_invalid_po_user_id(self):
         repo = ActionRepositoryMock()
         usecase = UpdateProjectUsecase(repo)
         controller = UpdateProjectController(usecase)
@@ -158,16 +158,16 @@ class TestUpdateProjectController:
         request = HttpRequest(
             body={
                 'code': 'PT',
-                'new_po_RA': 25
+                'new_po_user_id': 25
             }
         )
 
         response = controller(request)
 
         assert response.status_code == 400
-        assert response.body == "Field po_RA is not valid"
+        assert response.body == "Field po_user_id is not valid"
         
-    def test_update_project_controller_invalid_scrum_RA(self): 
+    def test_update_project_controller_invalid_scrum_user_id(self): 
         repo = ActionRepositoryMock()
         usecase = UpdateProjectUsecase(repo)
         controller = UpdateProjectController(usecase)
@@ -175,14 +175,14 @@ class TestUpdateProjectController:
         request = HttpRequest(
             body={
                 'code': 'PT',
-                'new_scrum_RA': 25
+                'new_scrum_user_id': 25
             }
         )
 
         response = controller(request)
 
         assert response.status_code == 400
-        assert response.body == "Field scrum_RA is not valid"
+        assert response.body == "Field scrum_user_id is not valid"
         
     def test_update_project_controller_invalid_photos(self): 
         repo = ActionRepositoryMock()

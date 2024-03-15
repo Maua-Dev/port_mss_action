@@ -8,7 +8,7 @@ class CreateProjectUsecase:
     def __init__(self, repo: IActionRepository):
         self.repo = repo
         
-    def __call__(self, code: str, name: str, description: str, po_RA: str, scrum_RA: str, start_date: int, members: List[str], photos: list = None) -> Project:
+    def __call__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members: List[str], photos: list = None) -> Project:
         
         # if self.repo.get_project(project_id=project.project_id) is not None:
         #     raise DuplicatedItem('project_id')
@@ -17,8 +17,8 @@ class CreateProjectUsecase:
             code=code,
             name=name,
             description=description,
-            po_RA=po_RA,
-            scrum_RA=scrum_RA,
+            po_user_id=po_user_id,
+            scrum_user_id=scrum_user_id,
             start_date=start_date,
             photos=photos,
             members=members

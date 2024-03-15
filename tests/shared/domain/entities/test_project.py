@@ -10,13 +10,12 @@ class Test_Project():
             code='PQ',
             name='test_project',
             description='test_description',
-            po_RA="22011020",
-            scrum_RA="22011020",
+            po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            scrum_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png',
                     'https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020'],
-            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         )
         assert type(project) == Project
         assert project.photos != []
@@ -27,12 +26,11 @@ class Test_Project():
                 code=123,
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -42,12 +40,11 @@ class Test_Project():
                 code='PQP',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -57,12 +54,11 @@ class Test_Project():
                 code='P1',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -72,12 +68,11 @@ class Test_Project():
                 code='Qp',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -87,12 +82,11 @@ class Test_Project():
                 code='MF',
                 name=1,
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -102,102 +96,67 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description=1,
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
-    def test_project_po_RA_must_be_str(self):
+    def test_project_po_user_id_must_be_str(self):
         with pytest.raises(EntityError):
             Project(
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA=1,
-                scrum_RA="22011020",
+                po_user_id=1,
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
-    def test_project_po_ra_must_be_8_characters(self):
+    def test_project_po_user_id_must_be_36_characters(self):
         with pytest.raises(EntityError):
             Project(
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="2201102",
-                scrum_RA="22011020",
+                po_user_id="51ah5jaj",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
-    def test_project_po_ra_must_be_decimal(self):
+    def test_project_scrum_user_id_must_be_str(self):
         with pytest.raises(EntityError):
             Project(
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="2201102a",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id=1,
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
-            )
-    
-    def test_project_scrum_RA_must_be_str(self):
-        with pytest.raises(EntityError):
-            Project(
-                code='MF',
-                name='test_project',
-                description='test_description',
-                po_RA="22011020",
-                scrum_RA=1,
-                start_date=1672585200000,
-                photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
-    def test_project_scrum_ra_must_be_8_characters(self):
+    def test_project_scrum_user_id_must_be_36_characters(self):
         with pytest.raises(EntityError):
             Project(
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="2201102",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="51ah5jaj",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
-            )
-            
-    def test_project_scrum_ra_must_be_decimal(self):
-        with pytest.raises(EntityError):
-            Project(
-                code='MF',
-                name='test_project',
-                description='test_description',
-                po_RA="22011020",
-                scrum_RA="2201102a",
-                start_date=1672585200000,
-                photos=['https://i.imgur.com/gHoRKJU.png',
-                        'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -207,12 +166,11 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date="1672585200000",
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -222,12 +180,11 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=-362,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'], 
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -238,12 +195,11 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=now + 3000,
                 photos=['https://i.imgur.com/gHoRKJU.png',
                         'https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -252,11 +208,10 @@ class Test_Project():
             code='MF',
             name='test_project',
             description='test_description',
-            po_RA="22011020",
-            scrum_RA="22011020",
+            po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1672585200000,
-            members=['22011020'],
-            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         )
         assert project.photos == []
         
@@ -266,26 +221,24 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos='https://i.imgur.com/gHoRKJU.png',
-                members=['22011020'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
-    def test_project_members_must_be_list(self):
+    def test_project_membersuser_ids_must_be_list(self):
         with pytest.raises(EntityError):
             Project(
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members='22011020',
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+                members_user_ids='76h35dg4-h76v-1875-987hn-h67gfv45Gt4'
             )
 
     def test_project_members_less_than_one(self):
@@ -294,26 +247,11 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=[],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
-            )
-
-    def test_project_members_invalid_ra(self):
-        with pytest.raises(EntityError):
-            Project(
-                code='MF',
-                name='test_project',
-                description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
-                start_date=1672585200000,
-                photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020', '2201102a'],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+                members_user_ids=[]
             )
 
     def test_project_members_duplicated_member(self):
@@ -321,65 +259,61 @@ class Test_Project():
             code='PQ',
             name='test_project',
             description='test_description',
-            po_RA="22011020",
-            scrum_RA="22011121",
+            po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011020', '22011121'],
-            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
-        assert project.members == ['22011020', '22011121']
+        assert project.members_user_ids == ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
 
-    def test_project_po_RA_not_in_members(self):
+    def test_project_po_user_id_not_in_members_user_id(self):
         with pytest.raises(EntityError):
             Project(
                 code='PQ',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011121",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011022', '22011121'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
-    def test_project_change_po_RA(self):
+    def test_project_change_po_user_id(self):
         project = Project(
             code='PQ',
             name='test_project',
             description='test_description',
-            po_RA="22011020",
-            scrum_RA="22011121",
+            po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011121'],
-            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
-        project.change_po_RA('22001022')
+        project.change_po_user_id('7gh5yf5H-857H-1234-75hng-94832hvng1s')
 
-        assert project.po_RA == '22001022'
-        assert project.members == ['22001022', '22011121']
+        assert project.po_user_id == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
+        assert project.members_user_ids == ['7gh5yf5H-857H-1234-75hng-94832hvng1s', '51ah5jaj-c9jm-1345-666ab-e12341c14a3']
 
-    def test_project_change_scrum_RA(self):
+    def test_project_change_scrum_user_id(self):
         project = Project(
             code='PQ',
             name='test_project',
             description='test_description',
-            po_RA="22011020",
-            scrum_RA="22011121",
+            po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
             photos=['https://i.imgur.com/gHoRKJU.png'],
-            members=['22011020', '22011121'],
-            members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
-        project.change_scrum_RA('22001022')
+        project.change_scrum_user_id('7gh5yf5H-857H-1234-75hng-94832hvng1s')
 
-        assert project.scrum_RA == '22001022'
-        assert project.members == ['22001022','22011020']
+        assert project.scrum_user_id == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
+        assert project.members_user_ids == ['93bc6ada-c0d1-7054-66ab-e17414c48ae3','7gh5yf5H-857H-1234-75hng-94832hvng1s']
 
     def test_project_members_user_ids_must_be_list(self):
         with pytest.raises(EntityError):
@@ -387,26 +321,11 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
                 members_user_ids='76h35dg4-h76v-1875-987hn-h67gfv45Gt4'
-            )
-
-    def test_project_members_user_ids_must_have_same_length_as_members(self):
-        with pytest.raises(EntityError):
-            Project(
-                code='MF',
-                name='test_project',
-                description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
-                start_date=1672585200000,
-                photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
     def test_project_members_user_ids_must_be_valid_user_ids(self):
@@ -415,10 +334,9 @@ class Test_Project():
                 code='MF',
                 name='test_project',
                 description='test_description',
-                po_RA="22011020",
-                scrum_RA="22011020",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
                 photos=['https://i.imgur.com/gHoRKJU.png'],
-                members=['22011020'],
-                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+                members_user_ids=['76']
             )

@@ -20,10 +20,10 @@ class CreateProjectController:
                 raise MissingParameters('name')
             if request.data.get('description') is None:
                 raise MissingParameters('description')
-            if request.data.get('po_RA') is None:
-                raise MissingParameters('po_RA')
-            if request.data.get('scrum_RA') is None:
-                raise MissingParameters('scrum_RA')
+            if request.data.get('po_user_id') is None:
+                raise MissingParameters('po_user_id')
+            if request.data.get('scrum_user_id') is None:
+                raise MissingParameters('scrum_user_id')
             if request.data.get('start_date') is None:
                 raise MissingParameters('start_date')
             if request.data.get('members') is None:
@@ -39,8 +39,8 @@ class CreateProjectController:
                 code=request.data.get('code'),
                 name=request.data.get('name'),
                 description=request.data.get('description'),
-                po_RA=request.data.get('po_RA'),
-                scrum_RA=request.data.get('scrum_RA'),
+                po_user_id=request.data.get('po_user_id'),
+                scrum_user_id=request.data.get('scrum_user_id'),
                 start_date=request.data.get('start_date'),
                 members=request.data.get('members'),
                 photos=request.data.get('photos')

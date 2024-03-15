@@ -19,8 +19,8 @@ class Test_DeleteProjectController:
         assert response.body["project"]["code"] == "MF"
         assert response.body["project"]["name"] == "Maua Food"
         assert response.body["project"]["description"] == "É um aplicativo #foramoleza"
-        assert response.body["project"]["po_RA"] == "21017310"
-        assert response.body["project"]["scrum_RA"] == "21010757"
+        assert response.body["project"]["po_user_id"] == "21017310"
+        assert response.body["project"]["scrum_user_id"] == "21010757"
         assert response.body["project"]["start_date"] == 1634576165000
         assert response.body["project"]["photos"] == ["https://i.imgur.com/gHoRKJU.png"]
         

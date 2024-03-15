@@ -17,8 +17,8 @@ class UpdateProjectController:
             code = request.data.get('code')
             new_name = request.data.get('new_name')
             new_description = request.data.get('new_description')
-            new_po_RA = request.data.get('new_po_RA')
-            new_scrum_RA = request.data.get('new_scrum_RA')
+            new_po_user_id = request.data.get('new_po_user_id')
+            new_scrum_user_id = request.data.get('new_scrum_user_id')
             new_photos = request.data.get('new_photos')
 
             if code is None:
@@ -33,11 +33,11 @@ class UpdateProjectController:
             if new_description is not None and type(new_description) != str:
                 raise EntityError("description")
             
-            if new_po_RA is not None and not Project.validate_RA(new_po_RA):
-                raise EntityError("po_RA")
+            if new_po_user_id is not None and not Project.validate_RA(new_po_user_id):
+                raise EntityError("po_user_id")
             
-            if new_scrum_RA is not None and not Project.validate_RA(new_scrum_RA):
-                raise EntityError("scrum_RA")
+            if new_scrum_user_id is not None and not Project.validate_RA(new_scrum_user_id):
+                raise EntityError("scrum_user_id")
             
             if new_photos is not None and type(new_photos) != list:
                 raise EntityError("photos")
@@ -50,8 +50,8 @@ class UpdateProjectController:
                 code=code,
                 new_name=new_name,
                 new_description=new_description,
-                new_po_RA=new_po_RA,
-                new_scrum_RA=new_scrum_RA,
+                new_po_user_id=new_po_user_id,
+                new_scrum_user_id=new_scrum_user_id,
                 new_photos=new_photos
             )
 

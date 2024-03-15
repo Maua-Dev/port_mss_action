@@ -5,8 +5,8 @@ class ProjectViewmodel:
     code: str
     name: str
     description: str
-    po_RA: str
-    scrum_RA: str
+    po_user_id: str
+    scrum_user_id: str
     start_date: int # milliseconds
     photos: List[str] = []
 
@@ -14,8 +14,8 @@ class ProjectViewmodel:
         self.code = project.code
         self.name = project.name
         self.description = project.description
-        self.po_RA = project.po_RA
-        self.scrum_RA = project.scrum_RA
+        self.po_user_id = project.po_user_id
+        self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
         self.photos = project.photos
 
@@ -24,8 +24,8 @@ class ProjectViewmodel:
             "code": self.code,
             "name": self.name,
             "description": self.description,
-            "po_RA": self.po_RA,
-            "scrum_RA": self.scrum_RA,
+            "po_user_id": self.po_user_id,
+            "scrum_user_id": self.scrum_user_id,
             "start_date": self.start_date,
             "photos": self.photos
         }

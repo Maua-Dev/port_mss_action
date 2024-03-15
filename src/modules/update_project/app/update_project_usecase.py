@@ -11,7 +11,7 @@ class UpdateProjectUsecase:
     def __init__(self, repo: IActionRepository):
         self.repo = repo
 
-    def __call__(self, code, new_name: str, new_description: str, new_po_RA: str, new_scrum_RA: str, new_photos: List[str]) -> Project:
+    def __call__(self, code, new_name: str, new_description: str, new_po_user_id: str, new_scrum_user_id: str, new_photos: List[str]) -> Project:
 
         if not Project.validate_project_code(code):
             raise EntityError("code")
@@ -23,8 +23,8 @@ class UpdateProjectUsecase:
         project = self.repo.update_project(code=code,
                                             new_name=new_name,
                                             new_description=new_description,
-                                            new_po_RA=new_po_RA,
-                                            new_scrum_RA=new_scrum_RA, 
+                                            new_po_user_id=new_po_user_id,
+                                            new_scrum_user_id=new_scrum_user_id, 
                                             new_photos=new_photos)
         
         return project

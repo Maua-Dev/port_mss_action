@@ -17,8 +17,8 @@ class Test_GetProjectViewmodel:
                 'code': 'MF',
                 'name': 'Maua Food',
                 'description': 'É um aplicativo #foramoleza',
-                'po_RA': '21017310',
-                'scrum_RA': '21010757',
+                'po_user_id': '21017310',
+                'scrum_user_id': '21010757',
                 'start_date': 1634576165000,
                 'members': ['10017310','21010757','21017310'],
                 'photos': [

@@ -12,8 +12,8 @@ class TestUpdateProjectViewmodel:
                 'code': 'PT',
                 'name': 'Portfólio',
                 'description': 'É um site',
-                'po_RA': '22011020',
-                'scrum_RA': '21010757',
+                'po_user_id': '22011020',
+                'scrum_user_id': '21010757',
                 'start_date': 1673535600000,
                 'photos': ['https://i.imgur.com/gHoRKJU.png']
             }
