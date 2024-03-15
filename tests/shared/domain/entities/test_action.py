@@ -9,7 +9,6 @@ class Test_Action:
     
     def test_action(self):
         action = Action(
-            owner_ra="22011020",
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1577847600000,
             end_date=1577890800000,
@@ -26,7 +25,6 @@ class Test_Action:
         )
         
         assert type(action) == Action
-        assert action.owner_ra == "22011020"
         assert action.user_id == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert action.start_date == 1577847600000
         assert action.end_date == 1577890800000
@@ -41,64 +39,10 @@ class Test_Action:
         assert action.action_type_tag == ACTION_TYPE.CODE
         assert action.end_date - action.start_date == 12 * 60 * 60 * 1000
         
-    def test_action_invalid_len_owner_ra(self):
-        with pytest.raises(EntityError):
-            Action(
-                owner_ra="2201102",
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                start_date=1577847600000,
-                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
-                is_valid=True,
-                story_id=100,
-                duration=10 * 60 * 60 * 1000,
-                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
-                title="Teste",
-                end_date=1577890800000,
-                project_code="TS",
-                stack_tags = [STACK.BACKEND],
-                action_type_tag = ACTION_TYPE.CODE
-            )
-            
-    def test_action_owner_ra_not_string(self):
-        with pytest.raises(EntityError):
-            Action(
-                owner_ra=22011020,
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                start_date=1577847600000,
-                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
-                is_valid=True,
-                story_id=100,
-                duration=10 * 60 * 60 * 1000,
-                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
-                title="Teste",
-                end_date=1577890800000,
-                project_code="TS",
-                stack_tags = [STACK.BACKEND],
-                action_type_tag = ACTION_TYPE.CODE
-            )
-            
-    def test_action_owner_ra_not_decimal(self):
-        with pytest.raises(EntityError):
-            Action(
-                owner_ra="vitor",
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                start_date=1577847600000,
-                action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
-                is_valid=True,
-                story_id=100,
-                duration=10 * 60 * 60 * 1000,
-                associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb"],
-                title="Teste",
-                end_date=1577890800000,
-                project_code="TS",
-                stack_tags = [STACK.BACKEND],
-                action_type_tag = ACTION_TYPE.CODE
-            )
             
     def test_action_start_date_not_int(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date="2023-01-24",
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -116,7 +60,6 @@ class Test_Action:
     def test_action_end_date_not_int(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577890800000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -134,7 +77,6 @@ class Test_Action:
     def test_action_end_date_less_than_start_date(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577890800000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -152,7 +94,6 @@ class Test_Action:
     def test_action_invalid_length_action_id(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="1234",
@@ -170,7 +111,6 @@ class Test_Action:
     def test_action_action_id_not_string(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id=1234,
@@ -186,7 +126,6 @@ class Test_Action:
             )
     def test_action_story_id_is_none(self):
         action = Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -205,7 +144,6 @@ class Test_Action:
     def test_action_action_id_not_uuid(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="fgh6s4xx266vnbgih97icvr0qhtsc7x99dgf",
@@ -223,7 +161,6 @@ class Test_Action:
     def test_action_story_id_not_int(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -241,7 +178,6 @@ class Test_Action:
     def test_action_story_id_less_than_minimum(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -259,7 +195,6 @@ class Test_Action:
     def test_action_story_id_greater_than_max(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -276,7 +211,6 @@ class Test_Action:
 
     def test_action_associated_members_user_ids_none(self):   
         action = Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -295,7 +229,6 @@ class Test_Action:
     def test_action_associated_members_user_ids_not_list(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -313,7 +246,6 @@ class Test_Action:
     def test_action_invalid_associated_members_user_ids(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -331,7 +263,6 @@ class Test_Action:
     # def test_action_associated_members_user_ids_is_not_list_of_str(self):
     #     with pytest.raises(EntityError):
     #         Action(
-    #             owner_ra="22011020",
     #             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
     #             start_date=1577847600000,
     #             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -349,7 +280,6 @@ class Test_Action:
     def test_action_user_id_is_in_associated_members_user_ids(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -366,7 +296,6 @@ class Test_Action:
             
     def test_action_associated_members_user_ids_is_empty_list(self):
         action = Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -385,7 +314,6 @@ class Test_Action:
     def test_action_title_not_string(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -403,7 +331,6 @@ class Test_Action:
     def test_action_invalid_title_too_short(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -421,7 +348,6 @@ class Test_Action:
     def test_action_invalid_title_too_long(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -438,7 +364,6 @@ class Test_Action:
             
     def test_action_description_none(self):
         action = Action(
-            owner_ra="22011020",
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             start_date=1577847600000,
             action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -457,7 +382,6 @@ class Test_Action:
     def test_action_description_not_string(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -476,7 +400,6 @@ class Test_Action:
     def test_action_description_too_short(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -495,7 +418,6 @@ class Test_Action:
     def test_action_description_too_long(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -514,7 +436,6 @@ class Test_Action:
     def test_action_project_code_not_string(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -532,7 +453,6 @@ class Test_Action:
     def test_action_invalid_project_code(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -551,7 +471,6 @@ class Test_Action:
     def test_action_stack_tags_none(self):
        with pytest.raises(EntityError):
         Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -569,7 +488,6 @@ class Test_Action:
     def test_action_stack_tags_not_list(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -587,7 +505,6 @@ class Test_Action:
     def test_action_stack_tags_tags_not_enum(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -605,7 +522,6 @@ class Test_Action:
     def test_action_action_type_tag_none(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -623,7 +539,6 @@ class Test_Action:
     def test_action_action_type_tag_tag_not_enum(self):
         with pytest.raises(EntityError):
             Action(
-                owner_ra="22011020",
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000,
                 action_id="a571c870-d7da-4a25-951c-2ca2d2398a14",
@@ -641,7 +556,6 @@ class Test_Action:
     def test_action_duplicated_associated_ra(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -660,7 +574,6 @@ class Test_Action:
     def test_action_duration_none(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -678,7 +591,6 @@ class Test_Action:
     def test_action_duration_not_int(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -696,7 +608,6 @@ class Test_Action:
     def test_action_duration_negative(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -713,7 +624,6 @@ class Test_Action:
     def test_action_duration_zero(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -731,7 +641,6 @@ class Test_Action:
     def test_action_invalid_duration(self): #duration > end_date - start_date
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -749,7 +658,6 @@ class Test_Action:
     def test_action_is_valid_not_boolean(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -768,7 +676,6 @@ class Test_Action:
     def test_action_user_id_not_string(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id=93, 
                 start_date=1577847600000, 
                 action_id='82fc', 
@@ -786,7 +693,6 @@ class Test_Action:
     def test_action_user_id_wrong_length(self):
         with pytest.raises(EntityError):
             action = Action(
-                owner_ra='17033730',
                 user_id='1', 
                 start_date=1577847600000, 
                 action_id='82fc', 
