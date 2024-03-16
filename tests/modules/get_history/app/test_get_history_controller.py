@@ -11,7 +11,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra': '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'start' : 1100000000000,
             'end' : 1800000000000,
             'amount' : 10,
@@ -22,7 +22,7 @@ class Test_GetHistoryController:
         assert response.status_code == 200
         assert response.body['message'] == 'the history was retrieved'
         
-    def test_get_history_controller_missing_ra(self):
+    def test_get_history_controller_missing_user_id(self):
             
         repo = ActionRepositoryMock()
         usecase = GetHistoryUsecase(repo)
@@ -33,7 +33,7 @@ class Test_GetHistoryController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field ra is missing'
+        assert response.body == 'Field user_id is missing'
         
     def test_get_history_controller_wrong_type_ra(self):
         
@@ -41,25 +41,25 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : 21010757,
+            'user_id' : 21010757,
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field ra isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field user_id isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
-    def test_get_history_controller_invalid_ra(self):
+    def test_get_history_controller_invalid_user_id(self):
                         
         repo = ActionRepositoryMock()
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '12345',
+            'user_id' : '12345',
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field ra is not valid'
+        assert response.body == 'Field user_id is not valid'
                         
     def test_get_history_controller_wrong_type_start(self):
                             
@@ -67,7 +67,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'start' : "1612137600000",
             })
         
@@ -81,7 +81,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'start' : 10,
             })
         
@@ -95,7 +95,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'end' : "1612137600000",
             })
         
@@ -108,7 +108,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'end' : 10,
             })
         
@@ -121,7 +121,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'start' : 1612137600000,
             'end' : 1512137600000,
             })
@@ -135,7 +135,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'exclusive_start_key' : {'action_id' : 'aaaaaaaaa0752-4ce2-9440-05e752e636fc', 'start_date' : "1634526000000"},
             })
         
@@ -148,7 +148,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={ 
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :"163452600000000000"}
             })
 
@@ -162,7 +162,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'amount' : "20",
             })
         
@@ -176,7 +176,7 @@ class Test_GetHistoryController:
         usecase = GetHistoryUsecase(repo)
         controller = GetHistoryController(usecase)
         request = HttpRequest(body={
-            'ra' : '21010757',
+            'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'amount' : 0,
             })
         
