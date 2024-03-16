@@ -50,21 +50,20 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "5f4f13df-e7d3-4a10-9219-197ceae9e3f0","new_owner_ra":"23017310","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_ra":["19017311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": "5f4f13df-e7d3-4a10-9219-197ceae9e3f0", "new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["76h35dg4-h76v-1875-987hn-h67gfv45Gt4"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
         }
         
         response = lambda_handler(event, None)
-        
         assert response["statusCode"] == 200
         assert json.loads(response["body"])["message"] == 'the action was updated'
-        assert json.loads(response["body"])["action"]["owner_ra"] == '23017310'
+        assert json.loads(response["body"])["action"]["user_id"] == '51ah5jaj-c9jm-1345-666ab-e12341c14a3'
         assert json.loads(response["body"])["action"]["start_date"] == 1634526000000
         assert json.loads(response["body"])["action"]["end_date"] == 1634536800000
         assert json.loads(response["body"])["action"]["story_id"] == 100
-        assert json.loads(response["body"])["action"]["associated_members_ra"] == ['19017311']
+        assert json.loads(response["body"])["action"]["associated_members_user_ids"] == ['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
         assert json.loads(response["body"])["action"]["title"] == 'Teste'
         assert json.loads(response["body"])["action"]["project_code"] == 'MF'
         assert json.loads(response["body"])["action"]["stack_tags"] == ['BACKEND']
@@ -118,7 +117,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"new_owner_ra":"23017310","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_ra":["19017311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["190151ah5jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -176,7 +175,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": 777,"new_owner_ra":"23017310","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_ra":["19017311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": 777,"new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["190151ah5jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -234,7 +233,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "nao-sou-um-uuid","new_owner_ra":"23017310","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_ra":["19017311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": "nao-sou-um-uuid","new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["190151ah5jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -292,7 +291,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "5fcf13df-e7d3-4a10-9219-197ceae9e3f0","new_owner_ra":"23017310","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_ra":["19017311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": "5fcf13df-e7d3-4a10-9219-197ceae9e3f0","new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["190151ah5jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
