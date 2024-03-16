@@ -9,6 +9,7 @@ class ProjectViewmodel:
     scrum_user_id: str
     start_date: int # milliseconds
     photos: List[str] = []
+    members_user_ids: List[str]
 
     def __init__(self, project: Project):
         self.code = project.code
@@ -18,6 +19,7 @@ class ProjectViewmodel:
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
         self.photos = project.photos
+        self.members_user_ids = project.members_user_ids
 
     def to_dict(self):
         return {
@@ -27,7 +29,8 @@ class ProjectViewmodel:
             "po_user_id": self.po_user_id,
             "scrum_user_id": self.scrum_user_id,
             "start_date": self.start_date,
-            "photos": self.photos
+            "photos": self.photos,
+            "members_user_ids": self.members_user_ids
         }
     
 class UpdateProjectViewmodel(ProjectViewmodel):

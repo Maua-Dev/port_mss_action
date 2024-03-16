@@ -12,10 +12,13 @@ class TestUpdateProjectViewmodel:
                 'code': 'PT',
                 'name': 'Portfólio',
                 'description': 'É um site',
-                'po_user_id': '22011020',
-                'scrum_user_id': '21010757',
+                'po_user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
+                'scrum_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
                 'start_date': 1673535600000,
-                'photos': ['https://i.imgur.com/gHoRKJU.png']
+                'photos': ['https://i.imgur.com/gHoRKJU.png'],
+                'members_user_ids': [
+                    '51ah5jaj-c9jm-1345-666ab-e12341c14a3','6f5g4h7J-876j-0098-123hb-hgb567fy4hb',  '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
+                ]
             }
         }
 
