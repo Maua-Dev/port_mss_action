@@ -17,8 +17,8 @@ class CreateActionController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('owner_ra') is None:
-                raise MissingParameters('owner_ra')
+            if request.data.get('user_id') is None:
+                raise MissingParameters('user_id')
             if request.data.get('start_date') is None:
                 raise MissingParameters('start_date')
             if request.data.get('end_date') is None:
@@ -31,8 +31,6 @@ class CreateActionController:
                 raise MissingParameters('project_code')
             if request.data.get('associated_members_user_ids') is None:
                 raise MissingParameters('associated_members_user_ids')
-            if request.data.get('user_id') is None:
-                raise MissingParameters('user_id')
             if request.data.get('is_valid') is None:
                 raise MissingParameters('is_valid')
             
@@ -64,9 +62,6 @@ class CreateActionController:
                 action_type_tag = ACTION_TYPE[action_type_tag_str]
             else:
                 action_type_tag = None
-                
-            if not Member.validate_ra(request.data.get('owner_ra')):
-                raise EntityError('owner_ra')
             
             if not Member.validate_user_id(request.data.get('user_id')):
                 raise EntityError('user_id')
@@ -74,13 +69,12 @@ class CreateActionController:
             if request.data.get('associated_members_user_ids') is not None:
                 if type(request.data.get('associated_members_user_ids')) is not list:
                     raise EntityError('associated_members_user_ids')
-                for ra in request.data.get('associated_members_user_ids'):
-                    if not Member.validate_ra(ra):
+                for user_id in request.data.get('associated_members_user_ids'):
+                    if not Member.validate_user_id(user_id):
                         raise EntityError('associated_members_user_ids')
 
                    
             action = self.usecase(
-                owner_ra=request.data.get('owner_ra'),
                 user_id=request.data.get('user_id'),
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
