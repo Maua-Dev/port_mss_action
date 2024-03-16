@@ -462,7 +462,7 @@ class ActionRepositoryMock(IActionRepository):
         
         return new_associated_actions
     
-    def update_action(self, action_id: str, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_is_valid: Optional[bool] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_user_ids: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None) -> Action:
+    def update_action(self, action_id: str, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_user_ids: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None, new_is_valid: Optional[bool] = None) -> Action:
         new_action = None
         for action in self.actions:
             if action.action_id == action_id:
@@ -485,12 +485,11 @@ class ActionRepositoryMock(IActionRepository):
                 if new_project_code is not None:
                     action.project_code = new_project_code
                 if new_associated_members_user_ids is not None:
-                    action.associated_members_ra = new_associated_members_user_ids
+                    action.associated_members_user_ids = new_associated_members_user_ids
                 if new_stack_tags is not None:
                     action.stack_tags = new_stack_tags
                 if new_action_type_tag is not None:
                     action.action_type_tag = new_action_type_tag
                 new_action = action
-        
         return new_action
     
