@@ -50,7 +50,7 @@ class Test_CreateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code":"DM","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"21021031","scrum_user_id":"17033730","start_date":1649955600000,"members":["21021031","17033730"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
+            "body": '{"code":"DM","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"93bc6ada-c0d1-7054-66ab-e17414c48ae3","scrum_user_id":"7465hvnb-143g-1675-86HnG-75hgnFbcg36","start_date":1649955600000,"members_user_ids":["93bc6ada-c0d1-7054-66ab-e17414c48ae3","7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -62,10 +62,10 @@ class Test_CreateProjectPresenter:
                 'code': 'DM',
                 'name': 'DevMedias',
                 'description': 'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_user_id': '21021031',
-                'scrum_user_id': '17033730',
+                'po_user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id': '7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                 'start_date': 1649955600000,
-                'members': ['17033730','21021031'],
+                'members_user_ids': ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
                 'photos': [
                     'https://i.imgur.com/7QF7uCk.png'
                 ]
@@ -122,7 +122,7 @@ class Test_CreateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code":"DM","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"21021031","scrum_user_id":"17033730","start_date":1649955600000,"members":["21021031","17033730"]}',
+            "body": '{"code":"DS","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"93bc6ada-c0d1-7054-66ab-e17414c48ae3","scrum_user_id":"7465hvnb-143g-1675-86HnG-75hgnFbcg36","start_date":1649955600000,"members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36","93bc6ada-c0d1-7054-66ab-e17414c48ae3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -131,13 +131,13 @@ class Test_CreateProjectPresenter:
         response = lambda_handler(event, None)
         expected = {
             'project': {
-                'code': 'DM',
+                'code': 'DS',
                 'name': 'DevMedias',
                 'description': 'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_user_id': '21021031',
-                'scrum_user_id': '17033730',
+                'po_user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id': '7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                 'start_date': 1649955600000,
-                'members': ['17033730','21021031'],
+                'members_user_ids': ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
                 'photos': []
             },
             'message': 'the project was created'
@@ -193,7 +193,7 @@ class Test_CreateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"21021031","scrum_user_id":"17033730","start_date":1649955600000,"members":["21021031","17033730"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
+            "body": '{"name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"93bc6ada-c0d1-7054-66ab-e17414c48ae3","scrum_user_id":"7465hvnb-143g-1675-86HnG-75hgnFbcg36","start_date":1649955600000,"members_user_ids":["93bc6ada-c0d1-7054-66ab-e17414c48ae3","7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -251,7 +251,7 @@ class Test_CreateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code":"DM","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"21021031","scrum_user_id":"não tem","start_date":1649955600000,"members":["21021031","17033730"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
+            "body": '{"code":"DM","name":"DevMedias","description":"Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano","po_user_id":"93bc6ada-c0d1-7054-66ab-e17414c48ae3","scrum_user_id":"não tem","start_date":1649955600000,"members_user_ids":["93bc6ada-c0d1-7054-66ab-e17414c48ae3","7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"photos":["https://i.imgur.com/7QF7uCk.png"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
