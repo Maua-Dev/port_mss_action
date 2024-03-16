@@ -18,7 +18,7 @@ class ActionRepositoryMock(IActionRepository):
                 code="MF",
                 name="Maua Food",
                 description="É um aplicativo #foramoleza",
-                po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 start_date=1634576165000,
                 photos=["https://i.imgur.com/gHoRKJU.png"],
