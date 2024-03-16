@@ -20,6 +20,7 @@ class UpdateProjectController:
             new_po_user_id = request.data.get('new_po_user_id')
             new_scrum_user_id = request.data.get('new_scrum_user_id')
             new_photos = request.data.get('new_photos')
+            new_members_user_ids = request.data.get('new_members_user_ids')
 
             if code is None:
                 raise MissingParameters('code')
@@ -33,10 +34,10 @@ class UpdateProjectController:
             if new_description is not None and type(new_description) != str:
                 raise EntityError("description")
             
-            if new_po_user_id is not None and not Project.validate_RA(new_po_user_id):
+            if new_po_user_id is not None and not Project.validate_user_id(new_po_user_id):
                 raise EntityError("po_user_id")
             
-            if new_scrum_user_id is not None and not Project.validate_RA(new_scrum_user_id):
+            if new_scrum_user_id is not None and not Project.validate_user_id(new_scrum_user_id):
                 raise EntityError("scrum_user_id")
             
             if new_photos is not None and type(new_photos) != list:
@@ -45,6 +46,13 @@ class UpdateProjectController:
             if new_photos != None:
                 if not all(type(photo) == str for photo in new_photos):
                     raise EntityError("photos")
+                
+            if new_members_user_ids is not None and type(new_members_user_ids) != list:
+                raise EntityError("members_user_ids")
+            if new_members_user_ids is not None:
+                for user_id in new_members_user_ids:
+                    if not Project.validate_user_id(user_id):
+                        raise EntityError("members_user_ids")
             
             update_project = self.UpdateProjectUsecase(
                 code=code,
@@ -52,7 +60,8 @@ class UpdateProjectController:
                 new_description=new_description,
                 new_po_user_id=new_po_user_id,
                 new_scrum_user_id=new_scrum_user_id,
-                new_photos=new_photos
+                new_photos=new_photos,
+                new_members_user_ids=new_members_user_ids
             )
 
             viewmodel = UpdateProjectViewmodel(update_project)
