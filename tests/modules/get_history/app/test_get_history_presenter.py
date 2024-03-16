@@ -50,7 +50,7 @@ class Test_GetHistoryPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"ra" : "19017310"}',
+            "body": '{"user_id" : "7465hvnb-143g-1675-86HnG-75hgnFbcg36"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -117,7 +117,7 @@ class Test_GetHistoryPresenter:
         response = lambda_handler(event, None)
         
         assert response["statusCode"] == 400
-        assert json.loads(response["body"]) == "Field ra is missing"
+        assert json.loads(response["body"]) == "Field user_id is missing"
         
     def test_get_history_presenter_wrong_type(self):
         event = {
@@ -166,7 +166,7 @@ class Test_GetHistoryPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"ra": 123}',
+            "body": '{"user_id" : 123}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -175,7 +175,7 @@ class Test_GetHistoryPresenter:
         response = lambda_handler(event, None)
 
         assert response["statusCode"] == 400
-        assert json.loads(response["body"]) == 'Field ra isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert json.loads(response["body"]) == 'Field user_id isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
     def test_get_history_presenter_entity_error(self):
         event = {
@@ -224,7 +224,7 @@ class Test_GetHistoryPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"ra": "129867963"}',
+            "body": '{"user_id" : "a7465hvnb-143g-1675-86HnG-75hgnFbcg36"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -233,4 +233,4 @@ class Test_GetHistoryPresenter:
         response = lambda_handler(event, None)
         
         assert response["statusCode"] == 400
-        assert json.loads(response["body"]) == "Field ra is not valid"
+        assert json.loads(response["body"]) == "Field user_id is not valid"
