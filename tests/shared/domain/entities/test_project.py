@@ -296,7 +296,7 @@ class Test_Project():
         project.change_po_user_id('7gh5yf5H-857H-1234-75hng-94832hvng1s')
 
         assert project.po_user_id == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
-        assert project.members_user_ids == ['7gh5yf5H-857H-1234-75hng-94832hvng1s', '51ah5jaj-c9jm-1345-666ab-e12341c14a3']
+        assert project.members_user_ids == ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','7gh5yf5H-857H-1234-75hng-94832hvng1s']
 
     def test_project_change_scrum_user_id(self):
         project = Project(
@@ -313,7 +313,7 @@ class Test_Project():
         project.change_scrum_user_id('7gh5yf5H-857H-1234-75hng-94832hvng1s')
 
         assert project.scrum_user_id == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
-        assert project.members_user_ids == ['93bc6ada-c0d1-7054-66ab-e17414c48ae3','7gh5yf5H-857H-1234-75hng-94832hvng1s']
+        assert project.members_user_ids == ['7gh5yf5H-857H-1234-75hng-94832hvng1s','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
 
     def test_project_members_user_ids_must_be_list(self):
         with pytest.raises(EntityError):

@@ -57,7 +57,7 @@ class Project(abc.ABC):
             raise EntityError("members_user_ids")
         if not all([self.validate_user_id(user_id) for user_id in members_user_ids]):
             raise EntityError("members_user_ids")
-        self.members_user_ids = list(set(members_user_ids))
+        self.members_user_ids = sorted(list(set(members_user_ids)))
         
     @staticmethod
     def validate_project_code(code: str) -> bool:
@@ -83,7 +83,7 @@ class Project(abc.ABC):
         self.members_user_ids.remove(self.po_user_id)
         self.po_user_id = new_po_user_id
         self.members_user_ids.append(new_po_user_id)
-        self.members_user_ids = list(set(self.members_user_ids))
+        self.members_user_ids = sorted(list(set(self.members_user_ids)))
 
     def change_scrum_user_id(self, new_scrum_user_id: str):
         if not self.validate_user_id(new_scrum_user_id):
@@ -91,7 +91,7 @@ class Project(abc.ABC):
         self.members_user_ids.remove(self.scrum_user_id)
         self.scrum_user_id = new_scrum_user_id
         self.members_user_ids.append(new_scrum_user_id)
-        self.members_user_ids = list(set(self.members_user_ids))
+        self.members_user_ids = sorted(list(set(self.members_user_ids)))
     
     def __repr__(self):
         return f"Project(code={self.code}, name={self.name}, description={self.description})"
