@@ -55,7 +55,7 @@ class IActionRepository(ABC):
         pass
 
     @abstractmethod
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         '''
         If project exists, updates it and returns it
         else returns None
