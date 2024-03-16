@@ -243,7 +243,7 @@ class ActionRepositoryDynamo(IActionRepository):
         return actions
         
     
-    def batch_update_associated_action_members(self, action_id: str, members: List[str], user_ids: List[str], start_date: int) -> List[AssociatedAction]:
+    def batch_update_associated_action_members(self, action_id: str, user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
             
@@ -256,13 +256,13 @@ class ActionRepositoryDynamo(IActionRepository):
             self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id))
             
         actions = []
-        for ra, user_id in zip(members, user_ids):
-            associated_action = AssociatedAction(action_id=action_id, member_ra=ra, start_date=start_date, user_id=user_id)
+        for user_id in user_ids:
+            associated_action = AssociatedAction(action_id=action_id, start_date=start_date, user_id=user_id)
             actions.append(self.create_associated_action(associated_action))
                 
         return actions
     
-    def update_action(self, action_id: str, new_is_valid: Optional[bool] = None, new_owner_ra: Optional[str] = None, new_user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_user_ids : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
+    def update_action(self, action_id: str, new_is_valid: Optional[bool] = None, new_user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_user_ids : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
         
         action = self.get_action(action_id=action_id)
         
@@ -270,7 +270,6 @@ class ActionRepositoryDynamo(IActionRepository):
             return None
 
         update_dict = {
-            "owner_ra": new_owner_ra,
             "user_id": new_user_id,
             "start_date": Decimal(str(new_start_date)) if new_start_date is not None else None,
             "end_date": Decimal(str(new_end_date)) if new_end_date is not None else None,
@@ -280,7 +279,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "title": new_title,
             "description": new_description,
             "project_code": new_project_code,
-            "associated_members_ra": new_associated_members_user_ids,
+            "associated_members_user_ids": new_associated_members_user_ids,
             "stack_tags": [stack.value for stack in new_stack_tags] if new_stack_tags is not None else None,
             "action_type_tag": new_action_type_tag.value if new_action_type_tag is not None else None,
         }
