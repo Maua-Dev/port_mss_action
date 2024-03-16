@@ -19,10 +19,11 @@ class Test_DeleteProjectController:
         assert response.body["project"]["code"] == "MF"
         assert response.body["project"]["name"] == "Maua Food"
         assert response.body["project"]["description"] == "É um aplicativo #foramoleza"
-        assert response.body["project"]["po_user_id"] == "21017310"
-        assert response.body["project"]["scrum_user_id"] == "21010757"
+        assert response.body["project"]["po_user_id"] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+        assert response.body["project"]["scrum_user_id"] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body["project"]["start_date"] == 1634576165000
         assert response.body["project"]["photos"] == ["https://i.imgur.com/gHoRKJU.png"]
+        assert response.body["project"]["members_user_ids"] == ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"]
         
     def test_delete_project_controller_missing_code(self):
         
