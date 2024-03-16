@@ -8,7 +8,7 @@ class ProjectViewModel:
     po_user_id: str
     scrum_user_id: str
     start_date: int
-    members: List[str]
+    members_user_ids: List[str]
     photos: List[str] = None
     
     def __init__(self, project: Project):
@@ -18,7 +18,7 @@ class ProjectViewModel:
         self.po_user_id = project.po_user_id
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
-        self.members = project.members
+        self.members_user_ids = project.members_user_ids
         self.photos = project.photos if project.photos else []
         
     def to_dict(self):
@@ -29,7 +29,7 @@ class ProjectViewModel:
             'po_user_id' : self.po_user_id,
             'scrum_user_id' : self.scrum_user_id,
             'start_date' : self.start_date,
-            'members' : self.members,
+            'members_user_ids' : self.members_user_ids,
             'photos' : self.photos
         }
 
