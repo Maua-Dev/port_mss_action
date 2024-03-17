@@ -46,4 +46,5 @@ class UpdateActionUsecase:
             
         description = new_description if new_description is not '' else action.description
         story_id = new_story_id if new_story_id is not -1 else action.story_id
+
         return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)

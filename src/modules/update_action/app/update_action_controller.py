@@ -126,7 +126,6 @@ class UpdateActionController:
             if request.data.get('new_is_valid') is not None:
                 if type(new_is_valid) is not bool:
                     raise WrongTypeParameter(fieldName='new_is_valid', fieldTypeExpected='bool', fieldTypeReceived=type(new_is_valid))
-                new_is_valid = request.data.get('new_is_valid')
 
             
             action = self.usecase(
