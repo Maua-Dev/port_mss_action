@@ -34,7 +34,7 @@ class UpdateActionValidationController:
                 user_id = str(requester_user.user_id) if requester_user is not None else None
             )
 
-            viewmodel = UpdateActionValidationViewModel(action_validation)
+            viewmodel = UpdateActionValidationViewModel(action_id = action_validation.action_id, is_valid = action_validation.is_valid, user_id = requester_user.user_id if requester_user is not None else None)
 
             return OK(viewmodel.to_dict())
         

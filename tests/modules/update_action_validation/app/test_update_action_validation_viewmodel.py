@@ -11,7 +11,7 @@ class TestUpdateActionValidationViewModel:
         repo_member = MemberRepositoryMock()
         action = repo_action.actions[0]
         user_id = repo_member.members[0].user_id
-        update_action_validation_view_model = UpdateActionValidationViewModel(action, user_id).to_dict()
+        update_action_validation_view_model = UpdateActionValidationViewModel(action.action_id, action.is_valid, user_id).to_dict()
         
         
         expected = {

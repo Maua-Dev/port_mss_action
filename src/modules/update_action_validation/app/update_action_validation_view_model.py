@@ -5,9 +5,9 @@ class ActionValidationViewModel:
     is_valid: bool
     user_id: str
     
-    def __init__(self, action: Action, user_id: str):
-        self.action_id = action.action_id
-        self.is_valid = action.is_valid
+    def __init__(self, action_id: str, is_valid: bool, user_id: str):
+        self.action_id = action_id
+        self.is_valid = is_valid
         self.user_id = user_id
     
     def to_dict(self) -> dict:
@@ -20,8 +20,8 @@ class ActionValidationViewModel:
 class UpdateActionValidationViewModel:
     action: ActionValidationViewModel
     
-    def __init__(self, action: Action, user_id: str):
-        self.action = ActionValidationViewModel(action, user_id)
+    def __init__(self, action_id: str, is_valid: bool, user_id: str):
+        self.action = ActionValidationViewModel(action_id, is_valid, user_id)
 
     def to_dict(self) -> dict:
         return {
