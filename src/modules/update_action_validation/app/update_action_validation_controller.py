@@ -1,5 +1,5 @@
 from .update_action_validation_usecase import UpdateActionValidationUsecase
-from .update_action_validation_view_model import UpdateActionValidationViewModel
+from .update_action_validation_viewmodel import UpdateActionValidationViewModel
 from src.shared.domain.entities.action import Action
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError

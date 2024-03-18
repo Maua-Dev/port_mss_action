@@ -1,4 +1,4 @@
-from src.modules.update_action_validation.app.update_action_validation_view_model import UpdateActionValidationViewModel
+from src.modules.update_action_validation.app.update_action_validation_viewmodel import UpdateActionValidationViewModel
 from src.shared.domain.entities.action import Action
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
