@@ -10,14 +10,15 @@ class TestUpdateActionValidationViewModel:
         repo_action = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         action = repo_action.actions[0]
-        member = repo_member.members[0]
-        update_action_validation_view_model = UpdateActionValidationViewModel(action).to_dict()
+        user_id = repo_member.members[0].user_id
+        update_action_validation_view_model = UpdateActionValidationViewModel(action, user_id).to_dict()
         
         
         expected = {
             "action": {
                 "action_id": "5f4f13df-e7d3-4a10-9219-197ceae9e3f0",
-                "is_valid": True
+                "is_valid": True,
+                "user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             },
             "message": "Action validation was updated successfully"
         }

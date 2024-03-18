@@ -21,7 +21,7 @@ class UpdateActionValidationViewModel:
     action: ActionValidationViewModel
     
     def __init__(self, action: Action, user_id: str):
-        self.action = ActionValidationViewModel(action)
+        self.action = ActionValidationViewModel(action, user_id)
 
     def to_dict(self) -> dict:
         return {
