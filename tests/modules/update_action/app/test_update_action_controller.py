@@ -12,18 +12,21 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
             'new_stack_tags' : ["BACKEND"],
             'new_action_type_tag' : "CODE",
-            'new_duration' : 1000000
+            'new_duration' : 1000000,
+            'new_is_valid': True
             })
         
         response = controller(request)
@@ -36,10 +39,10 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         request = HttpRequest(body={
-            'new_owner_ra': '23017310',
+            'new_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -58,10 +61,10 @@ class Test_UpdateActionController:
         controller = UpdateActionController(usecase)
         request = HttpRequest(body={
             'action_id': 1,
-            'new_owner_ra': '23017310',
+            'new_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -80,10 +83,10 @@ class Test_UpdateActionController:
         controller = UpdateActionController(usecase)
         request = HttpRequest(body={
             'action_id': 'não-sou-um-uuid',
-            'new_owner_ra': '23017310',
+            'new_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -95,18 +98,20 @@ class Test_UpdateActionController:
         assert response.status_code == 400
         assert response.body == "Field action_id is not valid"
         
-    def test_update_action_controller_wrong_type_new_owner_ra(self):
+    def test_update_action_controller_wrong_type_new_user_id(self):
                         
         repo = ActionRepositoryMock()
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': 23017310,
+            'new_user_id': 23017310,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -116,20 +121,22 @@ class Test_UpdateActionController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field new_owner_ra isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field new_user_id isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
         
-    def test_update_action_controller_invalid_new_owner_ra(self):
+    def test_update_action_controller_invalid_new_user_id(self):
                             
         repo = ActionRepositoryMock()
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': 'não-sou-um-ra',
+            'new_user_id': 'não-sou-um-ra',
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -139,7 +146,7 @@ class Test_UpdateActionController:
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field new_owner_ra is not valid"
+        assert response.body == "Field new_user_id is not valid"
         
     def test_update_action_controller_wrong_type_new_start_date(self):
                                 
@@ -147,12 +154,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : '1634526000000',
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -170,12 +179,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 100,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -193,12 +204,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : '1634536800000',
             'new_project_code' : "MF",
@@ -216,12 +229,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 100,
             'new_project_code' : "MF",
@@ -239,12 +254,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634536800000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634526000000,
             'new_project_code' : "MF",
@@ -262,12 +279,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_duration' : '100',
@@ -286,12 +305,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_duration' : -100,
@@ -310,12 +331,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -334,12 +357,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : '100',
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -357,12 +382,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : -100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -380,12 +407,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : 100,
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -403,13 +432,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         long_title = "a" * 101
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_title' : long_title,
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
@@ -427,12 +458,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : 100,
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -451,13 +484,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         long_description = "a" * 501
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : long_description,
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -476,12 +511,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -500,12 +537,14 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["19017311"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -518,18 +557,20 @@ class Test_UpdateActionController:
         assert response.status_code == 400
         assert response.body == "Field new_project_code is not valid"
         
-    def test_update_action_controller_wrong_type_new_associated_members_ra(self):
+    def test_update_action_controller_wrong_type_new_associated_members_user_ids(self):
         repo = ActionRepositoryMock()
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : '22011020',
+            'new_associated_members_user_ids' : '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -540,21 +581,24 @@ class Test_UpdateActionController:
 
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field new_associated_members_ra isn\'t in the right type.\n Received: <class \'str\'>.\n Expected: list'
+        assert response.body == 'Field new_associated_members_user_ids isn\'t in the right type.\n Received: <class \'str\'>.\n Expected: list'
         
-    def test_update_action_controller_wrong_type_ra_new_associated_members_ra(self):
+    def test_update_action_controller_wrong_type_new_associated_members_user_ids(self):
         
         repo = ActionRepositoryMock()
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
+        
         
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : [22011020],
+            'new_associated_members_user_ids' : [123],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -565,21 +609,23 @@ class Test_UpdateActionController:
 
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field new_associated_members_ra isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
+        assert response.body == "Field new_associated_members_user_ids isn't in the right type.\n Received: <class 'int'>.\n Expected: str"
         
-    def test_update_action_controller_invalid_new_associated_members_ra(self):
+    def test_update_action_controller_invalid_new_associated_members_user_ids(self):
         
         repo = ActionRepositoryMock()
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["2201102"],
+            'new_associated_members_user_ids' : ["2201102"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -590,7 +636,7 @@ class Test_UpdateActionController:
 
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field new_associated_members_ra is not valid"
+        assert response.body == "Field new_associated_members_user_ids is not valid"
         
     def test_update_action_controller_wrong_type_new_stack_tags(self):
         
@@ -598,13 +644,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -623,13 +671,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -648,13 +698,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -673,13 +725,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -698,13 +752,15 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
@@ -726,16 +782,17 @@ class Test_UpdateActionController:
 
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
             'new_stack_tags' : ["BACKEND"],
-            'new_action_type_tag' : "CODE"
+            'new_action_type_tag' : "CODE",
+            'new_is_valid': True
         })
 
         response = controller(request)
@@ -748,20 +805,24 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : None,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : "Teste",
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
             'new_stack_tags' : ["BACKEND"],
-            'new_action_type_tag' : "CODE"
+            'new_action_type_tag' : "CODE",
+            'new_is_valid': True
         })
         response = controller(request)
+        print(response.body)
         assert response.status_code == 200
         assert response.body["message"] == "the action was updated"
         assert response.body['action']['story_id'] == None
@@ -772,18 +833,21 @@ class Test_UpdateActionController:
         usecase = UpdateActionUsecase(repo)
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
         request = HttpRequest(body={
             'action_id': action_id,
-            'new_owner_ra': '23017310',
+            'new_user_id': user_id,
             'new_start_date' : 1634526000000,
             'new_story_id' : 100,
-            'new_associated_members_ra' : ["22011020"],
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
             'new_description' : None,
             'new_title' : "Teste",
             'new_end_date' : 1634536800000,
             'new_project_code' : "MF",
             'new_stack_tags' : ["BACKEND"],
-            'new_action_type_tag' : "CODE"
+            'new_action_type_tag' : "CODE",
+            'new_is_valid': True
         })
         response = controller(request)
         assert response.status_code == 200

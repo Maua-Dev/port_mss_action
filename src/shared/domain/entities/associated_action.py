@@ -4,14 +4,11 @@ from src.shared.helpers.errors.domain_errors import EntityError, EntityParameter
 from src.shared.domain.entities.action import Action
 
 class AssociatedAction(abc.ABC):
-    member_ra: str
     action_id: str
     start_date: int
+    user_id: str
 
-    def __init__(self, member_ra: str, action_id: str, start_date: int):
-        if not AssociatedAction.validate_ra(member_ra):
-            raise EntityError("ra")
-        self.member_ra = member_ra
+    def __init__(self, action_id: str, start_date: int, user_id: str) -> None:
         
         if not AssociatedAction.validate_action_id(action_id):
             raise EntityError("action_id")
@@ -23,15 +20,10 @@ class AssociatedAction(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
 
-    @staticmethod
-    def validate_ra(ra: str) -> bool:
-        if ra == None:
-            return False
-        
-        if type(ra) != str:
-            return False
+        if not self.validate_user_id(user_id):
+            raise EntityError('user_id')
+        self.user_id = user_id
 
-        return ra.isdecimal() and len(ra) == 8
     
     @staticmethod
     def validate_action_id(action_id: str) -> bool:
@@ -44,9 +36,15 @@ class AssociatedAction(abc.ABC):
             return True
         except ValueError:
             return False
+        
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Action.USER_ID_LENGTH: return False
+        return True
 
     def __repr__(self) -> str:
-        return f"AssociatedAction(member_ra={self.member_ra}, action={self.action_id})"
+        return f"AssociatedAction(user_id={self.user_id}, action={self.action_id})"
 
     def __eq__(self, other) -> bool:
-        return self.member_ra == other.member_ra and self.action_id == other.action_id
+        return self.user_id == other.user_id and self.action_id == other.action_id

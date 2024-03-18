@@ -52,7 +52,7 @@ class TestUpdateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code": "PT", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_RA": "21017310", "new_scrum_RA": "21010757", "new_photos": ["https://i.imgur.com/gHoRKJU.png"]}',
+            "body": '{"code": "PT", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "new_scrum_user_id": "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "new_photos": ["https://i.imgur.com/gHoRKJU.png"], "new_members_user_ids": ["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -110,7 +110,7 @@ class TestUpdateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_RA": "21017310", "new_scrum_RA": "21010757", "new_photos": ["https://i.imgur.com/gHoRKJU.png"]}',
+            "body": '{"new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "new_scrum_user_id": "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "new_photos": ["https://i.imgur.com/gHoRKJU.png"], "new_members_user_ids": ["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -168,7 +168,7 @@ class TestUpdateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code": 25, "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_RA": "21017310", "new_scrum_RA": "21010757", "new_photos": ["https://i.imgur.com/gHoRKJU.png"]}',
+            "body": '{"code": 25, "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "new_scrum_user_id": "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "new_photos": ["https://i.imgur.com/gHoRKJU.png"], "new_members_user_ids": ["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -226,7 +226,7 @@ class TestUpdateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code": "PORT", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_RA": "21017310", "new_scrum_RA": "21010757", "new_photos": ["https://i.imgur.com/gHoRKJU.png"]}',
+            "body": '{"code": "PORT", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "new_scrum_user_id": "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "new_photos": ["https://i.imgur.com/gHoRKJU.png"], "new_members_user_ids": ["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -284,7 +284,7 @@ class TestUpdateProjectPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"code": "RR", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_RA": "21017310", "new_scrum_RA": "21010757", "new_photos": ["https://i.imgur.com/gHoRKJU.png"]}',
+            "body": '{"code": "RR", "new_name": "Projeto portfolio", "new_description": "Projeto para o portfolio", "new_po_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "new_scrum_user_id": "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "new_photos": ["https://i.imgur.com/gHoRKJU.png"], "new_members_user_ids": ["93bc6ada-c0d1-7054-66ab-e17414c48ae3", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
