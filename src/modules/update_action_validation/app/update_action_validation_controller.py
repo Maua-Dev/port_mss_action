@@ -11,8 +11,8 @@ from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
 class UpdateActionValidationController:
     
-    def __init__(self, use_case: UpdateActionValidationUsecase):
-        self.UpdateActionValidationUsecase = use_case
+    def __init__(self, usecase: UpdateActionValidationUsecase):
+        self.usecase = usecase
 
     def __call__(self, request: IRequest) -> IResponse:
         try:
@@ -28,7 +28,7 @@ class UpdateActionValidationController:
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
-            action_validation = self.UpdateActionValidationUsecase(
+            action_validation = self.usecase(
                 action_id = str(request.data.get('action_id')),
                 new_is_valid = bool(request.data.get('is_valid')),
                 user_id = str(requester_user.user_id) if requester_user is not None else None
