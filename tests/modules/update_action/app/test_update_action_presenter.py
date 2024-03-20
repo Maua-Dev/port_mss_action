@@ -1,7 +1,8 @@
 import json
 from src.modules.update_action.app.update_action_presenter import lambda_handler
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
-
+first_member = MemberRepositoryMock().members[0]
 class Test_UpdateActionPresenter:
     def test_update_action_presenter(self):
         event = {
@@ -25,15 +26,13 @@ class Test_UpdateActionPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -50,7 +49,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "5f4f13df-e7d3-4a10-9219-197ceae9e3f0","new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["32ah5jaj-c9jm-1345-666ab-e12341c14a3"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000, "new_is_valid": false}',
+            "body": '{"action_id": "5f4f13df-e7d3-4a10-9219-197ceae9e3f0","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["32ah5jaj-c9jm-1345-666ab-e12341c14a3"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000, "new_is_valid": false}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -59,7 +58,7 @@ class Test_UpdateActionPresenter:
         response = lambda_handler(event, None)
         assert response["statusCode"] == 200
         assert json.loads(response["body"])["message"] == 'the action was updated'
-        assert json.loads(response["body"])["action"]["user_id"] == '51ah5jaj-c9jm-1345-666ab-e12341c14a3'
+        assert json.loads(response["body"])["action"]["user_id"] == first_member.user_id
         assert json.loads(response["body"])["action"]["start_date"] == 1634526000000
         assert json.loads(response["body"])["action"]["end_date"] == 1634536800000
         assert json.loads(response["body"])["action"]["story_id"] == 100
@@ -92,15 +91,13 @@ class Test_UpdateActionPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -150,15 +147,13 @@ class Test_UpdateActionPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -175,7 +170,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": 777,"new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["19015jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": 777,"new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["19015jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -208,15 +203,13 @@ class Test_UpdateActionPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -233,7 +226,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "nao-sou-um-uuid","new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["19015jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
+            "body": '{"action_id": "nao-sou-um-uuid","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["19015jaj-c9jm-1345-666ab-e12341c14a37311"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -266,15 +259,13 @@ class Test_UpdateActionPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -291,7 +282,7 @@ class Test_UpdateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"action_id": "5fcf13df-e7d3-4a10-9219-197ceae9e3f0","new_user_id":"51ah5jaj-c9jm-1345-666ab-e12341c14a3","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["32ah5jaj-c9jm-1345-666ab-e12341c14a3"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000, "new_is_valid": false}',
+            "body": '{"action_id": "5fcf13df-e7d3-4a10-9219-197ceae9e3f0","new_start_date":1634526000000,"new_story_id":100,"new_associated_members_user_ids":["32ah5jaj-c9jm-1345-666ab-e12341c14a3"],"new_title":"Teste","new_end_date":1634536800000,"new_project_code":"MF","new_stack_tags":["BACKEND"],"new_action_type_tag":"CODE","new_duration":1000000, "new_is_valid": false}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
