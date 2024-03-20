@@ -1,12 +1,14 @@
 from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.modules.get_history.app.get_history_viewmodel import GetHistoryViewmodel
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_GetHistoryViewmodel:
     def test_get_history_viewmodel(self):
         repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetHistoryUsecase(repo, repo_member)
         actions, last_evaluated_key = usecase(user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
         viewmodel = GetHistoryViewmodel(
             actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
@@ -117,7 +119,8 @@ class Test_GetHistoryViewmodel:
         
     def test_get_history_viewmodel_with_no_actions(self):
         repo = ActionRepositoryMock()
-        usecase = GetHistoryUsecase(repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetHistoryUsecase(repo, repo_member)
         actions, last_evaluated_key = usecase(user_id='6fag4h7J-876j-0098-123hb-hgb567fy4hb')
         viewmodel = GetHistoryViewmodel(
             actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
