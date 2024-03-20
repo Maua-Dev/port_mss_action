@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .update_action_usecase import UpdateActionUsecase
 from .update_action_viewmodel import UpdateActionViewmodel
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
@@ -26,12 +27,15 @@ class UpdateActionController:
             if not Action.validate_action_id(action_id):
                 raise EntityError('action_id')
 
-            new_user_id = request.data.get('new_user_id')
-            if new_user_id is not None:
-                if type(new_user_id) is not str:
-                    raise WrongTypeParameter(fieldName='new_user_id', fieldTypeExpected='str', fieldTypeReceived=type(new_user_id))
-                if not Member.validate_user_id(new_user_id):
-                    raise EntityError('new_user_id')
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            if type(requester_user.user_id) is not str:
+                raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(requester_user.user_id))
+            if not Member.validate_user_id(requester_user.user_id):
+                raise EntityError('user_id')
             
             new_start_date = request.data.get('new_start_date')
             if new_start_date is not None:
@@ -130,7 +134,7 @@ class UpdateActionController:
             
             action = self.usecase(
                 action_id=action_id,
-                new_user_id=new_user_id,
+                new_user_id= str(requester_user.user_id) if requester_user is not None else None,
                 new_start_date=new_start_date,
                 new_end_date=new_end_date,
                 new_duration=new_duration,
