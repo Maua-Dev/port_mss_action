@@ -3,12 +3,14 @@ from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser
 
 
 class UpdateActionUsecase:
-    def __init__(self, repo: IActionRepository):
+    def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
         self.repo = repo
+        self.repo_member = repo_member
         
     def __call__(self, action_id: str,
                 new_user_id: Optional[str] = None, 
@@ -23,6 +25,10 @@ class UpdateActionUsecase:
                 new_stack_tags: Optional[List[STACK]] = None, 
                 new_action_type_tag: Optional[ACTION_TYPE] = None,
                 new_is_valid: Optional[bool] = None) -> Action:
+        
+        user = self.repo_member.get_member(new_user_id)
+        if user is None:
+            raise UnregisteredUser()    
         
         action = self.repo.get_action(action_id)
         if not action:
