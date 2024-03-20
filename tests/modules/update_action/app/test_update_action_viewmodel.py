@@ -1,12 +1,14 @@
 from src.modules.update_action.app.update_action_usecase import UpdateActionUsecase
 from src.modules.update_action.app.update_action_viewmodel import UpdateActionViewmodel
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_UpdateActionViewmodel:
     def test_update_action_viewmodel(self):
         repo = ActionRepositoryMock()
-        usecase = UpdateActionUsecase(repo)
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateActionUsecase(repo, repo_member=repo_member)
         action = usecase(
             action_id=repo.actions[0].action_id, new_user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3')
 
