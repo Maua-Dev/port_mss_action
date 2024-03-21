@@ -3,7 +3,7 @@ from src.modules.create_action.app.create_action_usecase import CreateActionUsec
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
@@ -44,11 +44,11 @@ class Test_CreateActionUsecase:
         assert len(repo.actions) == lenActionBefore + 1
         assert repo.actions[-1] == action
         
-    def test_create_action_usecase_ra_not_found(self):
+    def test_create_action_usecase_unregistered_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         lenActionBefore = len(repo.actions)
         
-        with pytest.raises(NoItemsFound):
+        with pytest.raises(UnregisteredUser):
             action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=['9183jBnh-997H-1010-10god-914gHy46tBh', '7465hvnb-143g-1675-86HnG-75hgnFbcg36', "pd8njBnh-997H-1010-10god-914gHy46tBh"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182", is_valid=True)

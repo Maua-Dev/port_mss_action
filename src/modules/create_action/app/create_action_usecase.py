@@ -6,7 +6,7 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.action import Action
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser
 
 class CreateActionUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
@@ -20,8 +20,7 @@ class CreateActionUsecase:
         
         for id in [user_id] + associated_members_user_ids:
             if not self.repo_member.get_member(id):
-                raise NoItemsFound(id)
-        print("passou")
+                raise UnregisteredUser()
         action = Action(user_id, start_date, stack_tags, end_date, duration, action_id, is_valid, title, project_code, action_type_tag, associated_members_user_ids, description, story_id)        
         
         self.repo.create_action(action)
