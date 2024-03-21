@@ -13,6 +13,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -23,7 +29,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             "is_valid": True
         })
         
@@ -39,7 +44,7 @@ class Test_CreateActionController:
         assert response.body['action']['associated_members_user_ids'] == ['9183jBnh-997H-1010-10god-914gHy46tBh']
         assert response.body['action']['stack_tags'] == ['BACKEND']
         assert response.body['action']['action_type_tag'] == 'CODE'
-        assert response.body['action']['user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['action']['user_id'] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert response.body['action']['is_valid'] == True
         
     def test_create_action_controller_missing_start_date(self):
@@ -49,6 +54,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'story_id': 100,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -58,7 +69,6 @@ class Test_CreateActionController:
             'associated_members_user_ids': ['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             "is_valid": True
         })
         
@@ -73,6 +83,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':'1634526000000',
             'story_id': 100,
             'title':'Teste',
@@ -83,7 +99,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             "is_valid": True
         })
         
@@ -98,6 +113,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'description':'Apenas um teste',
             'story_id': 100,
@@ -107,7 +128,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -122,6 +142,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -130,7 +156,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -145,6 +170,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -154,7 +185,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -169,6 +199,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -178,7 +214,6 @@ class Test_CreateActionController:
             'project_code':'MF',
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -192,6 +227,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -201,7 +242,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -216,6 +256,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -226,7 +272,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -241,6 +286,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634533200000,
             'story_id': 100,
             'title':'Teste',
@@ -251,7 +302,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -266,6 +316,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -275,7 +331,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -290,6 +345,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -300,7 +361,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -315,6 +375,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -325,7 +391,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -340,6 +405,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -350,7 +421,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':'BACKEND',
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -365,6 +435,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -375,7 +451,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':None,
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -390,6 +465,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -400,7 +481,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND','TESTE'],
             'action_type_tag':'CODE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -415,6 +495,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'title':'Teste',
             'description':'Apenas um teste',
@@ -424,7 +510,6 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tags':None,
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'is_valid': True
         })
         
@@ -439,6 +524,12 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
             'start_date':1634526000000,
             'story_id': 100,
             'title':'Teste',
@@ -464,20 +555,25 @@ class Test_CreateActionController:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         controller = CreateActionController(usecase=usecase)
         request = HttpRequest(body={
-        'start_date':1634526000000,
-        'story_id': 100,
-        'title':'Teste',
-        'description':'Apenas um teste',
-        'end_date' : 1634533200000,
-        'duration' : 7200000,
-        'project_code':'MF',
-        'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh','9183jBnh-997H-1010-10god-914gHy46tBh'],
-        'stack_tags':['BACKEND'],
-        'action_type_tag':'CODE',
-        'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-        "is_valid": True
-        })
-        
+            "requester_user": {
+                    "sub": repo_member.members[0].user_id,
+                    "name": repo_member.members[0].name,
+                    "email": repo_member.members[0].email,
+                    "custom:isMaua": True
+                },
+            'start_date':1634526000000,
+            'story_id': 100,
+            'title':'Teste',
+            'description':'Apenas um teste',
+            'end_date' : 1634533200000,
+            'duration' : 7200000,
+            'project_code':'MF',
+            'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh','9183jBnh-997H-1010-10god-914gHy46tBh'],
+            'stack_tags':['BACKEND'],
+            'action_type_tag':'CODE',
+            "is_valid": True
+            })
+            
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field associated_members_user_ids is not valid'
@@ -489,6 +585,12 @@ class Test_CreateActionController:
             usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
             controller = CreateActionController(usecase=usecase)
             request = HttpRequest(body={
+                "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
                 'start_date':1634526000000,
                 'story_id':'100',
                 'title':'Teste',
@@ -498,7 +600,6 @@ class Test_CreateActionController:
                 'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
                 'stack_tags':['BACKEND'],
                 'action_type_tag':'CODE',
-                'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 "is_valid": True
             })
             
@@ -513,7 +614,12 @@ class Test_CreateActionController:
             usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
             controller = CreateActionController(usecase=usecase)
             request = HttpRequest(body={
-
+                "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
                 'start_date':1634526000000,
                 'story_id': 100,
                 'title':'Teste',
@@ -523,10 +629,63 @@ class Test_CreateActionController:
                 'associated_members_user_ids':['3 21 18 9 15 19 15'],
                 'stack_tags':['BACKEND'],
                 'action_type_tag':'CODE',
-                'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 "is_valid": True
             })
             
             response = controller(request)
             assert response.status_code == 400
             assert response.body == 'Field associated_members_user_ids is not valid'
+
+    def test_create_action_controller_missing_requester_user(self):
+                
+                repo = ActionRepositoryMock()
+                repo_member = MemberRepositoryMock()
+                usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
+                controller = CreateActionController(usecase=usecase)
+                request = HttpRequest(body={
+                    'start_date':1634526000000,
+                    'story_id': 100,
+                    'title':'Teste',
+                    'end_date' : 1634533200000,
+                    'duration' : 7200000,
+                    'project_code':'MF',
+                    'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
+                    'stack_tags':['BACKEND'],
+                    'action_type_tag':'CODE',
+                    "is_valid": True
+                })
+                
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'Field requester_user is missing'
+
+    def test_create_action_controller_wrong_type_user_id(self):
+                
+                repo = ActionRepositoryMock()
+                repo_member = MemberRepositoryMock()
+                usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
+                controller = CreateActionController(usecase=usecase)
+                request = HttpRequest(body={
+                    "requester_user": {
+                    "sub": 123,
+                    "name": repo_member.members[0].name,
+                    "email": repo_member.members[0].email,
+                    "custom:isMaua": True
+                },
+                    'start_date':1634526000000,
+                    'story_id': 100,
+                    'title':'Teste',
+                    'end_date' : 1634533200000,
+                    'duration' : 7200000,
+                    'project_code':'MF',
+                    'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
+                    'stack_tags':['BACKEND'],
+                    'action_type_tag':'CODE',
+                    "is_valid": True
+                })
+                
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'Field user_id isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+
+    

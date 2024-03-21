@@ -2,13 +2,14 @@ from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.errors.controller_errors import MissingParameters
+from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from .create_action_usecase import CreateActionUsecase
 from .create_action_viewmodel import CreateActionViewmodel
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
 class CreateActionController:
     
@@ -17,8 +18,6 @@ class CreateActionController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('user_id') is None:
-                raise MissingParameters('user_id')
             if request.data.get('start_date') is None:
                 raise MissingParameters('start_date')
             if request.data.get('end_date') is None:
@@ -34,6 +33,15 @@ class CreateActionController:
             if request.data.get('is_valid') is None:
                 raise MissingParameters('is_valid')
             
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            if type(requester_user.user_id) is not str:
+                raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(requester_user.user_id))
+            if not Member.validate_user_id(requester_user.user_id):
+                raise EntityError('user_id')
            
             if request.data.get('story_id') is not None:
                 if type(request.data.get('story_id')) is not int:
@@ -63,9 +71,6 @@ class CreateActionController:
             else:
                 action_type_tag = None
             
-            if not Member.validate_user_id(request.data.get('user_id')):
-                raise EntityError('user_id')
-            
             if request.data.get('associated_members_user_ids') is not None:
                 if type(request.data.get('associated_members_user_ids')) is not list:
                     raise EntityError('associated_members_user_ids')
@@ -75,7 +80,7 @@ class CreateActionController:
 
                    
             action = self.usecase(
-                user_id=request.data.get('user_id'),
+                user_id=requester_user.user_id,
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
@@ -94,6 +99,9 @@ class CreateActionController:
             return Created(viewmodel.to_dict())
         
         except MissingParameters as err:
+            return BadRequest(body=err.message)
+        
+        except WrongTypeParameter as err:
             return BadRequest(body=err.message)
 
         except DuplicatedItem as err:
