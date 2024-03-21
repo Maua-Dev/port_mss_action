@@ -4,7 +4,7 @@ from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser
 from .create_action_usecase import CreateActionUsecase
 from .create_action_viewmodel import CreateActionViewmodel
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError, NotFound
@@ -102,6 +102,9 @@ class CreateActionController:
             return BadRequest(body=err.message)
         
         except WrongTypeParameter as err:
+            return BadRequest(body=err.message)
+        
+        except UnregisteredUser as err:
             return BadRequest(body=err.message)
 
         except DuplicatedItem as err:
