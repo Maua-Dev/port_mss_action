@@ -4,6 +4,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, NotFound, BadRequest, InternalServerError
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .update_project_viewmodel import UpdateProjectViewmodel
 from .update_project_usecase import UpdateProjectUsecase
 
@@ -21,6 +22,11 @@ class UpdateProjectController:
             new_scrum_user_id = request.data.get('new_scrum_user_id')
             new_photos = request.data.get('new_photos')
             new_members_user_ids = request.data.get('new_members_user_ids')
+
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
             if code is None:
                 raise MissingParameters('code')
@@ -61,7 +67,8 @@ class UpdateProjectController:
                 new_po_user_id=new_po_user_id,
                 new_scrum_user_id=new_scrum_user_id,
                 new_photos=new_photos,
-                new_members_user_ids=new_members_user_ids
+                new_members_user_ids=new_members_user_ids,
+                user_id = requester_user.user_id
             )
 
             viewmodel = UpdateProjectViewmodel(update_project)
