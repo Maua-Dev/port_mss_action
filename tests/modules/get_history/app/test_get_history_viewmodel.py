@@ -16,6 +16,7 @@ class Test_GetHistoryViewmodel:
         expected = {
             'actions': [
                 {
+                    'user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                     'start_date': 1688646000000,
                     'end_date': 1689966000000,
                     'duration': 1320000000,
@@ -35,6 +36,7 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag': 'WORK'
                 },
                 {
+                    'user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                     'start_date': 1667256000000,
                     'end_date': 1690046000000,
                     'duration': 22790000000,
@@ -52,6 +54,7 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag': 'ARCHITECT'
                 },
                 {
+                    'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
                     'start_date': 1663116000000,
                     'end_date': 1683606000000,
                     'duration': 20490000000,
@@ -70,6 +73,7 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag': 'LEARN'
                 },
                 {
+                    'user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
                     'start_date': 1658136000000,
                     'end_date': 1678116000000,
                     'duration': 19980000000,
@@ -89,6 +93,7 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag': 'DESIGN'
                 },
                 {
+                    'user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
                     'start_date': 1641896000000,
                     'end_date': 1679686000000,
                     'duration': 37790000000,

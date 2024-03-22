@@ -4,6 +4,7 @@ from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 
 class ActionViewModel:
+    user_id: str
     start_date: int
     end_date: int
     duration: int
@@ -17,6 +18,7 @@ class ActionViewModel:
     action_type_tag: ACTION_TYPE
     
     def __init__(self, action: Action):
+        self.user_id = action.user_id
         self.start_date = action.start_date
         self.end_date = action.end_date
         self.duration = action.duration
@@ -31,6 +33,7 @@ class ActionViewModel:
         
     def to_dict(self):
         return {
+            'user_id' : self.user_id,
             'start_date' : self.start_date,
             'end_date' : self.end_date,
             'duration' : self.duration,
