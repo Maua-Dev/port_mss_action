@@ -68,5 +68,5 @@ class IacStack(Stack):
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
         
-        for f in self.lambda_stack.functions_that_need_dynamo_permissions:
+        for f in self.lambda_stack.functions_that_need_dynamo_member_permissions:
             self.dynamo_stack.dynamo_table_member.grant_read_write_data(f)
