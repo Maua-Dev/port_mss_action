@@ -82,8 +82,8 @@ class Environments:
             from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
             return MemberRepositoryMock
         elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
-            from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-            return MemberRepositoryMock # implement dynamo
+            from src.shared.infra.repositories.member_repository_dynamo import MemberRepositoryDynamo
+            return MemberRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
         
