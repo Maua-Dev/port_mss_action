@@ -26,15 +26,12 @@ class Test_GetAllMembersPresenter:
                     "apiId": "<urlid>",
                     "authentication": None,
                     "authorizer": {
-                        "iam": {
-                            "accessKey": "AKIA...",
-                            "accountId": "111122223333",
-                            "callerId": "AIDA...",
-                            "cognitoIdentity": None,
-                            "principalOrgId": None,
-                            "userArn": "arn:aws:iam::111122223333:user/example-user",
-                            "userId": "AIDA..."
-                        }
+                        "claims":{
+                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                "name": "Vitor Guirão MPNTM",
+                "email": "vsoller@airubio.com",
+                "custom:isMaua": True
+                    }
                     },
                     "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                     "domainPrefix": "<url-id>",
