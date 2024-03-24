@@ -137,7 +137,7 @@ class LambdaStack(Construct):
         
         self.batch_get_member_function = self.create_lambda_api_gateway_integration(
             module_name="batch_get_member",
-            method="POST",
+            method="GET",
             api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
