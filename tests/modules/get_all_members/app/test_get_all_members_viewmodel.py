@@ -161,8 +161,8 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
-                        'deactivated_date': 2672592165000,
-                        'active': 'DISCONNECTED',
+                        'deactivated_date': None,
+                        'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh"
                         }
                 }
