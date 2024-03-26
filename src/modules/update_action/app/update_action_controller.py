@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .update_action_usecase import UpdateActionUsecase
 from .update_action_viewmodel import UpdateActionViewmodel
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
@@ -26,12 +27,15 @@ class UpdateActionController:
             if not Action.validate_action_id(action_id):
                 raise EntityError('action_id')
 
-            new_owner_ra = request.data.get('new_owner_ra')
-            if new_owner_ra is not None:
-                if type(new_owner_ra) is not str:
-                    raise WrongTypeParameter(fieldName='new_owner_ra', fieldTypeExpected='str', fieldTypeReceived=type(new_owner_ra))
-                if not Member.validate_ra(new_owner_ra):
-                    raise EntityError('new_owner_ra')
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            if type(requester_user.user_id) is not str:
+                raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(requester_user.user_id))
+            if not Member.validate_user_id(requester_user.user_id):
+                raise EntityError('user_id')
             
             new_start_date = request.data.get('new_start_date')
             if new_start_date is not None:
@@ -93,15 +97,15 @@ class UpdateActionController:
                 if not Action.validate_project_code(new_project_code):
                     raise EntityError('new_project_code')
                 
-            new_associated_members_ra = request.data.get('new_associated_members_ra')
-            if new_associated_members_ra is not None:
-                if type(new_associated_members_ra) is not list:
-                    raise WrongTypeParameter(fieldName='new_associated_members_ra', fieldTypeExpected='list', fieldTypeReceived=type(new_associated_members_ra))
-                for ra in new_associated_members_ra:
-                    if type(ra) is not str:
-                        raise WrongTypeParameter(fieldName='new_associated_members_ra', fieldTypeExpected='str', fieldTypeReceived=type(ra))
-                    if not Member.validate_ra(ra):
-                        raise EntityError('new_associated_members_ra')
+            new_associated_members_user_ids = request.data.get('new_associated_members_user_ids')
+            if new_associated_members_user_ids is not None:
+                if type(new_associated_members_user_ids) is not list:
+                    raise WrongTypeParameter(fieldName='new_associated_members_user_ids', fieldTypeExpected='list', fieldTypeReceived=type(new_associated_members_user_ids))
+                for user_id in new_associated_members_user_ids:
+                    if type(user_id) is not str:
+                        raise WrongTypeParameter(fieldName='new_associated_members_user_ids', fieldTypeExpected='str', fieldTypeReceived=type(user_id))
+                    if not Member.validate_user_id(user_id):
+                        raise EntityError('new_associated_members_user_ids')
                 
             new_stack_tags = request.data.get('new_stack_tags')
             if new_stack_tags is not None:
@@ -121,10 +125,16 @@ class UpdateActionController:
                 if new_action_type_tag not in [action_type.value for action_type in ACTION_TYPE]:
                     raise EntityError('new_action_type_tag')
                 new_action_type_tag = ACTION_TYPE(new_action_type_tag)
+
+            new_is_valid = request.data.get('new_is_valid')
+            if request.data.get('new_is_valid') is not None:
+                if type(new_is_valid) is not bool:
+                    raise WrongTypeParameter(fieldName='new_is_valid', fieldTypeExpected='bool', fieldTypeReceived=type(new_is_valid))
+
             
             action = self.usecase(
                 action_id=action_id,
-                new_owner_ra=new_owner_ra,
+                new_user_id= str(requester_user.user_id) if requester_user is not None else None,
                 new_start_date=new_start_date,
                 new_end_date=new_end_date,
                 new_duration=new_duration,
@@ -132,9 +142,10 @@ class UpdateActionController:
                 new_title=new_title,
                 new_description=new_description,
                 new_project_code=new_project_code,
-                new_associated_members_ra=new_associated_members_ra,
+                new_associated_members_user_ids=new_associated_members_user_ids,
                 new_stack_tags=new_stack_tags,
-                new_action_type_tag=new_action_type_tag
+                new_action_type_tag=new_action_type_tag,
+                new_is_valid=new_is_valid
             )
             
             viewmodel = UpdateActionViewmodel(action=action)    

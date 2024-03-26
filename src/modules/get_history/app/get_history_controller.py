@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .get_history_usecase import GetHistoryUsecase
 from .get_history_viewmodel import GetHistoryViewmodel
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -15,12 +16,15 @@ class GetHistoryController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('ra') is None:
-                raise MissingParameters('ra')
-            if type(request.data.get('ra')) is not str:
-                raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type(request.data.get('ra')))
-            if not Member.validate_ra(request.data.get('ra')):
-                raise EntityError('ra')
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            if type(requester_user.user_id) is not str:
+                raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(requester_user.user_id))
+            if not Member.validate_user_id(requester_user.user_id):
+                raise EntityError('user_id')
             
             if request.data.get('start') is not None:
                 if type(request.data.get('start')) is not int:
@@ -62,7 +66,7 @@ class GetHistoryController:
             else:
                 amount = None
                 
-            actions, last_evaluated_key = self.usecase(ra=request.data.get('ra'), start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
+            actions, last_evaluated_key = self.usecase(user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
 
             viewmodel = GetHistoryViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())

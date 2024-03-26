@@ -9,13 +9,12 @@ class Test_CreateActionViewmodel:
     def test_create_action_viewmodel(self):
         repo = ActionRepositoryMock()
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_ra=['19017310'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_user_ids=['7465hvnb-143g-1675-86HnG-75hgnFbcg36'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, is_valid=True, user_id="9183jBnh-997H-1010-10god-914gHy46tBh")
         
         viewmodel = CreateActionViewmodel(action=action).to_dict()
         
         expected = {
                     'action':{
-                        'owner_ra':'17033730',
                         'start_date':1634526000000,
                         'end_date':1634536800000,
                         'duration':7200000,
@@ -24,13 +23,14 @@ class Test_CreateActionViewmodel:
                         'title':'Teste',
                         'description':None,
                         'project_code':'MF',
-                        'associated_members_ra':[
-                            '19017310'
+                        'associated_members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36'
                         ],
                         'stack_tags':[
                             'BACKEND'
                         ],
-                        'action_type_tag':'CODE'
+                        'action_type_tag':'CODE',
+                        'is_valid':True,
+                        'user_id':'9183jBnh-997H-1010-10god-914gHy46tBh'
                     },
                     'message':'the action was created'
         }
@@ -40,13 +40,12 @@ class Test_CreateActionViewmodel:
     def test_create_action_viewmodel_story_id_is_none(self):
         repo = ActionRepositoryMock()
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=None, associated_members_ra=['19017310'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=None, associated_members_user_ids=['7465hvnb-143g-1675-86HnG-75hgnFbcg36'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, is_valid=True, user_id="9183jBnh-997H-1010-10god-914gHy46tBh")
         
         viewmodel = CreateActionViewmodel(action=action).to_dict()
         
         expected = {
             'action':{
-                'owner_ra':'17033730',
                 'start_date':1634526000000,
                 'end_date':1634536800000,
                 'duration':7200000,
@@ -55,13 +54,14 @@ class Test_CreateActionViewmodel:
                 'title':'Teste',
                 'description':None,
                 'project_code':'MF',
-                'associated_members_ra':[
-                    '19017310'
+                'associated_members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36'
                 ],
                 'stack_tags':[
                     'BACKEND'
                 ],
-                'action_type_tag':'CODE'
+                'action_type_tag':'CODE',
+                'is_valid':True,
+                'user_id':'9183jBnh-997H-1010-10god-914gHy46tBh'
             },
             'message':'the action was created'
             }
@@ -71,13 +71,12 @@ class Test_CreateActionViewmodel:
     def test_create_action_viewmodel_associated_members_is_empty(self):
         repo = ActionRepositoryMock()
         
-        action = Action(owner_ra='17033730', start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_ra=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
+        action = Action(start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, is_valid=True, user_id="9183jBnh-997H-1010-10god-914gHy46tBh")
         
         viewmodel = CreateActionViewmodel(action=action).to_dict()
         
         expected = {
             'action':{
-                'owner_ra':'17033730',
                 'start_date':1634526000000,
                 'end_date':1634536800000,
                 'duration':7200000,
@@ -86,9 +85,11 @@ class Test_CreateActionViewmodel:
                 'title':'Teste',
                 'description':None,
                 'project_code':'MF',
-                'associated_members_ra':[],
+                'associated_members_user_ids':[],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE'
+                'action_type_tag':'CODE',
+                'is_valid':True,
+                'user_id':'9183jBnh-997H-1010-10god-914gHy46tBh'
             },
             'message':'the action was created'
             }
