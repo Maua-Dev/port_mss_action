@@ -154,24 +154,35 @@ class LambdaStack(Construct):
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
+                self.create_member_function,
                 self.delete_project_function,
+                self.delete_member_function,
                 self.get_all_projects_function,
+                self.batch_get_member_function,
                 self.get_history_function,
                 self.get_member_function,
                 self.get_project_function,
                 self.get_all_members_function,
                 self.update_project_function,
                 self.update_action_function,
-                self.batch_get_member_function
+                self.update_member_function
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
+                self.create_action_function,
+                self.create_project_function,
                 self.create_member_function,
                 self.delete_member_function,
+                self.delete_project_function,
                 self.update_member_function,
+                self.update_project_function,
+                self.update_action_function,
                 self.get_all_members_function,
                 self.batch_get_member_function,
-                self.get_member_function
+                self.get_member_function,
+                self.get_all_projects_function,
+                self.get_history_function,
+                self.get_project_function
         ]
 
         
