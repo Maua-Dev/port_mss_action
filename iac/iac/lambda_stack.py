@@ -43,14 +43,16 @@ class LambdaStack(Construct):
             module_name="create_action",
             method="POST",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.create_project_function = self.create_lambda_api_gateway_integration(
             module_name="create_project",
             method="POST",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.create_member_function = self.create_lambda_api_gateway_integration(
@@ -65,7 +67,8 @@ class LambdaStack(Construct):
             module_name="delete_project",
             method="DELETE",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.delete_member_function = self.create_lambda_api_gateway_integration(
@@ -80,14 +83,16 @@ class LambdaStack(Construct):
             module_name="get_all_projects",
             method="GET",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.get_history_function = self.create_lambda_api_gateway_integration(
             module_name="get_history",
             method="POST",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.get_member_function = self.create_lambda_api_gateway_integration(
@@ -102,7 +107,8 @@ class LambdaStack(Construct):
             module_name="get_project",
             method="GET",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.get_all_members_function = self.create_lambda_api_gateway_integration(
@@ -117,7 +123,8 @@ class LambdaStack(Construct):
             module_name="update_project",
             method="PUT",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.update_member_function = self.create_lambda_api_gateway_integration(
@@ -132,7 +139,8 @@ class LambdaStack(Construct):
             module_name="update_action",
             method="PUT",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
         
         self.batch_get_member_function = self.create_lambda_api_gateway_integration(
