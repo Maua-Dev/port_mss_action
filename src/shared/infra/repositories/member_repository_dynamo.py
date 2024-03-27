@@ -101,6 +101,8 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         update_dict ={
             "name": member_to_update.name,
+            "hired_date":member_to_update.hired_date,
+            "email":member_to_update.email,
             "email_dev": member_to_update.email_dev,
             "role": member_to_update.role.value,
             "stack": member_to_update.stack.value,

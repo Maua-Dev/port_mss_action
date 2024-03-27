@@ -28,7 +28,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Teste Testudo")
         
-        assert repo.members[0].name == "Teste Testudo"
+        assert repo.members[0].name == 'Teste Testudo'
 
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
