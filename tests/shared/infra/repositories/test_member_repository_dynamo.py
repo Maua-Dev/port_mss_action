@@ -59,9 +59,10 @@ class Test_MemberRepositoryDynamo:
     @pytest.mark.skip("Can't run test in github actions")
     def test_update_member(self):
         repo = MemberRepositoryDynamo()
-        resp = repo.update_member(user_id="75648hbr-184n-1985-91han-7ghn4HgF182",new_active=ACTIVE.DISCONNECTED,new_deactivated_date=100000000000009)
+        resp = repo.update_member(user_id="75648hbr-184n-1985-91han-7ghn4HgF182",new_active=ACTIVE.DISCONNECTED,new_deactivated_date=100000000000009,new_name="test234")
         assert resp.deactivated_date == 100000000000009
         assert resp.active == ACTIVE.DISCONNECTED
+        assert resp.name == "test234"   
       
 
     @pytest.mark.skip("Can't run test in github actions") 
