@@ -12,12 +12,11 @@ class GetAllProjectsController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            requester_user = request.data.get("requester_user")
+            
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
 
-            if requester_user is None:
-                MissingParameters("requester_user")
-
-            requester_user = UserApiGatewayDTO.from_api_gateway(requester_user)
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
             projects = self.usecase(user_id=requester_user.user_id)
             viewmodel = GetAllProjectsViewmodel(projects)
