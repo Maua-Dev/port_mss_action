@@ -2,15 +2,25 @@ from src.modules.get_project.app.get_project_controller import GetProjectControl
 from src.modules.get_project.app.get_project_usecase import GetProjectUsecase
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_GetProjectController:
     def test_get_project_controller(self):
         
         repo = ActionRepositoryMock()
-        usecase = GetProjectUsecase(repo=repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
         controller = GetProjectController(usecase=usecase)
-        request = HttpRequest(body={'code': 'MF'})
+        request = HttpRequest(body={
+            'requester_user': {
+                'sub': repo_member.members[0].user_id,
+                'name': repo_member.members[0].name,
+                'email': repo_member.members[0].email,
+                'custom:isMaua': True
+            },
+            'code': 'MF'
+        })
         response = controller(request=request)
         
         assert response.status_code == 200
@@ -20,9 +30,17 @@ class Test_GetProjectController:
     def test_get_project_controller_missing_parameters(self):
         
         repo = ActionRepositoryMock()
-        usecase = GetProjectUsecase(repo=repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
         controller = GetProjectController(usecase=usecase)
-        request = HttpRequest(body={})
+        request = HttpRequest(body={
+            'requester_user': {
+                'sub': repo_member.members[0].user_id,
+                'name': repo_member.members[0].name,
+                'email': repo_member.members[0].email,
+                'custom:isMaua': True
+            },
+        })
         response = controller(request=request)
         
         assert response.status_code == 400
@@ -31,9 +49,18 @@ class Test_GetProjectController:
     def test_get_project_controller_wrong_type_parameters(self):
         
         repo = ActionRepositoryMock()
-        usecase = GetProjectUsecase(repo=repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
         controller = GetProjectController(usecase=usecase)
-        request = HttpRequest(body={'code': 1})
+        request = HttpRequest(body={
+            'requester_user': {
+                'sub': repo_member.members[0].user_id,
+                'name': repo_member.members[0].name,
+                'email': repo_member.members[0].email,
+                'custom:isMaua': True
+            },
+            'code': 1
+        })
         response = controller(request=request)
         
         assert response.status_code == 400
@@ -42,9 +69,18 @@ class Test_GetProjectController:
     def test_get_project_controller_entity_error(self):
         
         repo = ActionRepositoryMock()
-        usecase = GetProjectUsecase(repo=repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
         controller = GetProjectController(usecase=usecase)
-        request = HttpRequest(body={'code': 'VITOR'})
+        request = HttpRequest(body={
+            'requester_user': {
+                'sub': repo_member.members[0].user_id,
+                'name': repo_member.members[0].name,
+                'email': repo_member.members[0].email,
+                'custom:isMaua': True
+            },
+            'code': 'VITOR'
+        })
         response = controller(request=request)
         
         assert response.status_code == 400
@@ -53,10 +89,33 @@ class Test_GetProjectController:
     def test_get_project_controller_no_items_found(self):
         
         repo = ActionRepositoryMock()
-        usecase = GetProjectUsecase(repo=repo)
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
         controller = GetProjectController(usecase=usecase)
-        request = HttpRequest(body={'code': 'AB'})
+        request = HttpRequest(body={
+            'requester_user': {
+                'sub': repo_member.members[0].user_id,
+                'name': repo_member.members[0].name,
+                'email': repo_member.members[0].email,
+                'custom:isMaua': True
+            },
+            'code': 'AB'
+        })
         response = controller(request=request)
         
         assert response.status_code == 404
         assert response.body == 'No items found for code'
+
+    def test_get_project_controller_no_user_found(self):
+        
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetProjectUsecase(repo=repo, repo_member=repo_member)
+        controller = GetProjectController(usecase=usecase)
+        request = HttpRequest(body={
+            'code': 'MF'
+        })
+        response = controller(request=request)
+        
+        assert response.status_code == 400
+        assert response.body == 'Field requester_user is missing'
