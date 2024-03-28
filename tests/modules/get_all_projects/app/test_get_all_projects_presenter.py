@@ -1,7 +1,8 @@
 import json
 from src.modules.get_all_projects.app.get_all_projects_presenter import lambda_handler
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
-
+first_member = MemberRepositoryMock().members[0]
 class Test_GetAllProjectsPresenter:
     def test_get_all_projects_presenter(self):
         event = {
@@ -25,15 +26,13 @@ class Test_GetAllProjectsPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "iam": {
-                        "accessKey": "AKIA...",
-                        "accountId": "111122223333",
-                        "callerId": "AIDA...",
-                        "cognitoIdentity": None,
-                        "principalOrgId": None,
-                        "userArn": "arn:aws:iam::111122223333:user/example-user",
-                        "userId": "AIDA..."
-                    }
+                    "claims":
+                        {
+                            "sub": first_member.user_id,
+                            "name": first_member.name,
+                            "email": first_member.email,
+                            "custom:isMaua": True
+                        }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
