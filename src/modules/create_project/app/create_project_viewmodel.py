@@ -5,18 +5,20 @@ class ProjectViewModel:
     code: str
     name: str
     description: str
-    po_RA: str
-    scrum_RA: str
+    po_user_id: str
+    scrum_user_id: str
     start_date: int
+    members_user_ids: List[str]
     photos: List[str] = None
     
     def __init__(self, project: Project):
         self.code = project.code
         self.name = project.name
         self.description = project.description
-        self.po_RA = project.po_RA
-        self.scrum_RA = project.scrum_RA
+        self.po_user_id = project.po_user_id
+        self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
+        self.members_user_ids = project.members_user_ids
         self.photos = project.photos if project.photos else []
         
     def to_dict(self):
@@ -24,9 +26,10 @@ class ProjectViewModel:
             'code' : self.code,
             'name' : self.name,
             'description' : self.description,
-            'po_RA' : self.po_RA,
-            'scrum_RA' : self.scrum_RA,
+            'po_user_id' : self.po_user_id,
+            'scrum_user_id' : self.scrum_user_id,
             'start_date' : self.start_date,
+            'members_user_ids' : self.members_user_ids,
             'photos' : self.photos
         }
 

@@ -12,3 +12,11 @@ class ForbiddenAction(BaseError):
     def __init__(self, message: str):
         super().__init__(f'That action is forbidden for this {message}')
 
+class UserNotAllowed(BaseError):
+    def __init__(self):
+        super().__init__(f'That type of user has no permission for that action')
+
+class UnregisteredUser(BaseError):
+    def __init__(self):
+        super().__init__(f'That user is not registered')
+

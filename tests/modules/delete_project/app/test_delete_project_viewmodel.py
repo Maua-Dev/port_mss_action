@@ -8,9 +8,10 @@ class Test_DeleteProjectViewModel:
             code='DM', 
             name='DevMedias', 
             description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', 
-            po_RA='21021031', 
-            scrum_RA='17033730', 
+            po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', 
+            scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', 
             start_date=1649955600000, 
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'],
             photos=['https://i.imgur.com/7QF7uCk.png']
             )
         viewmodel = DeleteProjectViewModel(project).to_dict()
@@ -19,12 +20,11 @@ class Test_DeleteProjectViewModel:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_RA':'21021031',
-                'scrum_RA':'17033730',
+                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                 'start_date':1649955600000,
-                'photos':[
-                    'https://i.imgur.com/7QF7uCk.png'
-                ]
+                'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
+                'photos':['https://i.imgur.com/7QF7uCk.png']
             },
             'message':'the project was deleted'
             }
@@ -36,9 +36,10 @@ class Test_DeleteProjectViewModel:
             code='DM', 
             name='DevMedias', 
             description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', 
-            po_RA='21021031', 
-            scrum_RA='17033730', 
-            start_date=1649955600000
+            po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', 
+            scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', 
+            start_date=1649955600000,
+            members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
             )
         viewmodel = DeleteProjectViewModel(project).to_dict()
         expected = {
@@ -46,9 +47,10 @@ class Test_DeleteProjectViewModel:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_RA':'21021031',
-                'scrum_RA':'17033730',
+                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                 'start_date':1649955600000,
+                'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36', '93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
                 'photos':[]
             },
             'message':'the project was deleted'

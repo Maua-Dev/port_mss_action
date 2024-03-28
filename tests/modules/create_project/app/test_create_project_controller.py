@@ -14,9 +14,10 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730',
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
             'start_date':1649955600000,
+            'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
             'photos':['https://i.imgur.com/7QF7uCk.png']
         })
         response = controller(request)
@@ -25,9 +26,10 @@ class Test_CreateProjectController:
         assert response.body['project']['code'] == 'DM'
         assert response.body['project']['name'] == 'DevMedias'
         assert response.body['project']['description'] == 'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano'
-        assert response.body['project']['po_RA'] == '21021031'
-        assert response.body['project']['scrum_RA'] == '17033730'
+        assert response.body['project']['po_user_id'] == '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
+        assert response.body['project']['scrum_user_id'] == '7465hvnb-143g-1675-86HnG-75hgnFbcg36'
         assert response.body['project']['start_date'] == 1649955600000
+        assert response.body['project']['members_user_ids'] == ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         assert response.body['project']['photos'] == ['https://i.imgur.com/7QF7uCk.png']
         
     def test_create_project_controller_missing_photos(self):
@@ -39,9 +41,10 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730',
-            'start_date':1649955600000
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
         response = controller(request)
         assert response.status_code == 201
@@ -55,9 +58,10 @@ class Test_CreateProjectController:
         request = HttpRequest(body = {
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730',
-            'start_date':1649955600000
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
         response = controller(request)
         assert response.status_code == 400
@@ -71,9 +75,10 @@ class Test_CreateProjectController:
         request = HttpRequest(body = {
             'code':'DM',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730',
-            'start_date':1649955600000
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
 
         response = controller(request)
@@ -88,16 +93,17 @@ class Test_CreateProjectController:
         request = HttpRequest(body = {
             'code':'DM',
             'name':'DevMedias',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730',
-            'start_date':1649955600000
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
 
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field description is missing'
         
-    def test_create_project_controller_missing_po_RA(self):
+    def test_create_project_controller_missing_po_user_id(self):
         
         repo = ActionRepositoryMock()
         usecase = CreateProjectUsecase(repo=repo)
@@ -106,15 +112,16 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'scrum_RA':'17033730',
-            'start_date':1649955600000
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+            'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
 
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field po_RA is missing'
+        assert response.body == 'Field po_user_id is missing'
         
-    def test_create_project_controller_missing_scrum_RA(self):
+    def test_create_project_controller_missing_scrum_user_id(self):
         
         repo = ActionRepositoryMock()
         usecase = CreateProjectUsecase(repo=repo)
@@ -123,13 +130,14 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'start_date':1649955600000
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'start_date':1649955600000,
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         })
 
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field scrum_RA is missing'
+        assert response.body == 'Field scrum_user_id is missing'
         
     def test_create_project_controller_missing_start_date(self):
         
@@ -140,8 +148,9 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_RA':'21021031',
-            'scrum_RA':'17033730'
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
         })
 
         response = controller(request)
@@ -158,9 +167,10 @@ class Test_CreateProjectController:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_RA':'21021031',
-                'scrum_RA':'17033730',
+                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                 'start_date':1649955600000,
+                'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'],
                 'photos':'https://i.imgur.com/7QF7uCk.png'
             })
     
@@ -178,12 +188,69 @@ class Test_CreateProjectController:
                     'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                    'po_RA':'21021031',
-                    'scrum_RA':'17033730',
+                    'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                    'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                     'start_date':1649955600000,
+                    'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'],
                     'photos':[1,2,3]
                 })
         
                 response = controller(request)
                 assert response.status_code == 400
                 assert response.body == 'Field photos is not valid'
+
+    def test_create_project_controller_missing_members_user_ids(self):
+        
+        repo = ActionRepositoryMock()
+        usecase = CreateProjectUsecase(repo=repo)
+        controller = CreateProjectController(usecase=usecase)
+        request = HttpRequest(body = {
+            'code':'DM',
+            'name':'DevMedias',
+            'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'start_date':1649955600000,
+        })
+
+        response = controller(request)
+        assert response.status_code == 400
+        assert response.body == 'Field members_user_ids is missing'
+
+    def test_create_project_controller_wrong_type_members_user_ids(self):
+            
+            repo = ActionRepositoryMock()
+            usecase = CreateProjectUsecase(repo=repo)
+            controller = CreateProjectController(usecase=usecase)
+            request = HttpRequest(body = {
+                'code':'DM',
+                'name':'DevMedias',
+                'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                'start_date':1649955600000,
+                'members_user_ids':1
+            })
+    
+            response = controller(request)
+            assert response.status_code == 400
+            assert response.body == 'Field members_user_ids is not valid'
+
+    def test_create_project_controller_members_user_ids_not_list_of_str(self):
+                
+                repo = ActionRepositoryMock()
+                usecase = CreateProjectUsecase(repo=repo)
+                controller = CreateProjectController(usecase=usecase)
+                request = HttpRequest(body = {
+                    'code':'DM',
+                    'name':'DevMedias',
+                    'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                    'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+                    'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                    'start_date':1649955600000,
+                    'members_user_ids':[1,2,3]
+                })
+        
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'Field members_user_ids is not valid'
