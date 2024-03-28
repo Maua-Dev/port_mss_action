@@ -24,17 +24,8 @@ class UpdateMemberController:
                 raise MissingParameters('requester_user')
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
-
-            user_id = request.data.get('user_id')
-
-            if user_id is None:
-                raise MissingParameters('user_id')
-            if type(user_id) is not str:
-                raise WrongTypeParameter(fieldName='user_id', fieldTypeExpected='str', fieldTypeReceived=type(user_id))
-            if not Member.validate_user_id(user_id):
-                raise EntityError('user_id')
             repo = MemberRepositoryMock()
-            member = repo.get_member(user_id=request.data.get('user_id'))
+            member = repo.get_member(user_id=requester_user.user_id)
 
             new_name = request.data.get('new_name')
             if new_name is not None:

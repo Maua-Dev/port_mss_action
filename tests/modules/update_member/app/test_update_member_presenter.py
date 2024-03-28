@@ -45,7 +45,7 @@ class Test_UpdateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3","new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"ACTIVE","new_deactivated_date":100000000000000}',
+            "body": '{"new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"ACTIVE","new_deactivated_date":100000000000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
