@@ -27,6 +27,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECA,
                 hired_date=1634576165000,
                 active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             ),
 
@@ -42,6 +43,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECM,
                 hired_date=1634921765000,
                 active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"
                               
             ),
@@ -58,6 +60,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.CIC,
                 hired_date=1640192165000,
                 active=ACTIVE.FREEZE,
+                deactivated_date=None,
                 user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
             ),
 
@@ -73,6 +76,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECM,
                 hired_date=1614567601000,
                 active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
             ),
 
@@ -88,6 +92,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.EMC,
                 hired_date=1614567601000,
                 active=ACTIVE.DISCONNECTED,
+                deactivated_date=None,
                 user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"
             ),
 
@@ -103,6 +108,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECM,
                 hired_date=1640192165000,
                 active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"
             ),
 
@@ -118,6 +124,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECA,
                 hired_date=1609606565000,
                 active=ACTIVE.FREEZE,
+                deactivated_date=None,
                 user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"
             ),
 
@@ -133,6 +140,7 @@ class MemberRepositoryMock(IMemberRepository):
                 course=COURSE.ECM,
                 hired_date=1672592165000,
                 active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="75648hbr-184n-1985-91han-7ghn4HgF182"
             )
             ,
@@ -148,8 +156,8 @@ class MemberRepositoryMock(IMemberRepository):
                 cellphone="11991123498",
                 course=COURSE.ECM,
                 hired_date=1672592165000,
-                active=ACTIVE.DISCONNECTED,
-                deactivated_date=2672592165000,
+                active=ACTIVE.ACTIVE,
+                deactivated_date=None,
                 user_id="9183jBnh-997H-1010-10god-914gHy46tBh"
             )
         ]
@@ -174,7 +182,8 @@ class MemberRepositoryMock(IMemberRepository):
         return None
     
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def update_member(self, user_id: str, hired_date: int, email:str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+       
         for member in self.members:
             if member.user_id == user_id:
                 if new_name is not None:
@@ -194,7 +203,12 @@ class MemberRepositoryMock(IMemberRepository):
                 if new_active is not None:
                     member.active = new_active
                 if new_deactivated_date is not None:
-                    member.deactivated_date = new_deactivated_date                    
+                    member.deactivated_date = new_deactivated_date     
+                if member.hired_date is not None:
+                    member.hired_date = hired_date
+                if member.email is not None:
+                    member.email = email
+                
                 return member
             
         return None

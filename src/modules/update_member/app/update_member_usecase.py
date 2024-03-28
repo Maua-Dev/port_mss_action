@@ -79,4 +79,4 @@ class UpdateMemberUsecase:
             if type(new_active) is not ACTIVE:
                 raise EntityError('new_active')
 
-        return self.repo.update_member(user_id, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
+        return self.repo.update_member(user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
