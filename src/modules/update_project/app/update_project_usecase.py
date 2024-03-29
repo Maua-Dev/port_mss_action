@@ -17,6 +17,10 @@ class UpdateProjectUsecase:
         if self.repo_member.get_member(user_id) is None:
             raise UnregisteredUser()
 
+        user = self.repo_member.get_member(user_id=user_id)
+
+        if user.validate_role_admin(user.role) is False:
+            raise ForbiddenAction("User is not an admin")
 
         if not Project.validate_project_code(code):
             raise EntityError("code")

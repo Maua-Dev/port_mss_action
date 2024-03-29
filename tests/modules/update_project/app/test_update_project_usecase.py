@@ -62,4 +62,12 @@ class TestUpdateProjectUsecase:
 
         with pytest.raises(UnregisteredUser):
             usecase(code = "PT", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_user_id = "51ah5jaj-c9jm-1345-666ab-e12341c14a3", new_scrum_user_id = "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", new_photos = ["foto1", "foto2"], new_members_user_ids = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"], user_id = "93bc6ada-c0d1-7054-66ab-e17414c48ae4")
-            
+
+    def test_update_project_forbidden_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateProjectUsecase(repo, repo_member)
+
+        with pytest.raises(ForbiddenAction):
+            usecase(code = "PT", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_user_id = "51ah5jaj-c9jm-1345-666ab-e12341c14a3", new_scrum_user_id = "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", new_photos = ["foto1", "foto2"], new_members_user_ids = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"], user_id = repo_member.members[2].user_id)
+              
