@@ -2,7 +2,7 @@ from typing import List
 from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser
 
 
 class CreateProjectUsecase:
@@ -14,6 +14,11 @@ class CreateProjectUsecase:
         
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
+        
+        user = self.repo_member.get_member(user_id=user_id)
+
+        if user.validate_role_admin(user.role) is False:
+            raise ForbiddenAction("User is not an admin")
 
         project = Project(
             code=code,
