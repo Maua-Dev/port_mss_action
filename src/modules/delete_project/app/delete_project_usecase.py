@@ -2,7 +2,7 @@ from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
 
 
 class DeleteProjectUsecase:
@@ -14,6 +14,11 @@ class DeleteProjectUsecase:
 
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
+        
+        user = self.repo_member.get_member(user_id=user_id)
+
+        if user.validate_role_admin(user.role) is False:
+            raise ForbiddenAction("User is not an admin")
 
         if not Project.validate_project_code(code):
             raise EntityError('code')
