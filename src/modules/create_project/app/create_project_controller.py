@@ -5,6 +5,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
 
 class CreateProjectController:
@@ -14,6 +15,11 @@ class CreateProjectController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+            
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
             if request.data.get('code') is None:
                 raise MissingParameters('code')
             if request.data.get('name') is None:
@@ -43,7 +49,8 @@ class CreateProjectController:
                 scrum_user_id=request.data.get('scrum_user_id'),
                 start_date=request.data.get('start_date'),
                 members_user_ids=request.data.get('members_user_ids'),
-                photos=request.data.get('photos')
+                photos=request.data.get('photos'),
+                user_id=requester_user.user_id
             )
             
             return Created(CreateProjectViewmodel(project).to_dict())
