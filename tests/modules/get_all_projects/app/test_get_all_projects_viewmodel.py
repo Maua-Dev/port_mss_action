@@ -1,13 +1,15 @@
 from src.modules.get_all_projects.app.get_all_projects_usecase import GetAllProjectsUsecase
 from src.modules.get_all_projects.app.get_all_projects_viewmodel import GetAllProjectsViewmodel
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_GetAllProjectsViewmodel:
     def test_get_all_projects_viewmodel(self):
         repo = ActionRepositoryMock()
-        usecase = GetAllProjectsUsecase(repo)
-        projects = usecase()
+        repo_member = MemberRepositoryMock()
+        usecase = GetAllProjectsUsecase(repo, repo_member)
+        projects = usecase(repo_member.members[0].user_id)
 
         viewmodel = GetAllProjectsViewmodel(projects).to_dict()
 

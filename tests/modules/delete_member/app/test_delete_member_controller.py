@@ -98,6 +98,6 @@ class Test_DeleteMemberController:
 
         response = controller(request=request)
 
-        assert response.status_code == 404
+        assert response.status_code == 400
         
     

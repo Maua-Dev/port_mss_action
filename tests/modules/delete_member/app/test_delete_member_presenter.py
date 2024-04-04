@@ -155,4 +155,5 @@ class Test_DeleteMemberPresenter:
         }
 
         response = lambda_handler(event, None)
-        assert response["statusCode"] == 404
+        print(response)
+        assert response["statusCode"] == 400

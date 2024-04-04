@@ -181,6 +181,14 @@ class Member(abc.ABC):
         if len(user_id) != Member.USER_ID_LENGTH: return False
         return True
     
+    @staticmethod
+    def validate_role_admin(role: ROLE) -> bool:
+        if role == None:
+            return False
+        if type(role) != ROLE:
+            return False
+        return (role == ROLE.DIRECTOR or role == ROLE.HEAD or role == ROLE.PO)
+    
     def __repr__(self):
         return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
     
