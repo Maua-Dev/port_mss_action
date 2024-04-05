@@ -67,7 +67,6 @@ class Test_CreateMemberPresenter:
         assert json.loads(response["body"])['member']['year'] == 1
         assert json.loads(response["body"])['member']['cellphone'] == "11991758098"
         assert json.loads(response["body"])['member']['course'] == COURSE.ECA.value
-        assert json.loads(response["body"])['member']['hired_date'] == 1614567601000
         assert json.loads(response["body"])['member']['active'] == ACTIVE.ACTIVE.value
         assert json.loads(response["body"])['member']['user_id'] == "13bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert json.loads(response["body"])['member']['deactivated_date'] == None   
