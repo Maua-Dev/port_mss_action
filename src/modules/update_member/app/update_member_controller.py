@@ -81,13 +81,6 @@ class UpdateMemberController:
                     raise EntityError('new_course')
                 new_course = COURSE[new_course]
 
-            
-            new_deactivated_date = request.data.get('new_deactivated_date')
-            if new_deactivated_date is not None:
-                if type(new_deactivated_date) is not int:
-                    raise WrongTypeParameter(fieldName='new_deactivated_date', fieldTypeExpected='int', fieldTypeReceived=type(new_deactivated_date))
-                if new_deactivated_date < 0 or new_deactivated_date<member.hired_date:
-                    raise EntityError('new_deactivated_date')
                             
             new_active = request.data.get('new_active')
             if new_active is not None:
@@ -108,7 +101,6 @@ class UpdateMemberController:
                 new_year=new_year,
                 new_cellphone=new_cellphone,
                 new_course =new_course ,
-                new_deactivated_date=new_deactivated_date,
                 new_active=new_active
             )
             

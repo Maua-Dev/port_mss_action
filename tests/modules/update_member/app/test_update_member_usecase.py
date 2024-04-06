@@ -19,7 +19,7 @@ class Test_UpdateMemberUsecase:
                 new_year=3,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
-                new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000)
+                new_active=ACTIVE.ACTIVE)
         
         assert repo.members[0] == member
 
@@ -182,15 +182,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_course=0)
-
-    def test_update_member_new_deactivated_date_wrongtype(self):
-        with pytest.raises(EntityError):
-            repo = MemberRepositoryMock()
-            usecase = UpdateMemberUsecase(repo=repo)
-            first_user = repo.members[0]
-
-            updated_user = usecase(user_id=first_user.user_id, new_deactivated_date=0)  
+            updated_user = usecase(user_id=first_user.user_id, new_course=0) 
   
     def test_update_member_new_active_date_wrongtype(self):
         with pytest.raises(EntityError):

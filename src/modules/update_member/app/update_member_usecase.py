@@ -15,7 +15,7 @@ class UpdateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None, new_active: Optional[ACTIVE] = None) -> Member:
         
         if not Member.validate_user_id(user_id):
             raise EntityError("user_id")
@@ -69,14 +69,14 @@ class UpdateMemberUsecase:
                  raise EntityError('new_course')
 
 
-        if new_deactivated_date is not None:
-            if type(new_deactivated_date) is not int:
+        if member.deactivated_date is not None:
+            if type(member.deactivated_date) is not int:
                 raise EntityError('new_deactivated_date')
-            if new_deactivated_date < 0 or new_deactivated_date<member.hired_date:
+            if member.deactivated_date < 0 or member.deactivated_date<member.hired_date:
                 raise EntityError('new_deactivated_date')
 
         if new_active is not None:
             if type(new_active) is not ACTIVE:
                 raise EntityError('new_active')
 
-        return self.repo.update_member(user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
+        return self.repo.update_member(user_id, member.hired_date,member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
