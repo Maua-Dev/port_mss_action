@@ -13,6 +13,9 @@ class DeleteMemberUseCase:
         if not self.repo.get_member(user_id=user_id):
             raise EntityError('user_id')
         
+        if (member_user_id is not None) and (not self.repo.get_member(user_id=member_user_id)):
+            raise EntityError('member_user_id')
+        
         user = self.repo.get_member(user_id=user_id)
 
         is_admin = Member.validate_role_admin(user.role)
