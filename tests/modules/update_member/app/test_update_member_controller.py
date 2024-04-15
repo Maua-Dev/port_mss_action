@@ -270,3 +270,71 @@ class Test_UpdateMemberController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == "Field requester_user is missing"
+
+    def test_update_member_controller_another_user(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        first_member = repo.members[0]
+        
+        request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
+
+            'new_name':"Teste Tester",
+            'new_email_dev':"test.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11987654321",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value,
+            'new_deactivated_date': 16345761650222,
+            'new_member_user_id': repo.members[2].user_id 
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 200
+        assert response.body["member"]["deactivated_date"] == 16345761650222
+        assert response.body["message"] == "the member was updated"
+        assert response.body["member"]["year"] == 3
+
+    def test_update_member_controller_forbidden_user(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        first_member = repo.members[0]
+        
+        request = HttpRequest(body={
+            'requester_user': {
+                    "sub": repo.members[2].user_id,
+                    "name": repo.members[2].name,
+                    "email": repo.members[2].email,
+                    "custom:isMaua": True
+                },
+
+            'new_name':"Teste Tester",
+            'new_email_dev':"test.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11987654321",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value,
+            'new_deactivated_date': 16345761650222,
+            'new_member_user_id': first_member.user_id 
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 500
+        assert response.body == "That action is forbidden for this user. Not allowed to update another user"
