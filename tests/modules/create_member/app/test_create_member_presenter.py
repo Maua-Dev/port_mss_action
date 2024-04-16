@@ -30,7 +30,7 @@ class Test_CreateMemberPresenter:
                 "authorizer": {
                      "claims":{
                 "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "name": "Vitor Guirão MPNTM",
+                "name": "Vitor Guirão Mpntm",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
                     }
@@ -58,7 +58,7 @@ class Test_CreateMemberPresenter:
         response = lambda_handler(event, None)
 
         assert response["statusCode"] == 201
-        assert json.loads(response["body"])['member']['name'] == 'Vitor Guirão MPNTM'
+        assert json.loads(response["body"])['member']['name'] == 'Vitor Guirão Mpntm'
         assert json.loads(response["body"])['member']['email_dev'] == "vsoller.devmaua@gmail.com"
         assert json.loads(response["body"])['member']['email'] == "vsoller@airubio.com"
         assert json.loads(response["body"])['member']['ra'] == "21017315"

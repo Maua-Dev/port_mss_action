@@ -1,4 +1,3 @@
-
 from typing import List, Optional
 import uuid
 import datetime
@@ -19,8 +18,9 @@ class CreateMemberUsecase:
         if self.repo.get_member(user_id=user_id) is not None:
             raise DuplicatedItem("user_id")
 
+        name_title = name.title()
         
-        member = Member(name=name, email_dev=email_dev, email=email, ra=ra, role=role, stack=stack, year=year, cellphone=cellphone, course=course, active=ACTIVE.ACTIVE, user_id=user_id, deactivated_date=None, hired_date = int(datetime.datetime.now().timestamp() * 1000))           
+        member = Member(name=name_title, email_dev=email_dev, email=email, ra=ra, role=role, stack=stack, year=year, cellphone=cellphone, course=course, active=ACTIVE.ACTIVE, user_id=user_id, deactivated_date=None, hired_date = int(datetime.datetime.now().timestamp() * 1000))           
         
         self.repo.create_member(member)
         

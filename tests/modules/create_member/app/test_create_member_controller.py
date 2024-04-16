@@ -20,7 +20,7 @@ class Test_CreateMemberController:
         request = HttpRequest(body={
                "requester_user": {
                 "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "name": "Vitor Guirão MPNTM",
+                "name": "Vitor Guirão Mpntm",
                 "email": "vsoller@airubio.com",
                 "custom:isMaua": True
             },
@@ -37,7 +37,7 @@ class Test_CreateMemberController:
         response = controller(request)
         assert response.status_code == 201
         assert response.body['message'] == 'the member was created'
-        assert response.body['member']['name'] == "Vitor Guirão MPNTM"
+        assert response.body['member']['name'] == "Vitor Guirão Mpntm"
         assert response.body['member']['email_dev'] == "vsoller.devmaua@gmail.com"
         assert response.body['member']['email'] == "vsoller@airubio.com"
         assert response.body['member']['ra'] == "21017315"
