@@ -65,8 +65,14 @@ class GetHistoryController:
                     raise EntityError('amount')
             else:
                 amount = None
-                
-            actions, last_evaluated_key = self.usecase(user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
+
+            if request.data.get('member_user_id') is not None:
+                if type(request.data.get('member_user_id')) is not str:
+                    raise WrongTypeParameter(fieldName='member_user_id', fieldTypeExpected='str', fieldTypeReceived=type(request.data.get('member_user_id')))
+                member_user_id = request.data.get('member_user_id')
+            else:
+                member_user_id = None
+            actions, last_evaluated_key = self.usecase(user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount, member_user_id=member_user_id)
 
             viewmodel = GetHistoryViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())
