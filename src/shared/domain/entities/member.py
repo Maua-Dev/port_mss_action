@@ -36,7 +36,7 @@ class Member(abc.ABC):
                  year:int,
                  cellphone:str,
                  course: COURSE,
-                 hired_date: int, 
+                 hired_date: int,
                  active: ACTIVE,
                  user_id: str,
                  deactivated_date: Optional[int] = None

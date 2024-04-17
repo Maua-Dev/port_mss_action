@@ -19,7 +19,7 @@ class Test_UpdateActionController:
         request = HttpRequest(body={
             "requester_user": {
                 "sub": repo_member.members[0].user_id,
-                "name": repo_member.members[0].name,
+                "name": repo_member.members[0].name,    
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },

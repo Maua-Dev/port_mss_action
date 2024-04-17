@@ -16,7 +16,7 @@ class UpdateMemberUsecase:
         self.repo = repo
         
     def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_member_user_id: Optional[str] = None) -> Member:
-        
+
         if not Member.validate_user_id(user_id):
             raise EntityError("user_id")
         
@@ -41,16 +41,10 @@ class UpdateMemberUsecase:
             if type(new_role) is not ROLE:
                 raise EntityError('new_role')
 
-
-
         if new_stack is not None:
             if type(new_stack) is not STACK:
                 raise EntityError('new_stack')
-
-
-
         
-
         if new_year is not None:
             if type(new_year) is not int:
                 raise EntityError('new_year')
@@ -69,20 +63,18 @@ class UpdateMemberUsecase:
                  raise EntityError('new_course')
 
 
-        if new_deactivated_date is not None:
-            if type(new_deactivated_date) is not int:
+        if member.deactivated_date is not None:
+            if type(member.deactivated_date) is not int:
                 raise EntityError('new_deactivated_date')
-            if new_deactivated_date < 0 or new_deactivated_date<member.hired_date:
+            if member.deactivated_date < 0 or member.deactivated_date<member.hired_date:
                 raise EntityError('new_deactivated_date')
 
         if new_active is not None:
             if type(new_active) is not ACTIVE:
                 raise EntityError('new_active')
-            
-        print(user_id)
+
         is_admin = Member.validate_role_admin(member.role)
-        print(is_admin)
-    
+       
         if is_admin and new_member_user_id is None:
             return self.repo.update_member(user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_deactivated_date, new_active)
         elif is_admin and new_member_user_id is not None:
