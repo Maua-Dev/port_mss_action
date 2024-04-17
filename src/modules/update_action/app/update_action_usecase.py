@@ -26,7 +26,7 @@ class UpdateActionUsecase:
                 new_stack_tags: Optional[List[STACK]] = None, 
                 new_action_type_tag: Optional[ACTION_TYPE] = None,
                 new_is_valid: Optional[bool] = None,
-                new_member_user_id: Optional[bool] = None) -> Action:
+                new_member_user_id: Optional[str] = None) -> Action:
         
         user = self.repo_member.get_member(new_user_id)
         if user is None:
@@ -51,8 +51,6 @@ class UpdateActionUsecase:
             members = [new_member_user_id] + action.associated_members_user_ids
         elif new_user_id:
             members = [new_user_id] + action.associated_members_user_ids
-        else:
-            members = action.associated_members_user_ids + [action.user_id]
         if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):
             self.repo.batch_update_associated_action_members(action_id, members, start_date=start_date)
         elif start_date != action.start_date:
