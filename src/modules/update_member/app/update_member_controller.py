@@ -56,8 +56,6 @@ class UpdateMemberController:
                 if new_stack not in [stack_value.value for stack_value in STACK]:
                     raise EntityError('new_stack')
                 new_stack = STACK[new_stack]
-
-
             
             new_year = request.data.get('new_year')
             if new_year is not None:
@@ -89,7 +87,11 @@ class UpdateMemberController:
                 if new_active not in [active_value.value for active_value in ACTIVE]:
                     raise EntityError('new_active')
                 new_active = ACTIVE[new_active]
-
+            
+            new_member_user_id = request.data.get('new_member_user_id')
+            if new_member_user_id is not None:
+                if type(new_member_user_id) is not str:
+                    raise WrongTypeParameter(fieldName='new_member_user_id', fieldTypeExpected='str', fieldTypeReceived=type(new_member_user_id))
                           
             
             member = self.usecase(
@@ -101,7 +103,8 @@ class UpdateMemberController:
                 new_year=new_year,
                 new_cellphone=new_cellphone,
                 new_course =new_course ,
-                new_active=new_active
+                new_active=new_active,
+                new_member_user_id=new_member_user_id
             )
             
             viewmodel = UpdateMemberViewmodel(member=member)    

@@ -3,7 +3,7 @@ from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.shared.domain.entities.action import Action
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
@@ -61,10 +61,29 @@ class Test_GetHistoryUsecase:
         assert start_date == actions[-1].start_date
         assert len(actions) == 2
             
-    def test_get_history_usecase_no_items_found(self):
+    def test_get_history_usecase_unregistered_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        with pytest.raises(UnregisteredUser):
+            usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
+            actions, last_evaluated_key = usecase(user_id= 'adbc6ada-c0d1-7054-66ab-e17414c48ae3')
+
+    def test_get_history_usecase_forbidden_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        with pytest.raises(ForbiddenAction):
+            usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
+            actions, last_evaluated_key = usecase(user_id= repo_member.members[2].user_id, member_user_id=repo_member.members[0].user_id)
+
+    def test_get_history_usecase_another_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
-        actions, last_evaluated_key = usecase(user_id= 'adbc6ada-c0d1-7054-66ab-e17414c48ae3')
-        assert actions == []
-        assert last_evaluated_key == None
+        actions, last_evaluated_key = usecase(user_id= repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+
+        last_action_id = last_evaluated_key[0]
+        start_date = last_evaluated_key[1]
+
+        assert all(type(action) is Action for action in actions)
+        assert last_action_id == actions[-1].action_id
+        assert start_date == actions[-1].start_date

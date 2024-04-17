@@ -126,19 +126,3 @@ class Test_GetHistoryViewmodel:
         }
 
         assert viewmodel == expected
-        
-    def test_get_history_viewmodel_with_no_actions(self):
-        repo = ActionRepositoryMock()
-        repo_member = MemberRepositoryMock()
-        usecase = GetHistoryUsecase(repo, repo_member)
-        actions, last_evaluated_key = usecase(user_id='6fag4h7J-876j-0098-123hb-hgb567fy4hb')
-        viewmodel = GetHistoryViewmodel(
-            actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
-
-        expected = {
-            'actions': [],
-            'last_evaluated_key': None,
-            'message': 'the history was retrieved'
-        }
-
-        assert viewmodel == expected

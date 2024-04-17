@@ -260,3 +260,43 @@ class Test_GetHistoryController:
         assert response.status_code == 400
         repo_member = MemberRepositoryMock()
         assert response.body == 'Field amount is not valid'
+
+    def test_get_history_controller_forbidden_member(self):
+        
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetHistoryUsecase(repo, repo_member)
+        controller = GetHistoryController(usecase)
+        request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[2].user_id,
+                "name": repo_member.members[2].name,
+                "email": repo_member.members[2].email,
+                "custom:isMaua": True
+            },
+            'member_user_id': repo_member.members[0].user_id
+            })
+        
+        response = controller(request)
+        assert response.status_code == 500
+        assert response.body == 'That action is forbidden for this user. Not allowed to access this resource.'
+
+    def test_get_history_controller_another_member(self):
+        
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetHistoryUsecase(repo, repo_member)
+        controller = GetHistoryController(usecase)
+        request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
+            'member_user_id': repo_member.members[1].user_id
+            })
+        
+        response = controller(request)
+        assert response.status_code == 200
+        assert response.body['message'] == 'the history was retrieved'

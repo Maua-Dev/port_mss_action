@@ -15,7 +15,7 @@ class Test_CreateActionUsecase:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         lenBefore = len(repo.actions)
         
-        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182", is_valid=True)
+        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
         
         assert len(repo.actions) == lenBefore + 1
         assert repo.actions[-1] == action
@@ -27,7 +27,7 @@ class Test_CreateActionUsecase:
         lenActionBefore = len(repo.actions)
         lenAssociatedActionBefore = len(repo.associated_actions)
         
-        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=['9183jBnh-997H-1010-10god-914gHy46tBh', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182", is_valid=True)
+        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=['9183jBnh-997H-1010-10god-914gHy46tBh', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
         assert repo.actions[-1] == action
         assert len(repo.actions) == lenActionBefore + 1
         assert len(repo.associated_actions) == lenAssociatedActionBefore + 3
@@ -40,7 +40,7 @@ class Test_CreateActionUsecase:
         usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
         lenActionBefore = len(repo.actions)
         
-        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182", is_valid=True)
+        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
         assert len(repo.actions) == lenActionBefore + 1
         assert repo.actions[-1] == action
         
@@ -51,4 +51,13 @@ class Test_CreateActionUsecase:
         lenActionBefore = len(repo.actions)
         
         with pytest.raises(UnregisteredUser):
-            action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=['9183jBnh-997H-1010-10god-914gHy46tBh', '7465hvnb-143g-1675-86HnG-75hgnFbcg36', "pd8njBnh-997H-1010-10god-914gHy46tBh"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182", is_valid=True)
+            action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=['9183jBnh-997H-1010-10god-914gHy46tBh', '7465hvnb-143g-1675-86HnG-75hgnFbcg36', "pd8njBnh-997H-1010-10god-914gHy46tBh"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
+
+    def test_create_action_is_valid_default_true(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
+        lenActionBefore = len(repo.actions)
+        
+        action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
+        assert action.is_valid == True
