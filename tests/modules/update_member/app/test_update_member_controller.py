@@ -39,7 +39,6 @@ class Test_UpdateMemberController:
         response = controller(request)
        
         assert response.status_code == 200
-        assert response.body["member"]["deactivated_date"] == repo.members[0].deactivated_date
         assert response.body["message"] == "the member was updated"
         assert response.body["member"]["year"] == 3
         
@@ -166,9 +165,7 @@ class Test_UpdateMemberController:
             'new_year':7,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
-            'new_active':ACTIVE.ACTIVE.value,
-            'new_deactivated_date': 16345761650222  
-             
+            'new_active':ACTIVE.ACTIVE.value
             })
         
         response = controller(request)
@@ -243,7 +240,6 @@ class Test_UpdateMemberController:
         first_member = repo.members[0]
         request = HttpRequest(body={
             
-            'new_deactivated_date':1
             })
         
         response = controller(request)
@@ -273,7 +269,6 @@ class Test_UpdateMemberController:
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
-            'new_deactivated_date': 16345761650222,
             'new_member_user_id': repo.members[2].user_id 
              
             })
@@ -281,7 +276,6 @@ class Test_UpdateMemberController:
         response = controller(request)
        
         assert response.status_code == 200
-        assert response.body["member"]["deactivated_date"] == 16345761650222
         assert response.body["message"] == "the member was updated"
         assert response.body["member"]["year"] == 3
 
@@ -308,7 +302,6 @@ class Test_UpdateMemberController:
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
-            'new_deactivated_date': 16345761650222,
             'new_member_user_id': first_member.user_id 
              
             })

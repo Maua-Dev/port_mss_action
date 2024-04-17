@@ -103,7 +103,6 @@ class UpdateMemberController:
                 new_year=new_year,
                 new_cellphone=new_cellphone,
                 new_course =new_course ,
-                new_deactivated_date=new_deactivated_date,
                 new_active=new_active,
                 new_member_user_id=new_member_user_id
             )
