@@ -130,7 +130,12 @@ class UpdateActionController:
             if request.data.get('new_is_valid') is not None:
                 if type(new_is_valid) is not bool:
                     raise WrongTypeParameter(fieldName='new_is_valid', fieldTypeExpected='bool', fieldTypeReceived=type(new_is_valid))
-
+                
+            new_member_user_id = request.data.get('new_member_user_id')
+            if new_member_user_id is not None:
+                if type(new_member_user_id) is not str:
+                    raise WrongTypeParameter(fieldName='new_member_user_id', fieldTypeExpected='str', fieldTypeReceived=type(new_member_user_id))
+                
             
             action = self.usecase(
                 action_id=action_id,
@@ -145,7 +150,8 @@ class UpdateActionController:
                 new_associated_members_user_ids=new_associated_members_user_ids,
                 new_stack_tags=new_stack_tags,
                 new_action_type_tag=new_action_type_tag,
-                new_is_valid=new_is_valid
+                new_is_valid=new_is_valid,
+                new_member_user_id=new_member_user_id
             )
             
             viewmodel = UpdateActionViewmodel(action=action)    

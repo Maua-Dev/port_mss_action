@@ -1052,3 +1052,71 @@ class Test_UpdateActionController:
         assert response.status_code == 200
         assert response.body["message"] == "the action was updated"
         assert response.body['action']['description'] == None
+
+    def test_update_action_controller_another_user(self):
+        
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateActionUsecase(repo, repo_member)
+        controller = UpdateActionController(usecase)
+        action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
+        request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[0].user_id,
+                "name": repo_member.members[0].name,
+                "email": repo_member.members[0].email,
+                "custom:isMaua": True
+            },
+            'action_id': action_id,
+            'new_start_date' : 1634526000000,
+            'new_story_id' : 100,
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
+            'new_title' : "Teste",
+            'new_end_date' : 1634536800000,
+            'new_project_code' : "MF",
+            'new_stack_tags' : ["BACKEND"],
+            'new_action_type_tag' : "CODE",
+            'new_duration' : 1000000,
+            'new_is_valid': True,
+            "new_member_user_id": repo_member.members[1].user_id
+            })
+        
+        response = controller(request)
+        assert response.status_code == 200
+        assert response.body["message"] == "the action was updated"
+
+    def test_update_action_controller_another_user(self):
+        
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateActionUsecase(repo, repo_member)
+        controller = UpdateActionController(usecase)
+        action_id = repo.actions[0].action_id
+        user_id = repo.actions[0].action_id
+
+        request = HttpRequest(body={
+            "requester_user": {
+                "sub": repo_member.members[2].user_id,
+                "name": repo_member.members[2].name,
+                "email": repo_member.members[2].email,
+                "custom:isMaua": True
+            },
+            'action_id': action_id,
+            'new_start_date' : 1634526000000,
+            'new_story_id' : 100,
+            'new_associated_members_user_ids' : ["6574hgyt-785n-9134-18gn4-7gh5uvn36cG"],
+            'new_title' : "Teste",
+            'new_end_date' : 1634536800000,
+            'new_project_code' : "MF",
+            'new_stack_tags' : ["BACKEND"],
+            'new_action_type_tag' : "CODE",
+            'new_duration' : 1000000,
+            'new_is_valid': True,
+            "new_member_user_id": repo_member.members[0].user_id
+            })
+        
+        response = controller(request)
+        assert response.status_code == 500
+        assert response.body == 'That action is forbidden for this user. Not allowed to update action of another user.'

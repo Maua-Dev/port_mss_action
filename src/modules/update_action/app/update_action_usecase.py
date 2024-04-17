@@ -1,10 +1,11 @@
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
+from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
 
 
 class UpdateActionUsecase:
@@ -13,7 +14,7 @@ class UpdateActionUsecase:
         self.repo_member = repo_member
         
     def __call__(self, action_id: str,
-                new_user_id: Optional[str] = None, 
+                new_user_id: str, 
                 new_start_date: Optional[int] = None, 
                 new_end_date: Optional[int] = None, 
                 new_duration: Optional[int] = None, 
@@ -24,11 +25,16 @@ class UpdateActionUsecase:
                 new_associated_members_user_ids: Optional[List[str]] = None, 
                 new_stack_tags: Optional[List[STACK]] = None, 
                 new_action_type_tag: Optional[ACTION_TYPE] = None,
-                new_is_valid: Optional[bool] = None) -> Action:
+                new_is_valid: Optional[bool] = None,
+                new_member_user_id: Optional[bool] = None) -> Action:
         
         user = self.repo_member.get_member(new_user_id)
         if user is None:
-            raise UnregisteredUser()    
+            raise UnregisteredUser()  
+
+        if new_member_user_id is not None:
+            if self.repo_member.get_member(new_member_user_id) is None:
+                raise UnregisteredUser()  
         
         action = self.repo.get_action(action_id)
         if not action:
@@ -37,10 +43,12 @@ class UpdateActionUsecase:
         
         members = None
         start_date = new_start_date if new_start_date is not None else action.start_date
-        if new_associated_members_user_ids and new_user_id:
+        if new_associated_members_user_ids and new_user_id and new_member_user_id:
+            members = [new_member_user_id] + new_associated_members_user_ids
+        elif new_associated_members_user_ids and new_user_id:
             members = [new_user_id] + new_associated_members_user_ids
-        elif new_associated_members_user_ids:
-            members = new_associated_members_user_ids + [action.user_id]
+        elif new_member_user_id and new_user_id:
+            members = [new_member_user_id] + action.associated_members_user_ids
         elif new_user_id:
             members = [new_user_id] + action.associated_members_user_ids
         else:
@@ -53,4 +61,13 @@ class UpdateActionUsecase:
         description = new_description if new_description is not '' else action.description
         story_id = new_story_id if new_story_id is not -1 else action.story_id
 
-        return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+        is_admin = Member.validate_role_admin(user.role)
+        if is_admin and new_member_user_id is None:
+            return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+        elif is_admin and new_member_user_id is not None:
+            return self.repo.update_action(action_id, new_member_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+        elif not is_admin and new_member_user_id is None:
+            return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+        else:
+            raise ForbiddenAction('user. Not allowed to update action of another user.')
+        
