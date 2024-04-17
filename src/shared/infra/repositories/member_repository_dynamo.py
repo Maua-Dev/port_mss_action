@@ -74,7 +74,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, hired_date:int,email:str,new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
@@ -98,14 +98,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             member_to_update.active = new_active
         if new_deactivated_date is not None:
             member_to_update.deactivated_date = new_deactivated_date
-        if hired_date is not None:
-            member_to_update.hired_date= hired_date
-        if email is not None:
-            member_to_update.email = email
         update_dict ={
             "name": member_to_update.name,
-            "hired_date":member_to_update.hired_date,
-            "email":member_to_update.email,
             "email_dev": member_to_update.email_dev,
             "role": member_to_update.role.value,
             "stack": member_to_update.stack.value,

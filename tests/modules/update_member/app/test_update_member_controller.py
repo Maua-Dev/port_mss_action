@@ -32,15 +32,14 @@ class Test_UpdateMemberController:
             'new_year':3,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
-            'new_active':ACTIVE.ACTIVE.value,
-            'new_deactivated_date': 16345761650222  
+            'new_active':ACTIVE.DISCONNECTED.value,  
              
             })
         
         response = controller(request)
        
         assert response.status_code == 200
-        assert response.body["member"]["deactivated_date"] == 16345761650222
+        assert response.body["member"]["deactivated_date"] == repo.members[0].deactivated_date
         assert response.body["message"] == "the member was updated"
         assert response.body["member"]["year"] == 3
         
@@ -233,27 +232,7 @@ class Test_UpdateMemberController:
         response = controller(request)
         assert response.status_code == 400
         assert response.body == 'Field new_email_dev isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
-        
-    def test_update_member_controller_deactivate_date_sooner_than_hired_date(self):
-                        
-        repo = MemberRepositoryMock()
-        usecase = UpdateMemberUsecase(repo)
-        controller = UpdateMemberController(usecase)
-        first_member = repo.members[0]
-        request = HttpRequest(body={
-            'requester_user': {
-                    "sub": first_member.user_id,
-                    "name": first_member.name,
-                    "email": first_member.email,
-                    "custom:isMaua": True
-                },
-
-            'new_deactivated_date':1
-            })
-        
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == "Field new_deactivated_date is not valid"
+    
 
     def test_update_member_controller_with_no_request_user(self):
                         

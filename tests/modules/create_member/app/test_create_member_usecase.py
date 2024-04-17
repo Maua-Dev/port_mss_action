@@ -20,7 +20,7 @@ class Test_CreateMemberUsecase:
         
         
         member = usecase(         
-            name="Vitor Guirão MPNTM",
+            name="VitOr GUIrão MpNTm",
             email_dev="vsoller.devmaua@gmail.com",
             email="vsoller@airubio.com",
             ra="18563125",
@@ -29,12 +29,11 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=1614567601000,
             user_id="75638hbr-184n-1985-91han-7ghn4HgF182"
             )
         
         assert repo.members[-1] == member
-        assert member.name == "Vitor Guirão MPNTM"
+        assert member.name == "Vitor Guirão Mpntm"
         
     def test_create_member_usecase_duplicated_user_id(self):
         repo = MemberRepositoryMock()
@@ -43,7 +42,7 @@ class Test_CreateMemberUsecase:
         
         with pytest.raises(DuplicatedItem):
             member = usecase(         
-            name="Vitor Guirão MPNTM",
+            name="Vitor Guirão Mpntm",
             email_dev="vsoller.devmaua@gmail.com",
             email="vsoller@airubio.com",
             ra="21017310",
@@ -52,7 +51,6 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            hired_date=1614567601000,
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )
         

@@ -68,14 +68,7 @@ class CreateMemberController:
             course = COURSE[course]
             if request.data.get('course') is None:
                 raise MissingParameters('course')
-            if request.data.get('hired_date') is None:
-                raise MissingParameters('hired_date')
-
-            if type(request.data.get('hired_date')) == int:
-                if not 1577847601000 < request.data.get('hired_date'):
-                    raise EntityError("hired_date")
-            else:
-                raise EntityError("hired_date")
+            
             
 
             
@@ -90,7 +83,6 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
-                hired_date=request.data.get('hired_date'),
                 user_id=str(requester_user.user_id)
                                           
             )
