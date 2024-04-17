@@ -13,10 +13,10 @@ class CreateActionUsecase:
         self.repo = repo
         self.repo_member = repo_member
         
-    def __call__(self, user_id: str, is_valid: bool, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_user_ids: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None) -> Action:
+    def __call__(self, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_user_ids: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None) -> Action:
         
         action_id = str(uuid.uuid4())
-        
+        is_valid = True
         
         for id in [user_id] + associated_members_user_ids:
             if not self.repo_member.get_member(id):

@@ -28,8 +28,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            "is_valid": True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -68,8 +67,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids': ['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            "is_valid": True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -98,8 +96,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            "is_valid": True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -127,8 +124,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -155,8 +151,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -184,8 +179,7 @@ class Test_CreateActionController:
             'duration' : 7200000,
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -213,8 +207,7 @@ class Test_CreateActionController:
             'duration' : 7200000,
             'project_code':'MF',
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -241,8 +234,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -271,8 +263,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -301,8 +292,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -330,8 +320,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -360,8 +349,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -390,8 +378,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -420,8 +407,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':'BACKEND',
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -450,8 +436,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':None,
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -480,8 +465,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND','TESTE'],
-            'action_type_tag':'CODE',
-            'is_valid': True
+            'action_type_tag':'CODE'
         })
         
         response = controller(request)
@@ -509,8 +493,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tags':None,
-            'is_valid': True
+            'action_type_tags':None
         })
         
         response = controller(request)
@@ -540,8 +523,7 @@ class Test_CreateActionController:
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
             'action_type_tag':'TESTE',
-            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-            'is_valid': True
+            'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         })
         
         response = controller(request)
@@ -570,8 +552,7 @@ class Test_CreateActionController:
             'project_code':'MF',
             'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh','9183jBnh-997H-1010-10god-914gHy46tBh'],
             'stack_tags':['BACKEND'],
-            'action_type_tag':'CODE',
-            "is_valid": True
+            'action_type_tag':'CODE'
             })
             
         response = controller(request)
@@ -599,8 +580,7 @@ class Test_CreateActionController:
                 'project_code':'MF',
                 'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE',
-                "is_valid": True
+                'action_type_tag':'CODE'
             })
             
             response = controller(request)
@@ -628,8 +608,7 @@ class Test_CreateActionController:
                 'project_code':'MF',
                 'associated_members_user_ids':['3 21 18 9 15 19 15'],
                 'stack_tags':['BACKEND'],
-                'action_type_tag':'CODE',
-                "is_valid": True
+                'action_type_tag':'CODE'
             })
             
             response = controller(request)
@@ -651,8 +630,7 @@ class Test_CreateActionController:
                     'project_code':'MF',
                     'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
                     'stack_tags':['BACKEND'],
-                    'action_type_tag':'CODE',
-                    "is_valid": True
+                    'action_type_tag':'CODE'
                 })
                 
                 response = controller(request)
@@ -680,8 +658,7 @@ class Test_CreateActionController:
                     'project_code':'MF',
                     'associated_members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh'],
                     'stack_tags':['BACKEND'],
-                    'action_type_tag':'CODE',
-                    "is_valid": True
+                    'action_type_tag':'CODE'
                 })
                 
                 response = controller(request)

@@ -54,7 +54,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100, "is_valid":true}',
+            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -123,7 +123,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"start_date":1634526000000,"end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100, "is_valid":true}',
+            "body": '{"start_date":1634526000000,"end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -178,7 +178,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100, "is_valid":true}',
+            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -234,7 +234,7 @@ class Test_CreateActionPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100, "is_valid":true}',
+            "body": '{"start_date":1634526000000,"title":"Teste","end_date":1634533200000, "duration":7200000, "project_code":"MF","associated_members_user_ids":["7465hvnb-143g-1675-86HnG-75hgnFbcg36"],"stack_tags":["BACKEND"],"action_type_tag":"CODE", "story_id":100}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None

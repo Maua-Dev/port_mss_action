@@ -30,8 +30,7 @@ class CreateActionController:
                 raise MissingParameters('project_code')
             if request.data.get('associated_members_user_ids') is None:
                 raise MissingParameters('associated_members_user_ids')
-            if request.data.get('is_valid') is None:
-                raise MissingParameters('is_valid')
+            
             
             if request.data.get('requester_user') is None:
                 raise MissingParameters('requester_user')
@@ -84,7 +83,6 @@ class CreateActionController:
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
-                is_valid=request.data.get('is_valid'),
                 story_id=request.data.get('story_id'),
                 title=request.data.get('title'),
                 description=request.data.get('description'),
