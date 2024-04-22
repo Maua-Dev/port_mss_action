@@ -25,7 +25,6 @@ class UpdateActionUsecase:
                 new_associated_members_user_ids: Optional[List[str]] = None, 
                 new_stack_tags: Optional[List[STACK]] = None, 
                 new_action_type_tag: Optional[ACTION_TYPE] = None,
-                new_is_valid: Optional[bool] = None,
                 new_member_user_id: Optional[str] = None) -> Action:
         
         user = self.repo_member.get_member(new_user_id)
@@ -61,11 +60,11 @@ class UpdateActionUsecase:
 
         is_admin = Member.validate_role_admin(user.role)
         if is_admin and new_member_user_id is None:
-            return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+            return self.repo.update_action(action_id=action_id, new_user_id=new_user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         elif is_admin and new_member_user_id is not None:
-            return self.repo.update_action(action_id, new_member_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+            return self.repo.update_action(action_id=action_id, new_user_id=new_member_user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         elif not is_admin and new_member_user_id is None:
-            return self.repo.update_action(action_id, new_user_id, new_start_date, new_end_date, new_duration, story_id, new_title, description, new_project_code, new_associated_members_user_ids, new_stack_tags, new_action_type_tag, new_is_valid)
+            return self.repo.update_action(action_id=action_id, new_user_id=new_user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         else:
             raise ForbiddenAction('user. Not allowed to update action of another user.')
         
