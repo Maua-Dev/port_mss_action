@@ -150,7 +150,6 @@ class UpdateActionController:
                 new_associated_members_user_ids=new_associated_members_user_ids,
                 new_stack_tags=new_stack_tags,
                 new_action_type_tag=new_action_type_tag,
-                new_is_valid=new_is_valid,
                 new_member_user_id=new_member_user_id
             )
             
