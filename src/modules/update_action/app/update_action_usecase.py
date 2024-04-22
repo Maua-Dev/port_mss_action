@@ -57,7 +57,7 @@ class UpdateActionUsecase:
             self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
             
         description = new_description if new_description != '' else action.description
-        story_id = new_story_id if new_story_id is not -1 else action.story_id
+        story_id = new_story_id if new_story_id != -1 else action.story_id
 
         is_admin = Member.validate_role_admin(user.role)
         if is_admin and new_member_user_id is None:
