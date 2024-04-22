@@ -14,7 +14,7 @@ class UpdateActionUsecase:
         self.repo_member = repo_member
         
     def __call__(self, action_id: str,
-                new_user_id: Optional[str] = None, 
+                new_user_id: str, 
                 new_start_date: Optional[int] = None, 
                 new_end_date: Optional[int] = None, 
                 new_duration: Optional[int] = None, 
