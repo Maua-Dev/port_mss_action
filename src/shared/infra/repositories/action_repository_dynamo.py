@@ -290,3 +290,21 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()
     
+
+    def batch_delete_associated_actions(self, action_id: str, user_ids: Optional[List[str]] = None) -> List[AssociatedAction]:
+        if user_ids is None:
+            query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
+            resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
+        else:
+            resp = self.dynamo.batch_get_items(keys=[{self.dynamo.partition_key: self.associated_action_partition_key_format(user_id), self.dynamo.sort_key: self.associated_action_sort_key_format(action_id)} for user_id in user_ids])
+        
+        if resp["Count"] == 0:
+            return []
+        
+        associated_actions = []
+        for item in resp["Items"]:
+            associated_actions.append(AssociatedActionDynamoDTO.from_dynamo(item).to_entity())
+            self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(associated_actions[-1].user_id), sort_key=self.associated_action_sort_key_format(associated_actions[-1].action_id))
+        
+        return associated_actions
+    

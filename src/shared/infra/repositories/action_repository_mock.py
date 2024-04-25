@@ -493,3 +493,22 @@ class ActionRepositoryMock(IActionRepository):
                 new_action = action
         return new_action
     
+
+    def delete_action(self, action_id: str) -> Action | None:
+        pass
+
+    def batch_delete_associated_actions(self, action_id: str, user_ids: Optional[List[str]] = None) -> List[AssociatedAction]:
+        deleted_actions = []
+
+        for associated_action in self.associated_actions[:]:
+            if associated_action.action_id == action_id:
+                if user_ids is not None:
+                    if associated_action.user_id in user_ids:
+                        self.associated_actions.remove(associated_action)
+                        deleted_actions.append(associated_action)
+                else:
+                    self.associated_actions.remove(associated_action)
+                    deleted_actions.append(associated_action)
+
+        return deleted_actions
+        
