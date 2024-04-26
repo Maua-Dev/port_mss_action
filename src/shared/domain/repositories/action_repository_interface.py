@@ -115,10 +115,9 @@ class IActionRepository(ABC):
         pass
 
     @abstractmethod
-    def batch_delete_associated_actions(self, action_id: str, user_ids: Optional[List[str]] = None) -> List[AssociatedAction]:
+    def batch_delete_associated_actions(self, action_id: str, ) -> List[AssociatedAction]:
         '''
-        If action exists, and user_ids is None, deletes all its associated actions and returns them
-        If action exists, and user_ids is not None, deletes all its associated actions with the given user_ids and returns them
+        If action exists, deletes all its associated actions and returns them
         else returns []
         '''
         pass

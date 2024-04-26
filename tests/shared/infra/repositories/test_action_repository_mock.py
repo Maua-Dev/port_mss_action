@@ -144,7 +144,7 @@ class Test_ActionRepositoryMock:
         assert type(action) == Action
         assert repo.actions[0] == action
 
-    def test_batchdelete_associated_actions_no_user_ids(self):
+    def test_batchdelete_associated_actions_(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.associated_actions)
         associated_actions = repo.batch_delete_associated_actions(action_id=repo.actions[0].action_id)
@@ -153,12 +153,12 @@ class Test_ActionRepositoryMock:
         assert len(repo.associated_actions) == len_before - 7
         assert associated_actions[0].action_id == repo.actions[0].action_id
 
-    def test_batchdelete_associated_actions_with_user_ids(self):
+
+    def test_delete_action(self):
         repo = ActionRepositoryMock()
-        len_before = len(repo.associated_actions)
-        associated_actions = repo.batch_delete_associated_actions(action_id=repo.actions[0].action_id, user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3'])
-        assert type(associated_actions) == list
-        assert len(associated_actions) == 1
-        assert len(repo.associated_actions) == len_before - 1
-        assert associated_actions[0].action_id == repo.actions[0].action_id
-        assert associated_actions[0].user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
+        action = repo.actions[0]
+        len_before = len(repo.actions)
+        deleted_action = repo.delete_action(action.action_id)
+        assert type(deleted_action) == Action
+        assert len(repo.actions) == len_before - 1
+        assert deleted_action == action
