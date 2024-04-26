@@ -116,11 +116,6 @@ def load_mock_to_local_dynamo():
         repo_dynamo.create_associated_action(associated_action=associated_action)
         count += 1
         print(associated_action)
-    for member in repo_mock.members:
-        print(f'Loading member {member.ra}...')
-        repo_dynamo.create_member(member=member)
-        count += 1
-        print(member)
 
     print('Done!')
 
@@ -149,11 +144,6 @@ def load_mock_to_real_dynamo():
         repo_dynamo.create_associated_action(associated_action=associated_action)
         count += 1
         print(associated_action)
-    for member in repo_mock.members:
-        print(f'Loading member {member.ra}...')
-        repo_dynamo.create_member(member=member)
-        count += 1
-        print(member)
 
     print('Done!')
 
