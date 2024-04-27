@@ -494,7 +494,7 @@ class ActionRepositoryMock(IActionRepository):
         return new_action
     
 
-    def delete_action(self, action_id: str) -> Action | None:
+    def delete_action(self, action_id: str) -> Action:
         for action in self.actions[:]:
             if action.action_id == action_id:
                 self.batch_delete_associated_actions(action_id)
