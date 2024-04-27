@@ -6,7 +6,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from typing import Optional
 
 
-class DeleteActionUseCase:
+class DeleteActionUsecase:
     def __init__(self, repo_action: IActionRepository, repo_member: IMemberRepository):
         self.action_repository = repo_action
         self.member_repository = repo_member

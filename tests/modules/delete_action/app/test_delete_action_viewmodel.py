@@ -41,3 +41,34 @@ class Test_DeleteActionViewModel:
             }
 
         assert viewmodel == expected
+
+
+    def test_delete_action_viewmodel_story_id_is_none(self):
+        
+        action = Action(start_date=1634526000000, duration=2*60*60*1000, action_id='a571c870-d7da-4a25-951c-2ca2d2398a14', story_id=None, associated_members_user_ids=['7465hvnb-143g-1675-86HnG-75hgnFbcg36'], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, is_valid=True, user_id="9183jBnh-997H-1010-10god-914gHy46tBh")
+        
+        viewmodel = DeleteActionViewModel(action=action).to_dict()
+        
+        expected = {
+            'action':{
+                'start_date':1634526000000,
+                'end_date':1634536800000,
+                'duration':7200000,
+                'action_id':'a571c870-d7da-4a25-951c-2ca2d2398a14',
+                'story_id':None,
+                'title':'Teste',
+                'description':None,
+                'project_code':'MF',
+                'associated_members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36'
+                ],
+                'stack_tags':[
+                    'BACKEND'
+                ],
+                'action_type_tag':'CODE',
+                'is_valid':True,
+                'user_id':'9183jBnh-997H-1010-10god-914gHy46tBh'
+            },
+            'message':'the action was deleted for all the members in this action'
+            }
+       
+        assert viewmodel == expected
