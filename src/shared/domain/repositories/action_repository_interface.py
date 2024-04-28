@@ -105,3 +105,20 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
+
+    @abstractmethod
+    def delete_action(self, action_id: str) -> Optional[Action]:
+        '''
+        If action exists, deletes it and returns it
+        else returns None
+        '''
+        pass
+
+    @abstractmethod
+    def batch_delete_associated_actions(self, action_id: str, ) -> List[AssociatedAction]:
+        '''
+        If action exists, deletes all its associated actions and returns them
+        else returns []
+        '''
+        pass
+

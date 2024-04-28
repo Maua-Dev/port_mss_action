@@ -183,3 +183,15 @@ class Test_ActionRepositoryDynamo:
         resp = repo.update_project("PT", new_members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3" ])
 
         assert resp.members_user_ids == ['51ah5jaj-c9jm-1345-666ab-e12341c14a3', '6f5g4h7J-876j-0098-123hb-hgb567fy4hb', '93bc6ada-c0d1-7054-66ab-e17414c48ae3']
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_batch_delete_associated_actions(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action_id = repo_mock.actions[0].action_id
+
+        resp = repo.batch_delete_associated_actions(action_id)
+
+
+        assert len(resp) == 7
