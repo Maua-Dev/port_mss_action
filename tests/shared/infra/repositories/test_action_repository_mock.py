@@ -144,7 +144,7 @@ class Test_ActionRepositoryMock:
         assert type(action) == Action
         assert repo.actions[0] == action
 
-    def test_batchdelete_associated_actions_(self):
+    def test_batch_delete_associated_actions_(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.associated_actions)
         associated_actions = repo.batch_delete_associated_actions(action_id=repo.actions[0].action_id)

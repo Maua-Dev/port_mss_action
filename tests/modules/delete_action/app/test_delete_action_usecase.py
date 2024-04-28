@@ -42,7 +42,14 @@ class Test_DeleteActionUsecase:
         with pytest.raises(UnregisteredUser):
             action = usecase(action_id=repo.actions[0].action_id, user_id='93bc6ada-gh46-7054-66ab-e17414c48ae0')
 
-    def test_delete_action_usecase_with_member_user_id(self):
+    def test_delete_action_usecase_forbidden_user_with_member_user_id(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
+        with pytest.raises(ForbiddenAction):
+            action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[2].user_id, member_user_id=repo_member.members[1].user_id)
+
+    def test_delete_action_usecase_admin_with_member_user_id(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
@@ -50,14 +57,7 @@ class Test_DeleteActionUsecase:
         
         action_id=repo.actions[0].action_id
         
-        action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[1].user_id)
+        action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
         assert type(action) == Action 
         assert len(repo.actions) == len_before - 1
         assert action.action_id == action_id
-
-    def test_delete_action_usecase_forbidden_user_with_member_user_id(self):
-        repo = ActionRepositoryMock()
-        repo_member = MemberRepositoryMock()
-        usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
-        with pytest.raises(ForbiddenAction):
-            action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[2].user_id, member_user_id=repo_member.members[1].user_id)
