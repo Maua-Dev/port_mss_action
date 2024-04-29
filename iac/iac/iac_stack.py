@@ -19,10 +19,17 @@ class IacStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
-        
-        self.dev_auth_system_userpool_arn = os.environ.get(
-            "AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV")
 
+        if self.github_ref_name == "prod":
+            self.dev_auth_system_userpool_arn = os.environ.get(
+            "AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD")
+
+        else:
+            self.dev_auth_system_userpool_arn = os.environ.get(
+            "AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV")
+    
+        self.aws_region = os.environ.get("AWS_REGION")
+        
         self.rest_api = RestApi(self, "PortalInterno_RestApi",
                                 rest_api_name="PortalInterno_RestApi",
                                 description="This is the Portal Interno RestApi",
@@ -52,7 +59,7 @@ class IacStack(Stack):
             "DYNAMO_SORT_KEY": "SK",
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
-            "REGION": self.region,
+            "REGION": self.aws_region,
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
