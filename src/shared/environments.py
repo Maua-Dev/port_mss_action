@@ -3,11 +3,13 @@ from enum import Enum
 import os
 
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
+from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 
 
 class STAGE(Enum):
     DOTENV = "DOTENV"
     DEV = "DEV"
+    HOMOLOG = "HOMOLOG"
     PROD = "PROD"
     TEST = "TEST"
 
@@ -44,8 +46,11 @@ class Environments:
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
+            self.dynamo_table_name_member = "port_mss_member-table"
             self.dynamo_partition_key = "PK"
             self.dynamo_sort_key = "SK"
+            self.dynamo_gsi_1_partition_key = "GSI1-PK"
+            self.dynamo_gsi_1_sort_key = "GSI1-SK"
             self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
 
         else:
@@ -53,8 +58,11 @@ class Environments:
             self.region = os.environ.get("REGION")
             self.endpoint_url = os.environ.get("ENDPOINT_URL")
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
+            self.dynamo_table_name_member = os.environ.get("DYNAMO_TABLE_NAME_MEMBER")
             self.dynamo_partition_key = os.environ.get("DYNAMO_PARTITION_KEY")
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
+            self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
+            self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
 
     @staticmethod
@@ -62,9 +70,20 @@ class Environments:
         if Environments.get_envs().stage == STAGE.TEST:
             from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
             return ActionRepositoryMock
-        # elif Environments.get_envs().stage == STAGE.PROD:
-        #     from src.shared.infra.repositories.user_repository_dynamo import UserRepositoryDynamo
-        #     return UserRepositoryDynamo
+        elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+            from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
+            return ActionRepositoryDynamo
+        else:
+            raise Exception("No repository found for this stage")
+    
+    @staticmethod
+    def get_member_repo() -> IMemberRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
+            return MemberRepositoryMock
+        elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+            from src.shared.infra.repositories.member_repository_dynamo import MemberRepositoryDynamo
+            return MemberRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
         

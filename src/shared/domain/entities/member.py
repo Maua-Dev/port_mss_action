@@ -1,10 +1,8 @@
 import abc
 import re
 from typing import List, Optional
-from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
-
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityError, EntityParameterTypeError
@@ -23,9 +21,10 @@ class Member(abc.ABC):
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
-    projects: List[str]
+    user_id: str
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
+    USER_ID_LENGTH = 36
 
     def __init__(self,
                  name:str,
@@ -37,10 +36,10 @@ class Member(abc.ABC):
                  year:int,
                  cellphone:str,
                  course: COURSE,
-                 hired_date: int, 
+                 hired_date: int,
                  active: ACTIVE,
-                 deactivated_date: Optional[int] = None, 
-                 projects: Optional[List[str]] = None
+                 user_id: str,
+                 deactivated_date: Optional[int] = None
                 ):
 
         if not Member.validate_name(name):
@@ -90,18 +89,13 @@ class Member(abc.ABC):
         if type(active) != ACTIVE:
             raise EntityError("active")
         self.active = active
+
+        if not self.validate_user_id(user_id):
+            raise EntityError("user_id")
+        self.user_id = user_id
         
-        if projects is None:
-            self.projects = []
-        elif type(projects) == list:
-            if not all([type(project) == str for project in projects]):
-                raise EntityError("projects")
-            elif not all([Member.validate_project_code(project) for project in projects]):
-                raise EntityError("projects")
-            else:
-                self.projects = projects
-        else:
-            raise EntityError("projects")
+        if type(user_id) != str:
+            raise EntityError("user_id")
             
         if deactivated_date is not None:
             if type(deactivated_date) != int:
@@ -171,19 +165,6 @@ class Member(abc.ABC):
             return False
         
         return True
-        
-    @staticmethod
-    def validate_project_code(code: str) -> bool:
-        if type(code) != str:
-            return False
-        
-        if len(code) != Project.PROJECT_CODE_LENGTH:
-            return False
-        
-        if not code.isupper() and not code.isalpha():
-            return False
-        
-        return True
     
     @staticmethod
     def validate_email(email) -> bool:
@@ -193,3 +174,26 @@ class Member(abc.ABC):
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email))
+    
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Member.USER_ID_LENGTH: return False
+        return True
+    
+    @staticmethod
+    def validate_role_admin(role: ROLE) -> bool:
+        if role == None:
+            return False
+        if type(role) != ROLE:
+            return False
+        return (role == ROLE.DIRECTOR or role == ROLE.HEAD or role == ROLE.PO)
+    
+    def __repr__(self):
+        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
+    
+    def __eq__(self, other):
+        if not isinstance(other, Member):
+            return False
+
+        return self.name == other.name and self.email_dev == other.email_dev and self.email == other.email and self.ra == other.ra and self.role == other.role and self.stack == other.stack and self.year == other.year and self.cellphone == other.cellphone and self.course == other.course and self.hired_date == other.hired_date and self.deactivated_date == other.deactivated_date and self.active == other.active

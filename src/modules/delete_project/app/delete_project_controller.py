@@ -1,3 +1,4 @@
+from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from .delete_project_usecase import DeleteProjectUsecase
 from .delete_project_viewmodel import DeleteProjectViewModel
 from src.shared.domain.entities.project import Project
@@ -15,12 +16,17 @@ class DeleteProjectController:
         
     def __call__(self, request: IRequest) -> IResponse:
         try:
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')
+
+            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
             if request.data.get('code') is None:
                 raise MissingParameters('code')
             if not Project.validate_project_code(request.data.get('code')):
                 raise EntityError('code')
             
-            project = self.usecase(code=request.data.get('code'))
+            project = self.usecase(code=request.data.get('code'), user_id=requester_user.user_id)
             viewmodel = DeleteProjectViewModel(project)
             
             return OK(viewmodel.to_dict())
