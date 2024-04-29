@@ -1,62 +1,70 @@
-
 import abc
 from typing import List, Optional
+import uuid
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.domain_errors import EntityParameterTypeError, EntityError
 
 class Action(abc.ABC):
-    owner_ra: str
+    user_id: str
     start_date: int # milisseconds
     end_date: int # milisseconds
     duration: int # milisseconds
     action_id: str
+    is_valid: bool
     story_id: Optional[int] = None
     title: str
     description: Optional[str] = None
     project_code: str
-    associated_members_ra: List[str]
+    associated_members_user_ids: List[str]
     stack_tags: List[STACK]
     action_type_tag: ACTION_TYPE
     MIN_TITLE_LENGTH = 4
     MAX_TITLE_LENGTH = 100
     MAX_DESCRIPTION_LENGTH = 500
-    ACTION_ID_LENGTH = 4
+    ACTION_ID_LENGTH = 36
     PROJECT_CODE_LENGTH = 2
     MIN_STORY_ID = 1
     MAX_STORY_ID = 999999
+    USER_ID_LENGTH = 36
 
     
     
-    def __init__(self, owner_ra: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_ra: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
+    def __init__(self, user_id: str, start_date: int, stack_tags: List[STACK], end_date: int, duration: int, action_id: str, is_valid: bool, title: str, project_code: str, action_type_tag: ACTION_TYPE, associated_members_user_ids: List[str] = [], description: Optional[str] = None, story_id: Optional[int] = None):
         
-        if not self.validate_ra(owner_ra):
-            raise EntityError('owner_ra')
-        self.owner_ra = owner_ra
+        if not self.validate_user_id(user_id):
+            raise EntityError('user_id')
+        self.user_id = user_id
         
         if type(start_date) != int:
-            raise EntityError('start_date')
+            raise EntityError("start_date")
+        if not 1000000000000 < start_date < 10000000000000:
+            raise EntityError("start_date")
         self.start_date = start_date
         
         if not self.validate_action_id(action_id):
             raise EntityError('action_id')
         self.action_id = action_id
 
+        if type(is_valid) != bool:
+            raise EntityError('is_valid')
+        self.is_valid = is_valid
+
         if not self.validate_story_id(story_id):
              raise EntityError('story_id')
         self.story_id = story_id
         
-        if type(associated_members_ra) == list:
-            if not all([self.validate_ra(ra) for ra in associated_members_ra]):
-                raise EntityError('associated_members_ra')
-            if owner_ra in associated_members_ra:
-                raise EntityError('associated_members_ra')
-            if len(associated_members_ra) != len(set(associated_members_ra)):
-                raise EntityError('associated_members_ra')
+        if type(associated_members_user_ids) == list:
+            if not all([self.validate_user_id(user_id) for user_id in associated_members_user_ids]):
+                raise EntityError('associated_members_user_ids')
+            if user_id in associated_members_user_ids:
+                raise EntityError('associated_members_user_ids')
+            if len(associated_members_user_ids) != len(set(associated_members_user_ids)):
+                raise EntityError('associated_members_user_ids')
             else:
-                self.associated_members_ra = associated_members_ra
+                self.associated_members_user_ids = associated_members_user_ids
         else:
-            raise EntityError('associated_members_ra')
+            raise EntityError('associated_members_user_ids')
         
         if not self.validate_title(title):
             raise EntityError('title')
@@ -67,9 +75,9 @@ class Action(abc.ABC):
         self.description = description
         
         if type(end_date) != int:
-            raise EntityError('end_date')
-        if end_date < start_date:
-            raise EntityError('start_date and end_date')
+            raise EntityError("end_date")
+        if not 1000000000000 < end_date < 10000000000000:
+            raise EntityError("end_date")
         self.end_date = end_date
         
         if not self.validate_duration(duration, start_date, end_date):
@@ -94,22 +102,13 @@ class Action(abc.ABC):
         self.action_type_tag = action_type_tag
 
     def __repr__(self):
-        return f'Action(owner_ra={self.owner_ra}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, title={self.title}, project_code={self.project_code}, associated_members_ra={self.associated_members_ra}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value()})'
+        return f'Action(user_id={self.user_id}, start_date={self.start_date}, end_date={self.end_date}, action_id={self.action_id}, is_valid={self.is_valid} title={self.title}, project_code={self.project_code}, associated_members_user_ids={self.associated_members_user_ids}, stack_tags={self.stack_tags}, action_type_tag={self.action_type_tag.value})'
     
     def __eq__(self, other):
         if type(other) != Action:
             return False
-        return self.owner_ra == other.owner_ra and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.title == other.title and self.project_code == other.project_code and self.associated_members_ra == other.associated_members_ra and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
+        return self.user_id == other.user_id and self.start_date == other.start_date and self.end_date == other.end_date and self.action_id == other.action_id and self.is_valid == other.is_valid and self.title == other.title and self.project_code == other.project_code and self.associated_members_user_ids == other.associated_members_user_ids and self.stack_tags == other.stack_tags and self.action_type_tag == other.action_type_tag
         
-    @staticmethod
-    def validate_ra(ra: str) -> bool:
-        if ra == None:
-            return False
-
-        if type(ra) != str:
-            raise EntityParameterTypeError('ra must be a string')
-
-        return ra.isdecimal() and len(ra) == 8
     
     @staticmethod
     def validate_action_id(action_id: str) -> bool:
@@ -117,7 +116,12 @@ class Action(abc.ABC):
             return False
         if len(action_id) != Action.ACTION_ID_LENGTH:
             return False
-        return True
+        try:
+            uuid.UUID(action_id)
+            return True
+        except ValueError:
+            return False
+
     
     @staticmethod
     def validate_story_id(story_id: int) -> bool:
@@ -161,4 +165,10 @@ class Action(abc.ABC):
             return False
         if duration > end_date - start_date:
             return False
+        return True
+    
+    @staticmethod
+    def validate_user_id(user_id: str) -> bool:
+        if type(user_id) != str: return False
+        if len(user_id) != Action.USER_ID_LENGTH: return False
         return True
