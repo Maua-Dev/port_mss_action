@@ -20,7 +20,7 @@ class IacStack(Stack):
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
 
-        if self.github_ref_name == "prod":
+        if 'prod' in self.github_ref_name: 
             self.dev_auth_system_userpool_arn = os.environ.get(
             "AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD")
 
