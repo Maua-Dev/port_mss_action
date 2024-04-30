@@ -187,19 +187,16 @@ class ActionRepositoryDynamo(IActionRepository):
             query_string = query_string & Key('start_date').lte(end)
             
             
-        query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
+        query_params = {'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         
         if exclusive_start_key:
             query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(user_id), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
-        print("Teste1")
         resp = self.dynamo.query(**query_params)
-        print("Teste2")
         
         associated_actions = []
         for item in resp.get("Items"):
             if item.get("entity") == "associated_action":
                 associated_actions.append(AssociatedActionDynamoDTO.from_dynamo(item).to_entity())
-        print("Teste3")
         
         return associated_actions
         
