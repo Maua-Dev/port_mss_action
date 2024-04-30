@@ -118,10 +118,7 @@ class Test_GetHistoryViewmodel:
                     'action_type_tag': 'WORK'
                 }
             ],
-            'last_evaluated_key': {
-                'action_id': '42e01f11-283c-4925-b0aa-e80ac6c1815a',
-                'start_date': 1641896000000
-            },
+            'last_evaluated_key': None,
             'message': 'the history was retrieved'
         }
 
