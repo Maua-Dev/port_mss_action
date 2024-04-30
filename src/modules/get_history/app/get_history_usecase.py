@@ -38,6 +38,6 @@ class GetHistoryUsecase:
         
         if amount is None:
             amount = 20
-            
-        last_ev = (actions[-1].action_id, actions[-1].start_date) if len(actions) > amount else None
+
+        last_ev = (actions[-1].action_id, actions[-1].start_date) if len(actions) == amount else None
         return actions, last_ev
