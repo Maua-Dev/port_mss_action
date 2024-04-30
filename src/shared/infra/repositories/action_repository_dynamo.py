@@ -173,7 +173,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return projects
     
-    def get_associated_actions_by_user_id(self, user_id: str, amount: int = 20, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
+    def get_associated_actions_by_user_id(self, user_id: str, amount: Optional[int] = None, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(user_id)
 
         if amount is None:
