@@ -31,7 +31,7 @@ class GetHistoryUsecase:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
         else:
             raise ForbiddenAction('user. Not allowed to access this resource.')
-        
+
         
         action_ids = [action.action_id for action in associated_actions]
         actions = sorted(self.repo.batch_get_action(action_ids=action_ids), key=lambda action: action.start_date, reverse=True)
