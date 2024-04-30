@@ -187,7 +187,7 @@ class ActionRepositoryDynamo(IActionRepository):
             query_string = query_string & Key('start_date').lte(end)
             
             
-        query_params = {'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
+        query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         
         if exclusive_start_key:
             query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(user_id), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
