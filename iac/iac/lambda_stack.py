@@ -159,6 +159,14 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.delete_action_function = self.create_lambda_api_gateway_integration(
+            module_name="delete_action",
+            method="DELETE",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
@@ -174,7 +182,8 @@ class LambdaStack(Construct):
                 self.update_project_function,
                 self.update_action_function,
                 self.update_action_validation_function,
-                self.update_member_function
+                self.update_member_function,
+                self.delete_action_function
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
@@ -192,7 +201,8 @@ class LambdaStack(Construct):
                 self.get_member_function,
                 self.get_all_projects_function,
                 self.get_history_function,
-                self.get_project_function
+                self.get_project_function,
+                self.delete_action_function
         ]
 
         
