@@ -195,3 +195,14 @@ class Test_ActionRepositoryDynamo:
 
 
         assert len(resp) == 7
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_delete_action(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        action = repo_mock.actions[0]
+
+        delected_action = repo.delete_action(action.action_id)
+
+        assert delected_action == action

@@ -296,6 +296,8 @@ class ActionRepositoryDynamo(IActionRepository):
 
         if "Attributes" not in delete_action:
             return None
+        
+        self.batch_delete_associated_actions(action_id=action_id)
 
         return ActionDynamoDTO.from_dynamo(delete_action['Attributes']).to_entity()
 
