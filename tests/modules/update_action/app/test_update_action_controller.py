@@ -1119,4 +1119,4 @@ class Test_UpdateActionController:
         
         response = controller(request)
         assert response.status_code == 500
-        assert response.body == 'That action is forbidden for this user. Not allowed to update action of another user.'
+        assert response.body == 'That action is forbidden for this This user can´t update this action. He is not the owner of the action or an admin.'
