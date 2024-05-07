@@ -162,3 +162,13 @@ class Test_ActionRepositoryMock:
         assert type(deleted_action) == Action
         assert len(repo.actions) == len_before - 1
         assert deleted_action == action
+
+    def test_get_associated_actions_by_user_id_not_found(self):
+        repo = ActionRepositoryMock()
+        associated_actions = repo.get_associated_actions_by_user_id(user_id='1234', amount=20)
+        assert associated_actions == []
+
+    def test_batch_get_action_not_found(self):
+        repo = ActionRepositoryMock()
+        actions = repo.batch_get_action(action_ids=['1234'])
+        assert actions == []

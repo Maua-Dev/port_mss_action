@@ -206,3 +206,15 @@ class Test_ActionRepositoryDynamo:
         delected_action = repo.delete_action(action.action_id)
 
         assert delected_action == action
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_associated_action_by_user_id_not_found(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo.get_associated_actions_by_user_id(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4h1", amount=20)
+
+        action_ids = [action.action_id for action in resp]
+
+        resp2 = repo.batch_get_action(action_ids=action_ids)
+        assert resp2 == []

@@ -201,7 +201,10 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        # query →  PK = action_id && SK Begins with action				
+        # query →  PK = action_id && SK Begins with action	
+        if len(action_ids) == 0:
+            return []
+        			
         keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
 
         resp = self.dynamo.batch_get_items(keys=keys)
