@@ -33,7 +33,7 @@ class GetHistoryUsecase:
             raise ForbiddenAction('user. Not allowed to access this resource.')
         
         action_ids = [action.action_id for action in associated_actions]
-        actions = sorted(self.repo.batch_get_action(action_ids=action_ids), key=lambda action: action.start_date, reverse=True)
+        actions = self.repo.batch_get_action(action_ids=action_ids)
         
 
         last_ev = (actions[-1].action_id, actions[-1].start_date) if len(actions) == amount else None
