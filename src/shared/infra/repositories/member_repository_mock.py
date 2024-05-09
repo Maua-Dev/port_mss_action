@@ -55,7 +55,7 @@ class MemberRepositoryMock(IMemberRepository):
                 email="lgtv@gmail.com",
                 ra="22017310",
                 role=ROLE.DEV,
-                stack=STACK.DATA_SCIENCE,
+                stack=STACK.BACKEND,
                 year=2,
                 cellphone="11991758228",
                 course=COURSE.CIC,

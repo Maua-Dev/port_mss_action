@@ -54,7 +54,7 @@ class Test_GetAllMembersViewModel:
                         'email': 'lgtv@gmail.com',
                         'ra': '22017310',
                         'role': 'DEV',
-                        'stack': 'DATA_SCIENCE',
+                        'stack': 'BACKEND',
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
