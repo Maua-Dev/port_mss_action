@@ -8,3 +8,4 @@ class STACK(Enum):
     UX_UI = "UX_UI"
     BUSINESS = "BUSINESS"
     INTERNAL = "INTERNAL" 
+    DATA_SCIENCE = "DATA_SCIENCE"
