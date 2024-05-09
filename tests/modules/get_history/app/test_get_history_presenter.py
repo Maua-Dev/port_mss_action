@@ -56,7 +56,6 @@ class Test_GetHistoryPresenter:
         }
         
         response = lambda_handler(event, None)
-        print(response)
 
         assert response["statusCode"] == 200
         assert json.loads(response["body"])["message"] == "the history was retrieved"
