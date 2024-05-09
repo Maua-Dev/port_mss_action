@@ -88,7 +88,7 @@ class Test_GetAllMembersViewModel:
                         'email': 'mneto@gmail.com',
                         'ra': '19017310',
                         'role': 'PO',
-                        'stack': 'PO',
+                        'stack': 'BUSINESS',
                         'year': 4,  
                         'cellphone': '11991753208',
                         'course': 'EMC',
