@@ -1,7 +1,7 @@
 from typing import Optional, Tuple
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser
 from src.shared.domain.entities.member import Member
 
 
@@ -14,6 +14,8 @@ class GetHistoryUsecase:
 
         if amount is None:
             amount = 20
+        elif amount is not None and amount < 10:
+            raise PaginationAmountInvalid()
 
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()

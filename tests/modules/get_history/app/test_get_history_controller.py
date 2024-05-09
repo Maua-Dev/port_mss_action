@@ -300,3 +300,24 @@ class Test_GetHistoryController:
         response = controller(request)
         assert response.status_code == 200
         assert response.body['message'] == 'the history was retrieved'
+
+
+    def test_get_history_controller_amount_invalid(self):
+            
+            repo = ActionRepositoryMock()
+            repo_member = MemberRepositoryMock()
+            usecase = GetHistoryUsecase(repo, repo_member)
+            controller = GetHistoryController(usecase)
+            request = HttpRequest(body={
+                "requester_user": {
+                    "sub": repo_member.members[0].user_id,
+                    "name": repo_member.members[0].name,
+                    "email": repo_member.members[0].email,
+                    "custom:isMaua": True
+                },
+                'amount' : 5
+                })
+            
+            response = controller(request)
+            assert response.status_code == 400
+            assert response.body == 'The amount must be greater or equal than 10'

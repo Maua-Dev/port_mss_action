@@ -3,9 +3,10 @@ from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.shared.domain.entities.action import Action
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser, PaginationAmountInvalid
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
+
 
 
 class Test_GetHistoryUsecase:
@@ -66,3 +67,10 @@ class Test_GetHistoryUsecase:
         actions, last_evaluated_key = usecase(user_id= repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
 
         assert all(type(action) is Action for action in actions)
+
+    def test_get_history_usecase_amount_less_than_10(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        with pytest.raises(PaginationAmountInvalid):
+            usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
+            actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=5)
