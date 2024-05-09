@@ -41,10 +41,10 @@ class Test_GetHistoryUsecase:
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
-        actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=2)
+        actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=10)
 
         assert all(type(action) is Action for action in actions)
-        assert len(actions) == 2
+        assert len(actions) == 4
             
     def test_get_history_usecase_unregistered_user(self):
         repo = ActionRepositoryMock()
