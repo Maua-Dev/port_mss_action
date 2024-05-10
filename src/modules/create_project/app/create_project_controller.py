@@ -2,7 +2,7 @@ from .create_project_usecase import CreateProjectUsecase
 from .create_project_viewmodel import CreateProjectViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, UnregisteredUser, UserIsNotFromBusiness
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
@@ -64,5 +64,12 @@ class CreateProjectController:
         except EntityError as err:
             return BadRequest(body=err.message)
         
+        except UserIsNotFromBusiness as err:
+            return BadRequest(body=err.message)
+        
+        except UnregisteredUser as err:
+            return BadRequest(body=err.message)
+        
         except Exception as err:
             return InternalServerError(body=err.args[0])
+        

@@ -24,3 +24,7 @@ class PaginationAmountInvalid(BaseError):
     def __init__(self):
         super().__init__(f'The amount must be greater or equal than 10')
 
+class UserIsNotFromBusiness(BaseError):
+    def __init__(self):
+        super().__init__(f'That user is not a member of the Business Stack')
+

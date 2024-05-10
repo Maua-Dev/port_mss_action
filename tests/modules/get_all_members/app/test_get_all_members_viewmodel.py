@@ -165,6 +165,23 @@ class Test_GetAllMembersViewModel:
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh"
                         }
+                },
+                {
+                    'member': {
+                        'name' : "Fernandao Presidas",
+                        'email_dev' : "fernandinho.devmaua@gmail.com",
+                        'email' : "fernandao@gmail.com",
+                        'ra' : "22014322",
+                        'role' : 'PO',
+                        'stack' : 'BUSINESS',
+                        'year' : 3,
+                        'cellphone' : "11991123498",
+                        'course' : 'EPM',
+                        'hired_date' : 1640192165000,
+                        'active' : 'ACTIVE',
+                        'deactivated_date' : None,
+                        'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
+                        }
                 }
             ],
             'message' : 'the members were retrieved'
