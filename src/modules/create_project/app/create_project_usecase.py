@@ -1,6 +1,7 @@
 from typing import List
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.role_enum import ROLE
+from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser, UserIsNotFromBusiness
@@ -31,10 +32,16 @@ class CreateProjectUsecase:
 
         if po.role not in [ROLE.PO, ROLE.SCRUM]:
             raise UserIsNotFromBusiness()
+        
+        if po.stack is not STACK.BUSINESS:
+            raise UserIsNotFromBusiness()
 
         scrum = self.repo_member.get_member(user_id=scrum_user_id)
 
         if scrum.role not in [ROLE.PO, ROLE.SCRUM]:
+            raise UserIsNotFromBusiness()
+        
+        if scrum.stack is not STACK.BUSINESS:
             raise UserIsNotFromBusiness()
         
         user = self.repo_member.get_member(user_id=user_id)
