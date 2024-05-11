@@ -39,6 +39,9 @@ class UpdateActionUsecase:
         if not action:
             raise NoItemsFound('action')
         
+        is_admin = Member.validate_role_admin(user.role)
+        if is_admin == False and new_user_id != action.user_id:
+            raise ForbiddenAction('This user can´t update this action. He is not the owner of the action or an admin.')
         
         members = None
         start_date = new_start_date if new_start_date is not None else action.start_date
@@ -58,7 +61,6 @@ class UpdateActionUsecase:
         description = new_description if new_description != '' else action.description
         story_id = new_story_id if new_story_id != -1 else action.story_id
 
-        is_admin = Member.validate_role_admin(user.role)
         if is_admin and new_member_user_id is None:
             return self.repo.update_action(action_id=action_id, new_user_id=new_user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         elif is_admin and new_member_user_id is not None:

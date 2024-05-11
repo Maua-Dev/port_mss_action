@@ -286,7 +286,7 @@ class TestUpdateProjectPresenter:
         assert response['statusCode'] == 404
         assert json.loads(response['body']) == 'No items found for project'
 
-    def test_update_project_presenter(self):
+    def test_update_project_presenter_requester_user_missing(self):
         event = {
             "version": "2.0",
             "routeKey": "$default",

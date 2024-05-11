@@ -22,10 +22,10 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
+            'members_user_ids':['9183jBnh-997H-1010-10god-914gHy46tBh','51ah5jaj-c9jm-1345-666ab-e12341c14a3','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'],
             'photos':['https://i.imgur.com/7QF7uCk.png']
         })
         response = controller(request)
@@ -34,10 +34,10 @@ class Test_CreateProjectController:
         assert response.body['project']['code'] == 'DM'
         assert response.body['project']['name'] == 'DevMedias'
         assert response.body['project']['description'] == 'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano'
-        assert response.body['project']['po_user_id'] == '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
-        assert response.body['project']['scrum_user_id'] == '7465hvnb-143g-1675-86HnG-75hgnFbcg36'
+        assert response.body['project']['po_user_id'] == '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'
+        assert response.body['project']['scrum_user_id'] == '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'
         assert response.body['project']['start_date'] == 1649955600000
-        assert response.body['project']['members_user_ids'] == ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
+        assert response.body['project']['members_user_ids'] == ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0','9183jBnh-997H-1010-10god-914gHy46tBh']
         assert response.body['project']['photos'] == ['https://i.imgur.com/7QF7uCk.png']
         
     def test_create_project_controller_missing_photos(self):
@@ -56,10 +56,10 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
         response = controller(request)
         assert response.status_code == 201
@@ -80,10 +80,10 @@ class Test_CreateProjectController:
             },
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
         response = controller(request)
         assert response.status_code == 400
@@ -104,10 +104,10 @@ class Test_CreateProjectController:
             },
             'code':'DM',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
 
         response = controller(request)
@@ -129,10 +129,10 @@ class Test_CreateProjectController:
             },
             'code':'DM',
             'name':'DevMedias',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
 
         response = controller(request)
@@ -155,9 +155,9 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'members_user_ids':['7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
 
         response = controller(request)
@@ -180,9 +180,9 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3']
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
 
         response = controller(request)
@@ -205,9 +205,9 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
         })
 
         response = controller(request)
@@ -231,10 +231,10 @@ class Test_CreateProjectController:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                 'start_date':1649955600000,
-                'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'],
+                'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'],
                 'photos':'https://i.imgur.com/7QF7uCk.png'
             })
     
@@ -259,10 +259,10 @@ class Test_CreateProjectController:
                     'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                    'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                    'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                    'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                    'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                     'start_date':1649955600000,
-                    'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'],
+                    'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'],
                     'photos':[1,2,3]
                 })
         
@@ -286,8 +286,8 @@ class Test_CreateProjectController:
             'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-            'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'start_date':1649955600000,
         })
 
@@ -311,8 +311,8 @@ class Test_CreateProjectController:
                 'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                 'start_date':1649955600000,
                 'members_user_ids':1
             })
@@ -337,8 +337,8 @@ class Test_CreateProjectController:
                     'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                    'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                    'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                    'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                    'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                     'start_date':1649955600000,
                     'members_user_ids':[1,2,3]
                 })
@@ -357,12 +357,62 @@ class Test_CreateProjectController:
                     'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-                    'po_user_id':'93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                    'scrum_user_id':'7465hvnb-143g-1675-86HnG-75hgnFbcg36',
+                    'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                    'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                     'start_date':1649955600000,
-                    'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+                    'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
                 })
         
                 response = controller(request)
                 assert response.status_code == 400
                 assert response.body == 'Field requester_user is missing'
+
+    def test_create_project_controller_po_user_id_is_not_from_business_stack(self):
+                repo = ActionRepositoryMock()
+                repo_member = MemberRepositoryMock()
+                usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
+                controller = CreateProjectController(usecase=usecase)
+                request = HttpRequest(body = {
+                    "requester_user": {
+                        "sub": repo_member.members[0].user_id,
+                        "name": repo_member.members[0].name,
+                        "email": repo_member.members[0].email,
+                        "custom:isMaua": True
+                    },
+                    'code':'DM',
+                    'name':'DevMedias',
+                    'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                    'po_user_id':'76h35dg4-h76v-1875-987hn-h67gfv45Gt4',
+                    'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                    'start_date':1649955600000,
+                    'members_user_ids':['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+                })
+        
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'That user is not a member of the Business Stack'
+
+    def test_create_project_controller_scrum_user_id_is_not_from_business_stack(self):
+                repo = ActionRepositoryMock()
+                repo_member = MemberRepositoryMock()
+                usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
+                controller = CreateProjectController(usecase=usecase)
+                request = HttpRequest(body = {
+                    "requester_user": {
+                        "sub": repo_member.members[0].user_id,
+                        "name": repo_member.members[0].name,
+                        "email": repo_member.members[0].email,
+                        "custom:isMaua": True
+                    },
+                    'code':'DM',
+                    'name':'DevMedias',
+                    'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
+                    'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
+                    'scrum_user_id':'76h35dg4-h76v-1875-987hn-h67gfv45Gt4',
+                    'start_date':1649955600000,
+                    'members_user_ids':['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
+                })
+        
+                response = controller(request)
+                assert response.status_code == 400
+                assert response.body == 'That user is not a member of the Business Stack'
