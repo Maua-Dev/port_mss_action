@@ -7,3 +7,5 @@ class ROLE(Enum):
     HEAD = "HEAD"
     INTERNAL = "INTERNAL"
     PO = "PO"
+    SCRUM = "SCRUM"
+    DESIGNER = "DESIGNER"

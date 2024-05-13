@@ -77,15 +77,21 @@ class CreateActionController:
                     if not Member.validate_user_id(user_id):
                         raise EntityError('associated_members_user_ids')
 
-                   
+            if request.data.get('description') is not None:
+                if type(request.data.get('description')) is not str:
+                    raise EntityError('description')
+                description = request.data.get('description')
+            else:
+                description = None
+
             action = self.usecase(
                 user_id=requester_user.user_id,
                 start_date=request.data.get('start_date'),
                 end_date=request.data.get('end_date'),
                 duration=request.data.get('duration'),
-                story_id=request.data.get('story_id'),
+                story_id=story_id,
                 title=request.data.get('title'),
-                description=request.data.get('description'),
+                description=description,
                 associated_members_user_ids=request.data.get('associated_members_user_ids'),
                 project_code=request.data.get('project_code'),
                 stack_tags=stack_tags,
