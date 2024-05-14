@@ -51,9 +51,7 @@ class UpdateActionUsecase:
                     pass
                 else:
                     members.append(member_id)
-
-
-           
+        members.append(action.user_id)
 
         start_date = new_start_date if new_start_date is not None else action.start_date
         if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):
