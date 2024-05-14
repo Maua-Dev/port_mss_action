@@ -44,8 +44,12 @@ class UpdateActionUsecase:
             for member_id in new_associated_members_user_ids:
                 if member_id in action.associated_members_user_ids:
                     pass
+                elif (member_id in action.associated_members_user_ids) and (member_id not in new_associated_members_user_ids):
+                    members.remove(member_id)
                 else:
                     members.append(member_id)
+
+
            
 
         start_date = new_start_date if new_start_date is not None else action.start_date
