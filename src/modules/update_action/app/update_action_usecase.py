@@ -40,12 +40,15 @@ class UpdateActionUsecase:
         
         members = action.associated_members_user_ids
         if (action.associated_members_user_ids is not None) and (new_associated_members_user_ids is not None):
-            members = action.associated_members_user_ids
+            i = 0
+            while i < len(action.associated_members_user_ids):
+                if action.associated_members_user_ids[i] not in new_associated_members_user_ids:
+                    members.remove(action.associated_members_user_ids[i])
+                else:
+                    i += 1
             for member_id in new_associated_members_user_ids:
                 if member_id in action.associated_members_user_ids:
                     pass
-                elif (member_id in action.associated_members_user_ids) and (member_id not in new_associated_members_user_ids):
-                    members.remove(member_id)
                 else:
                     members.append(member_id)
 
