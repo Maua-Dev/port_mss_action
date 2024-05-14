@@ -32,8 +32,6 @@ class DeleteActionUsecase:
             action = self.action_repository.delete_action(action_id=action_id)
         elif not is_admin and member_user_id is None:
             action = self.action_repository.delete_action(action_id=action_id)
-        else:
-            raise ForbiddenAction('This user is not allowed to delete another users action')
 
         if action is None:
             raise NoItemsFound('action_id')
