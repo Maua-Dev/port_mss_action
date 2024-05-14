@@ -5,8 +5,8 @@ from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
-
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser,UserNotAllowed
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class UpdateActionUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
@@ -30,6 +30,8 @@ class UpdateActionUsecase:
         if user is None:
             raise UnregisteredUser()  
         
+
+        
         action = self.repo.get_action(action_id)
         if not action:
             raise NoItemsFound('action')
@@ -37,7 +39,8 @@ class UpdateActionUsecase:
         is_admin = Member.validate_role_admin(user.role)
         if is_admin == False and user_id != action.user_id:
             raise ForbiddenAction('This user can´t update this action. He is not the owner of the action or an admin.')
-        
+        if user.active != ACTIVE.ACTIVE:
+            raise UserNotAllowed()
         members = None
         if (new_associated_members_user_ids) and (user_id == action.user_id):
             members = new_associated_members_user_ids + [action.user_id]
