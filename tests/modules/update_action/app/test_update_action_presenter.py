@@ -58,7 +58,7 @@ class Test_UpdateActionPresenter:
         response = lambda_handler(event, None)
         assert response["statusCode"] == 200
         assert json.loads(response["body"])["message"] == 'the action was updated'
-        assert json.loads(response["body"])["action"]["user_id"] == first_member.user_id
+        assert json.loads(response["body"])["action"]["user_id"] == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
         assert json.loads(response["body"])["action"]["start_date"] == 1634526000000
         assert json.loads(response["body"])["action"]["end_date"] == 1634536800000
         assert json.loads(response["body"])["action"]["story_id"] == 100
