@@ -62,7 +62,7 @@ class Test_UpdateActionPresenter:
         assert json.loads(response["body"])["action"]["start_date"] == 1634526000000
         assert json.loads(response["body"])["action"]["end_date"] == 1634536800000
         assert json.loads(response["body"])["action"]["story_id"] == 100
-        assert json.loads(response["body"])["action"]["associated_members_user_ids"] == ['32ah5jaj-c9jm-1345-666ab-e12341c14a3', "75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s"]
+        assert json.loads(response["body"])["action"]["associated_members_user_ids"] == ["75648hbr-184n-1985-91han-7ghn4HgF182", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG", "7gh5yf5H-857H-1234-75hng-94832hvng1s",'32ah5jaj-c9jm-1345-666ab-e12341c14a3',]
         assert json.loads(response["body"])["action"]["title"] == 'Teste'
         assert json.loads(response["body"])["action"]["project_code"] == 'MF'
         assert json.loads(response["body"])["action"]["stack_tags"] == ['BACKEND']

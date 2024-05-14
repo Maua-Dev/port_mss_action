@@ -38,11 +38,17 @@ class UpdateActionUsecase:
         if is_admin == False and user_id != action.user_id:
             raise ForbiddenAction('This user can´t update this action. He is not the owner of the action or an admin.')
         
-        members = None
-        if new_associated_members_user_ids is not None:
-            members = new_associated_members_user_ids + action.associated_members_user_ids
-        else:
+        members = new_associated_members_user_ids
+        if (action.associated_members_user_ids is not None) and (new_associated_members_user_ids is not None):
             members = action.associated_members_user_ids
+            for member_id in new_associated_members_user_ids:
+                if member_id in action.associated_members_user_ids:
+                    pass
+                else:
+                    members.append(member_id)
+        elif (action.associated_members_user_ids is not None) and (new_associated_members_user_ids is None):
+            members = action.associated_members_user_ids
+           
 
         start_date = new_start_date if new_start_date is not None else action.start_date
         if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):

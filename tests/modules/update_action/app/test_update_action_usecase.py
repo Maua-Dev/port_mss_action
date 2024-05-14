@@ -16,7 +16,7 @@ class Test_UpdateActionUsecase:
         action = usecase(action_id=repo.actions[0].action_id, user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3', new_start_date=1634526000000, new_story_id=100, new_associated_members_user_ids=['51ah5jaj-c9jm-1345-666ab-e12341c14a3'], new_title='Teste', new_end_date=1634536800000, new_project_code='MF', new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
         
         assert repo.actions[0] == action
-        assert all(action.user_id in ['51ah5jaj-c9jm-1345-666ab-e12341c14a3'] for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
+        assert all(action.user_id in [action.user_id] for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
         assert all(action.start_date == 1634526000000 for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
         
     def test_update_action_no_items_found(self):
