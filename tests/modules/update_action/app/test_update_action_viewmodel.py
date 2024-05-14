@@ -10,12 +10,12 @@ class Test_UpdateActionViewmodel:
         repo_member = MemberRepositoryMock()
         usecase = UpdateActionUsecase(repo, repo_member=repo_member)
         action = usecase(
-            action_id=repo.actions[0].action_id, new_user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3')
+            action_id=repo.actions[0].action_id, user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3')
 
         viewmodel = UpdateActionViewmodel(action=action).to_dict()
         expected = {
             'action': {
-                'user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
+                'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 'start_date': 1644256000000,
                 'end_date': 1653756000000,
                 'is_valid': True,
@@ -33,5 +33,4 @@ class Test_UpdateActionViewmodel:
             },
             'message': 'the action was updated'
         }
-        print(viewmodel)
         assert viewmodel == expected
