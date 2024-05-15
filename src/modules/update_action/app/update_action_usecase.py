@@ -41,10 +41,8 @@ class UpdateActionUsecase:
         members = None
         if (new_associated_members_user_ids) and (user_id == action.user_id):
             members = new_associated_members_user_ids + [action.user_id]
-        elif (new_associated_members_user_ids) and (user_id != action.user_id) and ((user_id in action.associated_members_user_ids) or (user_id in new_associated_members_user_ids)):
-            members = new_associated_members_user_ids + [user_id] + [action.user_id]
         else:
-            members = action.associated_members_user_ids + [action.user_id]
+            members = [action.user_id]
 
 
         start_date = new_start_date if new_start_date is not None else action.start_date
