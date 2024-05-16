@@ -187,7 +187,7 @@ class Member(abc.ABC):
             return False
         if type(role) != ROLE:
             return False
-        return (role == ROLE.DIRECTOR or role == ROLE.HEAD or role == ROLE.PO)
+        return (role == ROLE.DIRECTOR or role == ROLE.HEAD)
     
     def __repr__(self):
         return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
