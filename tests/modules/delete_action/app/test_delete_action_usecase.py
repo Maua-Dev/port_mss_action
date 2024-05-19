@@ -69,7 +69,7 @@ class Test_DeleteActionUsecase:
         action_id=repo.actions[0].action_id
         member = repo_member.members[0] 
         member.active = ACTIVE.DISCONNECTED
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
  
     def test_delete_action_user_is_FREEZE (self):
@@ -79,5 +79,5 @@ class Test_DeleteActionUsecase:
         action_id=repo.actions[0].action_id
         member = repo_member.members[0] 
         member.active = ACTIVE.FREEZE
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
