@@ -309,4 +309,38 @@ class Test_UpdateMemberController:
         response = controller(request)
        
         assert response.status_code == 403
-        assert response.body == "That action is forbidden for this user. Not allowed to update another user"
+        assert response.body == "That action is forbidden for this user .This user is not an admin. Not allowed to update another user"
+        
+    def test_update_member_controller_another_user_not_active(self):
+        
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        first_member = repo.members[0]
+        first_member.active = ACTIVE.DISCONNECTED
+        
+        request = HttpRequest(body={
+            'requester_user': {
+                    "sub": first_member.user_id,
+                    "name": first_member.name,
+                    "email": first_member.email,
+                    "custom:isMaua": True
+                },
+
+            'new_name':"Teste Tester",
+            'new_email_dev':"test.devmaua@gmail.com",
+            'new_role':ROLE.HEAD.value,
+            'new_stack':STACK.BACKEND.value,
+            'new_year':3,
+            'new_cellphone':"11987654321",
+            'new_course':COURSE.ECM.value,
+            'new_active':ACTIVE.ACTIVE.value,
+            'new_member_user_id': repo.members[2].user_id 
+             
+            })
+        
+        response = controller(request)
+       
+        assert response.status_code == 403
+        assert response.body == "That action is forbidden for this user .This user is not active. Not allowed to update another user"
+        

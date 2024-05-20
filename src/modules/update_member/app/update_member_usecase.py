@@ -74,12 +74,18 @@ class UpdateMemberUsecase:
                 raise EntityError('new_active')
 
         is_admin = Member.validate_role_admin(member.role)
-       
-        if is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
-        elif is_admin and new_member_user_id is not None:
-            return self.repo.update_member(new_member_user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
-        elif not is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id, member.hired_date,member.email,new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+        is_active = Member.validate_active(member.active)
+
+        if is_admin:
+            if new_member_user_id is None:
+                return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            elif new_member_user_id is not None and is_active:
+                return self.repo.update_member(new_member_user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            else:
+                raise ForbiddenAction('user .This user is not active. Not allowed to update another user')
         else:
-            raise ForbiddenAction('user. Not allowed to update another user')
+            if new_member_user_id is None:
+                return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            else:
+                raise ForbiddenAction('user .This user is not an admin. Not allowed to update another user')
+

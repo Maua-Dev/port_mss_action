@@ -189,6 +189,14 @@ class Member(abc.ABC):
             return False
         return (role == ROLE.DIRECTOR or role == ROLE.HEAD or role == ROLE.PO)
     
+    @staticmethod
+    def validate_active(active: ACTIVE) -> bool:
+        if active == None:
+            return False
+        if type(active) != ACTIVE:
+            return False
+        return (active == ACTIVE.ACTIVE)
+    
     def __repr__(self):
         return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
     

@@ -32,9 +32,7 @@ class DeleteMemberUseCase:
             member = self.repo.delete_member(user_id=user_id)
         else:
             raise ForbiddenAction('This user is not allowed to delete another user')
-            
 
-        
         if member is None:
             raise NoItemsFound('user_id')
         
