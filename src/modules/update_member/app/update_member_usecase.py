@@ -76,6 +76,9 @@ class UpdateMemberUsecase:
         is_admin = Member.validate_role_admin(member.role)
         is_active = Member.validate_active(member.active)
 
+        if not is_admin and not is_active:
+            raise ForbiddenAction('user. This user is neither an admin nor active. Not allowed to update their own data')
+        
         if is_admin:
             if new_member_user_id is None:
                 return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)

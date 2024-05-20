@@ -266,4 +266,18 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
                 new_member_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb")
+    
+    def test_update_member_usecase_update_self_not_active(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+        with pytest.raises(ForbiddenAction):
+            member = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",new_name="Joao Branco",
+                new_email_dev="jbranco.devmaua@gmail.com",
+                new_role=ROLE.HEAD,
+                new_stack=STACK.BACKEND,
+                new_year=3,
+                new_cellphone="11991152348",
+                new_course=COURSE.ECM,
+                new_active=ACTIVE.ACTIVE)
         
+            
