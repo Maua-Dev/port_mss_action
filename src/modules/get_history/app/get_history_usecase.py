@@ -3,7 +3,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser
 from src.shared.domain.entities.member import Member
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class GetHistoryUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
@@ -25,6 +25,8 @@ class GetHistoryUsecase:
             if not self.repo_member.get_member(user_id=member_user_id):
                 raise UnregisteredUser()
             
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction("User is not active")
         
         is_admin = Member.validate_role_admin(user.role)
 

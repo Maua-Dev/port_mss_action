@@ -1,7 +1,7 @@
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import UnregisteredUser
-
+from src.shared.helpers.errors.usecase_errors import UnregisteredUser,ForbiddenAction
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class GetAllProjectsUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
@@ -12,7 +12,9 @@ class GetAllProjectsUsecase:
         
         if self.repo_member.get_member(user_id) is None:
             raise UnregisteredUser()
-        
+        user = self.repo_member.get_member(user_id=user_id)
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction("User is not active")
         projects = self.repo.get_all_projects()
     
         return projects
