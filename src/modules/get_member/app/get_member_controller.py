@@ -1,10 +1,10 @@
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 from .get_member_usecase import GetMemberUsecase
 from .get_member_viewmodel import GetMemberViewModel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
-from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError, NotFound
+from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError, NotFound
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
 class GetMemberController:
@@ -33,6 +33,9 @@ class GetMemberController:
         
         except NoItemsFound as err:
             return NotFound(body=err.message)
+        
+        except ForbiddenAction as err:
+            return Forbidden(body=err.message)
         
         except Exception as err:
             return InternalServerError(body=err.args[0])
