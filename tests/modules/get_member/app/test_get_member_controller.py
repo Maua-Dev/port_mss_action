@@ -92,7 +92,7 @@ class Test_GetMemberController:
         response = self.controller(request)
 
         assert response.status_code == 404
-        assert response.body == "No items found for Member"
+        assert response.body == "No items found for user_id"
 
     def test_get_controller_with_no_request_user(self):
         request = HttpRequest(
