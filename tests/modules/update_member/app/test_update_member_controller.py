@@ -309,7 +309,7 @@ class Test_UpdateMemberController:
         response = controller(request)
        
         assert response.status_code == 403
-        assert response.body == "That action is forbidden for this user .This user is not an admin. Not allowed to update another user"
+        assert response.body == "That action is forbidden for this this user. is not allowed to update another user"
         
     def test_update_member_controller_another_user_not_active(self):
         
@@ -341,8 +341,8 @@ class Test_UpdateMemberController:
         
         response = controller(request)
        
-        assert response.status_code == 403
-        assert response.body == "That action is forbidden for this user .This user is not active. Not allowed to update another user"
+        assert response.status_code == 403 
+        assert response.body == "That action is forbidden for this user. This user is not active."
         
     def test_update_member_controller_not_active(self):
         
@@ -375,5 +375,5 @@ class Test_UpdateMemberController:
         response = controller(request)
        
         assert response.status_code == 403
-        assert response.body == "That action is forbidden for this user. This user is neither an admin nor active. Not allowed to update their own data"
+        assert response.body == "That action is forbidden for this user. This user is not active."
         

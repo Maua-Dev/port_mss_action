@@ -19,11 +19,12 @@ class DeleteMemberUseCase:
         
         user = self.repo.get_member(user_id=user_id)
         
-        if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('User is not active')
-
+        is_active = Member.validate_active(user.active)
         is_admin = Member.validate_role_admin(user.role)
 
+        if not is_active:
+            raise ForbiddenAction('user. This user is not active.')
+        
         if is_admin and member_user_id is None:
             member = self.repo.delete_member(user_id=user_id)
         elif is_admin and member_user_id is not None:
@@ -31,7 +32,7 @@ class DeleteMemberUseCase:
         elif not is_admin and member_user_id is None:
             member = self.repo.delete_member(user_id=user_id)
         else:
-            raise ForbiddenAction('This user is not allowed to delete another user')
+            raise ForbiddenAction('this user. is not allowed to delete another user')
 
         if member is None:
             raise NoItemsFound('user_id')
