@@ -18,7 +18,7 @@ class UpdateActionUsecase:
                 new_start_date: Optional[int] = None, 
                 new_end_date: Optional[int] = None, 
                 new_duration: Optional[int] = None, 
-                new_story_id: Optional[str] = -1, 
+                new_story_id: Optional[int] = -1, 
                 new_title: Optional[str] = None, 
                 new_description: Optional[str] = '', 
                 new_project_code: Optional[str] = None, 
