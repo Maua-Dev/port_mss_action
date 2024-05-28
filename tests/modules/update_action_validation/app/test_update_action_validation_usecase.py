@@ -1,7 +1,7 @@
 import pytest
 from src.modules.update_action_validation.app.update_action_validation_usecase import UpdateActionValidationUsecase
 from src.shared.domain.entities.action import Action
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UserNotAllowed, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, UserNotAllowed, UnregisteredUser, ForbiddenAction
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.enums.active_enum import ACTIVE
@@ -50,7 +50,7 @@ class TestUpdateActionValidationUsecase:
         member = repo_member.members[0]
         member.active = ACTIVE.FREEZE
         usecase = UpdateActionValidationUsecase(repo_action, repo_member)
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=False)
             
     def test_update_action_validation_usecase_user_is_DISCONNECTED(self):
@@ -58,8 +58,8 @@ class TestUpdateActionValidationUsecase:
         repo_member = MemberRepositoryMock()
         action = repo_action.actions[0]
         member = repo_member.members[0]
-        member.active = ACTIVE.DISCONNECTED
         usecase = UpdateActionValidationUsecase(repo_action, repo_member)
-        with pytest.raises(UserNotAllowed):
-            usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=False)
+        member.active = ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            action = usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=True)
             

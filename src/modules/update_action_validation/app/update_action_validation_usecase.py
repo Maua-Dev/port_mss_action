@@ -27,6 +27,6 @@ class UpdateActionValidationUsecase:
             raise NoItemsFound('action')
         
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction()
+            raise ForbiddenAction('active')
 
         return self.repo_action.update_action(action_id=action_id, new_is_valid=new_is_valid)
