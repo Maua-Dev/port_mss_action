@@ -87,3 +87,22 @@ class Test_UpdateActionUsecase:
         with pytest.raises(ForbiddenAction):
             action = usecase(action_id=repo.actions[0].action_id, user_id=member.user_id, new_start_date=1634526000000, new_story_id=100, new_title='Teste', new_end_date=1634536800000, new_project_code='MF', new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)    
     
+    def test_update_action_admin(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateActionUsecase(repo=repo, repo_member=repo_member)
+        action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[0].user_id, new_start_date=1634526000000, new_story_id=100, new_associated_members_user_ids=[repo_member.members[0].user_id], new_title='Teste', new_end_date=1634536800000, new_project_code='MF', new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
+
+        assert repo.actions[0] == action
+        assert all(action.user_id in [action.user_id] for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
+        assert repo_member.members[0].user_id in action.associated_members_user_ids
+    
+    def test_update_action_zero(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateActionUsecase(repo=repo, repo_member=repo_member)
+        action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[0].user_id, new_start_date=1634526000000, new_story_id=0, new_associated_members_user_ids=[repo_member.members[0].user_id], new_title='Teste', new_end_date=1634536800000, new_project_code='MF', new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
+
+        assert repo.actions[0] == action
+        assert all(action.user_id in [action.user_id] for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
+        assert action.story_id is None
