@@ -3,10 +3,11 @@ import uuid
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
+from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.action import Action
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser, ForbiddenAction
 
 class CreateActionUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
@@ -22,6 +23,10 @@ class CreateActionUsecase:
             if not self.repo_member.get_member(id):
                 raise UnregisteredUser()
         action = Action(user_id, start_date, stack_tags, end_date, duration, action_id, is_valid, title, project_code, action_type_tag, associated_members_user_ids, description, story_id)        
+        
+        member = self.repo_member.get_member(user_id)
+        if member.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('This user can´t create this action. He is not active.')
         
         self.repo.create_action(action)
         self.repo.create_associated_action(AssociatedAction(action_id, start_date, user_id))

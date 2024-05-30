@@ -4,8 +4,8 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UserNotAllowed, UnregisteredUser
-
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, UserNotAllowed, ForbiddenAction,UnregisteredUser
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class UpdateActionValidationUsecase:
     def __init__(self, repo_action: IActionRepository, repo_member: IMemberRepository):
@@ -25,5 +25,8 @@ class UpdateActionValidationUsecase:
         action = self.repo_action.get_action(action_id)
         if not action:
             raise NoItemsFound('action')
+        
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('active')
 
         return self.repo_action.update_action(action_id=action_id, new_is_valid=new_is_valid)

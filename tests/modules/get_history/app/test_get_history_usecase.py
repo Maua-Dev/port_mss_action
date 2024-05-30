@@ -6,7 +6,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser, PaginationAmountInvalid
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 
 class Test_GetHistoryUsecase:
@@ -74,3 +74,21 @@ class Test_GetHistoryUsecase:
         with pytest.raises(PaginationAmountInvalid):
             usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
             actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=5)
+    
+    def test_get_history_usecase_DISCONNECTED_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase =GetHistoryUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            actions, last_evaluated_key = usecase(user_id= user.user_id)
+    
+    def test_get_history_usecase_FREEZE_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase =GetHistoryUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+            actions, last_evaluated_key = usecase(user_id= user.user_id)

@@ -4,8 +4,8 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.entities.action import Action
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
-
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser,UserNotAllowed
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_DeleteActionUsecase:
     def test_delete_action_usecase(self):
@@ -61,3 +61,23 @@ class Test_DeleteActionUsecase:
         assert type(action) == Action 
         assert len(repo.actions) == len_before - 1
         assert action.action_id == action_id
+
+    def test_delete_action_user_is_DISCONNECTED (self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
+        action_id=repo.actions[0].action_id
+        member = repo_member.members[0] 
+        member.active = ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+ 
+    def test_delete_action_user_is_FREEZE (self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
+        action_id=repo.actions[0].action_id
+        member = repo_member.members[0] 
+        member.active = ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)

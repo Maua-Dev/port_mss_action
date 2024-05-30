@@ -2,13 +2,15 @@ from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.modules.get_history.app.get_history_viewmodel import GetHistoryViewmodel
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_GetHistoryViewmodel:
     def test_get_history_viewmodel(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryUsecase(repo, repo_member)
+        user = repo_member.get_member(user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
+        user.active = ACTIVE.ACTIVE
         actions, last_evaluated_key = usecase(
             user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
         viewmodel = GetHistoryViewmodel(
