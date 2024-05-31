@@ -1,7 +1,7 @@
 import pytest
 from src.modules.batch_get_member.app.batch_get_member_usecase import BatchGetMemberUsecase
 from src.shared.domain.entities.member import Member
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
@@ -31,3 +31,10 @@ class Test_BatchGetMemberUsecase:
         
         with pytest.raises(ForbiddenAction):
             usecase(user_id=repo.members[2].user_id, user_ids=[repo.members[0].user_id, repo.members[1].user_id])
+            
+    def test_batch_get_member_usecase_not_found_user_id(self):
+        repo = MemberRepositoryMock()
+        usecase = BatchGetMemberUsecase(repo=repo)
+
+        with pytest.raises(UnregisteredUser):
+            usecase(user_id='5bah5aaj-c9jm-1345-666ab-e12341c14a3', user_ids=[repo.members[0].user_id, repo.members[1].user_id])
