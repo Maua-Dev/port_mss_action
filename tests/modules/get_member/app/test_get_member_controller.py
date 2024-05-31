@@ -91,8 +91,8 @@ class Test_GetMemberController:
 
         response = self.controller(request)
 
-        assert response.status_code == 404
-        assert response.body == "No items found for user_id"
+        assert response.status_code == 403
+        assert response.body == "That user is not registered"
 
     def test_get_controller_with_no_request_user(self):
         request = HttpRequest(

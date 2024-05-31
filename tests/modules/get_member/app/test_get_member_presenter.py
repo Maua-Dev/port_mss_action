@@ -160,4 +160,4 @@ class Test_GetMemberPresenter:
         }
 
         response = lambda_handler(event, None)
-        assert response["statusCode"] == 404
+        assert response["statusCode"] == 403

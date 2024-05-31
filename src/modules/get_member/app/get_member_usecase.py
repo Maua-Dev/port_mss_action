@@ -3,7 +3,7 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser
 
 
 class GetMemberUsecase:
@@ -19,7 +19,7 @@ class GetMemberUsecase:
         member = self.repo.get_member(user_id=user_id)
 
         if member == None:
-            raise NoItemsFound('user_id')
+            raise UnregisteredUser()
         
         is_active = Member.validate_active(member.active)
         
