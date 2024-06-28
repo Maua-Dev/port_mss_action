@@ -26,3 +26,10 @@ class Test_GetMemberUsecase:
 
         with pytest.raises(ForbiddenAction):
             usecase(user_id='76h35dg4-h76v-1875-987hn-h67gfv45Gt4')
+            
+    def test_get_member_usecase_onhold_user(self):
+        repo = MemberRepositoryMock()
+        usecase = GetMemberUsecase(repo=repo)
+
+        with pytest.raises(ForbiddenAction):
+            usecase(user_id='3b07232f-4f65-42c6-b005-242550b8b8dc')

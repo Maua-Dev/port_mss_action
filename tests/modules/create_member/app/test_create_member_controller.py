@@ -46,7 +46,7 @@ class Test_CreateMemberController:
         assert response.body['member']['year'] == 1
         assert response.body['member']['cellphone'] == "11991758098"
         assert response.body['member']['course'] == COURSE.ECA.value
-        assert response.body['member']['active'] == ACTIVE.ACTIVE.value
+        assert response.body['member']['active'] == ACTIVE.ONHOLD.value
         assert response.body['member']['user_id'] == "13bc6ada-c0d1-7054-66ab-e17414c48ae3"     
     
     def test_create_member_controller_missing_ra(self):
