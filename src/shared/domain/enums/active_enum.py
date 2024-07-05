@@ -5,4 +5,4 @@ class ACTIVE(Enum):
     ACTIVE = "ACTIVE"
     FREEZE = "FREEZE"
     DISCONNECTED = "DISCONNECTED"
-    ONHOLD = "ON HOLD"
+    ON_HOLD = "ON_HOLD"

@@ -191,7 +191,7 @@ class MemberRepositoryMock(IMemberRepository):
                 cellphone = "11998472663",
                 course = COURSE.ECM,
                 hired_date = 1640192165000,
-                active = ACTIVE.ONHOLD,
+                active = ACTIVE.ON_HOLD,
                 deactivated_date = None,
                 user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc"
             )

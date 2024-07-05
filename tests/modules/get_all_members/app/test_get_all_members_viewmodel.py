@@ -195,7 +195,7 @@ class Test_GetAllMembersViewModel:
                         'cellphone' : "11998472663",
                         'course' : 'ECM',
                         'hired_date' : 1640192165000,
-                        'active' : 'ON HOLD',
+                        'active' : 'ON_HOLD',
                         'deactivated_date' : None,
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc"
                         }
