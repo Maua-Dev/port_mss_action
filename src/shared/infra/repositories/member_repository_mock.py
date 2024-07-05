@@ -178,6 +178,23 @@ class MemberRepositoryMock(IMemberRepository):
                 deactivated_date = None,
                 user_id = "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
             )
+            ,
+            
+            Member(
+                name = "Carlinhos Miau",
+                email_dev = "carlinhos.devmaua@gmail.com",
+                email = "carlinhosmiau@gmail.com",
+                ra = "23024211",
+                role = ROLE.DEV,
+                stack = STACK.BACKEND,
+                year = 3,
+                cellphone = "11998472663",
+                course = COURSE.ECM,
+                hired_date = 1640192165000,
+                active = ACTIVE.ON_HOLD,
+                deactivated_date = None,
+                user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc"
+            )
         ]
 
    
