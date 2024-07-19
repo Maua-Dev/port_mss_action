@@ -19,6 +19,9 @@ class UpdateActionValidationUsecase:
         if user is None:
             raise UnregisteredUser()
         
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('user. This user is not active.')
+        
         if user.role not in [ROLE.DIRECTOR, ROLE.HEAD, ROLE.PO]:
             raise UserNotAllowed()
         
@@ -26,7 +29,6 @@ class UpdateActionValidationUsecase:
         if not action:
             raise NoItemsFound('action')
         
-        if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('user. This user is not active.')
+
 
         return self.repo_action.update_action(action_id=action_id, new_is_valid=new_is_valid)
