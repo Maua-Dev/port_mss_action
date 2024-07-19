@@ -16,12 +16,12 @@ class DeleteProjectUsecase:
             raise UnregisteredUser()
         
         user = self.repo_member.get_member(user_id=user_id)
-
-        if user.validate_role_admin(user.role) is False:
-            raise ForbiddenAction("User is not an admin")
-
+        
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction("User is not active")
+            raise ForbiddenAction('user. This user is not active.')
+        
+        if user.validate_role_admin(user.role) is False:
+            raise ForbiddenAction("this user. is not allowed to delete a project as he is not an admin")
         
         if not Project.validate_project_code(code):
             raise EntityError('code')

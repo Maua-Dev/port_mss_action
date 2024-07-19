@@ -26,7 +26,7 @@ class GetHistoryUsecase:
                 raise UnregisteredUser()
             
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction("User is not active")
+            raise ForbiddenAction("user. This user is not active.")
         
         is_admin = Member.validate_role_admin(user.role)
 

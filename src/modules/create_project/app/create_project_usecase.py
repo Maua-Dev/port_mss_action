@@ -53,10 +53,10 @@ class CreateProjectUsecase:
         user = self.repo_member.get_member(user_id=user_id)
         
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction("User is not an active")
+            raise ForbiddenAction("user. This user is not active.")
 
         if user.validate_role_admin(user.role) is False:
-            raise ForbiddenAction("User is not an admin")
+            raise ForbiddenAction("this user. is not allowed to create a project as he is not an admin")
 
         if self.repo.get_project(code=project.code) is not None:
             raise DuplicatedItem('code')

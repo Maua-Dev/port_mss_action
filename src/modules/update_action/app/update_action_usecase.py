@@ -30,7 +30,8 @@ class UpdateActionUsecase:
         if user is None:
             raise UnregisteredUser()  
         
-
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('user. This user is not active.')
         
         action = self.repo.get_action(action_id)
         if not action:
@@ -40,8 +41,8 @@ class UpdateActionUsecase:
         if is_admin == False and user_id != action.user_id:
             raise ForbiddenAction('This user can´t update this action. He is not the owner of the action or an admin.')
         
-        if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('This user can´t update this action. He is not active.')
+    
+
         
         members = None
         if (new_associated_members_user_ids) and (user_id == action.user_id):
