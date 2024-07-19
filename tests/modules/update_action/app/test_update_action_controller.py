@@ -4,7 +4,7 @@ from src.modules.update_action.app.update_action_usecase import UpdateActionUsec
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_UpdateActionController:
     def test_update_action_controller(self):
@@ -1095,7 +1095,7 @@ class Test_UpdateActionController:
         controller = UpdateActionController(usecase)
         action_id = repo.actions[0].action_id
         user_id = repo.actions[0].action_id
-
+        repo_member.members[2].active = ACTIVE.ACTIVE
         request = HttpRequest(body={
             "requester_user": {
                 "sub": repo_member.members[2].user_id,

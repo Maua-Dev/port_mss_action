@@ -26,7 +26,7 @@ class CreateActionUsecase:
         
         member = self.repo_member.get_member(user_id)
         if member.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('This user can´t create this action. He is not active.')
+            raise ForbiddenAction('user. This user is not active.')
         
         self.repo.create_action(action)
         self.repo.create_associated_action(AssociatedAction(action_id, start_date, user_id))

@@ -20,6 +20,9 @@ class DeleteActionUsecase:
 
         user = self.member_repository.get_member(user_id=user_id)
 
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('user. This user is not active.')
+        
         action = self.action_repository.get_action(action_id=action_id) 
 
         is_admin = user.validate_role_admin(user.role)
@@ -33,8 +36,6 @@ class DeleteActionUsecase:
         elif not is_admin and member_user_id is None:
             action = self.action_repository.delete_action(action_id=action_id)
 
-        if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('This user can´t delete this action. He is not active.')
 
         if action is None:
             raise NoItemsFound('action_id')
