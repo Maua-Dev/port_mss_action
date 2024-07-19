@@ -39,6 +39,7 @@ class TestUpdateActionValidationUsecase:
         repo_member = MemberRepositoryMock()
         action = repo_action.actions[0]
         member = repo_member.members[2]
+        member.active = ACTIVE.ACTIVE
         usecase = UpdateActionValidationUsecase(repo_action, repo_member)
         with pytest.raises(UserNotAllowed):
             usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=False)

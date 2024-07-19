@@ -22,6 +22,7 @@ class UpdateActionValidationUsecase:
         if user.active != ACTIVE.ACTIVE:
             raise ForbiddenAction('user. This user is not active.')
         
+        
         if user.role not in [ROLE.DIRECTOR, ROLE.HEAD, ROLE.PO]:
             raise UserNotAllowed()
         
