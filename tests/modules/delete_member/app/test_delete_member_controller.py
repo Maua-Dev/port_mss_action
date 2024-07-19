@@ -100,4 +100,47 @@ class Test_DeleteMemberController:
 
         assert response.status_code == 400
         
-    
+    def test_delete_controller_another_user(self): 
+        repo = MemberRepositoryMock()
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member_admin = repo.members[0]
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": member_admin.user_id,
+                    "name": member_admin.name,
+                    "email": member_admin.email,
+                    "custom:isMaua": True
+                },
+            'member_user_id':"76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
+             
+            }
+            )
+
+        response = controller(request=request)
+
+        assert response.status_code == 200
+        assert response.body["member"]["name"] == "Luigi Televisão"
+
+    def test_delete_controller_not_active_member(self):
+        repo = MemberRepositoryMock()
+        usecase = DeleteMemberUseCase(repo=repo)
+        controller = DeleteMemberController(usecase=usecase)
+        member = repo.members[0]
+        member.active = "DISCONNECTED"
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": member.user_id,
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                }
+            }
+        )
+
+        response = controller(request=request)
+
+        assert response.status_code == 403
+        assert response.body == "That action is forbidden for this user. This user is not active."

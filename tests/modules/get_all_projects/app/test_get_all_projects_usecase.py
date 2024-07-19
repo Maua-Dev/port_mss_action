@@ -1,8 +1,10 @@
-from src.modules.get_all_projects.app.get_all_projects_usecase import GetAllProjectsUsecase
+import pytest
+from src.modules.get_all_projects.app.get_all_projects_usecase import GetAllProjectsUsecase,ForbiddenAction
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
+from src.shared.domain.enums.active_enum import ACTIVE
 
 
 class Test_GetAllProjectsUsecase:
@@ -15,3 +17,21 @@ class Test_GetAllProjectsUsecase:
         assert type(projects) == list
         assert len(projects) == 5
         assert type(projects[0]) == Project
+
+    def test_get_all_projects_usecase_FREEZE_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetAllProjectsUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+            usecase( user_id=user.user_id)
+    
+    def test_get_all_projects_usecase_DISCONNECTED_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase =GetAllProjectsUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            usecase( user_id=user.user_id)

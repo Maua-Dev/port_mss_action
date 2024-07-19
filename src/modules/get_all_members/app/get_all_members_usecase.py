@@ -1,5 +1,6 @@
+from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 class GetAllMembersUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
@@ -10,5 +11,8 @@ class GetAllMembersUsecase:
             raise NoItemsFound('user_id')
         
         members = self.repo.get_all_members()
-
+        is_active = Member.validate_active(member.active)
+        
+        if not is_active:
+            raise ForbiddenAction('user. This user is not active.') 
         return members

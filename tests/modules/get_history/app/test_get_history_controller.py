@@ -3,7 +3,7 @@ from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_GetHistoryController:
     def test_get_history_controller(self):
@@ -267,6 +267,8 @@ class Test_GetHistoryController:
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryUsecase(repo, repo_member)
         controller = GetHistoryController(usecase)
+        user = repo_member.get_member(user_id=repo_member.members[2].user_id)
+        user.active = ACTIVE.ACTIVE
         request = HttpRequest(body={
             "requester_user": {
                 "sub": repo_member.members[2].user_id,

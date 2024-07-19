@@ -4,7 +4,7 @@ from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_DeleteProjectUsecase:
     def test_delete_project_usecase(self):
@@ -45,3 +45,21 @@ class Test_DeleteProjectUsecase:
         usecase = DeleteProjectUsecase(repo=repo, repo_member=repo_member)
         with pytest.raises(ForbiddenAction):
             project = usecase(code='MauaFood', user_id=repo_member.members[2].user_id)
+    
+    def test_delete_project_usecase_FREEZE_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = DeleteProjectUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+            usecase(code='MauaFood', user_id=user.user_id)
+    
+    def test_delete_project_usecase_DISCONNECTED_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = DeleteProjectUsecase(repo=repo, repo_member=repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            usecase(code='MauaFood', user_id=user.user_id)
