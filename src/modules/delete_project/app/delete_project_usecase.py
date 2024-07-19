@@ -3,7 +3,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class DeleteProjectUsecase:
     def __init__(self, repo:IActionRepository, repo_member: IMemberRepository):
@@ -16,10 +16,13 @@ class DeleteProjectUsecase:
             raise UnregisteredUser()
         
         user = self.repo_member.get_member(user_id=user_id)
-
+        
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('user. This user is not active.')
+        
         if user.validate_role_admin(user.role) is False:
-            raise ForbiddenAction("User is not an admin")
-
+            raise ForbiddenAction("this user. is not allowed to delete a project as he is not an admin")
+        
         if not Project.validate_project_code(code):
             raise EntityError('code')
         

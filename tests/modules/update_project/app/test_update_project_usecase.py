@@ -5,6 +5,7 @@ from src.shared.helpers.errors.usecase_errors import NoItemsFound, ForbiddenActi
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class TestUpdateProjectUsecase:
 
@@ -71,3 +72,21 @@ class TestUpdateProjectUsecase:
         with pytest.raises(ForbiddenAction):
             usecase(code = "PT", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_user_id = "51ah5jaj-c9jm-1345-666ab-e12341c14a3", new_scrum_user_id = "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", new_photos = ["foto1", "foto2"], new_members_user_ids = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"], user_id = repo_member.members[2].user_id)
               
+    def test_update_project_FREEZE_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateProjectUsecase(repo, repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+            usecase(code = "PT", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_user_id = "51ah5jaj-c9jm-1345-666ab-e12341c14a3", new_scrum_user_id = "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", new_photos = ["foto1", "foto2"], new_members_user_ids = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"], user_id = user.user_id)
+    
+    def test_update_project_DISCONNECTED_user(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = UpdateProjectUsecase(repo, repo_member)
+        user = repo_member.members[0]
+        user.active= ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+            usecase(code = "PT", new_name = "Projeto Teste", new_description = "Descrição do projeto teste", new_po_user_id = "51ah5jaj-c9jm-1345-666ab-e12341c14a3", new_scrum_user_id = "76h35dg4-h76v-1875-987hn-h67gfv45Gt4", new_photos = ["foto1", "foto2"], new_members_user_ids = ["51ah5jaj-c9jm-1345-666ab-e12341c14a3", "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"], user_id = user.user_id)
+                         

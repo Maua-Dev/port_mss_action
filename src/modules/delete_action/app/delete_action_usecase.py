@@ -1,10 +1,10 @@
 from src.shared.domain.entities.action import Action
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser, ForbiddenAction
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser, ForbiddenAction,UserNotAllowed
 from src.shared.helpers.errors.domain_errors import EntityError
 from typing import Optional
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class DeleteActionUsecase:
     def __init__(self, repo_action: IActionRepository, repo_member: IMemberRepository):
@@ -20,11 +20,14 @@ class DeleteActionUsecase:
 
         user = self.member_repository.get_member(user_id=user_id)
 
+        if user.active != ACTIVE.ACTIVE:
+            raise ForbiddenAction('user. This user is not active.')
+        
         action = self.action_repository.get_action(action_id=action_id) 
 
         is_admin = user.validate_role_admin(user.role)
         if is_admin == False and user_id != action.user_id:
-            raise ForbiddenAction('This user can´t update this action. He is not the owner of the action or an admin.')
+            raise ForbiddenAction('This user can´t delete this action. He is not the owner of the action or an admin.')
 
         if is_admin and member_user_id is None:
             action = self.action_repository.delete_action(action_id=action_id)
@@ -32,6 +35,7 @@ class DeleteActionUsecase:
             action = self.action_repository.delete_action(action_id=action_id)
         elif not is_admin and member_user_id is None:
             action = self.action_repository.delete_action(action_id=action_id)
+
 
         if action is None:
             raise NoItemsFound('action_id')

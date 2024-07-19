@@ -67,4 +67,12 @@ class Test_DeleteMemberUseCase:
 
         with pytest.raises(ForbiddenAction):
             member = usecase(user_id=user_id, member_user_id=member_user_id)
-          
+    
+    def test_delete_member_usecase_active_not_valid(self):
+        repo = MemberRepositoryMock()
+        usecase = DeleteMemberUseCase(repo=repo)
+        user = repo.members[2]
+        user.active= 'DISCONNECTED'
+    
+        with pytest.raises(ForbiddenAction):
+            member = usecase(user_id=user.user_id)

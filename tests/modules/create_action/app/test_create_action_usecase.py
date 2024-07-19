@@ -3,10 +3,10 @@ from src.modules.create_action.app.create_action_usecase import CreateActionUsec
 from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound, UnregisteredUser, ForbiddenAction
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-
+from src.shared.domain.enums.active_enum import ACTIVE
 
 class Test_CreateActionUsecase:
     def test_create_action_usecase(self):
@@ -61,3 +61,24 @@ class Test_CreateActionUsecase:
         
         action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id="75648hbr-184n-1985-91han-7ghn4HgF182")
         assert action.is_valid == True
+
+    def test_create_action_user_is_FREEZE(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
+        member = repo_member.members[0]
+        member.active = ACTIVE.FREEZE
+        with pytest.raises(ForbiddenAction):
+                action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id=member.user_id)
+    
+    def test_create_action_user_is_DISCONNECTED (self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = CreateActionUsecase(repo=repo, repo_member=repo_member)
+        member = repo_member.members[0] 
+        member.active = ACTIVE.DISCONNECTED
+        with pytest.raises(ForbiddenAction):
+                action = usecase(start_date=1634526000000, duration=2*60*60*1000, story_id=100, associated_members_user_ids=[], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE, user_id=member.user_id)
+    
+        
+        
