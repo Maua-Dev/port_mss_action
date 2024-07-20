@@ -218,3 +218,12 @@ class Test_ActionRepositoryDynamo:
 
         resp2 = repo.batch_get_action(action_ids=action_ids)
         assert resp2 == []
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_scan_actions_by_start_date(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo.scan_actions_by_start_date(1641061363000, 1672510963000)
+
+        assert len(resp) == 7

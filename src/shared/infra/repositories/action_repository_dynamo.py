@@ -14,7 +14,7 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Key, Attr
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
@@ -317,7 +317,12 @@ class ActionRepositoryDynamo(IActionRepository):
             
         return [AssociatedActionDynamoDTO.from_dynamo(item).to_entity() for item in resp['Items']]
 
-        
-    
+    def scan_actions_by_start_date(self, start_date, end_date):
+        expression = Attr('start_date').between(start_date,end_date) & Attr('SK').begins_with('action#')
 
-    
+        resp = self.dynamo.scan_items(expression)
+        
+        if resp["Count"] == 0:
+            return []
+        
+        return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
