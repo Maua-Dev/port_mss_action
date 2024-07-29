@@ -20,7 +20,7 @@ class Test_GetAllMembersController:
         
         assert response.status_code == 200
         assert response.body['message'] == 'the members were retrieved'
-        assert len(response.body['members']) == len(repo.members)
+        assert len(response.body['members']) == len(repo.get_all_members())
     
     def test_get_all_members_controller__requester_user_none(self):
         
