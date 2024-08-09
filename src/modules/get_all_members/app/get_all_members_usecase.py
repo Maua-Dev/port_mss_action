@@ -10,9 +10,14 @@ class GetAllMembersUsecase:
         if member is None:
             raise NoItemsFound('user_id')
         
-        members = self.repo.get_all_members()
+        active_members = []
+        for m in self.repo.get_all_members():
+            if m.active.value == 'ACTIVE':
+                active_members.append(m)
+        
         is_active = Member.validate_active(member.active)
         
         if not is_active:
             raise ForbiddenAction('user. This user is not active.') 
-        return members
+        
+        return active_members
