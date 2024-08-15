@@ -47,23 +47,7 @@ class Test_GetAllMembersViewModel:
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
                         }
                 },
-                {
-                    'member': {
-                        'name': 'Luigi Televisão',
-                        'email_dev': 'ltelevisao.devmaua@gmail.com',
-                        'email': 'lgtv@gmail.com',
-                        'ra': '22017310',
-                        'role': 'DEV',
-                        'stack': 'BACKEND',
-                        'year': 2,
-                        'cellphone': '11991758228',
-                        'course': 'CIC',
-                        'hired_date': 1640192165000,
-                        'deactivated_date': None,
-                        'active': 'FREEZE',
-                        'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
-                        }
-                },
+                
                 {
                     'member': {
                         'name': 'Little Ronald',
@@ -81,23 +65,7 @@ class Test_GetAllMembersViewModel:
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
                         }
                 },
-                {
-                    'member': {
-                        'name': 'Marcos Pereira Neto',
-                        'email_dev': 'mneto.devmaua@gmail.com',
-                        'email': 'mneto@gmail.com',
-                        'ra': '19017310',
-                        'role': 'PO',
-                        'stack': 'BUSINESS',
-                        'year': 4,  
-                        'cellphone': '11991753208',
-                        'course': 'EMC',
-                        'hired_date': 1614567601000,
-                        'deactivated_date': None,
-                        'active': 'DISCONNECTED',
-                        'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG"
-                        }               
-                },
+                
                 {
                     'member': {
                         'name': 'Rubicks Cube',
@@ -115,23 +83,7 @@ class Test_GetAllMembersViewModel:
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s"
                         }
                 },
-                {
-                    'member': {
-                        'name': 'Django Fett',
-                        'email_dev': 'dfett.devmaua@gmail.com',
-                        'email': 'djangofett@starwars.com',
-                        'ra': '17033730',
-                        'role': 'INTERNAL',
-                        'stack': 'INTERNAL',
-                        'year': 2,
-                        'cellphone': '11915758098',
-                        'course': 'ECA',
-                        'hired_date': 1609606565000,
-                        'deactivated_date': None,
-                        'active': 'FREEZE',
-                        'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36"
-                        }
-                },
+                
                 {
                     'member': {
                         'name': 'Henrique Gustavo de Souza',
@@ -181,23 +133,6 @@ class Test_GetAllMembersViewModel:
                         'active' : 'ACTIVE',
                         'deactivated_date' : None,
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
-                        }
-                },
-                {
-                    'member' : {
-                        'name' : "Carlinhos Miau",
-                        'email_dev' : "carlinhos.devmaua@gmail.com",
-                        'email' : "carlinhosmiau@gmail.com",
-                        'ra' : "23024211",
-                        'role' : 'DEV',
-                        'stack' : 'BACKEND',
-                        'year' : 3,
-                        'cellphone' : "11998472663",
-                        'course' : 'ECM',
-                        'hired_date' : 1640192165000,
-                        'active' : 'ON_HOLD',
-                        'deactivated_date' : None,
-                        'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc"
                         }
                 }
             ],

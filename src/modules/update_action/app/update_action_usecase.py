@@ -58,8 +58,13 @@ class UpdateActionUsecase:
             self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
             
         description = new_description if new_description != '' else action.description
-        story_id = new_story_id if new_story_id != -1 else action.story_id
-        story_id = new_story_id if new_story_id != 0 else None
+        if new_story_id == -1:
+            story_id = action.story_id
+        elif new_story_id == 0:
+            story_id = None
+        else:
+            story_id = new_story_id
+
 
         return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         

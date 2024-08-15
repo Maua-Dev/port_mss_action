@@ -18,7 +18,9 @@ class Test_UpdateActionUsecase:
         assert repo.actions[0] == action
         assert all(action.user_id in [action.user_id] for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
         assert all(action.start_date == 1634526000000 for action in repo.associated_actions if action.action_id == repo.actions[0].action_id)
-        
+        assert action.story_id == 100
+        assert repo.actions[0].story_id == 100    
+
     def test_update_action_no_items_found(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
