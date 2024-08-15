@@ -39,7 +39,9 @@ class Test_UpdateActionController:
         response = controller(request)
         assert response.status_code == 200
         assert response.body["message"] == "the action was updated"
-        
+        assert response.body["action"]["story_id"] == 100
+        assert repo.actions[0].story_id ==100
+
     def test_update_action_controller_missing_action_id(self):
             
         repo = ActionRepositoryMock()
