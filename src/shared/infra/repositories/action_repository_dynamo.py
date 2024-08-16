@@ -326,3 +326,35 @@ class ActionRepositoryDynamo(IActionRepository):
             return []
         
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
+    
+    def get_duration_by_user_id(self, start_date: Optional[int] = None, end_date: Optional[int] = None) -> dict:
+        expression = Attr('SK').begins_with('action#')
+        
+        if start_date and end_date:
+            expression = expression & Attr('start_date').between(start_date, end_date)
+        
+        resp = self.dynamo.scan_items(expression)
+        
+        if resp["Count"] == 0:
+            return {}
+        
+        durations_by_user_id = {}
+        
+        for item in resp['Items']:
+            action = ActionDynamoDTO.from_dynamo(item).to_entity()
+            
+            if action.duration is not None:
+                if action.user_id in durations_by_user_id:
+                    durations_by_user_id[action.user_id] += action.duration
+                else:
+                    durations_by_user_id[action.user_id] = action.duration
+                
+                for member_id in action.associated_members_user_ids:
+                    if member_id in durations_by_user_id:
+                        durations_by_user_id[member_id] += action.duration
+                    else:
+                        durations_by_user_id[member_id] = action.duration
+        
+        return durations_by_user_id
+
+
