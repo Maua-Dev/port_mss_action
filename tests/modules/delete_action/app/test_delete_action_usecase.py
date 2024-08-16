@@ -47,7 +47,7 @@ class Test_DeleteActionUsecase:
         repo_member = MemberRepositoryMock()
         usecase = DeleteActionUsecase(repo_action=repo, repo_member=repo_member)
         with pytest.raises(ForbiddenAction):
-            action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[2].user_id, member_user_id=repo_member.members[1].user_id)
+            action = usecase(action_id=repo.actions[0].action_id, user_id=repo_member.members[2].user_id)
 
     def test_delete_action_usecase_admin_with_member_user_id(self):
         repo = ActionRepositoryMock()
@@ -57,7 +57,7 @@ class Test_DeleteActionUsecase:
         
         action_id=repo.actions[0].action_id
         
-        action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+        action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id)
         assert type(action) == Action 
         assert len(repo.actions) == len_before - 1
         assert action.action_id == action_id
@@ -70,7 +70,7 @@ class Test_DeleteActionUsecase:
         member = repo_member.members[0] 
         member.active = ACTIVE.DISCONNECTED
         with pytest.raises(ForbiddenAction):
-            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id)
  
     def test_delete_action_user_is_FREEZE (self):
         repo = ActionRepositoryMock()
@@ -80,4 +80,4 @@ class Test_DeleteActionUsecase:
         member = repo_member.members[0] 
         member.active = ACTIVE.FREEZE
         with pytest.raises(ForbiddenAction):
-            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+            action = usecase(action_id=action_id, user_id=repo_member.members[0].user_id)
