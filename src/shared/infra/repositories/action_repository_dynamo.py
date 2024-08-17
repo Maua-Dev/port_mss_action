@@ -327,7 +327,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
-    def get_duration_by_user_id(self, start_date: Optional[int] = None, end_date: Optional[int] = None) -> dict:
+    def get_all_actions_durations_by_user_id(self, start_date: Optional[int] = None, end_date: Optional[int] = None) -> dict:
         expression = Attr('SK').begins_with('action#')
         
         if start_date and end_date:
