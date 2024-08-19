@@ -122,3 +122,9 @@ class IActionRepository(ABC):
         '''
         pass
 
+    @abstractmethod
+    def get_all_actions_durations_by_user_id(self, start_date: Optional[int] = None, end_date: Optional[int] = None) -> dict:   
+        '''
+        Checks all actions of a member and returns the sum of their durations
+        '''
+        pass
