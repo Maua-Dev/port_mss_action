@@ -50,7 +50,7 @@ class Test_GetAllMembersPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{}',
+            "body": '{"start_date":1624576165000,"end_date":1690046000000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
