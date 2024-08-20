@@ -228,12 +228,12 @@ class Test_ActionRepositoryDynamo:
 
         assert len(resp) == 7
     
-    @pytest.mark.skip("Can't run test in github actions")
+    #@pytest.mark.skip("Can't run test in github actions")
     def test_get_all_actions_durations_by_user_id(self):
         repo = ActionRepositoryDynamo()
         repo_mock = ActionRepositoryMock()
 
-        resp = repo.get_all_actions_durations_by_user_id(1624576165000, 1700046000000)
+        resp = repo.get_all_actions_durations_by_user_id(1624576165000, 1690046000000)
 
         assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 104090000000, 
                         '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 184430000000, 
