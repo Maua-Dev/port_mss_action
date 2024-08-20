@@ -14,6 +14,7 @@ class Test_GetAllMembersUseCase:
         assert type(members) == list
         assert len(members) == 11
         assert all([type(member) == Member for member in members])
+        assert members[0].hours_worked == 143960000000
 
 
     def test_get_all_members_usecase_user_id_not_found(self):

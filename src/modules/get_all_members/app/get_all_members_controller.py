@@ -6,13 +6,11 @@ from src.shared.helpers.external_interfaces.external_interface import IRequest, 
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+
 class GetAllMembersController:
     def __init__(self, usecase: GetAllMembersUsecase):
         self.usecase = usecase
-        self.memberrepo = MemberRepositoryMock()
-        self.actionrepo = ActionRepositoryMock()
+
     def __call__(self, request: IRequest) -> IResponse:
         try:
 
