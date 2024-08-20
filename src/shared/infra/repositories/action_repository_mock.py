@@ -524,20 +524,19 @@ class ActionRepositoryMock(IActionRepository):
         durations_by_user_id = {}
 
         for action in actions:
+            
+            if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
 
-            if start_date is not None and end_date is not None and action.start_date >= start_date and action.end_date >= end_date:
-                continue
-
-            if action.duration is not None:
-                if action.user_id in durations_by_user_id:
-                    durations_by_user_id[action.user_id] += action.duration
-                else:
-                    durations_by_user_id[action.user_id] = action.duration
-
-                for associated_user_id in action.associated_members_user_ids:
-                    if associated_user_id in durations_by_user_id:
-                        durations_by_user_id[associated_user_id] += action.duration
+                if action.duration is not None:
+                    if action.user_id in durations_by_user_id:
+                        durations_by_user_id[action.user_id] += action.duration
                     else:
-                        durations_by_user_id[associated_user_id] = action.duration
+                        durations_by_user_id[action.user_id] = action.duration
+
+                    for associated_user_id in action.associated_members_user_ids:
+                        if associated_user_id in durations_by_user_id:
+                            durations_by_user_id[associated_user_id] += action.duration
+                        else:
+                            durations_by_user_id[associated_user_id] = action.duration
 
         return durations_by_user_id
