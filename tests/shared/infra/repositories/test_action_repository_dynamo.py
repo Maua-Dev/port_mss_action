@@ -228,7 +228,7 @@ class Test_ActionRepositoryDynamo:
 
         assert len(resp) == 7
     
-    #@pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_all_actions_durations_by_user_id(self):
         repo = ActionRepositoryDynamo()
         repo_mock = ActionRepositoryMock()
