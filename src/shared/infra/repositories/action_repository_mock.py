@@ -514,7 +514,7 @@ class ActionRepositoryMock(IActionRepository):
 
         return deleted_actions
     
-    def get_all_actions_durations_by_user_id(self, start_date: Optional[int] = 1719802860000, end_date: Optional[int] = 1735700340000) -> dict:   
+    def get_all_actions_durations_by_user_id(self, start_date:int, end_date: int) -> dict:   
         
         actions = self.actions
         
