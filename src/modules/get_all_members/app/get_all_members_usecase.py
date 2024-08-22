@@ -1,9 +1,11 @@
+from decimal import Decimal
 from typing import Optional
 from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 from datetime import datetime
+
 
 class GetAllMembersUsecase:
     def __init__(self, memberrepo: IMemberRepository, actionrepo: IActionRepository):
@@ -36,6 +38,8 @@ class GetAllMembersUsecase:
                 end_date = datetime(year, 6, 30).timestamp() * 1000
             else:  
                 end_date = datetime(year, 12, 31).timestamp() * 1000
+
+        start_date, end_date = Decimal(start_date), Decimal(end_date)
 
         hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)
         
