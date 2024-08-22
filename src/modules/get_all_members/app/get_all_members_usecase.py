@@ -16,6 +16,8 @@ class GetAllMembersUsecase:
             raise NoItemsFound('user_id')
         
 
+        is_active = Member.validate_active(member.active)
+
         if start_date is None :
             now = datetime.now()
             year = now.year
@@ -35,12 +37,9 @@ class GetAllMembersUsecase:
             else:  
                 end_date = datetime(year, 12, 31).timestamp() * 1000
 
-
-        members = self.memberrepo.get_all_members()
-
-        is_active = Member.validate_active(member.active)
         hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)
         
+        members = self.memberrepo.get_all_members()
         for member in members:
             member_user_id = member.user_id
             member.hours_worked = hours_worked.get(member_user_id, 0)
