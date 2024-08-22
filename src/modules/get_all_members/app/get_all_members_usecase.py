@@ -15,6 +15,7 @@ class GetAllMembersUsecase:
         if member is None:
             raise NoItemsFound('user_id')
         
+
         if start_date is None :
             now = datetime.now()
             year = now.year
@@ -36,6 +37,7 @@ class GetAllMembersUsecase:
 
 
         members = self.memberrepo.get_all_members()
+
         is_active = Member.validate_active(member.active)
         hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)
         
@@ -45,4 +47,5 @@ class GetAllMembersUsecase:
             
         if not is_active:
             raise ForbiddenAction('user. This user is not active.') 
-        return members
+        
+        return active_members

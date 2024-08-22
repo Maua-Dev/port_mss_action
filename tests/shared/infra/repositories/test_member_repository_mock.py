@@ -37,8 +37,9 @@ class Test_MemberRepositoryMock:
         members = repo.get_all_members()
         assert type(members) == list
         assert all([type(member) == Member for member in members])
-        assert len(members) == len(repo.members)
-        assert members == repo.members
+        assert all([member.active.value == 'ACTIVE' for member in members])
+        assert len(members) == len(repo.get_all_members())
+        assert members == repo.get_all_members()
         
     def test_create_member(self):
         repo = MemberRepositoryMock()

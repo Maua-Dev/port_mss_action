@@ -30,6 +30,7 @@ class Test_GetAllMembersController:
         assert response.body['message'] == 'the members were retrieved'
         assert len(response.body['members']) == 11
         assert response.body == expected_dict
+
     
     def test_get_all_members_controller__requester_user_none(self):
         

@@ -268,6 +268,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Luigi Televisão',
@@ -286,6 +287,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Little Ronald',
@@ -304,6 +306,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Marcos Pereira Neto',
@@ -322,6 +325,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }               
                 },
+
                 {
                     'member': {
                         'name': 'Rubicks Cube',
@@ -340,6 +344,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Django Fett',
@@ -358,6 +363,7 @@ class Test_GetAllMembersViewModel:
                         'hours_worked': 0
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Henrique Gustavo de Souza',
@@ -411,6 +417,7 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
                         'hours_worked' : 0
                         }
+
                 },
                 {
                     'member' : {
