@@ -48,4 +48,4 @@ class GetAllMembersUsecase:
         if not is_active:
             raise ForbiddenAction('user. This user is not active.') 
         
-        return active_members
+        return members
