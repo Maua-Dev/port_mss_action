@@ -14,7 +14,7 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Key, Attr
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
@@ -317,7 +317,41 @@ class ActionRepositoryDynamo(IActionRepository):
             
         return [AssociatedActionDynamoDTO.from_dynamo(item).to_entity() for item in resp['Items']]
 
-        
-    
+    def scan_actions_by_start_date(self, start_date, end_date):
+        expression = Attr('start_date').between(start_date,end_date) & Attr('SK').begins_with('action#')
 
+        resp = self.dynamo.scan_items(expression)
+        
+        if resp["Count"] == 0:
+            return []
+        
+        return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
+    def get_all_actions_durations_by_user_id(self, start_date: int , end_date:int) -> dict:
+        expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
+        
+        resp = self.dynamo.scan_items(expression)
+        
+        if resp["Count"] == 0:
+            return {}
+        
+        durations_by_user_id = {}
+        
+        for item in resp['Items']:
+            action = ActionDynamoDTO.from_dynamo(item).to_entity()
+            
+            if action.duration is not None:
+                if action.user_id in durations_by_user_id:
+                    durations_by_user_id[action.user_id] += action.duration
+                else:
+                    durations_by_user_id[action.user_id] = action.duration
+                
+                for associated_user_id in action.associated_members_user_ids:
+                    if associated_user_id in durations_by_user_id:
+                        durations_by_user_id[associated_user_id] += action.duration
+                    else:
+                        durations_by_user_id[associated_user_id] = action.duration
+        
+        return durations_by_user_id
+
+

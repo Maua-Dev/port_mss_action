@@ -113,7 +113,7 @@ class LambdaStack(Construct):
         
         self.get_all_members_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_members",
-            method="GET",
+            method="POST",
             api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
