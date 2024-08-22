@@ -3,7 +3,7 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser, UserNotAllowed
 
 
 class GetMemberUsecase:

@@ -8,7 +8,7 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 
 
 class UpdateMemberUsecase:
@@ -76,7 +76,7 @@ class UpdateMemberUsecase:
         is_active = Member.validate_active(member.active)
         
         if not is_active:
-            raise ForbiddenAction('user. This user is not active.')
+            raise UserNotAllowed()
         
         is_admin = Member.validate_role_admin(member.role)
         
@@ -87,4 +87,4 @@ class UpdateMemberUsecase:
         elif not is_admin and new_member_user_id is None:
             return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
         else:
-            raise ForbiddenAction('this user. is not allowed to update another user')
+            raise UserNotAllowed()

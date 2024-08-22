@@ -5,7 +5,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, ForbiddenAction, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, ForbiddenAction, UnregisteredUser, UserNotAllowed
 from src.shared.domain.enums.active_enum import ACTIVE
 
 class UpdateProjectUsecase:
@@ -20,10 +20,10 @@ class UpdateProjectUsecase:
         user = self.repo_member.get_member(user_id=user_id)
         
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction("user. This user is not active.")
+            raise UserNotAllowed()
         
         if user.validate_role_admin(user.role) is False:
-            raise ForbiddenAction("this user. is not allowed to update a project as he is not an admin")
+            raise UserNotAllowed()
 
         
         if not Project.validate_project_code(code):
