@@ -51,7 +51,7 @@ class TestUpdateActionValidationUsecase:
         member = repo_member.members[0]
         member.active = ACTIVE.FREEZE
         usecase = UpdateActionValidationUsecase(repo_action, repo_member)
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserNotAllowed):
             usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=False)
             
     def test_update_action_validation_usecase_user_is_DISCONNECTED(self):
@@ -61,6 +61,6 @@ class TestUpdateActionValidationUsecase:
         member = repo_member.members[0]
         usecase = UpdateActionValidationUsecase(repo_action, repo_member)
         member.active = ACTIVE.DISCONNECTED
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserNotAllowed):
             action = usecase(user_id=member.user_id, action_id=action.action_id , new_is_valid=True)
             

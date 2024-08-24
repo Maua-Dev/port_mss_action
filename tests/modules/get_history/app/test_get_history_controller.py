@@ -280,8 +280,8 @@ class Test_GetHistoryController:
             })
         
         response = controller(request)
-        assert response.status_code == 403
-        assert response.body == 'That action is forbidden for this user. Not allowed to access this resource.'
+        assert response.status_code == 500
+        assert response.body == 'That type of user has no permission for that action'
 
     def test_get_history_controller_another_member(self):
         

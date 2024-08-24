@@ -27,4 +27,3 @@ class PaginationAmountInvalid(BaseError):
 class UserIsNotFromBusiness(BaseError):
     def __init__(self):
         super().__init__(f'That user is not a member of the Business Stack')
-
