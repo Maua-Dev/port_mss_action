@@ -187,3 +187,11 @@ class Test_ActionRepositoryMock:
                             '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 72430000000, 
                             '7gh5yf5H-857H-1234-75hng-94832hvng1s': 107350000000, 
                             '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 143960000000}
+        
+    def test_get_action_durations_for_user(self):
+        
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo_mock.get_action_durations_for_user(start_date=1624576165000, end_date=1690046000000, user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
+
+        assert resp == 143960000000
