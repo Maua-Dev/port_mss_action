@@ -540,3 +540,25 @@ class ActionRepositoryMock(IActionRepository):
                             durations_by_user_id[associated_user_id] = action.duration
 
         return durations_by_user_id
+    
+    def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
+        
+        actions = self.actions
+
+        if not actions:
+            return 0
+
+        total_duration = 0
+
+        for action in actions:
+            
+            if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
+                
+                if action.duration is not None:
+                    if action.user_id == user_id:
+                        total_duration += action.duration
+                    
+                    if user_id in action.associated_members_user_ids:
+                        total_duration += action.duration
+
+        return total_duration
