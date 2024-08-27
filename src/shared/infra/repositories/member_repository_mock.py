@@ -253,8 +253,7 @@ class MemberRepositoryMock(IMemberRepository):
     def get_all_members(self) -> List[Member]:
         active_members = []
         for member in self.members:
-            if member.active.value == 'ACTIVE':
-                active_members.append(member)
+            active_members.append(member)
         return active_members
 
  
