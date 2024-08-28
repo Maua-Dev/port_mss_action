@@ -1,7 +1,7 @@
 from typing import Optional, Tuple
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser, UserNotAllowed
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser, UserNotAllowed, UserIsNotFromAdmin
 from src.shared.domain.entities.member import Member
 from src.shared.domain.enums.active_enum import ACTIVE
 
@@ -26,7 +26,7 @@ class GetHistoryUsecase:
                 raise UnregisteredUser()
             
         if user.active != ACTIVE.ACTIVE:
-            raise UserNotAllowed()
+            raise UserIsNotFromAdmin()
         
         is_admin = Member.validate_role_admin(user.role)
 
@@ -39,7 +39,7 @@ class GetHistoryUsecase:
         elif not is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
         else:
-            raise UserNotAllowed()
+            raise UserIsNotFromAdmin()
         
         actions_requested = associated_actions[:amount]
         

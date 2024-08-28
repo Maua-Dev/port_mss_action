@@ -37,7 +37,7 @@ class CreateProjectUsecase:
             raise UserIsNotFromBusiness()
         
         if po.active != ACTIVE.ACTIVE:
-            raise UserNotAllowed()
+            raise ForbiddenAction("PO is not active.")
         
         scrum = self.repo_member.get_member(user_id=scrum_user_id)
 
@@ -48,7 +48,7 @@ class CreateProjectUsecase:
             raise UserIsNotFromBusiness()
         
         if scrum.active != ACTIVE.ACTIVE:
-            raise UserNotAllowed()
+            raise ForbiddenAction("Scrum is not active.")
         
         user = self.repo_member.get_member(user_id=user_id)
         

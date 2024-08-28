@@ -1,7 +1,7 @@
 from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
 from src.shared.domain.entities.member import Member
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser, UserIsNotFromAdmin
 import pytest
 
 class Test_GetMemberUsecase:
@@ -24,12 +24,12 @@ class Test_GetMemberUsecase:
         repo = MemberRepositoryMock()
         usecase = GetMemberUsecase(repo=repo)
 
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserIsNotFromAdmin):
             usecase(user_id='76h35dg4-h76v-1875-987hn-h67gfv45Gt4')
             
     def test_get_member_usecase_onhold_user(self):
         repo = MemberRepositoryMock()
         usecase = GetMemberUsecase(repo=repo)
 
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserIsNotFromAdmin):
             usecase(user_id='3b07232f-4f65-42c6-b005-242550b8b8dc')

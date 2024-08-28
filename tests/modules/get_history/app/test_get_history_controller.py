@@ -280,8 +280,8 @@ class Test_GetHistoryController:
             })
         
         response = controller(request)
-        assert response.status_code == 500
-        assert response.body == 'That type of user has no permission for that action'
+        assert response.status_code ==  500
+        assert response.body == 'That user is not a member of administration.'
 
     def test_get_history_controller_another_member(self):
         

@@ -88,7 +88,7 @@ class Test_CreateProjectUsecase:
         po = repo_member.get_member('5f55f6a5-a66e-4fff-9faf-72cd478bd5a0')
         po.active= ACTIVE.FREEZE
 
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             usecase(user_id=repo_member.members[0].user_id, code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id=po.user_id, scrum_user_id='5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'])
 
     def test_create_project_usecase_po_is_DISCONNECTED(self):
@@ -99,7 +99,7 @@ class Test_CreateProjectUsecase:
         po = repo_member.get_member('5f55f6a5-a66e-4fff-9faf-72cd478bd5a0')
         po.active= ACTIVE.DISCONNECTED
 
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             usecase(user_id=repo_member.members[0].user_id, code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id=po.user_id, scrum_user_id='5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'])
 
     def test_create_project_usecase_scrum_is_FREEZE(self):
@@ -110,7 +110,7 @@ class Test_CreateProjectUsecase:
         scrum = repo_member.get_member('5f55f6a5-a66e-4fff-9faf-72cd478bd5a0')
         scrum.active= ACTIVE.FREEZE
 
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             usecase(user_id=repo_member.members[0].user_id, code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', scrum_user_id=scrum.user_id, start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'])
 
 
@@ -122,7 +122,7 @@ class Test_CreateProjectUsecase:
         scrum = repo_member.get_member('5f55f6a5-a66e-4fff-9faf-72cd478bd5a0')
         scrum.active= ACTIVE.DISCONNECTED
 
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(ForbiddenAction):
             usecase(user_id=repo_member.members[0].user_id, code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', scrum_user_id=scrum.user_id, start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'])
 
 
