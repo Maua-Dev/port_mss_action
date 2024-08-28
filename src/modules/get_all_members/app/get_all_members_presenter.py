@@ -4,8 +4,9 @@ from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
 
-repo = Environments.get_member_repo()()
-usecase = GetAllMembersUsecase(repo=repo)
+memberrepo = Environments.get_member_repo()()
+actionrepo = Environments.get_action_repo()()
+usecase = GetAllMembersUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
 controller = GetAllMembersController(usecase=usecase)
 
 def lambda_handler(event, context):

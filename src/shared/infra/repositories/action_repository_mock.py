@@ -5,6 +5,7 @@ from src.shared.domain.entities.project import Project
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
+from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
 
 
 class ActionRepositoryMock(IActionRepository):
@@ -512,3 +513,52 @@ class ActionRepositoryMock(IActionRepository):
                     deleted_actions.append(associated_action)
 
         return deleted_actions
+    
+    def get_all_actions_durations_by_user_id(self, start_date:int, end_date: int) -> dict:   
+        
+        actions = self.actions
+        
+        if not actions:
+            return {}
+
+        durations_by_user_id = {}
+
+        for action in actions:
+            
+            if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
+
+                if action.duration is not None:
+                    if action.user_id in durations_by_user_id:
+                        durations_by_user_id[action.user_id] += action.duration
+                    else:
+                        durations_by_user_id[action.user_id] = action.duration
+
+                    for associated_user_id in action.associated_members_user_ids:
+                        if associated_user_id in durations_by_user_id:
+                            durations_by_user_id[associated_user_id] += action.duration
+                        else:
+                            durations_by_user_id[associated_user_id] = action.duration
+
+        return durations_by_user_id
+    
+    def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
+        
+        actions = self.actions
+
+        if not actions:
+            return 0
+
+        total_duration = 0
+
+        for action in actions:
+            
+            if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
+                
+                if action.duration is not None:
+                    if action.user_id == user_id:
+                        total_duration += action.duration
+                    
+                    if user_id in action.associated_members_user_ids:
+                        total_duration += action.duration
+
+        return total_duration

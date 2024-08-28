@@ -19,7 +19,8 @@ class GetMemberViewModel:
     deactivated_date: Optional[int] = None
     active: ACTIVE
     user_id: str
-
+    hours_worked: int
+    
     def __init__(self, member: Member):
         self.name = member.name
         self.email_dev = member.email_dev
@@ -34,6 +35,7 @@ class GetMemberViewModel:
         self.deactivated_date = member.deactivated_date
         self.active = member.active
         self.user_id = member.user_id
+        self.hours_worked = member.hours_worked
 
     def to_dict(self):
         return {
@@ -50,7 +52,8 @@ class GetMemberViewModel:
                 'hired_date' : self.hired_date,
                 'deactivated_date' : self.deactivated_date,
                 'active' : self.active.value,
-                'user_id' : self.user_id
+                'user_id' : self.user_id,
+                'hours_worked' : self.hours_worked
             },
             "message" : "the member was retrieved"
         }

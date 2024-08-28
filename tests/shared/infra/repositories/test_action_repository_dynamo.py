@@ -210,7 +210,6 @@ class Test_ActionRepositoryDynamo:
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_associated_action_by_user_id_not_found(self):
         repo = ActionRepositoryDynamo()
-        repo_mock = ActionRepositoryMock()
 
         resp = repo.get_associated_actions_by_user_id(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4h1", amount=20)
 
@@ -218,3 +217,34 @@ class Test_ActionRepositoryDynamo:
 
         resp2 = repo.batch_get_action(action_ids=action_ids)
         assert resp2 == []
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_scan_actions_by_start_date(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.scan_actions_by_start_date(1641061363000, 1672510963000)
+
+        assert len(resp) == 7
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_durations_by_user_id(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.get_all_actions_durations_by_user_id(1624576165000, 1690046000000)
+
+        assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 104090000000, 
+                        '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 184430000000, 
+                        '6f5g4h7J-876j-0098-123hb-hgb567fy4hb': 160010000000, 
+                        '7465hvnb-143g-1675-86HnG-75hgnFbcg36': 79580000000, 
+                        '75648hbr-184n-1985-91han-7ghn4HgF182': 119700000000, 
+                        '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 72430000000, 
+                        '7gh5yf5H-857H-1234-75hng-94832hvng1s': 107350000000, 
+                        '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 143960000000}
+    
+    @pytest.mark.skip("Can't run test in github actions")   
+    def test_get_action_durations_for_user(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.get_action_durations_for_user("7465hvnb-143g-1675-86HnG-75hgnFbcg36", 1624576165000, 1690046000000)
+        print(resp)
+        assert resp == 79580000000
