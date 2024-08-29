@@ -45,10 +45,10 @@ class UpdateActionUsecase:
 
         
         members = None
-        if (new_associated_members_user_ids) and (user_id == action.user_id):
+        if new_associated_members_user_ids:
             members = new_associated_members_user_ids + [action.user_id]
         else:
-            members = [action.user_id]
+            members = action.associated_members_user_ids + [action.user_id]
 
         
         start_date = new_start_date if new_start_date is not None else action.start_date
@@ -66,5 +66,5 @@ class UpdateActionUsecase:
             story_id = new_story_id
 
 
-        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
+        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         
