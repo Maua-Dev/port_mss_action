@@ -2,7 +2,7 @@ from src.modules.get_all_members.app.get_all_members_usecase import GetAllMember
 from src.shared.domain.entities.member import Member
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 import pytest
 class Test_GetAllMembersUseCase:
     def test_get_all_members_usecase(self):
@@ -31,7 +31,7 @@ class Test_GetAllMembersUseCase:
         actionrepo = ActionRepositoryMock()
         usecase = GetAllMembersUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
         
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserNotAllowed):
             members = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4", start_date= 1624576165000, end_date= 1690046000000)
     
     def test_get_all_members_usecase_no_start_and_end_date(self):

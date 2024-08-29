@@ -2,8 +2,9 @@ from decimal import Decimal
 from typing import Optional
 from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
+
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
 from datetime import datetime
 
 
@@ -49,6 +50,6 @@ class GetAllMembersUsecase:
             member.hours_worked = hours_worked.get(member_user_id, 0)
             
         if not is_active:
-            raise ForbiddenAction('user. This user is not active.') 
+            raise UserNotAllowed()
         
         return members

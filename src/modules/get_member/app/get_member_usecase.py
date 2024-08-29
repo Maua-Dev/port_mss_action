@@ -5,7 +5,7 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import UnregisteredUser, UserNotAllowed
 
 
 class GetMemberUsecase:
@@ -52,6 +52,6 @@ class GetMemberUsecase:
         member.hours_worked = hours_worked.get(member_user_id, 0)
         
         if not is_active:
-            raise ForbiddenAction('user. This user is not active.')
+            raise UserNotAllowed()
         
         return member
