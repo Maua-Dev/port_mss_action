@@ -76,7 +76,7 @@ class UpdateMemberUsecase:
         is_active = Member.validate_active(member.active)
         
         if not is_active:
-            raise UserIsNotFromAdmin()
+            raise UserNotAllowed()
         
         is_admin = Member.validate_role_admin(member.role)
         

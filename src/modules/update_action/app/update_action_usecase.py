@@ -31,7 +31,7 @@ class UpdateActionUsecase:
             raise UnregisteredUser()  
         
         if user.active != ACTIVE.ACTIVE:
-            raise UserIsNotFromAdmin()
+            raise UserNotAllowed()
         
         action = self.repo.get_action(action_id)
         if not action:

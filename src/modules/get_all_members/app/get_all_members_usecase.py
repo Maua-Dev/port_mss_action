@@ -50,6 +50,6 @@ class GetAllMembersUsecase:
             member.hours_worked = hours_worked.get(member_user_id, 0)
             
         if not is_active:
-            raise ForbiddenAction('user. This user is not active.')
+            raise UserNotAllowed()
         
         return members

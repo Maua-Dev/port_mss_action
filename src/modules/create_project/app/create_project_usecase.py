@@ -4,7 +4,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser, UserIsNotFromBusiness, UserNotAllowed
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser, UserIsNotFromBusiness, UserIsNotFromAdmin
 from src.shared.domain.enums.active_enum import ACTIVE
 
 class CreateProjectUsecase:
@@ -56,7 +56,7 @@ class CreateProjectUsecase:
             raise ForbiddenAction("user. This user is not active.")
 
         if user.validate_role_admin(user.role) is False:
-            raise UserNotAllowed()
+            raise UserIsNotFromAdmin()
 
         if self.repo.get_project(code=project.code) is not None:
             raise DuplicatedItem('code')

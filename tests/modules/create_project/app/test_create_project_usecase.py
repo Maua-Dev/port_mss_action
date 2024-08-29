@@ -1,7 +1,7 @@
 import pytest
 from src.modules.create_project.app.create_project_usecase import CreateProjectUsecase
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
-from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser, UserNotAllowed
+from src.shared.helpers.errors.usecase_errors import DuplicatedItem, ForbiddenAction, UnregisteredUser, UserIsNotFromAdmin
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.enums.active_enum import ACTIVE
 
@@ -69,7 +69,7 @@ class Test_CreateProjectUsecase:
         repo_member = MemberRepositoryMock()
         usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
         repo_member.members[2].active = ACTIVE.ACTIVE
-        with pytest.raises(UserNotAllowed):
+        with pytest.raises(UserIsNotFromAdmin):
             project = usecase(user_id=repo_member.members[2].user_id,
                 code="PT",
                 name="Portfólio",

@@ -341,8 +341,8 @@ class Test_UpdateMemberController:
         
         response = controller(request)
        
-        assert response.status_code == 500
-        assert response.body == 'That user is not a member of administration.'
+        assert response.status_code == 403
+        assert response.body == 'That type of user has no permission for that action'
         
     def test_update_member_controller_not_active(self):
         
@@ -374,6 +374,6 @@ class Test_UpdateMemberController:
         
         response = controller(request)
        
-        assert response.status_code == 500
-        assert response.body == 'That user is not a member of administration.'
+        assert response.status_code == 403
+        assert response.body == 'That type of user has no permission for that action'
         

@@ -224,7 +224,7 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_user_forbidden(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             member = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
@@ -240,7 +240,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         first_member = repo.members[0]
         first_member.active = ACTIVE.DISCONNECTED
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
@@ -256,7 +256,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         first_member = repo.members[0]
         first_member.active = ACTIVE.FREEZE
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
@@ -270,7 +270,7 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_update_self_not_active(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             member = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,

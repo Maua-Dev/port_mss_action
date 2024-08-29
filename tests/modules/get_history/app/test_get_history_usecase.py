@@ -3,7 +3,7 @@ from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.shared.domain.entities.action import Action
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import UnregisteredUser, PaginationAmountInvalid, UserIsNotFromAdmin
+from src.shared.helpers.errors.usecase_errors import UnregisteredUser, PaginationAmountInvalid, UserIsNotFromAdmin, UserNotAllowed
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.enums.active_enum import ACTIVE
@@ -56,7 +56,7 @@ class Test_GetHistoryUsecase:
     def test_get_history_usecase_forbidden_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
             actions, last_evaluated_key = usecase(user_id= repo_member.members[2].user_id, member_user_id=repo_member.members[0].user_id)
 
@@ -81,7 +81,7 @@ class Test_GetHistoryUsecase:
         usecase =GetHistoryUsecase(repo=repo, repo_member=repo_member)
         user = repo_member.members[0]
         user.active= ACTIVE.DISCONNECTED
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             actions, last_evaluated_key = usecase(user_id= user.user_id)
     
     def test_get_history_usecase_FREEZE_user(self):
@@ -90,5 +90,5 @@ class Test_GetHistoryUsecase:
         usecase =GetHistoryUsecase(repo=repo, repo_member=repo_member)
         user = repo_member.members[0]
         user.active= ACTIVE.FREEZE
-        with pytest.raises(UserIsNotFromAdmin):
+        with pytest.raises(UserNotAllowed):
             actions, last_evaluated_key = usecase(user_id= user.user_id)

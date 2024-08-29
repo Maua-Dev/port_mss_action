@@ -26,7 +26,7 @@ class GetHistoryUsecase:
                 raise UnregisteredUser()
             
         if user.active != ACTIVE.ACTIVE:
-            raise UserIsNotFromAdmin()
+            raise UserNotAllowed()
         
         is_admin = Member.validate_role_admin(user.role)
 
