@@ -79,3 +79,27 @@ class Test_MemberRepositoryDynamo:
         resp.sort(key=lambda x: x.user_id)
 
         assert resp == expected_members
+        
+    @pytest.mark.skip("Can't test ses in Github")
+    def test_send_deleted_user_email(self):
+
+        repo_activity_dynamo = MemberRepositoryDynamo()
+        user = Member(
+                name="Lucas Crapino",
+                email_dev="lcrapino.devmaua@gmail.com",
+                email="lucascrapino@gmail.com",
+                ra="22006672",
+                role=ROLE.DEV,
+                stack=STACK.UX_UI,
+                year=1,
+                cellphone="11991123498",
+                course=COURSE.ECM,
+                hired_date=1672592165000,
+                active=ACTIVE.ACTIVE,
+                deactivated_date=None,
+                user_id="9183jBnh-997H-1010-10god-914gHy46tBh"
+            )
+
+        send_email = repo_activity_dynamo.send_member_active_email(user)
+
+        assert send_email

@@ -10,6 +10,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 class Test_ActionRepositoryDynamo:
@@ -248,3 +249,18 @@ class Test_ActionRepositoryDynamo:
         resp = repo.get_action_durations_for_user("7465hvnb-143g-1675-86HnG-75hgnFbcg36", 1624576165000, 1690046000000)
         print(resp)
         assert resp == 79580000000
+        
+    @pytest.mark.skip("Can't test ses in Github")
+    def test_send_invalid_action_email(self):
+
+        repo_activity_dynamo = ActionRepositoryDynamo()
+        repo_mock_actions = ActionRepositoryMock()
+        repo_mock_members = MemberRepositoryMock()
+        
+        action_1 = repo_mock_actions.actions[0]
+        member_1 = repo_mock_members.members[0]
+        
+
+        send_email = repo_activity_dynamo.send_invalid_action_email(action=action_1, member=member_1)
+
+        assert send_email

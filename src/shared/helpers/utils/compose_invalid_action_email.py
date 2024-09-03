@@ -1,7 +1,7 @@
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.action import Action
 
-def compose_deleted_user_email(Member: Member):
+def compose_deleted_user_email(Member: Member, Action: Action):
     name = Member.name
     action = Action.title
     message = """
@@ -438,7 +438,8 @@ def compose_deleted_user_email(Member: Member):
                                                                     <p style="line-height: 140%;">&nbsp;</p>
                                                                     <p style="line-height: 140%;">Estamos te enviando esse
                                                                         email para avisar que a sua ação {action}
-                                                                        está sendo anulada!</p>
+                                                                        está sendo anulada,
+                                                                        qualquer dúvida entre em contato conosco!</p>
                                                                     <p style="line-height: 140%;">&nbsp;</p>
                                                                 </div>
                                                             </td>

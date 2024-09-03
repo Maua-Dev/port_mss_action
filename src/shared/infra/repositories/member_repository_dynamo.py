@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
@@ -9,6 +10,9 @@ from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
+from src.shared.helpers.utils import compose_member_active_email
+import boto3
+
 
 class MemberRepositoryDynamo(IMemberRepository):
     @staticmethod
@@ -116,3 +120,43 @@ class MemberRepositoryDynamo(IMemberRepository):
             return None
         
         return MemberDynamoDTO.from_dynamo(resp["Attributes"]).to_entity()
+    
+    def send_member_active_email(self, member: Member) -> bool:
+        try:
+            client_ses = boto3.client('ses', region_name=os.environ.get('SES_REGION'))
+
+            member_active_composed_html = compose_member_active_email(Member)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        member.email,
+                    ],
+                    'BccAddresses':
+                        [
+                            os.environ.get("HIDDEN_COPY")
+                        ]
+                },
+                Message={
+                    'Body': {
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': member_active_composed_html,
+                        },
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Conta Ativa",
+                    },
+                },
+                ReplyToAddresses=[
+                    os.environ.get("REPLY_TO_EMAIL"),
+                ],
+                Source=os.environ.get("FROM_EMAIL"),
+            )
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False

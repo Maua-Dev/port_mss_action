@@ -1,4 +1,5 @@
 from decimal import Decimal
+import os
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -14,7 +15,10 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
+from src.shared.helpers.utils import compose_invalid_action_email
+from src.shared.helpers.utils import compose_member_active_email
 from boto3.dynamodb.conditions import Key, Attr
+import boto3
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
@@ -377,4 +381,44 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return total_duration
 
+        
+    def send_invalid_action_email(self, member: Member, action: Action) -> bool:
+        try:
+            client_ses = boto3.client('ses', region_name=os.environ.get('SES_REGION'))
+
+            member_active_composed_html = compose_invalid_action_email(Member, Action)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        member.email,
+                    ],
+                    'BccAddresses':
+                        [
+                            os.environ.get("HIDDEN_COPY")
+                        ]
+                },
+                Message={
+                    'Body': {
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': member_active_composed_html,
+                        },
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Conta Ativa",
+                    },
+                },
+                ReplyToAddresses=[
+                    os.environ.get("REPLY_TO_EMAIL"),
+                ],
+                Source=os.environ.get("FROM_EMAIL"),
+            )
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False
 
