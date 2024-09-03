@@ -456,9 +456,7 @@ class ActionRepositoryMock(IActionRepository):
                 self.associated_actions.remove(associated_action)
                 
         for member in user_ids:
-            count = 0
-            up_associated_action = self.associated_actions.append(AssociatedAction(action_id=action_id, start_date=start_date, user_id=user_ids[count]))
-            count += 1
+            up_associated_action = self.associated_actions.append(AssociatedAction(action_id=action_id, start_date=start_date, user_id=member))
             new_associated_actions.append(up_associated_action)        
         
         return new_associated_actions
