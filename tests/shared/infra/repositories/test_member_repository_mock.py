@@ -80,4 +80,6 @@ class Test_MemberRepositoryMock:
     def test_update_member_not_found(self):
         repo = MemberRepositoryMock()
         member = repo.update_member(user_id='13bc6ada-c0d1-7054-66ab-e17414c48ae3',  hired_date=1000000000000,email="test@gmail.com",new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND)
-        assert member is None    
+        assert member is None
+
+   
