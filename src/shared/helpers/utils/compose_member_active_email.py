@@ -12,29 +12,29 @@ def compose_member_active_email(member: Member):
         <table class="main" style="width: 50vw; max-width: 600px; background-color: white; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); overflow: hidden;">
             <tr>
             <td>
-                <table class="TittleBox" style="width: 100%; background-color: #726057; border-radius: 10px 10px 0 0;">
+                <table class="TittleBox" style="width: 100%; background-color: #050061; border-radius: 10px 10px 0 0;">
                 <tr>
                     <td style="text-align: center; padding: 20px;">
-                    <img alt="MauaFood Logo" src="https://dygzp3rn48wd5.cloudfront.net/logos/images/brown_logo.png" />
-                    <h1 style="color: #F3B986; margin-top: 10px;"><strong>Feedback Enviado!</strong></h1>
+                    <img alt="MauaFood Logo" src="https://d22wxe17x1tv7t.cloudfront.net/portalinterno.png" style="width: 60%;"/>
+                    <h1 style="color: #ffffff; margin-top: 10px;"><strong>Ativo no Sistema!</strong></h1>
                     </td>
                 </tr>
                 </table>
-                <table class="ContentBox" style="width: 100%; background-color: #f5e7db;">
+                <table class="ContentBox" style="width: 100%; background-color: #050061;">
                 <tr>
                     <td style="text-align: center; padding: 20px;">
                     <div class="TextsBox" style="word-wrap: break-word;">
-                        <h2 style="color: #72310E;">Obrigado, {name}<p>Seu feedback foi enviado para nossa equipe analisar:</p></h2>
+                        <h2 style="color: #ffffff;">Obrigado, {name}<p>Seu acesso ao portal interno foi liberado e você já pode utilizá-lo normalmente.</p></h2>
                     </div>
                     </td>
                 </tr>
                 </table>
-                <table class="BottomBox" style="width: 100%; background-color: #f5e7db; border-top: 1px solid #726057; border-radius: 0 0 10px 10px;">
+                <table class="BottomBox" style="width: 100%; background-color: #050061; border-top: 1px solid #ffffff; border-radius: 0 0 10px 10px;">
                 <tr>
                     <td style="text-align: center; padding: 20px;">
-                    <div class="TextsBox" style="color: #72310E; word-wrap: break-word;">
+                    <div class="TextsBox" style="color: #ffffff; word-wrap: break-word;">
                         <h2>Atenciosamente,</h2>
-                        <h2><strong>Equipe MauaFood</strong>&#127839;</h2>
+                        <h2><strong>Equipe do Portal Interno</strong>&#127744;</h2>
                     </div>
                     </td>
                 </tr>
@@ -44,6 +44,7 @@ def compose_member_active_email(member: Member):
         </table>
         </body>
         </html>
+
 
 """
 
