@@ -264,6 +264,6 @@ class MemberRepositoryMock(IMemberRepository):
                 members.append(member)
         return members
 
-    def send_active_email(self, member: Member) -> bool: 
+    def send_active_member_email(self, member: Member) -> bool: 
         # send email in real
         return True

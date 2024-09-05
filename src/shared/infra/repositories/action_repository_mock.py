@@ -564,6 +564,6 @@ class ActionRepositoryMock(IActionRepository):
 
         return total_duration
     
-    def send_deleted_action_email(self, member: Member, action: Action) -> bool:
+    def send_invalid_action_email(self, member: Member, action: Action) -> bool:
         # send email in real
         return True
