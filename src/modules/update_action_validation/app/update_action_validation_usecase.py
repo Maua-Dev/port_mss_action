@@ -30,6 +30,13 @@ class UpdateActionValidationUsecase:
         if not action:
             raise NoItemsFound('action')
         
+        if not new_is_valid:
+            self.repo_action.send_invalid_action_email(action.user_id, action)
+            print("test email")
+            for associated_member in action.associated_members_user_ids:
+                self.repo_action.send_invalid_action_email(associated_member, action)
+                print("test email")
+
 
 
         return self.repo_action.update_action(action_id=action_id, new_is_valid=new_is_valid)
