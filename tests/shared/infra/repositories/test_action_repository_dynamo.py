@@ -250,7 +250,7 @@ class Test_ActionRepositoryDynamo:
         print(resp)
         assert resp == 79580000000
         
-    #@pytest.mark.skip("Can't test ses in Github")
+    @pytest.mark.skip("Can't test ses in Github")
     def test_send_invalid_action_email(self):
 
         repo_activity_dynamo = ActionRepositoryDynamo()
@@ -258,7 +258,21 @@ class Test_ActionRepositoryDynamo:
         repo_mock_members = MemberRepositoryMock()
         
         action_1 = repo_mock_actions.actions[0]
-        member_1 = repo_mock_members.members[0]
+        member_1 = Member(
+                name="Gabriel Bianconi",
+                email_dev="gbianconi.devmaua@gmail.com",
+                email="gabrielbianconiconi@gmail.com",
+                ra="20008228",
+                role=ROLE.DEV,
+                stack=STACK.INFRA,
+                year=1,
+                cellphone="11998472553",
+                course=COURSE.ECA,
+                hired_date=1634576165000,
+                active=ACTIVE.ACTIVE,
+                deactivated_date=None,
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            )
         
 
         send_email = repo_activity_dynamo.send_invalid_action_email(action=action_1, member=member_1)

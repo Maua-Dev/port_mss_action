@@ -10,7 +10,7 @@ from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.utils import compose_member_active_email
+from src.shared.helpers.utils.compose_member_active_email import compose_member_active_email
 import boto3
 
 
@@ -123,9 +123,9 @@ class MemberRepositoryDynamo(IMemberRepository):
     
     def send_member_active_email(self, member: Member) -> bool:
         try:
-            client_ses = boto3.client('ses', region_name=os.environ.get('SES_REGION'))
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().ses_region)
 
-            member_active_composed_html = compose_member_active_email(Member)
+            member_active_composed_html = compose_member_active_email(member)
 
             response = client_ses.send_email(
                 Destination={
@@ -134,7 +134,7 @@ class MemberRepositoryDynamo(IMemberRepository):
                     ],
                     'BccAddresses':
                         [
-                            os.environ.get("HIDDEN_COPY")
+                            Environments.get_envs().hidden_copy
                         ]
                 },
                 Message={
@@ -150,9 +150,9 @@ class MemberRepositoryDynamo(IMemberRepository):
                     },
                 },
                 ReplyToAddresses=[
-                    os.environ.get("REPLY_TO_EMAIL"),
+                    Environments.get_envs().reply_to_email,
                 ],
-                Source=os.environ.get("FROM_EMAIL"),
+                Source=Environments.get_envs().from_email,
             )
 
             return True

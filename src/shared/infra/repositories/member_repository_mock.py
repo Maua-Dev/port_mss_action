@@ -19,7 +19,7 @@ class MemberRepositoryMock(IMemberRepository):
             Member(
                 name="Vitor Guirão MPNTM",
                 email_dev="vsoller.devmaua@gmail.com",
-                email="vgsoller@gmail.com",
+                email="vsoller@airubio.com",
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
