@@ -195,3 +195,5 @@ class Test_ActionRepositoryMock:
         resp = repo_mock.get_action_durations_for_user(start_date=1624576165000, end_date=1690046000000, user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
 
         assert resp == 143960000000
+
+    
