@@ -376,4 +376,24 @@ class Test_UpdateMemberController:
        
         assert response.status_code == 403
         assert response.body == 'That type of user has no permission for that action'
+    
+    def test_update_member_active_email(self):
         
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo)
+        controller = UpdateMemberController(usecase)
+        member = repo.members[0]
+        
+        request = HttpRequest(body={
+            'requester_user': {
+                    "sub": member.user_id,
+                    "name": member.name,
+                    "email": member.email,
+                    "custom:isMaua": True
+                },
+
+            'new_active':"ACTIVE",
+            'new_member_user_id':"3b07232f-4f65-42c6-b005-242550b8b8dc" 
+             
+            })
+        assert controller(request).status_code == 200
