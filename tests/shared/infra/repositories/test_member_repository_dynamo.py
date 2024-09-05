@@ -80,7 +80,7 @@ class Test_MemberRepositoryDynamo:
 
         assert resp == expected_members
         
-    @pytest.mark.skip("Can't test ses in Github")
+    #@pytest.mark.skip("Can't test ses in Github")
     def test_send_deleted_user_email(self):
 
         repo_activity_dynamo = MemberRepositoryDynamo()

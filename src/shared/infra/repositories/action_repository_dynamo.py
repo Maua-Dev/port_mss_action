@@ -7,6 +7,7 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.environments import Environments
+from src.shared.helpers.utils.compose_invalid_action_email import compose_invalid_action_email
 from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
 from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDynamoDTO
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
@@ -15,8 +16,7 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.utils import compose_invalid_action_email
-from src.shared.helpers.utils import compose_member_active_email
+
 from boto3.dynamodb.conditions import Key, Attr
 import boto3
 
@@ -384,9 +384,9 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def send_invalid_action_email(self, member: Member, action: Action) -> bool:
         try:
-            client_ses = boto3.client('ses', region_name=os.environ.get('SES_REGION'))
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().ses_region)
 
-            member_active_composed_html = compose_invalid_action_email(Member, Action)
+            member_active_composed_html = compose_invalid_action_email(member, action)
 
             response = client_ses.send_email(
                 Destination={
@@ -395,7 +395,7 @@ class ActionRepositoryDynamo(IActionRepository):
                     ],
                     'BccAddresses':
                         [
-                            os.environ.get("HIDDEN_COPY")
+                            Environments.get_envs().hidden_copy
                         ]
                 },
                 Message={
@@ -411,9 +411,9 @@ class ActionRepositoryDynamo(IActionRepository):
                     },
                 },
                 ReplyToAddresses=[
-                    os.environ.get("REPLY_TO_EMAIL"),
+                    Environments.get_envs().reply_to_email,
                 ],
-                Source=os.environ.get("FROM_EMAIL"),
+                Source=Environments.get_envs().from_email,
             )
 
             return True

@@ -52,6 +52,11 @@ class Environments:
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
             self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.reply_to_email = "dev@maua.br"
+            self.from_email = "contato@devmaua.com"
+            self.ses_region = "sa-east-1"
+            self.hidden_copy = "dev@maua.br"
+            
 
         else:
             self.s3_bucket_name = os.environ.get("S3_BUCKET_NAME")
@@ -64,6 +69,10 @@ class Environments:
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
             self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
+            self.reply_to_email = os.environ.get("REPLY_TO_EMAIL")
+            self.from_email = os.environ.get("FROM_EMAIL")
+            self.hidden_copy = os.environ.get("HIDDEN_COPY")
+            self.ses_region = os.environ.get("SES_REGION")
 
     @staticmethod
     def get_action_repo() -> IActionRepository:
