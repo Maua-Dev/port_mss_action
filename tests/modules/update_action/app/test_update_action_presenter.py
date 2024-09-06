@@ -62,7 +62,7 @@ class Test_UpdateActionPresenter:
         assert json.loads(response["body"])["action"]["start_date"] == 1634526000000
         assert json.loads(response["body"])["action"]["end_date"] == 1634536800000
         assert json.loads(response["body"])["action"]["story_id"] == 100
-        assert json.loads(response["body"])["action"]["associated_members_user_ids"] == ['32ah5jaj-c9jm-1345-666ab-e12341c14a3']
+        assert json.loads(response["body"])["action"]["associated_members_user_ids"] == ['32ah5jaj-c9jm-1345-666ab-e12341c14a3',"6f5g4h7J-876j-0098-123hb-hgb567fy4hb"]
         assert json.loads(response["body"])["action"]["title"] == 'Teste'
         assert json.loads(response["body"])["action"]["project_code"] == 'MF'
         assert json.loads(response["body"])["action"]["stack_tags"] == ['BACKEND']

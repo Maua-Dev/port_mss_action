@@ -40,14 +40,14 @@ class UpdateActionUsecase:
         is_admin = Member.validate_role_admin(user.role)
         if is_admin == False and user_id != action.user_id:
             raise UserIsNotFromAdmin()
+    
         
-        
-        if (new_associated_members_user_ids) and (user_id == action.user_id):
+        if (new_associated_members_user_ids):
             members = new_associated_members_user_ids + [action.user_id]
         else:
             members = action.associated_members_user_ids + [action.user_id]
 
-        
+    
         start_date = new_start_date if new_start_date is not None else action.start_date
         if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):
             self.repo.batch_update_associated_action_members(action_id, members, start_date=start_date)
@@ -63,5 +63,5 @@ class UpdateActionUsecase:
             story_id = new_story_id
 
 
-        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=new_associated_members_user_ids, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
+        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         
