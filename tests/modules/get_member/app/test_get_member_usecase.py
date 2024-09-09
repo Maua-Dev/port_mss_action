@@ -39,3 +39,5 @@ class Test_GetMemberUsecase:
 
         with pytest.raises(UserNotAllowed):
             usecase(user_id='3b07232f-4f65-42c6-b005-242550b8b8dc')
+
+    
