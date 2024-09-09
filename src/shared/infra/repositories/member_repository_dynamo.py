@@ -121,7 +121,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(resp["Attributes"]).to_entity()
     
-    def send_member_active_email(self, member: Member) -> bool:
+    def send_active_member_email(self, member: Member) -> bool:
         try:
             client_ses = boto3.client('ses', region_name=Environments.get_envs().ses_region)
 

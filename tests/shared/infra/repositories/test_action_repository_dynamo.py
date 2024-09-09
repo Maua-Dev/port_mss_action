@@ -250,7 +250,7 @@ class Test_ActionRepositoryDynamo:
         print(resp)
         assert resp == 79580000000
         
-    @pytest.mark.skip("Can't test ses in Github")
+    #@pytest.mark.skip("Can't test ses in Github")
     def test_send_invalid_action_email(self):
 
         repo_activity_dynamo = ActionRepositoryDynamo()
