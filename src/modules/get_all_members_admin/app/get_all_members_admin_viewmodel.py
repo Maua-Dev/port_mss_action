@@ -12,6 +12,7 @@ class MemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
+    project: Optional[List]
     year: int
     cellphone: str
     course: COURSE
@@ -28,6 +29,7 @@ class MemberViewModel:
         self.ra = member.ra
         self.role = member.role
         self.stack = member.stack
+        self.project = member.project
         self.year = member.year
         self.cellphone = member.cellphone
         self.course = member.course
@@ -45,6 +47,7 @@ class MemberViewModel:
             'ra' : self.ra,
             'role' : self.role.value,
             'stack' : self.stack.value,
+            'project' : self.project,
             'year' : self.year,
             'cellphone' : self.cellphone,
             'course' : self.course.value,

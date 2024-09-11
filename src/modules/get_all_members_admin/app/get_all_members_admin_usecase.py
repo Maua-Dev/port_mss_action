@@ -45,9 +45,21 @@ class GetAllMembersAdminUsecase:
         hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)
         
         members = self.memberrepo.get_all_members()
+  
+        projects = self.actionrepo.get_all_projects()
+        
+        member_projects = {member.user_id: [] for member in members}
+        
+        for project in projects:
+            project_name = project.name
+            for member_user_id in project.members_user_ids:
+                if member_user_id in member_projects:
+                    member_projects[member_user_id].append(project_name)
+                    
         for member in members:
             member_user_id = member.user_id
             member.hours_worked = hours_worked.get(member_user_id, 0)
+            member.project = member_projects[member_user_id]
             
         if not is_active:
             raise UserNotAllowed()
