@@ -57,7 +57,7 @@ class Action(abc.ABC):
         if type(associated_members_user_ids) == list:
             if not all([self.validate_user_id(user_id) for user_id in associated_members_user_ids]):
                 raise EntityError('associated_members_user_ids')
-            if user_id not in associated_members_user_ids:
+            if user_id in associated_members_user_ids:
                 raise EntityError('associated_members_user_ids')
             if len(associated_members_user_ids) != len(set(associated_members_user_ids)):
                 raise EntityError('associated_members_user_ids')
