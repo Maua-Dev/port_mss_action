@@ -59,6 +59,8 @@ class Action(abc.ABC):
                 print("Teste1")
                 raise EntityError('associated_members_user_ids')
             if user_id in associated_members_user_ids:
+                print(user_id)
+                print(associated_members_user_ids)
                 print("Teste2")
                 raise EntityError('associated_members_user_ids')
             if len(associated_members_user_ids) != len(set(associated_members_user_ids)):
