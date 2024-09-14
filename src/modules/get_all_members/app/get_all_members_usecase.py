@@ -23,7 +23,7 @@ class GetAllMembersUsecase:
         
 
         members = self.memberrepo.get_all_members()
-        
+
             
         if not is_active:
             raise UserNotAllowed()

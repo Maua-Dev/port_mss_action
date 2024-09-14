@@ -12,7 +12,7 @@ class Test_GetAllMembersViewModel:
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
 
         viewmodel = GetAllMembersViewmodel(members).to_dict()
-
+        print(viewmodel)
         expected = {
             'members': [
                 {
@@ -23,6 +23,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21017310',
                         'role': 'DIRECTOR',
                         'stack': 'INFRA',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
                         'year': 1,
                         'cellphone': '11991758098',
                         'course': 'ECA',
@@ -41,6 +42,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21010757',
                         'role': 'HEAD',
                         'stack': 'BACKEND',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
                         'cellphone': '11991152348',
                         'course': 'ECM',
@@ -58,6 +60,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
+                        'project': ['Gameficação'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -75,6 +78,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '10017310',
                         'role': 'DIRECTOR',
                         'stack': 'FRONTEND',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 6,
                         'cellphone': '11991759998',
                         'course': 'ECM',
@@ -92,6 +96,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017310',
                         'role': 'PO',
                         'stack': 'BUSINESS',
+                        'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
                         'course': 'EMC',
@@ -109,6 +114,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -126,6 +132,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '17033730',
                         'role': 'INTERNAL',
                         'stack': 'INTERNAL',
+                        'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
                         'course': 'ECA',
@@ -143,6 +150,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22015320',
                         'role': 'DEV',
                         'stack': 'UX_UI',
+                        'project': [],
                         'year': 1,
                         'cellphone': '11991123498',
                         'course': 'ECM',
@@ -160,6 +168,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21004102',
                         'role': 'DEV',
                         'stack': 'UX_UI',
+                        'project': [],
                         'year': 1,
                         'cellphone': '11991123498',
                         'course': 'ECM',
@@ -177,6 +186,7 @@ class Test_GetAllMembersViewModel:
                         'ra' : "22014322",
                         'role' : 'PO',
                         'stack' : 'BUSINESS',
+                        'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
                         'course' : 'EPM',
@@ -194,6 +204,7 @@ class Test_GetAllMembersViewModel:
                         'ra' : "23024211",
                         'role' : 'DEV',
                         'stack' : 'BACKEND',
+                        'project': [],
                         'year' : 3,
                         'cellphone' : "11998472663",
                         'course' : 'ECM',
@@ -228,6 +239,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21017310',
                         'role': 'DIRECTOR',
                         'stack': 'INFRA',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
                         'year': 1,
                         'cellphone': '11991758098',
                         'course': 'ECA',
@@ -246,6 +258,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21010757',
                         'role': 'HEAD',
                         'stack': 'BACKEND',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
                         'cellphone': '11991152348',
                         'course': 'ECM',
@@ -264,6 +277,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
+                        'project': ['Gameficação'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -282,6 +296,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '10017310',
                         'role': 'DIRECTOR',
                         'stack': 'FRONTEND',
+                        'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 6,
                         'cellphone': '11991759998',
                         'course': 'ECM',
@@ -300,6 +315,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017310',
                         'role': 'PO',
                         'stack': 'BUSINESS',
+                        'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
                         'course': 'EMC',
@@ -318,6 +334,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -336,6 +353,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '17033730',
                         'role': 'INTERNAL',
                         'stack': 'INTERNAL',
+                        'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
                         'course': 'ECA',
@@ -354,6 +372,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22015320',
                         'role': 'DEV',
                         'stack': 'UX_UI',
+                        'project': [],
                         'year': 1,
                         'cellphone': '11991123498',
                         'course': 'ECM',
@@ -371,6 +390,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '21004102',
                         'role': 'DEV',
                         'stack': 'UX_UI',
+                        'project': [],
                         'year': 1,
                         'cellphone': '11991123498',
                         'course': 'ECM',
@@ -388,6 +408,7 @@ class Test_GetAllMembersViewModel:
                         'ra' : "22014322",
                         'role' : 'PO',
                         'stack' : 'BUSINESS',
+                        'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
                         'course' : 'EPM',
@@ -406,6 +427,7 @@ class Test_GetAllMembersViewModel:
                         'ra' : "23024211",
                         'role' : 'DEV',
                         'stack' : 'BACKEND',
+                        'project': [],
                         'year' : 3,
                         'cellphone' : "11998472663",
                         'course' : 'ECM',
@@ -418,6 +440,7 @@ class Test_GetAllMembersViewModel:
             ],
             'message' : 'the members were retrieved'
         }
-
+        print(viewmodel)
         assert viewmodel == expected
+        
     
