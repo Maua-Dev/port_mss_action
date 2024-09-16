@@ -16,6 +16,7 @@ class MemberViewModel:
     year: int
     cellphone: str
     course: COURSE
+    project: Optional[List] 
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE

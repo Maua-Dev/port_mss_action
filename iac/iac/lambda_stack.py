@@ -118,6 +118,14 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
+
+        self.get_all_members_admin_function = self.create_lambda_api_gateway_integration(
+            module_name="get_all_members_admin",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
         
         self.update_project_function = self.create_lambda_api_gateway_integration(
             module_name="update_project",
@@ -179,6 +187,7 @@ class LambdaStack(Construct):
                 self.get_member_function,
                 self.get_project_function,
                 self.get_all_members_function,
+                self.get_all_members_admin_function,
                 self.update_project_function,
                 self.update_action_function,
                 self.update_action_validation_function,
@@ -197,6 +206,7 @@ class LambdaStack(Construct):
                 self.update_action_function,
                 self.update_action_validation_function,
                 self.get_all_members_function,
+                self.get_all_members_admin_function,
                 self.batch_get_member_function,
                 self.get_member_function,
                 self.get_all_projects_function,
