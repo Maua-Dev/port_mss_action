@@ -29,7 +29,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1634576165000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+                user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                photo=""
             ),
 
             Member(
@@ -45,7 +46,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1634921765000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+                user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                photo=""
                               
             ),
 
@@ -62,7 +64,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1640192165000,
                 active=ACTIVE.FREEZE,
                 deactivated_date=None,
-                user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
+                user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
+                photo=""
             ),
 
             Member(
@@ -78,7 +81,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1614567601000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
+                user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+                photo=""
             ),
 
             Member(
@@ -94,7 +98,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1614567601000,
                 active=ACTIVE.DISCONNECTED,
                 deactivated_date=None,
-                user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG"
+                user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
+                photo=""
             ),
 
             Member(
@@ -110,7 +115,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1640192165000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s"
+                user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                photo=""
             ),
 
             Member(
@@ -126,7 +132,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1609606565000,
                 active=ACTIVE.FREEZE,
                 deactivated_date=None,
-                user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36"
+                user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                photo=""
             ),
 
             Member(
@@ -142,7 +149,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1672592165000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="75648hbr-184n-1985-91han-7ghn4HgF182"
+                user_id="75648hbr-184n-1985-91han-7ghn4HgF182",
+                photo=""
             )
             ,
 
@@ -159,7 +167,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date=1672592165000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="9183jBnh-997H-1010-10god-914gHy46tBh"
+                user_id="9183jBnh-997H-1010-10god-914gHy46tBh",
+                photo=""
             )
             ,
 
@@ -176,7 +185,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date = 1640192165000,
                 active = ACTIVE.ACTIVE,
                 deactivated_date = None,
-                user_id = "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
+                user_id = "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
+                photo=""
             )
             ,
             
@@ -193,7 +203,8 @@ class MemberRepositoryMock(IMemberRepository):
                 hired_date = 1640192165000,
                 active = ACTIVE.ON_HOLD,
                 deactivated_date = None,
-                user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc"
+                user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc",
+                photo=""
             )
         ]
 
