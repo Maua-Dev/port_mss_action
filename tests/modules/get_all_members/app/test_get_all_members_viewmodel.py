@@ -31,6 +31,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                        'photo': None,
                         'hours_worked': 143960000000
                         
                         }
@@ -51,6 +52,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                        'photo': None,
                         'hours_worked': 104090000000
                         }
                 },
@@ -70,6 +72,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
+                        'photo': None,
                         'hours_worked': 72430000000
                         }
                 },
@@ -89,6 +92,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+                        'photo': None,
                         'hours_worked': 160010000000
                         }
                 },
@@ -108,6 +112,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
+                        'photo': None,
                         'hours_worked': 184430000000
                         }               
                 },
@@ -127,6 +132,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                        'photo': None,
                         'hours_worked': 107350000000
                         }
                 },
@@ -146,6 +152,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                        'photo': None,
                         'hours_worked': 79580000000
                         }
                 },
@@ -165,6 +172,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
+                        'photo': None,
                         'hours_worked': 119700000000
                         }
                 },
@@ -184,6 +192,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -203,6 +212,7 @@ class Test_GetAllMembersViewModel:
                         'active' : 'ACTIVE',
                         'deactivated_date' : None,
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
+                        'photo': None,
                         'hours_worked' : 0
                         }
                 },
@@ -222,6 +232,7 @@ class Test_GetAllMembersViewModel:
                         'active' : 'ON_HOLD',
                         'deactivated_date' : None,
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
+                        'photo': None,
                         'hours_worked' : 0
                         }
                 }
@@ -258,6 +269,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                        'photo': None,
                         'hours_worked': 0
                         
                         }
@@ -278,6 +290,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -298,6 +311,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -318,6 +332,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -338,6 +353,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
+                        'photo': None,
                         'hours_worked': 0
                         }               
                 },
@@ -358,6 +374,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -378,6 +395,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -398,6 +416,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -417,6 +436,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
+                        'photo': None,
                         'hours_worked': 0
                         }
                 },
@@ -436,6 +456,7 @@ class Test_GetAllMembersViewModel:
                         'active' : 'ACTIVE',
                         'deactivated_date' : None,
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
+                        'photo': None,
                         'hours_worked' : 0
                         }
 
@@ -456,6 +477,7 @@ class Test_GetAllMembersViewModel:
                         'active' : 'ON_HOLD',
                         'deactivated_date' : None,
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
+                        'photo': None,
                         'hours_worked' : 0
                         }
                 }
