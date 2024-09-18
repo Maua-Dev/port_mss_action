@@ -85,7 +85,6 @@ class IacStack(Stack):
                 "*"
             ]
         )
-        function.add_to_role_policy(ses_admin_policy)
 
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
