@@ -3,7 +3,8 @@ from aws_cdk import (
     # Duration,
     Stack,
     # aws_sqs as sqs,
-    aws_cognito
+    aws_cognito,
+    aws_iam
 )
 from constructs import Construct
 
@@ -60,6 +61,9 @@ class IacStack(Stack):
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.aws_region,
+            "REPLY_TO_EMAIL": "dev@maua.br",
+            "FROM_EMAIL": "contato@devmaua.com",
+            "HIDDEN_COPY": "dev@maua.br"
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
@@ -71,9 +75,22 @@ class IacStack(Stack):
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
                                         environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth)
+        
+        ses_admin_policy = aws_iam.PolicyStatement(
+            effect=aws_iam.Effect.ALLOW,
+            actions=[
+                "ses:*",
+            ],
+            resources=[
+                "*"
+            ]
+        )
 
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
         
         for f in self.lambda_stack.functions_that_need_dynamo_member_permissions:
             self.dynamo_stack.dynamo_table_member.grant_read_write_data(f)
+        
+        for f in self.lambda_stack.functions_that_need_ses_permissions:
+            f.add_to_role_policy(ses_admin_policy)

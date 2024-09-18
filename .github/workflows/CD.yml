@@ -59,3 +59,6 @@ jobs:
               S3_ASSETS_CDN: ${{ vars.S3_ASSETS_CDN }}
               AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV: ${{ secrets.AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV }}
               AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD: ${{ secrets.AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD }}
+              REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
+              FROM_EMAIL: ${{ vars.FROM_EMAIL }}
+              HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
