@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from src.shared.domain.entities.action import Action
 from src.shared.domain.enums.active_enum import ACTIVE
 from typing import List, Optional
 from src.shared.domain.entities.member import Member
@@ -55,4 +56,12 @@ class IMemberRepository(ABC):
         Returns all members with the given ras, if any
         else returns []
         '''
+        pass
+
+    @abstractmethod
+    def send_active_member_email(self, member: Member) -> bool:
+        """
+        When a member's action is invalidated, notify the member and return True.
+        Only in real repo
+        """
         pass
