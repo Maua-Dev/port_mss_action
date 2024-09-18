@@ -1,7 +1,7 @@
 
 from aws_cdk import (
     aws_lambda as lambda_,
-    NestedStack, Duration
+    NestedStack, Duration,
 )
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
@@ -38,7 +38,7 @@ class LambdaStack(Construct):
                                                  code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
-        
+                
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",
@@ -213,6 +213,11 @@ class LambdaStack(Construct):
                 self.get_history_function,
                 self.get_project_function,
                 self.delete_action_function
+        ]
+        
+        self.functions_that_need_ses_permissions = [
+            self.update_member_function,
+            self.update_action_validation_function
         ]
 
         
