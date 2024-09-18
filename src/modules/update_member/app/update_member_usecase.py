@@ -75,8 +75,7 @@ class UpdateMemberUsecase:
 
         if new_active == ACTIVE.ACTIVE:
             sent_email = self.repo.send_active_member_email(member) 
-            if not sent_email:
-                print("Error sending email")
+            
                
         is_active = Member.validate_active(member.active)
         
