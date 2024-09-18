@@ -12,7 +12,6 @@ class MemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
-    project: Optional[List] 
     year: int
     cellphone: str
     course: COURSE
