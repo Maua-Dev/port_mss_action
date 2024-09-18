@@ -399,7 +399,7 @@ class ActionRepositoryDynamo(IActionRepository):
                         ]
                 },
                 Message={
-                    'Body': {
+                    'Body': {       
                         'Html': {
                             'Charset': "UTF-8",
                             'Data': member_active_composed_html,

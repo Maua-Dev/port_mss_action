@@ -60,6 +60,9 @@ class IacStack(Stack):
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.aws_region,
+            "REPLY_TO_EMAIL": "dev@maua.br",
+            "FROM_EMAIL": "contato@devmaua.com",
+            "HIDDEN_COPY": "dev@maua.br"
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
