@@ -384,7 +384,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def send_invalid_action_email(self, member: Member, action: Action) -> bool:
         try:
-            client_ses = boto3.client('ses', region_name=Environments.get_envs().ses_region)
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
 
             member_active_composed_html = compose_invalid_action_email(member, action)
 

@@ -123,7 +123,7 @@ class MemberRepositoryDynamo(IMemberRepository):
     
     def send_active_member_email(self, member: Member) -> bool:
         try:
-            client_ses = boto3.client('ses', region_name=Environments.get_envs().ses_region)
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
 
             member_active_composed_html = compose_member_active_email(member)
 
