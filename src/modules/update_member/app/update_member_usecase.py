@@ -78,8 +78,8 @@ class UpdateMemberUsecase:
             if type(new_active) is not ACTIVE:
                 raise EntityError('new_active')
 
-        if new_active == ACTIVE.ACTIVE:
-            sent_email = self.repo.send_active_member_email(member) 
+        if member.active == ACTIVE.ON_HOLD and  new_active is not None:
+            self.repo.send_active_member_email(member) 
             
                
         is_active = Member.validate_active(member.active)
