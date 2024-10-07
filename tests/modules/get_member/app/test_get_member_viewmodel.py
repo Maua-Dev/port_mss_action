@@ -34,6 +34,6 @@ class Test_GetMemberViewModel:
             },
             "message" : "the member was retrieved"
         }
-        print(viewmodel)
+        
         assert viewmodel == expected
         
