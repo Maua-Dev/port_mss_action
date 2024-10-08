@@ -27,8 +27,7 @@ class Test_CreateMemberViewmodel:
             hired_date=1614567601000,
             active=ACTIVE.ACTIVE ,
             user_id="13bc6ada-c0d1-7054-66ab-e17414c48ae3",
-            deactivated_date=None,
-            photo="https://img.freepik.com/free-photo/photorealistic-view-tree-nature-with-branches-trunk_23-2151478039.jpg")
+            deactivated_date=None)
         
      
         viewmodel = CreateMemberViewmodel(member=member).to_dict()
@@ -46,10 +45,9 @@ class Test_CreateMemberViewmodel:
             'hired_date' : 1614567601000,
             'active' : ACTIVE.ACTIVE.value,
             'user_id' : "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
-            'deactivated_date' : None,
-            'photo' : "https://img.freepik.com/free-photo/photorealistic-view-tree-nature-with-branches-trunk_23-2151478039.jpg"
-                },
-            'message':'the member was created'
+            'deactivated_date' : None
+                    },
+                    'message':'the member was created'
         }
        
         assert viewmodel == expected

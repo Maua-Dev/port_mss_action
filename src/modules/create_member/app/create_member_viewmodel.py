@@ -20,7 +20,7 @@ class MemberViewModel:
     hired_date: int
     active: ACTIVE
     user_id: str
-    photo: str
+
     
     
     def __init__(self, member: Member):
@@ -36,7 +36,6 @@ class MemberViewModel:
         self.hired_date = member.hired_date
         self.active = member.active
         self.user_id = member.user_id
-        self.photo = member.photo
 
         
     def to_dict(self):
@@ -53,8 +52,7 @@ class MemberViewModel:
             'hired_date' : self.hired_date,
             'active' : self.active.value,
             'deactivated_date' : None,
-            'user_id' : self.user_id,
-            'photo' : self.photo
+            'user_id' : self.user_id
         }
 
 class CreateMemberViewmodel:

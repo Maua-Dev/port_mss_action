@@ -29,8 +29,7 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            user_id="75638hbr-184n-1985-91han-7ghn4HgF182",
-            photo="https://img.freepik.com/free-photo/photorealistic-view-tree-nature-with-branches-trunk_23-2151478039.jpg"
+            user_id="75638hbr-184n-1985-91han-7ghn4HgF182"
             )
         
         assert repo.members[-1] == member
@@ -52,8 +51,7 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-            photo="https://img.freepik.com/free-photo/photorealistic-view-tree-nature-with-branches-trunk_23-2151478039.jpg"
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )
         
         
