@@ -15,7 +15,7 @@ class UpdateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_member_user_id: Optional[str] = None) -> Member:
+    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_member_user_id: Optional[str] = None, new_photo: Optional[str] = None) -> Member:
 
         if not Member.validate_user_id(user_id):
             raise EntityError("user_id")
@@ -82,7 +82,7 @@ class UpdateMemberUsecase:
         if new_member_user_id is not None:
             new_member = self.repo.get_member(new_member_user_id)
             if new_member.active == ACTIVE.ON_HOLD and new_active is not None:
-                self.repo.send_active_member_email(new_member) 
+                self.repo.send_active_member_email(new_member)
             
                
         is_active = Member.validate_active(member.active)

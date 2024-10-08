@@ -28,6 +28,7 @@ class Test_UpdateMemberViewmodel:
                 'hired_date':1634576165000,
                 'active':ACTIVE.ACTIVE.value,
                 'deactivated_date':repo.members[0].deactivated_date,
+                'photo': None
             },
             'message': 'the member was updated'
         }

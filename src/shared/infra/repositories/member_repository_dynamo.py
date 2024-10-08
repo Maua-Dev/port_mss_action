@@ -78,7 +78,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None, new_photo: Optional[str] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
@@ -102,6 +102,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             member_to_update.active = new_active
         if new_deactivated_date is not None:
             member_to_update.deactivated_date = new_deactivated_date
+        if new_photo is not None:
+            member_to_update.photo = new_photo
         update_dict ={
             "name": member_to_update.name,
             "email_dev": member_to_update.email_dev,
@@ -111,7 +113,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             "cellphone": member_to_update.cellphone,
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
-            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None
+            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
+            "photo": member_to_update.photo
         }
         
         resp = self.dynamo.update_item(partition_key=self.member_partition_key_format(member_to_update), sort_key=self.member_sort_key_format(user_id), update_dict=update_dict)
