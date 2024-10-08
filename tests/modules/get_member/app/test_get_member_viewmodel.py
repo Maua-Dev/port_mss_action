@@ -29,10 +29,11 @@ class Test_GetMemberViewModel:
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                    'photo': None,
                     'hours_worked': 143960000000
             },
             "message" : "the member was retrieved"
         }
-
+        
         assert viewmodel == expected
         

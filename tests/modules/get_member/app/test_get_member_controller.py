@@ -41,6 +41,7 @@ class Test_GetMemberController:
                 'deactivated_date' : self.first_member.deactivated_date,
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
+                'photo' : None,
                 'hours_worked' : 143960000000
             },
             "message" : "the member was retrieved"
@@ -140,6 +141,7 @@ class Test_GetMemberController:
                 'deactivated_date' : self.first_member.deactivated_date,
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
+                'photo' : None,
                 'hours_worked' : 0
             },
             "message" : "the member was retrieved"
