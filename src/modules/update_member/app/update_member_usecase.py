@@ -68,13 +68,21 @@ class UpdateMemberUsecase:
                 raise EntityError('new_deactivated_date')
             if member.deactivated_date < 0 or member.deactivated_date<member.hired_date:
                 raise EntityError('new_deactivated_date')
-
+        
+        if new_deactivated_date is not None:
+            if type(new_deactivated_date) is not int:
+                raise EntityError('new_deactivated_date')
+            if new_deactivated_date < 0 or new_deactivated_date<member.hired_date:
+                raise EntityError('new_deactivated_date')
+            
         if new_active is not None:
             if type(new_active) is not ACTIVE:
                 raise EntityError('new_active')
 
-        if member.active == ACTIVE.ON_HOLD and  new_active is not None:
-            self.repo.send_active_member_email(member) 
+        if new_member_user_id is not None:
+            new_member = self.repo.get_member(new_member_user_id)
+            if new_member.active == ACTIVE.ON_HOLD and new_active is not None:
+                self.repo.send_active_member_email(new_member) 
             
                
         is_active = Member.validate_active(member.active)
@@ -85,10 +93,10 @@ class UpdateMemberUsecase:
         is_admin = Member.validate_role_admin(member.role)
         
         if is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active)
         elif is_admin and new_member_user_id is not None:
-            return self.repo.update_member(new_member_user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            return self.repo.update_member(user_id=new_member_user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active)
         elif not is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id, member.hired_date, member.email, new_name, new_email_dev, new_role, new_stack, new_year, new_cellphone, new_course, new_active)
+            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active)
         else:
             raise UserIsNotFromAdmin()

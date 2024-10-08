@@ -228,7 +228,7 @@ class MemberRepositoryMock(IMemberRepository):
         return None
     
     
-    def update_member(self, user_id: str, hired_date: int, email:str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
        
         for member in self.members:
             if member.user_id == user_id:
@@ -246,14 +246,12 @@ class MemberRepositoryMock(IMemberRepository):
                     member.cellphone = new_cellphone
                 if new_course is not None:
                     member.course = new_course
+                if new_deactivated_date is not None:
+                    member.deactivated_date = new_deactivated_date
                 if new_active is not None:
                     member.active = new_active
                     if new_active == ACTIVE.DISCONNECTED:
                         member.deactivated_date = int(datetime.datetime.now().timestamp() * 1000) 
-                if member.hired_date is not None:
-                    member.hired_date = hired_date
-                if member.email is not None:
-                    member.email = email
                 
                 return member
             
