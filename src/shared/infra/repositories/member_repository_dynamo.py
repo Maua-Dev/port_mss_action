@@ -1,3 +1,4 @@
+import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
@@ -9,6 +10,9 @@ from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
+from src.shared.helpers.utils.compose_member_active_email import compose_member_active_email
+import boto3
+
 
 class MemberRepositoryDynamo(IMemberRepository):
     @staticmethod
@@ -74,7 +78,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None, new_photo: Optional[str] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
@@ -98,6 +102,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             member_to_update.active = new_active
         if new_deactivated_date is not None:
             member_to_update.deactivated_date = new_deactivated_date
+        if new_photo is not None:
+            member_to_update.photo = new_photo
         update_dict ={
             "name": member_to_update.name,
             "email_dev": member_to_update.email_dev,
@@ -107,7 +113,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             "cellphone": member_to_update.cellphone,
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
-            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None
+            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
+            "photo": member_to_update.photo
         }
         
         resp = self.dynamo.update_item(partition_key=self.member_partition_key_format(member_to_update), sort_key=self.member_sort_key_format(user_id), update_dict=update_dict)
@@ -116,3 +123,43 @@ class MemberRepositoryDynamo(IMemberRepository):
             return None
         
         return MemberDynamoDTO.from_dynamo(resp["Attributes"]).to_entity()
+    
+    def send_active_member_email(self, member: Member) -> bool:
+        try:
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
+
+            member_active_composed_html = compose_member_active_email(member)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        member.email,
+                    ],
+                    'BccAddresses':
+                        [
+                            Environments.get_envs().hidden_copy
+                        ]
+                },
+                Message={
+                    'Body': {
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': member_active_composed_html,
+                        },
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Conta Ativa",
+                    },
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email,
+                ],
+                Source=Environments.get_envs().from_email,
+            )
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False

@@ -1,4 +1,5 @@
 from decimal import Decimal
+import os
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -6,6 +7,7 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.environments import Environments
+from src.shared.helpers.utils.compose_invalid_action_email import compose_invalid_action_email
 from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
 from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDynamoDTO
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
@@ -14,7 +16,9 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
+
 from boto3.dynamodb.conditions import Key, Attr
+import boto3
 
 class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
@@ -377,4 +381,44 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return total_duration
 
+        
+    def send_invalid_action_email(self, member: Member, action: Action) -> bool:
+        try:
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
+
+            member_active_composed_html = compose_invalid_action_email(member, action)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        member.email,
+                    ],
+                    'BccAddresses':
+                        [
+                            Environments.get_envs().hidden_copy
+                        ]
+                },
+                Message={
+                    'Body': {       
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': member_active_composed_html,
+                        },
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Conta Ativa",
+                    },
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email,
+                ],
+                Source=Environments.get_envs().from_email,
+            )
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False
 

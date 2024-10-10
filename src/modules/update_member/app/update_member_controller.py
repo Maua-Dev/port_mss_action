@@ -5,7 +5,7 @@ from .update_member_viewmodel import UpdateMemberViewmodel
 from src.shared.domain.entities.member import Member
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError, NotFound
 from src.shared.domain.enums.active_enum import ACTIVE
@@ -92,6 +92,13 @@ class UpdateMemberController:
             if new_member_user_id is not None:
                 if type(new_member_user_id) is not str:
                     raise WrongTypeParameter(fieldName='new_member_user_id', fieldTypeExpected='str', fieldTypeReceived=type(new_member_user_id))
+            
+            new_photo = request.data.get('new_photo')
+            if new_photo is not None:
+                if type(new_photo) is not str:
+                    raise WrongTypeParameter(fieldName='new_photo', fieldTypeExpected='str', fieldTypeReceived=type(new_photo))
+                if not Member.validate_photo(new_photo):
+                    raise EntityError('new_photo')
                           
             
             member = self.usecase(
@@ -104,7 +111,8 @@ class UpdateMemberController:
                 new_cellphone=new_cellphone,
                 new_course =new_course ,
                 new_active=new_active,
-                new_member_user_id=new_member_user_id
+                new_member_user_id=new_member_user_id,
+                new_photo=new_photo
             )
             
             viewmodel = UpdateMemberViewmodel(member=member)    
@@ -124,7 +132,7 @@ class UpdateMemberController:
         except EntityError as err:
             return BadRequest(body=err.message)
         
-        except ForbiddenAction as err:
+        except UserNotAllowed as err:
             return Forbidden(body=err.message)
         
         except Exception as err:

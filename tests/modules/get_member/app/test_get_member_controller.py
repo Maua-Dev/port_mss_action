@@ -33,6 +33,7 @@ class Test_GetMemberController:
                 'ra' : self.first_member.ra,
                 'role' : self.first_member.role.value,
                 'stack' : self.first_member.stack.value,
+                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
                 'year' : self.first_member.year,
                 'cellphone' : self.first_member.cellphone,
                 'course' : self.first_member.course.value,
@@ -40,6 +41,7 @@ class Test_GetMemberController:
                 'deactivated_date' : self.first_member.deactivated_date,
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
+                'photo' : None,
                 'hours_worked' : 143960000000
             },
             "message" : "the member was retrieved"
@@ -131,6 +133,7 @@ class Test_GetMemberController:
                 'ra' : self.first_member.ra,
                 'role' : self.first_member.role.value,
                 'stack' : self.first_member.stack.value,
+                'project' : ['Maua Food', 'Portfólio', 'Selfie Mauá'],
                 'year' : self.first_member.year,
                 'cellphone' : self.first_member.cellphone,
                 'course' : self.first_member.course.value,
@@ -138,6 +141,7 @@ class Test_GetMemberController:
                 'deactivated_date' : self.first_member.deactivated_date,
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
+                'photo' : None,
                 'hours_worked' : 0
             },
             "message" : "the member was retrieved"

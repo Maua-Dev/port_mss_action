@@ -20,7 +20,7 @@ class UpdateActionValidationUsecase:
             raise UnregisteredUser()
         
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('user. This user is not active.')
+            raise UserNotAllowed()
         
         
         if user.role not in [ROLE.DIRECTOR, ROLE.HEAD, ROLE.PO]:
@@ -30,6 +30,11 @@ class UpdateActionValidationUsecase:
         if not action:
             raise NoItemsFound('action')
         
+        if not new_is_valid:
+            self.repo_action.send_invalid_action_email(self.repo_user.get_member(action.user_id), action)
+            for associated_member in action.associated_members_user_ids:
+                self.repo_action.send_invalid_action_email(self.repo_user.get_member(associated_member), action)
+
 
 
         return self.repo_action.update_action(action_id=action_id, new_is_valid=new_is_valid)

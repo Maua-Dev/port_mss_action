@@ -1,6 +1,7 @@
 from typing import List, Optional, Tuple
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.entities.action import Action
+from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.enums.stack_enum import STACK
@@ -456,9 +457,7 @@ class ActionRepositoryMock(IActionRepository):
                 self.associated_actions.remove(associated_action)
                 
         for member in user_ids:
-            count = 0
-            up_associated_action = self.associated_actions.append(AssociatedAction(action_id=action_id, start_date=start_date, user_id=user_ids[count]))
-            count += 1
+            up_associated_action = self.associated_actions.append(AssociatedAction(action_id=action_id, start_date=start_date, user_id=member))
             new_associated_actions.append(up_associated_action)        
         
         return new_associated_actions
@@ -562,3 +561,7 @@ class ActionRepositoryMock(IActionRepository):
                         total_duration += action.duration
 
         return total_duration
+    
+    def send_invalid_action_email(self, member: Member, action: Action) -> bool:
+        # send email in real
+        return True

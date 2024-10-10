@@ -68,11 +68,7 @@ class CreateMemberController:
             course = COURSE[course]
             if request.data.get('course') is None:
                 raise MissingParameters('course')
-            
-            
 
-            
-            
             member = self.usecase(
                 name=str(requester_user.name),
                 email_dev=request.data.get('email_dev'),

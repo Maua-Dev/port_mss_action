@@ -22,6 +22,7 @@ class Member(abc.ABC):
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     user_id: str
+    photo: Optional[str] = None
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
     USER_ID_LENGTH = 36
@@ -39,6 +40,7 @@ class Member(abc.ABC):
                  hired_date: int,
                  active: ACTIVE,
                  user_id: str,
+                 photo: Optional[str] = None,
                  deactivated_date: Optional[int] = None
                 ):
 
@@ -93,6 +95,10 @@ class Member(abc.ABC):
         if not self.validate_user_id(user_id):
             raise EntityError("user_id")
         self.user_id = user_id
+        
+        if not self.validate_photo(photo):
+            raise EntityError("photo")
+        self.photo = photo
         
         if type(user_id) != str:
             raise EntityError("user_id")
@@ -196,6 +202,12 @@ class Member(abc.ABC):
         if type(active) != ACTIVE:
             return False
         return (active == ACTIVE.ACTIVE)
+    
+    @staticmethod
+    def validate_photo(photo: str) -> bool:
+        if photo is None: return True
+        if type(photo) != str: return False
+        return True
     
     def __repr__(self):
         return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"

@@ -21,7 +21,7 @@ class DeleteActionUsecase:
         user = self.member_repository.get_member(user_id=user_id)
 
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction('user. This user is not active.')
+            raise UserNotAllowed()
         
         action = self.action_repository.get_action(action_id=action_id) 
 

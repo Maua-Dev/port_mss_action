@@ -18,17 +18,8 @@ class GetAllMembersController:
                 raise MissingParameters('requester_user')
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
-            start_date = request.data.get('start_date')
-            if start_date is not None:
-                if type(start_date) is not int:
-                    raise WrongTypeParameter(fieldName='start_date', fieldTypeExpected='int', fieldTypeReceived=type(start_date))
-            
-            end_date = request.data.get('end_date')
-            if end_date is not None:
-                if type(end_date) is not int:
-                    raise WrongTypeParameter(fieldName='end_date', fieldTypeExpected='int', fieldTypeReceived=type(end_date))
-            
-            members = self.usecase(requester_user.user_id, start_date, end_date)
+           
+            members = self.usecase(requester_user.user_id)
             
             viewmodel = GetAllMembersViewmodel(members)
             return OK(viewmodel.to_dict())

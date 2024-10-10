@@ -3,7 +3,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser,ForbiddenAction
+from src.shared.helpers.errors.usecase_errors import NoItemsFound, UnregisteredUser,ForbiddenAction, UserNotAllowed
 from src.shared.domain.enums.active_enum import ACTIVE
 
 class GetProjectUsecase:
@@ -17,7 +17,7 @@ class GetProjectUsecase:
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
         if user.active != ACTIVE.ACTIVE:
-            raise ForbiddenAction("User is not active")
+            raise UserNotAllowed()
         
         if type(code) is not str:
             raise WrongTypeParameter('code', 'str', type(code))

@@ -135,3 +135,11 @@ class IActionRepository(ABC):
         Checks all actions of a member and returns the sum of their durations
         '''
         pass
+
+    @abstractmethod
+    def send_invalid_action_email(self, member: Member, action: Action) -> bool:
+        """
+        When member becomes active, notify the member and return True.
+        Only in real repo
+        """
+        pass
