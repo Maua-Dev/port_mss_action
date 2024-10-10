@@ -69,6 +69,9 @@ class CreateMemberController:
             if request.data.get('course') is None:
                 raise MissingParameters('course')
             
+            if not Member.validate_photo(request.data.get('photo')):
+                raise EntityError('photo')
+            
             
 
             
@@ -83,7 +86,8 @@ class CreateMemberController:
                 year=request.data.get('year'),
                 cellphone=request.data.get('cellphone'),
                 course=course,
-                user_id=str(requester_user.user_id)
+                user_id=str(requester_user.user_id),
+                photo = request.data.get('photo')
                                           
             )
             
