@@ -15,11 +15,12 @@ class MemberViewModel:
     year: int
     cellphone: str
     course: COURSE
+    project: Optional[List] 
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     user_id: str
-    hours_worked: int
+    photo: Optional[str] = None 
 
     def __init__(self, member: Member):
         self.name = member.name
@@ -28,6 +29,7 @@ class MemberViewModel:
         self.ra = member.ra
         self.role = member.role
         self.stack = member.stack
+        self.project = member.project
         self.year = member.year
         self.cellphone = member.cellphone
         self.course = member.course
@@ -35,7 +37,8 @@ class MemberViewModel:
         self.deactivated_date = member.deactivated_date
         self.active = member.active
         self.user_id = member.user_id
-        self.hours_worked = member.hours_worked
+        self.photo = member.photo
+
 
     def to_dict(self):
         return {
@@ -45,6 +48,7 @@ class MemberViewModel:
             'ra' : self.ra,
             'role' : self.role.value,
             'stack' : self.stack.value,
+            'project' : self.project,
             'year' : self.year,
             'cellphone' : self.cellphone,
             'course' : self.course.value,
@@ -52,7 +56,8 @@ class MemberViewModel:
             'deactivated_date' : self.deactivated_date,
             'active' : self.active.value,
             'user_id' : self.user_id,
-            'hours_worked' : self.hours_worked
+            'photo' : self.photo,
+
         }
     
 class GetMemberViewmodel:

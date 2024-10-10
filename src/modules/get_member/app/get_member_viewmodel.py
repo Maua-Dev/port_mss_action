@@ -12,6 +12,7 @@ class GetMemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
+    project: Optional[List] 
     year: int
     cellphone: str
     course: COURSE
@@ -19,6 +20,7 @@ class GetMemberViewModel:
     deactivated_date: Optional[int] = None
     active: ACTIVE
     user_id: str
+    photo: Optional[str] = None
     hours_worked: int
     
     def __init__(self, member: Member):
@@ -28,6 +30,7 @@ class GetMemberViewModel:
         self.ra = member.ra
         self.role = member.role
         self.stack = member.stack
+        self.project = member.project
         self.year = member.year
         self.cellphone = member.cellphone
         self.course = member.course
@@ -35,6 +38,7 @@ class GetMemberViewModel:
         self.deactivated_date = member.deactivated_date
         self.active = member.active
         self.user_id = member.user_id
+        self.photo = member.photo
         self.hours_worked = member.hours_worked
 
     def to_dict(self):
@@ -46,6 +50,7 @@ class GetMemberViewModel:
                 'ra' : self.ra,
                 'role' : self.role.value,
                 'stack' : self.stack.value,
+                'project' : self.project,
                 'year' : self.year,
                 'cellphone' : self.cellphone,
                 'course' : self.course.value,
@@ -53,6 +58,7 @@ class GetMemberViewModel:
                 'deactivated_date' : self.deactivated_date,
                 'active' : self.active.value,
                 'user_id' : self.user_id,
+                'photo' : self.photo,
                 'hours_worked' : self.hours_worked
             },
             "message" : "the member was retrieved"
