@@ -103,3 +103,13 @@ class Test_MemberRepositoryDynamo:
         send_email = repo_activity_dynamo.send_active_member_email(user)
 
         assert send_email
+        
+    @pytest.mark.skip("Can't test dynamo in Github")
+    def test_request_upload_member_photo(self):
+        repo_dynamo = MemberRepositoryDynamo()
+        presigned_post = repo_dynamo.request_upload_member_photo(user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3")
+
+        assert type(presigned_post) == dict
+        assert presigned_post["metadata"]["user_id"] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert presigned_post["metadata"]["time_created"].isdecimal()
+        assert type(presigned_post["url"]) == str

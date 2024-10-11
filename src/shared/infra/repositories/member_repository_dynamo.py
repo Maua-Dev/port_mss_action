@@ -1,7 +1,9 @@
+import datetime
 import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
+from botocore.config import Config
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.environments import Environments
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
@@ -78,7 +80,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None,new_photo: Optional[str] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
@@ -102,8 +104,6 @@ class MemberRepositoryDynamo(IMemberRepository):
             member_to_update.active = new_active
         if new_deactivated_date is not None:
             member_to_update.deactivated_date = new_deactivated_date
-        if new_photo is not None:
-            member_to_update.photo = new_photo
         update_dict ={
             "name": member_to_update.name,
             "email_dev": member_to_update.email_dev,
@@ -113,8 +113,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             "cellphone": member_to_update.cellphone,
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
-            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
-            "photo": member_to_update.photo
+            "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None
         }
         
         resp = self.dynamo.update_item(partition_key=self.member_partition_key_format(member_to_update), sort_key=self.member_sort_key_format(user_id), update_dict=update_dict)
@@ -163,3 +162,53 @@ class MemberRepositoryDynamo(IMemberRepository):
         except Exception as err:
             print(err)
             return False
+    
+    def generate_key(self, user_id: str, time_created: int):
+
+        key = f"{user_id}/user-{time_created}.jpeg"
+        return key
+        
+    def request_upload_member_photo(self, user_id: str) -> dict:
+        my_config = Config(
+            region_name=Environments.get_envs().region,
+            signature_version='s3v4',
+        )
+        self.s3_client = boto3.client(
+            's3', config=my_config, region_name=Environments.get_envs().region)
+
+        cloud_front_distribution_domain = Environments.get_envs(
+        ).cloud_front_distribution_domain
+
+        time_created = int(datetime.datetime.now().timestamp()*1000)
+
+        key = self.generate_key(user_id=user_id,
+                                time_created=time_created)
+
+        meta = {
+            "user_id": user_id,
+            "time_created": str(time_created)
+        }
+
+        try:
+            presigned_url = self.s3_client.generate_presigned_url(
+                ClientMethod='put_object',
+                Params={
+                    'Bucket': self.S3_BUCKET_NAME,
+                    'Key': key,
+                    'Metadata': meta
+                },
+                ExpiresIn=600,
+            )
+
+            presigned_url = presigned_url.replace(
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain)
+
+        except Exception as e:
+            print("Error while trying to upload file to S3")
+            print(e)
+            raise e
+
+        return {
+            "url": presigned_url,
+            "metadata": meta
+        }

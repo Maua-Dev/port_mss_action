@@ -42,7 +42,7 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
         if self.stage == STAGE.TEST:
-            self.s3_bucket_name = "action-bucket-test"
+            self.s3_bucket_name = "portalinternostackbackd-portalinternobackbucket-project"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
