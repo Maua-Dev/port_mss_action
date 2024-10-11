@@ -228,7 +228,7 @@ class MemberRepositoryMock(IMemberRepository):
         return None
     
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[int] = None) -> Member:
        
         for member in self.members:
             if member.user_id == user_id:
@@ -252,7 +252,8 @@ class MemberRepositoryMock(IMemberRepository):
                     member.active = new_active
                     if new_active == ACTIVE.DISCONNECTED:
                         member.deactivated_date = int(datetime.datetime.now().timestamp() * 1000) 
-                
+                if new_photo is not None:
+                    member.photo = new_photo
                 return member
             
         return None
