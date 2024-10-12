@@ -1,4 +1,5 @@
-from src.shared.helpers.external_interfaces.http_codes import OK, InternalServerError
+from src.shared.helpers.errors.usecase_errors import UnregisteredUser
+from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError, NotFound
 from .get_all_projects_viewmodel import GetAllProjectsViewmodel
 from .get_all_projects_usecase import GetAllProjectsUsecase
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
@@ -21,6 +22,12 @@ class GetAllProjectsController:
             projects = self.usecase(user_id=requester_user.user_id)
             viewmodel = GetAllProjectsViewmodel(projects)
             return OK(viewmodel.to_dict())
+        
+        except MissingParameters as err:
+            return NotFound(body=err.message)
+        
+        except UnregisteredUser as err:
+            return NotFound(body=err.message)
         
         except Exception as err:
             return InternalServerError(body=err.args[0])

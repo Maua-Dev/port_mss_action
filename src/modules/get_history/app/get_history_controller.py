@@ -5,7 +5,7 @@ from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError, NotFound
 
@@ -77,6 +77,9 @@ class GetHistoryController:
             viewmodel = GetHistoryViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())
         
+        except UnregisteredUser as err:
+            return NotFound(body=err.message)
+
         except MissingParameters as err:
             return BadRequest(body=err.message)
         
