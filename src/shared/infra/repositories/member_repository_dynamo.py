@@ -31,8 +31,9 @@ class MemberRepositoryDynamo(IMemberRepository):
             dynamo_table_name=Environments.get_envs().dynamo_table_name_member,
             region=Environments.get_envs().region,
             partition_key=Environments.get_envs().dynamo_partition_key,
-            sort_key=Environments.get_envs().dynamo_sort_key,
-        )
+            sort_key=Environments.get_envs().dynamo_sort_key)
+        
+        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
     def create_member(self, member: Member) -> Member:
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
