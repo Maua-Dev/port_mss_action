@@ -1,5 +1,6 @@
 
 from src.shared.domain.entities.member import Member
+from io import BytesIO
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
@@ -29,8 +30,6 @@ class CreateMemberController:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type( request.data.get('ra') ))
            
 
-
-            
             if not Member.validate_email_dev(request.data.get('email_dev')):
                 raise EntityError('email_dev')   
             if request.data.get('email_dev') is None:
@@ -69,7 +68,9 @@ class CreateMemberController:
             if request.data.get('course') is None:
                 raise MissingParameters('course')
             
-            if not Member.validate_photo(request.data.get('photo')):
+            img_buffer = BytesIO(request.data.get('photo'))
+            
+            if not Member.validate_photo(img_buffer.read()):
                 raise EntityError('photo')
             
             
@@ -87,7 +88,7 @@ class CreateMemberController:
                 cellphone=request.data.get('cellphone'),
                 course=course,
                 user_id=str(requester_user.user_id),
-                photo = request.data.get('photo')
+                photo = img_buffer.read()
                                           
             )
             

@@ -22,7 +22,7 @@ class Member(abc.ABC):
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     user_id: str
-    photo: Optional[str] = None
+    photo: Optional[bytes] = None
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
     USER_ID_LENGTH = 36
@@ -40,7 +40,7 @@ class Member(abc.ABC):
                  hired_date: int,
                  active: ACTIVE,
                  user_id: str,
-                 photo: Optional[str] = None,
+                 photo: Optional[bytes] = None,
                  deactivated_date: Optional[int] = None
                 ):
 
@@ -205,8 +205,10 @@ class Member(abc.ABC):
     
     @staticmethod
     def validate_photo(photo: str) -> bool:
-        if photo is None: return True
-        if type(photo) != str: return False
+        if photo is None:
+            return True
+        if type(photo) != bytes:
+            return False
         return True
     
     def __repr__(self):

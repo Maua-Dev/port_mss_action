@@ -1,7 +1,6 @@
 import datetime
 from io import BytesIO
 import os
-from PIL import Image
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
@@ -38,6 +37,9 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
     def create_member(self, member: Member) -> Member:
+
+        url = self.upload_member_photo(member.user_id, member.photo)
+        member.photo = url
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
         
@@ -195,11 +197,6 @@ class MemberRepositoryDynamo(IMemberRepository):
             "time_created": str(time_created)
         }
 
-        with Image.open(presigned_url) as img:
-            buffer = BytesIO()
-            img.save(buffer, format=".jpeg")  
-            img_bytes = buffer.getvalue()
-
         try:
             presigned_url = self.s3_client.generate_presigned_url(
                 ClientMethod='put_object',
@@ -223,3 +220,18 @@ class MemberRepositoryDynamo(IMemberRepository):
             "url": presigned_url,
             "metadata": meta
         }
+    
+    def upload_member_photo(self, user_id: str, photo: bytes) -> str:
+        try:
+            photo_buffer = BytesIO(photo)
+
+            time = int(datetime.datetime.now().timestamp() * 1000)
+            s3_key = self.generate_key(user_id, time)
+
+            self.s3_client.upload_fileobj(photo_buffer, self.S3_BUCKET_NAME, s3_key)
+
+            return s3_key
+        except Exception as e:
+            print("Error while trying to upload file to S3")
+            print(e)
+            raise e
