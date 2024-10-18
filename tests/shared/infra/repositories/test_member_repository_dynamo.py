@@ -97,7 +97,8 @@ class Test_MemberRepositoryDynamo:
                 hired_date=1672592165000,
                 active=ACTIVE.ACTIVE,
                 deactivated_date=None,
-                user_id="9183jBnh-997H-1010-10god-914gHy46tBh"
+                user_id="9183jBnh-997H-1010-10god-914gHy46tBh",
+                photo=None
             )
 
         send_email = repo_activity_dynamo.send_active_member_email(user)
