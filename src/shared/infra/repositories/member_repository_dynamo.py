@@ -85,7 +85,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None,  new_photo:Optional[str] = None, new_photo: Optional[str] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None,  new_photo: Optional[bytes] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
