@@ -238,12 +238,12 @@ class MemberRepositoryDynamo(IMemberRepository):
 
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,
-                Key=f"{user_id}",
+                Key=f"{s3_key}",
                 Body=photo_bytes,
                 ContentType="image/jpeg"
             )
-
-            return s3_key
+            url = f"https://{self.S3_BUCKET_NAME}.s3.amazonaws.com/{s3_key}"
+            return url
         except Exception as e:
             print(e)
             raise e
