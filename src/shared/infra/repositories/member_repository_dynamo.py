@@ -237,7 +237,11 @@ class MemberRepositoryDynamo(IMemberRepository):
             time = int(datetime.datetime.now().timestamp() * 1000)
             s3_key = self.generate_key(user_id, time)
 
-            self.s3_client.upload_fileobj(photo_bytes, self.S3_BUCKET_NAME, s3_key)
+            self.s3_client.put_object(
+                Bucket=self.S3_BUCKET_NAME,
+                Key=s3_key,
+                Body=photo_bytes,
+            )
 
             return s3_key
         except Exception as e:
