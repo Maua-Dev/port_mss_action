@@ -235,7 +235,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             
             time = int(datetime.datetime.now().timestamp() * 1000)
             s3_key = self.generate_key(user_id, time)
-            print(type(photo_bytes))
+
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,
                 Key=f"{user_id}",
