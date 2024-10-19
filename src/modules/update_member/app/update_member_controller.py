@@ -92,6 +92,13 @@ class UpdateMemberController:
             if new_member_user_id is not None:
                 if type(new_member_user_id) is not str:
                     raise WrongTypeParameter(fieldName='new_member_user_id', fieldTypeExpected='str', fieldTypeReceived=type(new_member_user_id))
+            
+            new_photo = request.data.get('new_photo')
+            if new_photo is not None:
+                if type(new_photo) is not str:
+                    raise WrongTypeParameter(fieldName='new_photo', fieldTypeExpected='str', fieldTypeReceived=type(new_photo))
+                if not Member.validate_photo(new_photo):
+                    raise EntityError('new_photo')
                           
             new_photo = request.data.get('new_photo')
             if new_photo is not None:

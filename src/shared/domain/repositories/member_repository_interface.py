@@ -28,7 +28,7 @@ class IMemberRepository(ABC):
         pass
 
     @abstractmethod
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[str]=None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[str]=None, new_photo: Optional[str] = None) -> Member:
         '''
         If member exists, updates it and its associated actions and returns it
         else returns None

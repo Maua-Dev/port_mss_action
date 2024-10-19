@@ -82,7 +82,7 @@ class UpdateMemberUsecase:
         if new_member_user_id is not None:
             new_member = self.repo.get_member(new_member_user_id)
             if new_member.active == ACTIVE.ON_HOLD and new_active is not None:
-                self.repo.send_active_member_email(new_member) 
+                self.repo.send_active_member_email(new_member)
             
         if new_photo is not None:
             if type(new_photo) is not str:
