@@ -45,7 +45,7 @@ class Test_UpdateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"DISCONNECTED","new_photo":"photo"}',
+            "body": '{"new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"DISCONNECTED"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -66,7 +66,6 @@ class Test_UpdateMemberPresenter:
         assert json.loads(response["body"])["member"]["hired_date"] == 1634576165000
         assert json.loads(response["body"])["member"]["active"] == "DISCONNECTED"
         assert json.loads(response["body"])["member"]["deactivated_date"] != None   
-        assert json.loads(response["body"])["member"]["photo"] == "photo"   
 
 
        

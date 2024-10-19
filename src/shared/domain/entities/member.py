@@ -204,10 +204,10 @@ class Member(abc.ABC):
         return (active == ACTIVE.ACTIVE)
     
     @staticmethod
-    def validate_photo(photo: str) -> bool:
+    def validate_photo(photo: bytes) -> bool:
         if photo is None:
             return True
-        if type(photo) != str:
+        if type(photo) != bytes:
             return False
         return True
     

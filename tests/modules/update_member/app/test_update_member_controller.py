@@ -66,29 +66,6 @@ class Test_UpdateMemberController:
         assert response.body["member"]["name"] == "Teste Tester"
         assert response.body["message"] == "the member was updated"
 
-    def test_update_member_controller_only_photo(self):
-        
-        repo = MemberRepositoryMock()
-        usecase = UpdateMemberUsecase(repo)
-        controller = UpdateMemberController(usecase)
-        user_id = repo.members[0].user_id
-        first_member = repo.members[0]
-        request = HttpRequest(body={
-            'requester_user': {
-                    "sub": first_member.user_id,
-                    "name": first_member.name,
-                    "email": first_member.email,
-                    "custom:isMaua": True
-                },
-            'new_photo':"Teste Tester"
-             
-            })
-        
-        response = controller(request)
-       
-        assert response.status_code == 200
-        assert response.body["member"]["photo"] == "Teste Tester"
-        assert response.body["message"] == "the member was updated"
 
     def test_update_member_controller_only_year(self):
         

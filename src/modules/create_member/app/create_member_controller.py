@@ -68,13 +68,12 @@ class CreateMemberController:
             if request.data.get('course') is None:
                 raise MissingParameters('course')
             
-            img_buffer = BytesIO(request.data.get('photo'))
-            
-            if not Member.validate_photo(img_buffer.read()):
-                raise EntityError('photo')
-            
-            
-
+            img_buffer = None
+            if request.data.get('photo') is not None: 
+                img_buffer = BytesIO(request.data.get('photo'))
+                if not Member.validate_photo(img_buffer.read()):
+                    raise EntityError('photo')
+        
             
             
             member = self.usecase(
@@ -88,7 +87,7 @@ class CreateMemberController:
                 cellphone=request.data.get('cellphone'),
                 course=course,
                 user_id=str(requester_user.user_id),
-                photo = img_buffer.read()
+                photo = img_buffer
                                           
             )
             
