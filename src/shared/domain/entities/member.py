@@ -22,7 +22,7 @@ class Member(abc.ABC):
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     user_id: str
-    photo: Optional[bytes] = None
+    photo: Optional[str] = None
     MIN_NAME_LENGTH = 2
     CELLPHONE_LENGTH = 11
     USER_ID_LENGTH = 36
@@ -40,7 +40,7 @@ class Member(abc.ABC):
                  hired_date: int,
                  active: ACTIVE,
                  user_id: str,
-                 photo: Optional[bytes] = None,
+                 photo: Optional[str] = None,
                  deactivated_date: Optional[int] = None
                 ):
 
