@@ -46,7 +46,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
     def create_member(self, member: Member) -> Member:
-
+        print(member.photo)
         url = self.upload_member_photo(member.user_id, member.photo)
         member.photo = url
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
@@ -239,8 +239,9 @@ class MemberRepositoryDynamo(IMemberRepository):
 
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,
-                Key=s3_key,
+                Key=f"{user}",
                 Body=photo_bytes,
+                ContentType="image/png"
             )
 
             return s3_key
