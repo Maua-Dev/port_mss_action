@@ -1,7 +1,12 @@
+import base64
+import datetime
+from io import BytesIO
+import io
 import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
+from botocore.config import Config
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.environments import Environments
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
@@ -29,10 +34,14 @@ class MemberRepositoryDynamo(IMemberRepository):
             dynamo_table_name=Environments.get_envs().dynamo_table_name_member,
             region=Environments.get_envs().region,
             partition_key=Environments.get_envs().dynamo_partition_key,
-            sort_key=Environments.get_envs().dynamo_sort_key,
-        )
+            sort_key=Environments.get_envs().dynamo_sort_key)
+        
+        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
     def create_member(self, member: Member) -> Member:
+
+        url = self.upload_member_photo(member.user_id, member.photo)
+        member.photo = url
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
         
@@ -78,7 +87,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         
         return MemberDynamoDTO.from_dynamo(delete_member["Attributes"]).to_entity()
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None, new_photo: Optional[str] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[str] = None, new_stack: Optional[str] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[str] = None, new_active: Optional[str] = None, new_deactivated_date: Optional[int] = None,  new_photo: Optional[str] = None) -> Member:
         member_to_update = self.get_member(user_id=user_id)
         
         if member_to_update is None:
@@ -163,3 +172,68 @@ class MemberRepositoryDynamo(IMemberRepository):
         except Exception as err:
             print(err)
             return False
+    
+    def generate_key(self, user_id: str, time_created: int):
+
+        key = f"{user_id}/user-{time_created}.jpeg"
+        return key
+        
+    def request_upload_member_photo(self, user_id: str) -> dict:
+        my_config = Config(
+            region_name=Environments.get_envs().region,
+            signature_version='s3v4',
+        )
+        self.s3_client = boto3.client(
+            's3', config=my_config, region_name=Environments.get_envs().region)
+
+        cloud_front_distribution_domain = Environments.get_envs(
+        ).cloud_front_distribution_domain
+
+        time_created = int(datetime.datetime.now().timestamp()*1000)
+
+        key = self.generate_key(user_id=user_id,
+                                time_created=time_created)
+
+        meta = {
+            "user_id": user_id,
+            "time_created": str(time_created)
+        }
+
+        try:
+            presigned_url = self.s3_client.generate_presigned_url(
+                ClientMethod='put_object',
+                Params={
+                    'Bucket': self.S3_BUCKET_NAME,
+                    'Key': key,
+                    'Metadata': meta
+                },
+                ExpiresIn=600,
+            )
+
+            presigned_url = presigned_url.replace(
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain)
+
+        except Exception as e:
+            print("Error while trying to upload file to S3")
+            print(e)
+            raise e
+
+        return {
+            "url": presigned_url,
+            "metadata": meta
+        }
+    
+    def upload_member_photo(self, user_id: str, photo: str) -> str:
+        try:
+            photo_bytes = base64.b64decode(photo)
+            photo_file = io.BytesIO(photo_bytes)
+            
+            time = int(datetime.datetime.now().timestamp() * 1000)
+            s3_key = self.generate_key(user_id, time)
+
+            self.s3_client.upload_fileobj(photo_file, self.S3_BUCKET_NAME, s3_key)
+
+            return s3_key
+        except Exception as e:
+            print(e)
+            raise e
