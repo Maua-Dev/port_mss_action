@@ -29,14 +29,12 @@ class CreateMemberController:
             if type(request.data.get('ra')) is not str:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type( request.data.get('ra') ))
            
-
             if not Member.validate_email_dev(request.data.get('email_dev')):
                 raise EntityError('email_dev')   
             if request.data.get('email_dev') is None:
                 raise MissingParameters('email_dev')
           
 
-            
             role = request.data.get('role')
             if role not in [role_value.value for role_value in ROLE]:
                 raise EntityError('role')
