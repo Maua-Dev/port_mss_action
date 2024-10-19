@@ -9,6 +9,7 @@ from aws_cdk import (
 from constructs import Construct
 
 from .dynamo_stack import DynamoStack
+from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
@@ -51,6 +52,8 @@ class IacStack(Stack):
                                                                    )
         
         self.dynamo_stack = DynamoStack(self)
+
+        self.bucket_stack = BucketStack(self)
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
@@ -63,7 +66,10 @@ class IacStack(Stack):
             "REGION": self.aws_region,
             "REPLY_TO_EMAIL": "dev@maua.br",
             "FROM_EMAIL": "contato@devmaua.com",
-            "HIDDEN_COPY": "dev@maua.br"
+            "HIDDEN_COPY": "dev@maua.br",
+            "S3_BUCKET_NAME": self.bucket_stack.s3_bucket.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS": self.bucket_stack.cloudfront_distribution.domain_name,
+
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
