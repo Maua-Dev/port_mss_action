@@ -119,6 +119,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             member_to_update.deactivated_date = new_deactivated_date
         if new_photo is not None:
             member_to_update.photo = new_photo
+            url = self.upload_member_photo(user_id, new_photo)
+            
         update_dict ={
             "name": member_to_update.name,
             "email_dev": member_to_update.email_dev,

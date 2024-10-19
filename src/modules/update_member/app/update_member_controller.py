@@ -99,13 +99,6 @@ class UpdateMemberController:
                     raise WrongTypeParameter(fieldName='new_photo', fieldTypeExpected='str', fieldTypeReceived=type(new_photo))
                 if not Member.validate_photo(new_photo):
                     raise EntityError('new_photo')
-                          
-            new_photo = request.data.get('new_photo')
-            if new_photo is not None:
-                if type(new_photo) is not str:
-                    raise WrongTypeParameter(fieldName='new_photo', fieldTypeExpected='str', fieldTypeReceived=type(new_photo))
-                if not Member.validate_photo(new_photo):
-                    raise EntityError('new_photo')
                 
             member = self.usecase(
                 user_id=requester_user.user_id,
