@@ -207,7 +207,7 @@ class Member(abc.ABC):
     def validate_photo(photo: str) -> bool:
         if photo is None:
             return True
-        if type(photo) != bytes:
+        if type(photo) != str:
             return False
         return True
     
