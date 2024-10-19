@@ -92,6 +92,16 @@ class IacStack(Stack):
             ]
         )
 
+        s3_admin_policy = aws_iam.PolicyStatement(
+            effect=aws_iam.Effect.ALLOW,
+            actions=[
+                "s3:*",
+            ],
+            resources=[
+                "*"
+            ]
+        )
+
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
         
@@ -100,3 +110,6 @@ class IacStack(Stack):
         
         for f in self.lambda_stack.functions_that_need_ses_permissions:
             f.add_to_role_policy(ses_admin_policy)
+
+        for f in self.lambda_stack.functions_that_need_s3_permissions:
+            f.add_to_role_policy(s3_admin_policy)
