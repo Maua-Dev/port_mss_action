@@ -233,12 +233,11 @@ class MemberRepositoryDynamo(IMemberRepository):
     def upload_member_photo(self, user_id: str, photo: str) -> str:
         try:
             photo_bytes = base64.b64decode(photo)
-            photo_file = io.BytesIO(photo_bytes)
             
             time = int(datetime.datetime.now().timestamp() * 1000)
             s3_key = self.generate_key(user_id, time)
 
-            self.s3_client.upload_fileobj(photo_file, self.S3_BUCKET_NAME, s3_key)
+            self.s3_client.upload_fileobj(photo_bytes, self.S3_BUCKET_NAME, s3_key)
 
             return s3_key
         except Exception as e:
