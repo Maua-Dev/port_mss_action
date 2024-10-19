@@ -42,6 +42,8 @@ class MemberRepositoryDynamo(IMemberRepository):
         )
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
+        
+        cloud_front_distribution_domain = Environments.get_envs().cloud_front_distribution_domain
 
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
@@ -244,8 +246,26 @@ class MemberRepositoryDynamo(IMemberRepository):
                 Body=photo_bytes,
                 ContentType="image/jpeg"
             )
-            url = f"https://{self.S3_BUCKET_NAME}.s3.amazonaws.com/{s3_key}"
-            return url
+
+            meta = {
+            "user_id": user_id,
+            "time_created": str(time)
+            }
+
+            presigned_url = self.s3_client.generate_presigned_url(
+                ClientMethod='put_object',
+                Params={
+                    'Bucket': self.S3_BUCKET_NAME,
+                    'Key': s3_key,
+                    'Metadata': meta
+                },
+                ExpiresIn=600,
+            )
+
+            presigned_url = presigned_url.replace(
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain)
+
+            return presigned_url
         except Exception as e:
             print(e)
             raise e
