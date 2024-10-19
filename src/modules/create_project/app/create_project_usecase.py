@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
@@ -12,7 +12,7 @@ class CreateProjectUsecase:
         self.repo = repo
         self.repo_member = repo_member
         
-    def __call__(self, user_id: str, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: list = None) -> Project:
+    def __call__(self, user_id: str, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None) -> Project:
         
         project = Project(
             code=code,
@@ -21,7 +21,7 @@ class CreateProjectUsecase:
             po_user_id=po_user_id,
             scrum_user_id=scrum_user_id,
             start_date=start_date,
-            photos=photos,
+            photo=photo,
             members_user_ids=members_user_ids
         )
 

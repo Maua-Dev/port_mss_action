@@ -1,6 +1,6 @@
 import abc
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class Project(abc.ABC):
@@ -11,11 +11,11 @@ class Project(abc.ABC):
     scrum_user_id: str
     start_date: int # milliseconds
     members_user_ids: List[str]
-    photos: List[str] = []
+    photo: Optional[str] = None
     PROJECT_CODE_LENGTH = 2
     USER_ID_LENGTH = 36
     
-    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: List[str] = []):
+    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None):
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
@@ -44,10 +44,10 @@ class Project(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
         
-        if photos is not None:
-            if type(photos) != list:
-                raise EntityError("photos")
-            self.photos = photos
+        if photo is not None:
+            if type(photo) != str:
+                raise EntityError("photo")
+            self.photo = photo
         
         if type(members_user_ids) != list:
             raise EntityError("members_user_ids")
