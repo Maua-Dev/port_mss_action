@@ -13,7 +13,7 @@ class CreateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, user_id:str, photo: Optional[bytes] = None) -> Member:
+    def __call__(self, ra: str, name: str, email_dev: str , email: str, role: ROLE, stack: STACK, year: int, cellphone: str, course: COURSE, user_id:str, photo: Optional[str] = None) -> Member:
       
         if self.repo.get_member(user_id=user_id) is not None:
             raise DuplicatedItem("user_id")
