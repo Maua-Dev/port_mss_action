@@ -44,10 +44,9 @@ class Project(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
         
-        if photo is not None:
-            if type(photo) != str:
-                raise EntityError("photo")
-            self.photo = photo
+        if not self.validate_photo(photo):
+            raise EntityError("photo")
+        self.photo = photo
         
         if type(members_user_ids) != list:
             raise EntityError("members_user_ids")
@@ -92,6 +91,14 @@ class Project(abc.ABC):
         self.scrum_user_id = new_scrum_user_id
         self.members_user_ids.append(new_scrum_user_id)
         self.members_user_ids = sorted(list(set(self.members_user_ids)))
+
+    @staticmethod
+    def validate_photo(photo: str) -> bool:
+        if photo is None:
+            return True
+        if type(photo) != str:
+            return False
+        return True
     
     def __repr__(self):
         return f"Project(code={self.code}, name={self.name}, description={self.description})"
