@@ -34,7 +34,6 @@ class CreateMemberController:
             if request.data.get('email_dev') is None:
                 raise MissingParameters('email_dev')
           
-
             role = request.data.get('role')
             if role not in [role_value.value for role_value in ROLE]:
                 raise EntityError('role')
@@ -69,9 +68,7 @@ class CreateMemberController:
             if request.data.get('photo') is not None: 
                 if not Member.validate_photo(request.data.get('photo')):
                     raise EntityError('photo')
-        
-            
-            
+
             member = self.usecase(
                 name=str(requester_user.name),
                 email_dev=request.data.get('email_dev'),
@@ -83,8 +80,7 @@ class CreateMemberController:
                 cellphone=request.data.get('cellphone'),
                 course=course,
                 user_id=str(requester_user.user_id),
-                photo = request.data.get('photo')
-                                          
+                photo = request.data.get('photo')                        
             )
             
             viewmodel = CreateMemberViewmodel(member=member)

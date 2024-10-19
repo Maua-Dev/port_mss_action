@@ -36,6 +36,13 @@ class MemberRepositoryDynamo(IMemberRepository):
             partition_key=Environments.get_envs().dynamo_partition_key,
             sort_key=Environments.get_envs().dynamo_sort_key)
         
+        my_config = Config(
+            region_name=Environments.get_envs().region,
+            signature_version='s3v4',
+        )
+        self.s3_client = boto3.client(
+            's3', config=my_config, region_name=Environments.get_envs().region)
+
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
     def create_member(self, member: Member) -> Member:
