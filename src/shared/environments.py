@@ -51,7 +51,7 @@ class Environments:
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
-            self.cloud_front_distribution_domain = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.cloud_front_distribution_domain_assets = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.reply_to_email = "dev@maua.br"
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
@@ -68,7 +68,7 @@ class Environments:
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
-            self.cloud_front_distribution_domain = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN")
+            self.cloud_front_distribution_domain_assets = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS")
             self.reply_to_email = os.environ.get("REPLY_TO_EMAIL")
             self.from_email = os.environ.get("FROM_EMAIL")
             self.hidden_copy = os.environ.get("HIDDEN_COPY")

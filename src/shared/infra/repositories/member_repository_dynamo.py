@@ -43,7 +43,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
         
-        self.cloud_front_distribution_domain = Environments.get_envs().cloud_front_distribution_domain
+        self.cloud_front_distribution_domain_assets = Environments.get_envs().cloud_front_distribution_domain_assets
 
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
         
@@ -196,8 +196,8 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
 
-        cloud_front_distribution_domain = Environments.get_envs(
-        ).cloud_front_distribution_domain
+        cloud_front_distribution_domain_assets = Environments.get_envs(
+        ).cloud_front_distribution_domain_assets
 
         time_created = int(datetime.datetime.now().timestamp()*1000)
 
@@ -221,7 +221,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             presigned_url = presigned_url.replace(
-                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain)
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain_assets)
 
         except Exception as e:
             print("Error while trying to upload file to S3")
@@ -263,7 +263,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             presigned_url = presigned_url.replace(
-                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain)
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets)
 
             return presigned_url
         except Exception as e:
