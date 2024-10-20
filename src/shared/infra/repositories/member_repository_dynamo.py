@@ -262,7 +262,8 @@ class MemberRepositoryDynamo(IMemberRepository):
                 Params={
                     'Bucket': self.S3_BUCKET_NAME,
                     'Key': s3_key,
-                    'Metadata': meta
+                    'Metadata': meta,
+                    'ContentDisposition': 'inline',
                 },
                 ExpiresIn=600,
             )
