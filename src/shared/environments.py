@@ -42,7 +42,8 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
         if self.stage == STAGE.TEST:
-            self.s3_bucket_name = "portalinternostackbackd-portalinternobackbucket-project"
+            self.s3_bucket_name_member = "portalinternostackbackd-portalinternobackbucket-project"
+            self.s3_bucket_name_project = "portalinternostackbackd-portalinternobackbucket-member"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
@@ -51,7 +52,8 @@ class Environments:
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
-            self.cloud_front_distribution_domain_assets = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.reply_to_email = "dev@maua.br"
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
@@ -59,7 +61,8 @@ class Environments:
             
 
         else:
-            self.s3_bucket_name = os.environ.get("S3_BUCKET_NAME")
+            self.s3_bucket_name_member = os.environ.get("S3_BUCKET_NAME_MEMBER")
+            self.s3_bucket_name_project = os.environ.get("S3_BUCKET_NAME_PROJECT")
             self.region = os.environ.get("REGION")
             self.endpoint_url = os.environ.get("ENDPOINT_URL")
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
@@ -68,7 +71,8 @@ class Environments:
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
-            self.cloud_front_distribution_domain_assets = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS")
+            self.cloud_front_distribution_domain_assets_member = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER")
+            self.cloud_front_distribution_domain_assets_project = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT")
             self.reply_to_email = os.environ.get("REPLY_TO_EMAIL")
             self.from_email = os.environ.get("FROM_EMAIL")
             self.hidden_copy = os.environ.get("HIDDEN_COPY")

@@ -23,7 +23,7 @@ class ActionRepositoryMock(IActionRepository):
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 start_date=1634576165000,
-                photos=["https://i.imgur.com/gHoRKJU.png"],
+                photo="https://i.imgur.com/gHoRKJU.png",
                 members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3" ]
             ),
             Project(
@@ -33,7 +33,7 @@ class ActionRepositoryMock(IActionRepository):
                 po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 start_date=1673535600000,
-                photos=["https://i.imgur.com/gHoRKJU.png"],
+                photo="https://i.imgur.com/gHoRKJU.png",
                 members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3" ]
             ),
             Project(
@@ -393,7 +393,7 @@ class ActionRepositoryMock(IActionRepository):
                 return project
         return None
     
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]]= None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]]= None) -> Project:
         for project in self.projects:
             if project.code == code:
                 if new_name is not None:
@@ -404,8 +404,8 @@ class ActionRepositoryMock(IActionRepository):
                     project.change_po_user_id(new_po_user_id)
                 if new_scrum_user_id is not None:
                     project.change_scrum_user_id(new_scrum_user_id)
-                if new_photos is not None:
-                    project.photos = new_photos
+                if new_photo is not None:
+                    project.photo = new_photo
                 if new_members_user_ids is not None:
                     project.members_user_ids = new_members_user_ids
 

@@ -25,7 +25,7 @@ class BucketStack(Construct):
 
         REMOVAL_POLICY = RemovalPolicy.RETAIN if 'prod' in self.github_ref_name else RemovalPolicy.DESTROY
 
-        self.s3_bucket = aws_s3.Bucket(self, "PortalInterno_Member_Photo_S3_Bucket",
+        self.s3_bucket_member = aws_s3.Bucket(self, "PortalInterno_Member_Photo_S3_Bucket",
                                        versioned=True,
                                        block_public_access=aws_s3.BlockPublicAccess.BLOCK_ALL,
                                        event_bridge_enabled=False,
@@ -42,7 +42,7 @@ class BucketStack(Construct):
         oai = aws_cloudfront.OriginAccessIdentity(self, "PortalInterno_Member_Photo_OAI",
                                                   comment="This is PortalInterno member photo OAI")
         
-        self.s3_bucket.grant_read_write(oai)
+        self.s3_bucket_member.grant_read_write(oai)
 
         self.cloudfront_distribution_member = aws_cloudfront.Distribution(self, "PortalInterno_Member_Photo_CloudFront_Distribution",
                                                                      default_behavior=aws_cloudfront.BehaviorOptions(
@@ -74,7 +74,7 @@ class BucketStack(Construct):
         oai = aws_cloudfront.OriginAccessIdentity(self, "PortalInterno_Project_Photo_OAI",
                                                   comment="This is PortalInterno project photo OAI")
         
-        self.s3_bucket.grant_read_write(oai)
+        self.s3_bucket_project.grant_read_write(oai)
 
         self.cloudfront_distribution_project = aws_cloudfront.Distribution(self, "PortalInterno_Project_Photo_CloudFront_Distribution",
                                                                      default_behavior=aws_cloudfront.BehaviorOptions(
@@ -87,5 +87,5 @@ class BucketStack(Construct):
                                                                           cache_policy=aws_cloudfront.CachePolicy.CACHING_OPTIMIZED,
                                                                           allowed_methods=aws_cloudfront.AllowedMethods.ALLOW_ALL
                                                                      )
-                                                                     )
+                                            )
 
