@@ -67,8 +67,10 @@ class IacStack(Stack):
             "REPLY_TO_EMAIL": "dev@maua.br",
             "FROM_EMAIL": "contato@devmaua.com",
             "HIDDEN_COPY": "dev@maua.br",
-            "S3_BUCKET_NAME": self.bucket_stack.s3_bucket.bucket_name,
-            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS": self.bucket_stack.cloudfront_distribution.domain_name,
+            "S3_BUCKET_NAME_MEMBER": self.bucket_stack.s3_bucket_member.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER": self.bucket_stack.cloudfront_distribution_member.domain_name,
+            "S3_BUCKET_NAME_PROJECT": self.bucket_stack.s3_bucket_project.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.s3_bucket_project.bucket_name,
 
         }
         
