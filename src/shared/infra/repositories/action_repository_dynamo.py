@@ -92,9 +92,9 @@ class ActionRepositoryDynamo(IActionRepository):
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
         
-        self.cloud_front_distribution_domain_assets = Environments.get_envs().cloud_front_distribution_domain_assets
+        self.cloud_front_distribution_domain_assets_project = Environments.get_envs().cloud_front_distribution_domain_assets_project
 
-        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
+        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name_project
         
         
     def create_project(self, project: Project) -> Project:
@@ -166,7 +166,8 @@ class ActionRepositoryDynamo(IActionRepository):
         if new_scrum_user_id is not None:
             project_to_update.scrum_user_id = new_scrum_user_id
         if new_photo is not None:
-            project_to_update.photo = new_photo
+            url = self.upload_project_photo(code, new_photo)
+            project_to_update.photo = url
         if new_members_user_ids is not None:
             project_to_update.members_user_ids = new_members_user_ids
             
@@ -483,7 +484,7 @@ class ActionRepositoryDynamo(IActionRepository):
             )
 
             presigned_url = presigned_url.replace(
-                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets)
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
 
             return presigned_url
         except Exception as e:
