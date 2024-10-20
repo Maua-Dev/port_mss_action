@@ -42,9 +42,9 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
         
-        self.cloud_front_distribution_domain_assets = Environments.get_envs().cloud_front_distribution_domain_assets
+        self.cloud_front_distribution_domain_assets_member = Environments.get_envs().cloud_front_distribution_domain_assets_member
 
-        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name
+        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name_member
         
     def create_member(self, member: Member) -> Member:
         url = self.upload_member_photo(member.user_id, member.photo)
@@ -195,8 +195,8 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
 
-        cloud_front_distribution_domain_assets = Environments.get_envs(
-        ).cloud_front_distribution_domain_assets
+        cloud_front_distribution_domain_assets_member = Environments.get_envs(
+        ).cloud_front_distribution_domain_assets_member
 
         time_created = int(datetime.datetime.now().timestamp()*1000)
 
@@ -220,7 +220,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             presigned_url = presigned_url.replace(
-                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain_assets)
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", cloud_front_distribution_domain_assets_member)
 
         except Exception as e:
             print("Error while trying to upload file to S3")
@@ -268,7 +268,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             presigned_url = presigned_url.replace(
-                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets)
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_member)
 
             return presigned_url
         except Exception as e:
