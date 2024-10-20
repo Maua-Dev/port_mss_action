@@ -47,7 +47,7 @@ class BucketStack(Construct):
         self.cloudfront_distribution_member = aws_cloudfront.Distribution(self, "PortalInterno_Member_Photo_CloudFront_Distribution",
                                                                      default_behavior=aws_cloudfront.BehaviorOptions(
                                                                           origin=aws_cloudfront_origins.S3Origin(
-                                                                            self.s3_bucket,
+                                                                            self.s3_bucket_member,
                                                                             origin_access_identity=oai),
                                                                           origin_request_policy=aws_cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
                                                                           viewer_protocol_policy=aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
@@ -79,7 +79,7 @@ class BucketStack(Construct):
         self.cloudfront_distribution_project = aws_cloudfront.Distribution(self, "PortalInterno_Project_Photo_CloudFront_Distribution",
                                                                      default_behavior=aws_cloudfront.BehaviorOptions(
                                                                           origin=aws_cloudfront_origins.S3Origin(
-                                                                            self.s3_bucket,
+                                                                            self.s3_bucket_project,
                                                                             origin_access_identity=oai),
                                                                           origin_request_policy=aws_cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
                                                                           viewer_protocol_policy=aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
