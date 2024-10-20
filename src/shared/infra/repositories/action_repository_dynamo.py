@@ -99,8 +99,9 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def create_project(self, project: Project) -> Project:
 
-        url = self.upload_project_photo(project.code, project.photo)
-        project.photo = url  
+        if project.photo is not None:
+            url = self.upload_project_photo(project.code, project.photo)
+            project.photo = url  
 
         item = ProjectDynamoDTO.from_entity(project).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project.code))

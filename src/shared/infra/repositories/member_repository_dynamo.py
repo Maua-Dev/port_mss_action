@@ -47,8 +47,9 @@ class MemberRepositoryDynamo(IMemberRepository):
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name_member
         
     def create_member(self, member: Member) -> Member:
-        url = self.upload_member_photo(member.user_id, member.photo)
-        member.photo = url
+        if member.photo is not None:
+            url = self.upload_member_photo(member.user_id, member.photo)
+            member.photo = url
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
         
