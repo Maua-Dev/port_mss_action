@@ -19,7 +19,7 @@ class BucketStack(Construct):
     cloudfront_distribution_project: aws_cloudfront.Distribution
 
     def __init__(self, scope: Construct) -> None:
-        super().__init__(scope, "PortalInterno_Member_Bucket")
+        super().__init__(scope, "PortalInterno_Bucket")
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
 
