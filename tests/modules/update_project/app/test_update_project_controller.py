@@ -39,7 +39,7 @@ class TestUpdateProjectController:
         assert response.body['project']['description'] == 'Projeto do site portfolio'
         assert response.body['project']['po_user_id'] == '6574hgyt-785n-9134-18gn4-7gh5uvn36cG'
         assert response.body['project']['scrum_user_id'] == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
-        assert response.body['project']['photo'] == ['new_photo']
+        assert response.body['project']['photo'] == 'new_photo'
         assert response.body['project']['members_user_ids'] == ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
 
     def test_update_project_controller_missing_code(self):

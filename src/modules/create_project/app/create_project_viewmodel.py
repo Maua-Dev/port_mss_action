@@ -19,7 +19,7 @@ class ProjectViewModel:
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
         self.members_user_ids = project.members_user_ids
-        self.photo = project.photo if project.photo else []
+        self.photo = project.photo
         
     def to_dict(self):
         return {

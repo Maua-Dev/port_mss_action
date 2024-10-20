@@ -131,7 +131,7 @@ class ActionRepositoryDynamo(IActionRepository):
         project_dto = ProjectDynamoDTO.from_dynamo(project['Item'])
         return project_dto.to_entity()
 
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         project_to_update = self.get_project(code=code)
         
         if project_to_update is None:
@@ -145,8 +145,8 @@ class ActionRepositoryDynamo(IActionRepository):
             project_to_update.po_user_id = new_po_user_id
         if new_scrum_user_id is not None:
             project_to_update.scrum_user_id = new_scrum_user_id
-        if new_photos is not None:
-            project_to_update.photos = new_photos
+        if new_photo is not None:
+            project_to_update.photo = new_photo
         if new_members_user_ids is not None:
             project_to_update.members_user_ids = new_members_user_ids
             
@@ -155,7 +155,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "description": project_to_update.description,
             "po_user_id": project_to_update.po_user_id,
             "scrum_user_id": project_to_update.scrum_user_id,
-            "photos": project_to_update.photos,
+            "photo": project_to_update.photo,
             "members_user_ids": new_members_user_ids
         }
         

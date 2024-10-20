@@ -47,7 +47,7 @@ class UpdateProjectController:
                 raise EntityError("scrum_user_id")
             
             if new_photo is not None and type(new_photo) != str:
-                raise EntityError("photos")
+                raise EntityError("photo")
                 
             if new_members_user_ids is not None and type(new_members_user_ids) != list:
                 raise EntityError("members_user_ids")

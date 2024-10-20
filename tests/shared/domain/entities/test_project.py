@@ -17,7 +17,7 @@ class Test_Project():
             members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         )
         assert type(project) == Project
-        assert project.photos != None
+        assert project.photo != None
 
     def test_project_code_must_be_str(self):
         with pytest.raises(EntityError):
@@ -189,7 +189,7 @@ class Test_Project():
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
-    def test_project_photos_can_be_none(self):
+    def test_project_photo_can_be_none(self):
         project = Project(
             code='MF',
             name='test_project',

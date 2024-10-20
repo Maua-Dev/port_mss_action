@@ -10,17 +10,17 @@ class ProjectDynamoDTO:
     po_user_id: str
     scrum_user_id: str
     start_date: int
-    photos: Optional[List[str]] = []
+    photo: Optional[str] = None
     members_user_ids: List[str] = []
     
-    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, photos: Optional[List[str]] = [], members_user_ids: List[str] = []):
+    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, photo: Optional[str] = None, members_user_ids: List[str] = []):
         self.code = code
         self.name = name
         self.description = description
         self.po_user_id = po_user_id
         self.scrum_user_id = scrum_user_id
         self.start_date = start_date
-        self.photos = photos
+        self.photo = photo
         self.members_user_ids = members_user_ids
         
     @staticmethod
@@ -32,7 +32,7 @@ class ProjectDynamoDTO:
             po_user_id=project.po_user_id,
             scrum_user_id=project.scrum_user_id,
             start_date=project.start_date,
-            photos=project.photos,
+            photo=project.photo,
             members_user_ids=project.members_user_ids
         )
         
@@ -45,7 +45,7 @@ class ProjectDynamoDTO:
             "po_user_id": self.po_user_id,
             "scrum_user_id": self.scrum_user_id,
             "start_date": self.start_date,
-            "photos": self.photos if self.photos else [],
+            "photo": self.photo,
             "members_user_ids": self.members_user_ids
         }
         
@@ -60,7 +60,7 @@ class ProjectDynamoDTO:
             po_user_id=data["po_user_id"],
             scrum_user_id=data["scrum_user_id"],
             start_date=data["start_date"],
-            photos=data["photos"] if "photos" in data else [],
+            photo=data["photo"],
             members_user_ids=data["members_user_ids"]
         )
         
@@ -72,15 +72,15 @@ class ProjectDynamoDTO:
             po_user_id=self.po_user_id,
             scrum_user_id=self.scrum_user_id,
             start_date=int(self.start_date),
-            photos=self.photos,
+            photo=self.photo,
             members_user_ids=self.members_user_ids
         )
         
     def __repr__(self): 
-        return f"ProjectDynamoDTO(code={self.code}, name={self.name}, description={self.description}, po_user_id={self.po_user_id}, scrum_user_id={self.scrum_user_id}, start_date={self.start_date}, photos={self.photos}, members_user_ids={self.members_user_ids})"
+        return f"ProjectDynamoDTO(code={self.code}, name={self.name}, description={self.description}, po_user_id={self.po_user_id}, scrum_user_id={self.scrum_user_id}, start_date={self.start_date}, photo={self.photo}, members_user_ids={self.members_user_ids})"
 
     def __eq__(self, other):
         if not isinstance(other, ProjectDynamoDTO):
             return False
 
-        return self.code == other.code and self.name == other.name and self.description == other.description and self.po_user_id == other.po_user_id and self.scrum_user_id == other.scrum_user_id and self.start_date == other.start_date and self.photos == other.photos and self.members_user_ids == other.members_user_ids
+        return self.code == other.code and self.name == other.name and self.description == other.description and self.po_user_id == other.po_user_id and self.scrum_user_id == other.scrum_user_id and self.start_date == other.start_date and self.photo == other.photo and self.members_user_ids == other.members_user_ids
