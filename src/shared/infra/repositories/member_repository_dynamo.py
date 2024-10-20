@@ -253,8 +253,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             meta = {
-            "user_id": user_id,
-            "time_created": str(time)
+                "user_id": user_id,
+                "time_created": str(time)
             }
 
             presigned_url = self.s3_client.generate_presigned_url(

@@ -445,7 +445,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
     def generate_key(self, photo: str, time_created: int):
 
-        key = f"{photo}/user-{time_created}.jpeg"
+        key = f"{photo}/project-{time_created}.jpeg"
         return key
         
     def upload_project_photo(self, code: str, photo: str) -> str:
