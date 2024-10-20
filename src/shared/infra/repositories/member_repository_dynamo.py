@@ -1,8 +1,7 @@
 import base64
 import datetime
-from io import BytesIO
-import io
-import os
+import imghdr
+from src.shared.helpers.errors.controller_errors import WrongTypeFile
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
@@ -240,11 +239,17 @@ class MemberRepositoryDynamo(IMemberRepository):
             time = int(datetime.datetime.now().timestamp() * 1000)
             s3_key = self.generate_key(user_id, time)
 
+            file_type = imghdr.what(None, photo_bytes)
+            if file_type is None:
+                raise WrongTypeFile()
+            
+            content_type = f"'image/{file_type}"
+
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,
                 Key=f"{s3_key}",
                 Body=photo_bytes,
-                ContentType="image/jpeg"
+                ContentType= content_type
             )
 
             meta = {
