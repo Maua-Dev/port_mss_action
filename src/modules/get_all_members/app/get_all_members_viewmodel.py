@@ -38,12 +38,8 @@ class MemberViewModel:
         self.deactivated_date = member.deactivated_date
         self.active = member.active
         self.user_id = member.user_id
-        self.hours_worked = member.hours_worked
         self.photo = member.photo
-        
-        is_admin = Member.validate_role(member.role)
-        if is_admin:
-            self.hours_worked = member.hours_worked
+        self.hours_worked = member.hours_worked
 
     def to_dict(self):
         data = {
@@ -82,7 +78,7 @@ class GetMemberViewmodel:
             'member' : self.member.to_dict()
         }
     
-class GetAllMembersAdminViewmodel:
+class GetAllMembersViewmodel:
     members: List[GetMemberViewmodel]
 
     def __init__(self, members: List[Tuple[Member]]):
