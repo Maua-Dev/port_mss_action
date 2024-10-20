@@ -9,6 +9,7 @@ from aws_cdk import (
 from constructs import Construct
 
 from .dynamo_stack import DynamoStack
+from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
@@ -51,6 +52,8 @@ class IacStack(Stack):
                                                                    )
         
         self.dynamo_stack = DynamoStack(self)
+
+        self.bucket_stack = BucketStack(self)
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
@@ -63,7 +66,12 @@ class IacStack(Stack):
             "REGION": self.aws_region,
             "REPLY_TO_EMAIL": "dev@maua.br",
             "FROM_EMAIL": "contato@devmaua.com",
-            "HIDDEN_COPY": "dev@maua.br"
+            "HIDDEN_COPY": "dev@maua.br",
+            "S3_BUCKET_NAME_MEMBER": self.bucket_stack.s3_bucket_member.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER": self.bucket_stack.cloudfront_distribution_member.domain_name,
+            "S3_BUCKET_NAME_PROJECT": self.bucket_stack.s3_bucket_project.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.cloudfront_distribution_project.domain_name,
+
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
@@ -86,6 +94,16 @@ class IacStack(Stack):
             ]
         )
 
+        s3_admin_policy = aws_iam.PolicyStatement(
+            effect=aws_iam.Effect.ALLOW,
+            actions=[
+                "s3:*",
+            ],
+            resources=[
+                "*"
+            ]
+        )
+
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
         
@@ -94,3 +112,6 @@ class IacStack(Stack):
         
         for f in self.lambda_stack.functions_that_need_ses_permissions:
             f.add_to_role_policy(ses_admin_policy)
+
+        for f in self.lambda_stack.functions_that_need_s3_permissions:
+            f.add_to_role_policy(s3_admin_policy)

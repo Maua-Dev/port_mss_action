@@ -42,11 +42,11 @@ class Test_ActionRepositoryMock:
     def test_create_project(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.projects)
-        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']))
+        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', start_date=1649955600000, photo='https://i.imgur.com/7QF7uCk.png', members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']))
         assert len(repo.projects) == len_before + 1
         assert project == repo.projects[-1]
         assert repo.projects[-1].code == 'DM'
-        assert repo.projects[-1].photos == ['https://i.imgur.com/7QF7uCk.png']
+        assert repo.projects[-1].photo == 'https://i.imgur.com/7QF7uCk.png'
         assert repo.projects[-1].members_user_ids == ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         
     def test_delete_project(self):
@@ -69,13 +69,13 @@ class Test_ActionRepositoryMock:
 
     def test_update_project(self):
         repo = ActionRepositoryMock()
-        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', new_photos=['https://i.imgur.com/7QF7uCk.png'], new_members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'])
+        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', new_photo='https://i.imgur.com/7QF7uCk.png', new_members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'])
         assert type(project) == Project
         assert project.name == 'Teste'
         assert project.description == 'Teste'
         assert project.po_user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
         assert project.scrum_user_id == '7465hvnb-143g-1675-86HnG-75hgnFbcg36'
-        assert project.photos == ['https://i.imgur.com/7QF7uCk.png']
+        assert project.photo == 'https://i.imgur.com/7QF7uCk.png'
         assert project.members_user_ids == ['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
 
     def test_update_project_not_found(self):

@@ -34,12 +34,9 @@ class CreateProjectController:
                 raise MissingParameters('start_date')
             if request.data.get('members_user_ids') is None:
                 raise MissingParameters('members_user_ids')
-            if request.data.get('photos') is not None:
-                if type(request.data.get('photos')) is not list:
-                    raise EntityError('photos')
-                for value in request.data.get('photos'):
-                    if type(value) is not str:
-                        raise EntityError('photos')
+            if request.data.get('photo') is not None:
+                if type(request.data.get('photo')) is not str:
+                    raise EntityError('photo')
             
             project = self.usecase(
                 code=request.data.get('code'),
@@ -49,7 +46,7 @@ class CreateProjectController:
                 scrum_user_id=request.data.get('scrum_user_id'),
                 start_date=request.data.get('start_date'),
                 members_user_ids=request.data.get('members_user_ids'),
-                photos=request.data.get('photos'),
+                photo=request.data.get('photo'),
                 user_id=requester_user.user_id
             )
             

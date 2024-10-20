@@ -31,3 +31,4 @@ class UserIsNotFromBusiness(BaseError):
 class UserIsNotFromAdmin(BaseError):
     def __init__(self):
         super().__init__(f'That user is not a member of administration.')
+        
