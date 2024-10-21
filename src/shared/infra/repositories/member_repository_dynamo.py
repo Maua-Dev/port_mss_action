@@ -133,7 +133,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
             "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
-            "photo": url
+            "photo": url if new_photo is not None else member_to_update.photo
         }
         
         resp = self.dynamo.update_item(partition_key=self.member_partition_key_format(member_to_update), sort_key=self.member_sort_key_format(user_id), update_dict=update_dict)
