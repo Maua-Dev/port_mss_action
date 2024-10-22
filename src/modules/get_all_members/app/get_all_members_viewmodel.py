@@ -12,14 +12,15 @@ class MemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
+    project: Optional[List]
     year: int
     cellphone: str
     course: COURSE
-    project: Optional[List] 
     hired_date: int # milliseconds
     deactivated_date: Optional[int] = None # milliseconds
     active: ACTIVE
     user_id: str
+    hours_worked: Optional[int] = None
     photo: Optional[str] = None 
 
     def __init__(self, member: Member):
@@ -38,28 +39,34 @@ class MemberViewModel:
         self.active = member.active
         self.user_id = member.user_id
         self.photo = member.photo
-
+        self.hours_worked = member.hours_worked
 
     def to_dict(self):
-        return {
-            'name' : self.name,
-            'email_dev' : self.email_dev,
-            'email' : self.email,
-            'ra' : self.ra,
-            'role' : self.role.value,
-            'stack' : self.stack.value,
-            'project' : self.project,
-            'year' : self.year,
-            'cellphone' : self.cellphone,
-            'course' : self.course.value,
-            'hired_date' : self.hired_date,
-            'deactivated_date' : self.deactivated_date,
-            'active' : self.active.value,
-            'user_id' : self.user_id,
-            'photo' : self.photo,
-
+        data = {
+            'name': self.name,
+            'email_dev': self.email_dev,
+            'email': self.email,
+            'ra': self.ra,
+            'role': self.role.value,
+            'stack': self.stack.value,
+            'project': self.project,
+            'year': self.year,
+            'cellphone': self.cellphone,
+            'course': self.course.value,
+            'hired_date': self.hired_date,
+            'deactivated_date': self.deactivated_date,
+            'active': self.active.value,
+            'user_id': self.user_id,
+            'photo': self.photo
         }
-    
+
+  
+        if self.hours_worked is not None:
+            data['hours_worked'] = self.hours_worked
+        
+        return data
+
+   
 class GetMemberViewmodel:
     member: MemberViewModel
 
