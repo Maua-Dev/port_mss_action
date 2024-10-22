@@ -422,3 +422,22 @@ class ActionRepositoryDynamo(IActionRepository):
             print(err)
             return False
 
+    def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
+        expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
+        
+        resp = self.dynamo.scan_items(expression)
+        
+        if resp["Count"] == 0:
+            return {}
+        
+        durations_by_project = {}
+        
+        for item in resp['Items']:
+            action = ActionDynamoDTO.from_dynamo(item).to_entity()
+
+        if action.user_id in durations_by_project:
+            durations_by_project[action.project] += action.duration
+        else:
+            durations_by_project[action.project] = action.duration
+        
+        return durations_by_project

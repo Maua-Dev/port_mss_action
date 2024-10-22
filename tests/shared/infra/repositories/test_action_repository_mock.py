@@ -196,4 +196,15 @@ class Test_ActionRepositoryMock:
 
         assert resp == 143960000000
 
+    def test_get_all_actions_durations_by_project(self):
+   
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo_mock.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+
+        assert resp == {'PT': 9500000000, 
+                            'SF': 96530000000, 
+                            'SM': 47430000000, 
+                            'GM': 1320000000, 
+                            'MF': 62120000000}
     
