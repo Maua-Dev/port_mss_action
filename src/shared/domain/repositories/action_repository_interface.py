@@ -143,3 +143,9 @@ class IActionRepository(ABC):
         Only in real repo
         """
         pass
+    
+    @abstractmethod
+    def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
+        """
+        Checks all actions of all projects and returns the sum of their durations        
+        """
