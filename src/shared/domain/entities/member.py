@@ -205,8 +205,10 @@ class Member(abc.ABC):
     
     @staticmethod
     def validate_photo(photo: str) -> bool:
-        if photo is None: return True
-        if type(photo) != str: return False
+        if photo is None:
+            return True
+        if type(photo) != str:
+            return False
         return True
     
     def __repr__(self):

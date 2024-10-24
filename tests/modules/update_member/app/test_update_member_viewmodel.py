@@ -13,7 +13,7 @@ class Test_UpdateMemberViewmodel:
         usecase = UpdateMemberUsecase(repo)
         member = usecase(
             user_id=repo.members[0].user_id, 
-            new_name='Joao Brancas',new_photo='photo')
+            new_name='Joao Brancas')
 
         viewmodel = UpdateMemberViewmodel(member=member).to_dict()
         expected = {
@@ -29,7 +29,7 @@ class Test_UpdateMemberViewmodel:
                 'hired_date':1634576165000,
                 'active':ACTIVE.ACTIVE.value,
                 'deactivated_date':repo.members[0].deactivated_date,
-                'photo':"photo"
+                'photo':None
             },
             'message': 'the member was updated'
         }

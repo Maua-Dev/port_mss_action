@@ -56,7 +56,7 @@ class Test_CreateMemberPresenter:
             "stageVariables": None
         }
         response = lambda_handler(event, None)
-
+        print(response)
         assert response["statusCode"] == 201
         assert json.loads(response["body"])['member']['name'] == 'Vitor Guirão Mpntm'
         assert json.loads(response["body"])['member']['email_dev'] == "vsoller.devmaua@gmail.com"

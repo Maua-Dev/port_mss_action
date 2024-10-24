@@ -34,6 +34,7 @@ class MemberViewModel:
         self.active = member.active
         self.deactivated_date = member.deactivated_date
         self.photo = member.photo
+        self.photo = member.photo
         
     def to_dict(self):
         return {

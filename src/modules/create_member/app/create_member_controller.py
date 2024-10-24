@@ -1,9 +1,10 @@
 
 from src.shared.domain.entities.member import Member
+from io import BytesIO
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
+from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeFile, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
@@ -28,16 +29,11 @@ class CreateMemberController:
             if type(request.data.get('ra')) is not str:
                 raise WrongTypeParameter(fieldName='ra', fieldTypeExpected='str', fieldTypeReceived=type( request.data.get('ra') ))
            
-
-
-            
             if not Member.validate_email_dev(request.data.get('email_dev')):
                 raise EntityError('email_dev')   
             if request.data.get('email_dev') is None:
                 raise MissingParameters('email_dev')
           
-
-            
             role = request.data.get('role')
             if role not in [role_value.value for role_value in ROLE]:
                 raise EntityError('role')
@@ -69,13 +65,10 @@ class CreateMemberController:
             if request.data.get('course') is None:
                 raise MissingParameters('course')
             
-            if not Member.validate_photo(request.data.get('photo')):
-                raise EntityError('photo')
-            
-            
+            if request.data.get('photo') is not None: 
+                if not Member.validate_photo(request.data.get('photo')):
+                    raise EntityError('photo')
 
-            
-            
             member = self.usecase(
                 name=str(requester_user.name),
                 email_dev=request.data.get('email_dev'),
@@ -87,8 +80,7 @@ class CreateMemberController:
                 cellphone=request.data.get('cellphone'),
                 course=course,
                 user_id=str(requester_user.user_id),
-                photo = request.data.get('photo')
-                                          
+                photo = request.data.get('photo')                        
             )
             
             viewmodel = CreateMemberViewmodel(member=member)
@@ -105,6 +97,9 @@ class CreateMemberController:
             return NotFound(body=err.message)
 
         except EntityError as err:
+            return BadRequest(body=err.message)
+
+        except WrongTypeFile as err:
             return BadRequest(body=err.message)
         
         except Exception as err:
