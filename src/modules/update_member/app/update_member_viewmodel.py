@@ -19,7 +19,7 @@ class MemberViewModel:
     deactivated_date: int
     active: ACTIVE
     photo: str
-    
+
     def __init__(self, member: Member):
         self.name = member.name
         self.email_dev = member.email_dev
@@ -33,6 +33,7 @@ class MemberViewModel:
         self.hired_date = member.hired_date
         self.active = member.active
         self.deactivated_date = member.deactivated_date
+        self.photo = member.photo
         self.photo = member.photo
         
     def to_dict(self):

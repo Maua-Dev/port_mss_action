@@ -220,4 +220,11 @@ class LambdaStack(Construct):
             self.update_action_validation_function
         ]
 
+        self.functions_that_need_s3_permissions = [
+            self.create_member_function,
+            self.update_member_function,
+            self.create_project_function,
+            self.update_project_function,
+        ]
+
         

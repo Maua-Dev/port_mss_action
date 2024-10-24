@@ -7,8 +7,6 @@ member = MemberRepositoryMock().members[0]
 
 class Test_CreateActionPresenter:
 
-    
-
     def test_create_action_presenter(self):
         event = {
             "version": "2.0",

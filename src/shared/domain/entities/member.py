@@ -205,15 +205,17 @@ class Member(abc.ABC):
     
     @staticmethod
     def validate_photo(photo: str) -> bool:
-        if photo is None: return True
-        if type(photo) != str: return False
+        if photo is None:
+            return True
+        if type(photo) != str:
+            return False
         return True
     
     def __repr__(self):
-        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
+        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}, photo={self.photo}"
     
     def __eq__(self, other):
         if not isinstance(other, Member):
             return False
 
-        return self.name == other.name and self.email_dev == other.email_dev and self.email == other.email and self.ra == other.ra and self.role == other.role and self.stack == other.stack and self.year == other.year and self.cellphone == other.cellphone and self.course == other.course and self.hired_date == other.hired_date and self.deactivated_date == other.deactivated_date and self.active == other.active
+        return self.name == other.name and self.email_dev == other.email_dev and self.email == other.email and self.ra == other.ra and self.role == other.role and self.stack == other.stack and self.year == other.year and self.cellphone == other.cellphone and self.course == other.course and self.hired_date == other.hired_date and self.deactivated_date == other.deactivated_date and self.active == other.active and self.user_id == other.user_id and self.photo == other.photo
