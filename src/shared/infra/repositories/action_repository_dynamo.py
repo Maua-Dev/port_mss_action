@@ -178,7 +178,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "po_user_id": project_to_update.po_user_id,
             "scrum_user_id": project_to_update.scrum_user_id,
             "photo": project_to_update.photo,
-            "members_user_ids": new_members_user_ids
+            "members_user_ids": project_to_update.members_user_ids
         }
         
         resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)

@@ -25,7 +25,6 @@ class UpdateProjectUsecase:
         if user.validate_role_admin(user.role) is False:
             raise UserIsNotFromAdmin()
 
-        
         if not Project.validate_project_code(code):
             raise EntityError("code")
         project = self.repo.get_project(code=code)
