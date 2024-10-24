@@ -1,5 +1,5 @@
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser, UserNotAllowed
-from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, InternalServerError
+from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError, NotFound
 from .get_all_projects_viewmodel import GetAllProjectsViewmodel
 from .get_all_projects_usecase import GetAllProjectsUsecase
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
@@ -37,16 +37,16 @@ class GetAllProjectsController:
             return BadRequest(body=err.message)
 
         except MissingParameters as err:
-            return BadRequest(body=err.message)
+            return NotFound(body=err.message)
         
         except UnregisteredUser as err:
             return BadRequest(body=err.message)
 
         except UserNotAllowed as err:
-            return BadRequest(body=err.message)
+             return BadRequest(body=err.message)
         
         except ForbiddenAction as err:
-            return BadRequest(body=err.message)
+            return Forbidden(body=err.message)
 
         except Exception as err:
             return InternalServerError(body=err.args[0])

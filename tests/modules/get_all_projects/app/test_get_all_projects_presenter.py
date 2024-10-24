@@ -116,5 +116,5 @@ class Test_GetAllProjectsPresenter:
         response = lambda_handler(event=event, context=None)
         print(response)
         
-        assert response['statusCode'] == 400
+        assert response['statusCode'] == 404
         assert json.loads(response['body']) == 'Field requester_user is missing'
