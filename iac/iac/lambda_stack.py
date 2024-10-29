@@ -192,6 +192,7 @@ class LambdaStack(Construct):
                 self.get_all_projects_function,
                 self.batch_get_member_function,
                 self.get_history_function,
+                self.get_history_project_function,
                 self.get_member_function,
                 self.get_project_function,
                 self.get_all_members_function,
@@ -219,6 +220,7 @@ class LambdaStack(Construct):
                 self.get_member_function,
                 self.get_all_projects_function,
                 self.get_history_function,
+                self.get_history_project_function,
                 self.get_project_function,
                 self.delete_action_function
         ]
