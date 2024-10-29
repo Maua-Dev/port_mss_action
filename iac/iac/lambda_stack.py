@@ -94,7 +94,15 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
-        
+
+        self.get_history_project_function = self.create_lambda_api_gateway_integration(
+            module_name="get_history_project",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+ 
         self.get_member_function = self.create_lambda_api_gateway_integration(
             module_name="get_member",
             method="POST",
