@@ -1,5 +1,5 @@
-from src.modules.get_history.app.get_history_controller import GetHistoryProjectController
-from src.modules.get_history.app.get_history_usecase import GetHistoryProjectUsecase
+from src.modules.get_history_project.app.get_history_project_controller import GetHistoryProjectController
+from src.modules.get_history_project.app.get_history_project_usecase import GetHistoryProjectUsecase
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock

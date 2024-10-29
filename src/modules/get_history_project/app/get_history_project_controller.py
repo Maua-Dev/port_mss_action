@@ -15,9 +15,12 @@ class GetHistoryProjectController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
-            if request.data.get('requester_user') is None:
-                raise MissingParameters('requester_user')
+            if request.data.get('code') is None:
+                raise MissingParameters('code')
             
+            if type(request.data.get('code')) is not str:
+                raise WrongTypeParameter('code', 'str', type(request.data.get('code')))
+        
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
             if type(requester_user.user_id) is not str:
@@ -71,7 +74,7 @@ class GetHistoryProjectController:
                 member_user_id = request.data.get('member_user_id')
             else:
                 member_user_id = None
-            actions, last_evaluated_key = self.usecase(user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount, member_user_id=member_user_id)
+            actions, last_evaluated_key = self.usecase(code = request.data.get('code'),user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount)
 
             viewmodel = GetHistoryProjectViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())

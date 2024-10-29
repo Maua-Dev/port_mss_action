@@ -15,10 +15,7 @@ class GetHistoryProjectUsecase:
         self.repo_member = repo_member 
     
     def __call__(self, user_id: str, code: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
-
-        if type(code) is not str:
-            raise WrongTypeParameter('code', 'str', type(code))
-            
+    
         if not Project.validate_project_code(code):
             raise EntityError('code')
             
