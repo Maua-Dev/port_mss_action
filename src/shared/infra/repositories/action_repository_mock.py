@@ -565,3 +565,22 @@ class ActionRepositoryMock(IActionRepository):
     def send_invalid_action_email(self, member: Member, action: Action) -> bool:
         # send email in real
         return True
+    
+    def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
+        actions = self.actions
+
+        if not actions:
+            return 0
+
+        total_duration = {}
+
+        for action in actions:
+            
+            if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
+                
+                if action.duration is not None:
+                    if action.project_code in total_duration:
+                        total_duration[action.project_code] += action.duration
+                    else:
+                        total_duration[action.project_code] = action.duration
+        return total_duration
