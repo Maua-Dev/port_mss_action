@@ -185,7 +185,7 @@ class MemberRepositoryDynamo(IMemberRepository):
     
     def generate_key(self, user_id: str, time_created: int):
 
-        key = f"{user_id}/user-{time_created}.jpeg"
+        key = f"{user_id}.jpeg"
         return key
         
     def request_upload_member_photo(self, user_id: str) -> dict:
@@ -199,14 +199,10 @@ class MemberRepositoryDynamo(IMemberRepository):
         cloud_front_distribution_domain_assets_member = Environments.get_envs(
         ).cloud_front_distribution_domain_assets_member
 
-        time_created = int(datetime.datetime.now().timestamp()*1000)
-
-        key = self.generate_key(user_id=user_id,
-                                time_created=time_created)
+        key = self.generate_key(user_id=user_id)
 
         meta = {
-            "user_id": user_id,
-            "time_created": str(time_created)
+            "user_id": user_id
         }
 
         try:
@@ -237,8 +233,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         try:
             photo_bytes = base64.b64decode(photo)
             
-            time = int(datetime.datetime.now().timestamp() * 1000)
-            s3_key = self.generate_key(user_id, time)
+            s3_key = self.generate_key(user_id)
 
             file_type = imghdr.what(None, photo_bytes)
             if file_type is None:
@@ -254,8 +249,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             )
 
             meta = {
-                "user_id": user_id,
-                "time_created": str(time)
+                "user_id": user_id
             }
 
             presigned_url = self.s3_client.generate_presigned_url(
