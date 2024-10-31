@@ -444,17 +444,16 @@ class ActionRepositoryDynamo(IActionRepository):
             print(err)
             return False
         
-    def generate_key(self, photo: str, time_created: int):
+    def generate_key(self, code: str, time_created: int):
 
-        key = f"{photo}/project-{time_created}.jpeg"
+        key = f"{code}.jpeg"
         return key
         
     def upload_project_photo(self, code: str, photo: str) -> str:
         try:
             photo_bytes = base64.b64decode(photo)
             
-            time = int(datetime.datetime.now().timestamp() * 1000)
-            s3_key = self.generate_key(code, time)
+            s3_key = self.generate_key(code)
 
             file_type = imghdr.what(None, photo_bytes)
             if file_type is None:
@@ -470,8 +469,7 @@ class ActionRepositoryDynamo(IActionRepository):
             )
 
             meta = {
-            "photo": photo,
-            "time_created": str(time)
+            "photo": photo
             }
 
             presigned_url = self.s3_client.generate_presigned_url(
