@@ -35,3 +35,14 @@ class Test_GetAllProjectsUsecase:
         user.active= ACTIVE.DISCONNECTED
         with pytest.raises(UserNotAllowed):
             usecase( user_id=user.user_id)
+
+    def test_get_all_projects_usecase_no_start_and_end_date(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetAllProjectsUsecase(repo=repo, repo_member=repo_member)
+
+        projects = usecase(repo_member.members[0].user_id)
+        assert type(projects) == list
+        assert len(projects) == 5
+        assert type(projects[0]) == Project
+        assert projects[0].hours_worked == 0

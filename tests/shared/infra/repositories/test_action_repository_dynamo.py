@@ -278,3 +278,11 @@ class Test_ActionRepositoryDynamo:
         send_email = repo_activity_dynamo.send_invalid_action_email(action=action_1, member=member_1)
 
         assert send_email
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_scan_project_actions_by_start_date(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.scan_project_actions_by_start_date(1641061363000, 1672510963000, 'PI')
+
+        assert len(resp) == 4

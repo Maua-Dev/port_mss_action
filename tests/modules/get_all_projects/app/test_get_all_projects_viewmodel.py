@@ -9,7 +9,7 @@ class Test_GetAllProjectsViewmodel:
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetAllProjectsUsecase(repo, repo_member)
-        projects = usecase(repo_member.members[0].user_id)
+        projects = usecase(repo_member.members[0].user_id,1637046000000, 1690046000000)
 
         viewmodel = GetAllProjectsViewmodel(projects).to_dict()
 
@@ -24,6 +24,7 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
                         'start_date': 1634576165000,
                         'members_user_ids': ['51ah5jaj-c9jm-1345-666ab-e12341c14a3', '6f5g4h7J-876j-0098-123hb-hgb567fy4hb', '93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
+                        'hours_worked': 62120000000,
                         'photo': 'https://i.imgur.com/gHoRKJU.png'
                     }
                 },
@@ -36,6 +37,7 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
                         'start_date': 1673535600000,
                         'members_user_ids': ["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"],
+                        'hours_worked': 9500000000,
                         'photo': 'https://i.imgur.com/gHoRKJU.png'
                     }
                 },
@@ -48,6 +50,7 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                         'start_date': 1686754800000,
                         'members_user_ids':['51ah5jaj-c9jm-1345-666ab-e12341c14a3', '6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '6f5g4h7J-876j-0098-123hb-hgb567fy4hb', '7gh5yf5H-857H-1234-75hng-94832hvng1s', '93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
+                        'hours_worked': 96530000000,
                         'photo': None
                     }
                 },
@@ -60,6 +63,7 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '7465hvnb-143g-1675-86HnG-75hgnFbcg36',
                         'start_date': 1639321200000,
                         'members_user_ids': ['51ah5jaj-c9jm-1345-666ab-e12341c14a3', '6f5g4h7J-876j-0098-123hb-hgb567fy4hb', '7465hvnb-143g-1675-86HnG-75hgnFbcg36', '7gh5yf5H-857H-1234-75hng-94832hvng1s'],
+                        'hours_worked': 47430000000,
                         'photo': None
                     }
                 },
@@ -72,6 +76,7 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
                         'start_date': 1672585200000,
                         'members_user_ids': ['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '7gh5yf5H-857H-1234-75hng-94832hvng1s'],
+                        'hours_worked': 1320000000,
                         'photo': None
                     }
                 }
