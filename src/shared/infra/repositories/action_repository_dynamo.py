@@ -167,7 +167,13 @@ class ActionRepositoryDynamo(IActionRepository):
         if new_scrum_user_id is not None:
             project_to_update.scrum_user_id = new_scrum_user_id
         if new_photo is not None:
-            url = self.upload_project_photo(code, new_photo)
+            if new_photo[:5] == "https":
+                url = new_photo
+            else:
+                if project_to_update.photo is not None:
+                    s3_key = self.generate_key(code)
+                    self.s3_client.delete_object(Bucket=self.S3_BUCKET_NAME, Key=s3_key)
+                url = self.upload_project_photo(code, new_photo)
             project_to_update.photo = url
         if new_members_user_ids is not None:
             project_to_update.members_user_ids = new_members_user_ids
@@ -178,7 +184,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "po_user_id": project_to_update.po_user_id,
             "scrum_user_id": project_to_update.scrum_user_id,
             "photo": project_to_update.photo,
-            "members_user_ids": project_to_update.members_user_ids
+            "members_user_ids": project_to_update.members_user_ids if project_to_update.members_user_ids is not None else None
         }
         
         resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)
@@ -444,21 +450,22 @@ class ActionRepositoryDynamo(IActionRepository):
             print(err)
             return False
         
-    def generate_key(self, code: str, time_created: int):
+    def generate_key(self, code: str, file_type: str) -> str:
 
-        key = f"{code}.jpeg"
+        key = f"{code}.{file_type}"
         return key
         
     def upload_project_photo(self, code: str, photo: str) -> str:
         try:
             photo_bytes = base64.b64decode(photo)
             
-            s3_key = self.generate_key(code)
 
             file_type = imghdr.what(None, photo_bytes)
             if file_type is None:
                 raise WrongTypeFile()
             
+            s3_key = self.generate_key(code)
+
             content_type = f"'image/{file_type}"
 
             self.s3_client.put_object(
@@ -469,7 +476,8 @@ class ActionRepositoryDynamo(IActionRepository):
             )
 
             meta = {
-            "photo": photo
+                "photo": photo,
+                "time_created": str(datetime.datetime.now().timestamp() * 1000)
             }
 
             presigned_url = self.s3_client.generate_presigned_url(
