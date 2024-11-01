@@ -20,7 +20,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code': 'DM',
+            'code': 'PT',
             'start' : 1100000000000,
             'end' : 1800000000000,
             'amount' : 10,
@@ -38,7 +38,8 @@ class Test_GetHistoryProjectController:
         usecase = GetHistoryProjectUsecase(repo, repo_member)
         controller = GetHistoryProjectController(usecase)
         request = HttpRequest(body={
-            'start' : "1612137600000",
+            'start' : "1688646000000",
+            'code': 'PT',
             })
         
         response = controller(request)
@@ -56,8 +57,9 @@ class Test_GetHistoryProjectController:
                 "sub": 123,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT'
             })
         
         response = controller(request)
@@ -75,8 +77,9 @@ class Test_GetHistoryProjectController:
                 "sub": '12345',
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT'
             })
         
         response = controller(request)
@@ -93,8 +96,9 @@ class Test_GetHistoryProjectController:
                 "sub": 123,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 20
             })
         
         response = controller(request)
@@ -109,11 +113,12 @@ class Test_GetHistoryProjectController:
         controller = GetHistoryProjectController(usecase)
         request = HttpRequest(body={
             "requester_user": {
-                "sub": '12345',
+                "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'adasjdhnaso'
             })
         
         response = controller(request)
@@ -132,8 +137,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'start' : "1612137600000",
             })
         
@@ -153,8 +159,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'start' : 10,
             })
         
@@ -174,8 +181,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'end' : "1612137600000",
             })
         
@@ -193,8 +201,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'end' : 10,
             })
         
@@ -212,8 +221,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'start' : 1612137600000,
             'end' : 1512137600000,
             })
@@ -232,8 +242,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'exclusive_start_key' : {'action_id' : 'aaaaaaaaa0752-4ce2-9440-05e752e636fc', 'start_date' : "1634526000000"},
             })
         
@@ -251,8 +262,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :"163452600000000000"}
             })
 
@@ -271,8 +283,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'amount' : "20",
             })
         
@@ -291,8 +304,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'amount' : 0,
             })
         
@@ -314,9 +328,10 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[2].user_id,
                 "name": repo_member.members[2].name,
                 "email": repo_member.members[2].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
-            'member_user_id': repo_member.members[0].user_id
+            'member_user_id': repo_member.members[0].user_id,
+            'code': 'PT'
             })
         
         response = controller(request)
@@ -334,8 +349,9 @@ class Test_GetHistoryProjectController:
                 "sub": repo_member.members[0].user_id,
                 "name": repo_member.members[0].name,
                 "email": repo_member.members[0].email,
-                "custom:isMaua": True
+                "custom:isMaua": True,
             },
+            'code': 'PT',
             'member_user_id': repo_member.members[1].user_id
             })
         
@@ -354,8 +370,9 @@ class Test_GetHistoryProjectController:
                     "sub": repo_member.members[0].user_id,
                     "name": repo_member.members[0].name,
                     "email": repo_member.members[0].email,
-                    "custom:isMaua": True
+                    "custom:isMaua": True,
                 },
+                'code': 'PT',
                 'amount' : 5
                 })
             

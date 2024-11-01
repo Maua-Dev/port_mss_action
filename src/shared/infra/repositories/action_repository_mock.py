@@ -584,3 +584,6 @@ class ActionRepositoryMock(IActionRepository):
                     else:
                         total_duration[action.project_code] = action.duration
         return total_duration
+
+    def get_all_actions_by_project_code(self, code: str) -> List[Action]:
+        return [action for action in self.actions if action.project_code == code]

@@ -512,3 +512,6 @@ class ActionRepositoryDynamo(IActionRepository):
             durations_by_project[action.project_code] = action.duration
         
         return durations_by_project
+    
+    def get_all_actions_by_project_code(self, project_code: str) -> List[Action]:
+        return [action for action in self.actions if action.project_code == project_code]

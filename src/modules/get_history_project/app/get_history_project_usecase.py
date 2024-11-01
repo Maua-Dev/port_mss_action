@@ -42,27 +42,16 @@ class GetHistoryProjectUsecase:
         is_admin = Member.validate_role_admin(user.role)
 
         adjusted_amount = amount+1
-
-        if is_admin and member_user_id is None:
-            associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
-        elif is_admin and member_user_id is not None:
-            associated_actions = self.repo.get_associated_actions_by_user_id(user_id=member_user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
-        elif not is_admin and member_user_id is None:
-            associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
-        else:
-            raise UserIsNotFromAdmin()
         
-        actions_requested = associated_actions[:amount]
+        actions = self.repo.get_all_actions_by_project_code(code=code)
+        actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
 
         last_ev = None
-        if len(associated_actions) > amount:
-            last_ev = (actions_requested[-1].action_id, actions_requested[-1].start_date)
-        elif len(associated_actions) == amount:
+        if len(actions) > amount:
+            last_ev = (actions[-1].action_id, actions[-1].start_date)
+        elif len(actions) == amount:
             last_ev = None
 
-        action_ids = [action.action_id for action in actions_requested]
-        actions = self.repo.batch_get_action(action_ids=action_ids)
-        actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
         
 
         return actions, last_ev
