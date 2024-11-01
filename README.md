@@ -164,6 +164,14 @@ Clone the repository using template
 - Hector Guerrini - [hectorguerrini](https://github.com/hectorguerrini) 🧙‍♂️
 - João Branco - [JoaoVitorBranco](https://github.com/JoaoVitorBranco) 😎
 - Vitor Soller - [VgsStudio](https://github.com/VgsStudio) 🐱‍💻
+- Luigi Trevisan - [LuigiTrevisan](https://github.com/LuigiTrevisan) 📺
+- Mateus Capaldo - [MatCMartins](https://github.com/MatCMartins) 🔥
+- Rafael Rubio - [Rubiozito](https://github.com/Rubiozito) 🐦
+- Gabriel Bianconi - [GabrielBianconiconi](https://github.com/GabrielBianconiconi) 🚨
+- João Pedro Soares - [joae1234](https://github.com/joae1234) 🖌️
+- Rodrigo Morales - [RodrigoM2004](https://github.com/RodrigoM2004) 🛞
+- Lucas Crapino - [LucasCrapino](https://github.com/LucasCrapino) 🐼
+- Rafael Ruthes - [rruthes](https://github.com/rruthes) 🐨
 
 ## Especial Thanks 🙏
 
