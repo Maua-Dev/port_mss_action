@@ -68,6 +68,9 @@ class CreateProjectController:
         except UnregisteredUser as err:
             return BadRequest(body=err.message)
         
+        except ValueError as err:
+            return BadRequest(body=err.message)
+        
         except Exception as err:
             return InternalServerError(body=err.args[0])
         
