@@ -513,5 +513,32 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return durations_by_project
     
-    def get_all_actions_by_project_code(self, project_code: str) -> List[Action]:
-        return [action for action in self.actions if action.project_code == project_code]
+    def get_all_actions_by_project_code(self, project_code: str, start: int, end: int, exclusive_start_key: Optional[dict] = None) -> List[Action]:
+        query_string = Key(self.dynamo.partition_key).eq(project_code)
+
+        if amount is None:
+            amount = 20
+            
+        if start and end:
+            query_string = query_string & Key('start_date').between(start, end)
+        elif start and not end:
+            query_string = query_string & Key('start_date').gte(start)
+        elif end and not start:
+            query_string = query_string & Key('start_date').lte(end)
+
+        query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
+        if exclusive_start_key:
+            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(project_code), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
+        resp = self.dynamo.query(**query_params)
+
+        if resp["Count"] == 0:
+            return 0
+        
+        actions = []
+        for item in resp.get["Items"]:
+            action = ActionDynamoDTO.from_dynamo(item).to_entity()
+    
+            if action.project_code == project_code:
+                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+
+        return actions

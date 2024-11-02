@@ -585,5 +585,18 @@ class ActionRepositoryMock(IActionRepository):
                         total_duration[action.project_code] = action.duration
         return total_duration
 
-    def get_all_actions_by_project_code(self, code: str) -> List[Action]:
-        return [action for action in self.actions if action.project_code == code]
+    def get_all_actions_by_project_code(self, project_code: str, amount: int, exclusive_start_key: Optional[dict] = None, start: Optional[int] = None, end: Optional[int] = None) -> List[Action]:
+        actions = sorted(self.actions, key=lambda x: x.start_date, reverse=True)
+        actions = list(filter(lambda x: x.project_code == project_code, actions))
+        if exclusive_start_key:
+            action0 = actions[0]
+            while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
+                actions.pop(0)
+                action0 = actions[0] if len(actions) > 0 else None
+            actions.pop(0) if len(actions) > 0 else None
+        if start:
+            actions = list(filter(lambda x: x.start_date >= start, actions))
+        if end:
+            actions = list(filter(lambda x: x.start_date <= end, actions))
+
+        return actions[:amount]

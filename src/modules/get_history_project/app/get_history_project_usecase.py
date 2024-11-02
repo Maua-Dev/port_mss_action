@@ -14,24 +14,17 @@ class GetHistoryProjectUsecase:
         self.repo = repo 
         self.repo_member = repo_member 
     
-    def __call__(self, user_id: str, code: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
+    def __call__(self, user_id: str, project_code: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
     
-        if not Project.validate_project_code(code):
-            raise EntityError('code')
-            
-        project = self.repo.get_project(code=code)
-        if project is None:
-            raise NoItemsFound('code')
-
         if amount is None:
             amount = 20
         elif amount is not None and amount < 10:
             raise PaginationAmountInvalid()
-        
+
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
-
+        
         if member_user_id is not None:
             if not self.repo_member.get_member(user_id=member_user_id):
                 raise UnregisteredUser()
@@ -41,20 +34,27 @@ class GetHistoryProjectUsecase:
         
         is_admin = Member.validate_role_admin(user.role)
 
-        if not is_admin:
-            raise ForbiddenAction('user. This user is not from admin')
-        
         adjusted_amount = amount+1
-        
-        actions = self.repo.get_all_actions_by_project_code(code=code)
-        actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
 
+        if is_admin and member_user_id is None:
+            actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+        elif is_admin and member_user_id is not None:
+            actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+        elif not is_admin and member_user_id is None:
+            actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+        else:
+            raise UserIsNotFromAdmin()
+        
+        actions_requested = actions[:amount]
+        
         last_ev = None
         if len(actions) > amount:
-            last_ev = (actions[-1].action_id, actions[-1].start_date)
+            last_ev = (actions_requested[-1].action_id, actions_requested[-1].start_date)
         elif len(actions) == amount:
             last_ev = None
 
-        
+        action_ids = [action.action_id for action in actions_requested]
+        actions = self.repo.batch_get_action(action_ids=action_ids)
+        actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
 
         return actions, last_ev
