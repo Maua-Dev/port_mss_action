@@ -12,8 +12,9 @@ class CreateProjectUsecase:
         self.repo = repo
         self.repo_member = repo_member
         
-    def __call__(self, user_id: str, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: list = None) -> Project:
-        
+    def __call__(self, user_id: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: list = None) -> Project:
+        code = self.repo.generate_project_code(name)
+
         project = Project(
             code=code,
             name=name,
