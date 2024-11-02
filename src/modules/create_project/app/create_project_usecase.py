@@ -29,7 +29,7 @@ class CreateProjectUsecase:
                 code = f"{base_code}{suffix}"
                 suffix += 1
                 if suffix == 10:  
-                    raise ValueError("Não foi possível gerar um código único para o projeto.")
+                    raise ValueError("It's not possible to generate a code for this project.")
         code = code[:3]
         project = Project(
             code=code,
