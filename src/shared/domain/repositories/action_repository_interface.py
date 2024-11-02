@@ -149,3 +149,10 @@ class IActionRepository(ABC):
         """
         Checks all actions of all projects and returns the sum of their durations        
         """
+
+    @abstractmethod
+    def get_all_actions_by_project_code(self, code: str) -> List[Action]:
+        """
+        Returns all actions of a project by its code
+        """
+        pass

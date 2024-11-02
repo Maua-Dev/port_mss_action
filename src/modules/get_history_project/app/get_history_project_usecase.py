@@ -2,7 +2,7 @@ from typing import Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
-from src.shared.helpers.errors.usecase_errors import NoItemsFound, PaginationAmountInvalid, UnregisteredUser, UserNotAllowed, UserIsNotFromAdmin
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser, UserNotAllowed, UserIsNotFromAdmin
 from src.shared.domain.entities.member import Member
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
@@ -41,6 +41,9 @@ class GetHistoryProjectUsecase:
         
         is_admin = Member.validate_role_admin(user.role)
 
+        if not is_admin:
+            raise ForbiddenAction('user. This user is not from admin')
+        
         adjusted_amount = amount+1
         
         actions = self.repo.get_all_actions_by_project_code(code=code)

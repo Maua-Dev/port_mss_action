@@ -15,6 +15,9 @@ class GetHistoryProjectController:
     
     def __call__(self, request: IRequest) -> IResponse:
         try:
+            if request.data.get('requester_user') is None:
+                raise MissingParameters('requester_user')            
+
             if request.data.get('code') is None:
                 raise MissingParameters('code')
             
