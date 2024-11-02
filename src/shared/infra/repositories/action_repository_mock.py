@@ -566,22 +566,4 @@ class ActionRepositoryMock(IActionRepository):
         # send email in real
         return True
     
-    def generate_project_code(self, name: str) -> str:
-        
-        words = name.split()
-        if len(words) >= 2:
-            base_code = (words[0][:1] + words[1][:1]).upper()
-        else:
-            base_code = words[0][:2].upper()
-
-
-        code = base_code
-        suffix = 1
-        for project in self.projects:
-            if project.code == code: 
-                code = f"{base_code}{suffix}"
-                suffix += 1
-                if suffix == 10:  
-                    raise ValueError("Não foi possível gerar um código único para o projeto.")
-        
-        return code[:3]
+  
