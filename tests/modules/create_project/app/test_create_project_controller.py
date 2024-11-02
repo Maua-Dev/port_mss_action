@@ -78,7 +78,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -103,7 +102,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'name':'DevMedias',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -128,7 +126,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -153,7 +150,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -178,7 +174,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -204,7 +199,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
                 },
-                'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                 'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -232,7 +226,6 @@ class Test_CreateProjectController:
                         "email": repo_member.members[0].email,
                         "custom:isMaua": True
                     },
-                    'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                     'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -259,7 +252,6 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
             'name':'DevMedias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -284,7 +276,6 @@ class Test_CreateProjectController:
                         "email": repo_member.members[0].email,
                         "custom:isMaua": True
                 },
-                'code':'DM',
                 'name':'DevMedias',
                 'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                 'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -310,7 +301,6 @@ class Test_CreateProjectController:
                         "email": repo_member.members[0].email,
                         "custom:isMaua": True
                     },
-                    'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                     'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -330,7 +320,6 @@ class Test_CreateProjectController:
                 usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
                 controller = CreateProjectController(usecase=usecase)
                 request = HttpRequest(body = {
-                    'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                     'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -355,7 +344,6 @@ class Test_CreateProjectController:
                         "email": repo_member.members[0].email,
                         "custom:isMaua": True
                     },
-                    'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                     'po_user_id':'76h35dg4-h76v-1875-987hn-h67gfv45Gt4',
@@ -380,7 +368,6 @@ class Test_CreateProjectController:
                         "email": repo_member.members[0].email,
                         "custom:isMaua": True
                     },
-                    'code':'DM',
                     'name':'DevMedias',
                     'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
                     'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
