@@ -19,8 +19,7 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
-            'name':'DevMedias',
+            'name':'Dev Medias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -32,7 +31,7 @@ class Test_CreateProjectController:
         assert response.status_code == 201
         assert response.body['message'] == 'the project was created'
         assert response.body['project']['code'] == 'DM'
-        assert response.body['project']['name'] == 'DevMedias'
+        assert response.body['project']['name'] == 'Dev Medias'
         assert response.body['project']['description'] == 'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano'
         assert response.body['project']['po_user_id'] == '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'
         assert response.body['project']['scrum_user_id'] == '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'
@@ -53,8 +52,7 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code':'DM',
-            'name':'DevMedias',
+            'name':'Dev Medias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -65,29 +63,7 @@ class Test_CreateProjectController:
         assert response.status_code == 201
         assert response.body['project']['photos'] == []
         
-    def test_create_project_controller_missing_code(self):
-        
-        repo = ActionRepositoryMock()
-        repo_member = MemberRepositoryMock()
-        usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
-        controller = CreateProjectController(usecase=usecase)
-        request = HttpRequest(body = {
-            "requester_user": {
-                "sub": repo_member.members[0].user_id,
-                "name": repo_member.members[0].name,
-                "email": repo_member.members[0].email,
-                "custom:isMaua": True
-            },
-            'name':'DevMedias',
-            'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
-            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
-            'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
-        })
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field code is missing'
+    
         
     def test_create_project_controller_missing_name(self):
         

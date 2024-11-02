@@ -82,7 +82,6 @@ class Test_CreateProjectUsecase:
         repo_member.members[2].active = ACTIVE.ACTIVE
         with pytest.raises(UserIsNotFromAdmin):
             project = usecase(user_id=repo_member.members[2].user_id,
-                code="PT",
                 name="Portfólio  TE",
                 description="É um site",
                 po_user_id="5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
