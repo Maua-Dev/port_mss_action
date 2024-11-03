@@ -233,11 +233,11 @@ class Test_ActionRepositoryMock:
         
     def test_get_all_actions_by_project_code_exclusive_start_key(self):
         repo = ActionRepositoryMock()
-        actions = repo.get_all_actions_by_project_code(project_code='PT', exclusive_start_key={'action_id' : '5f4f13df-e7d3-4a10-9219-197ceae9e3f0', 'start_date' :1644256000000}, amount=20)
+        actions = repo.get_all_actions_by_project_code(project_code='SF', exclusive_start_key={'action_id' : '42e01f11-283c-4925-b0aa-e80ac6c1815a', 'start_date' :1676476000000}, amount=2)
         assert type(actions) == list
         assert all([type(action) == Action for action in actions])
-        assert all([action.project_code == 'PT' for action in actions])
-        assert all([action.action_id != '87d4a661-0752-4ce2-9440-05e752e636fc' for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+        assert all([action.action_id != '42e01f11-283c-4925-b0aa-e80ac6c1815a' for action in actions])
 
     def test_get_all_actions_by_project_code_not_found(self):
         repo = ActionRepositoryMock()
