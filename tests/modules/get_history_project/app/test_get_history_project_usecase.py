@@ -41,7 +41,7 @@ class Test_GetHistoryProjectUsecase:
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-        actions = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', project_code= 'PT', amount=10)
+        actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', project_code= 'SF', amount=10)
 
         assert all(type(action) is Action for action in actions)
         assert len(actions) == 4
@@ -51,20 +51,20 @@ class Test_GetHistoryProjectUsecase:
         repo_member = MemberRepositoryMock()
         with pytest.raises(UnregisteredUser):
             usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-            actions = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', project_code= 'PT')
+            actions, last_evaluated_key = usecase(user_id= 'adbc6ada-c0d1-7054-66ab-e17414c48ae3', project_code= 'PT')
 
     def test_get_history_project_usecase_forbidden_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         with pytest.raises(UserNotAllowed):
             usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-            actions= usecase(project_code= repo_member.members[2].user_id, member_user_id=repo_member.members[0].user_id)
+            actions, last_evaluated_key= usecase(user_id= repo_member.members[2].user_id,project_code=repo.actions[0].project_code, member_user_id=repo_member.members[0].user_id)
 
     def test_get_history_project_usecase_another_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-        actions= usecase(project_code= repo_member.members[0].user_id, member_user_id=repo_member.members[2].user_id)
+        actions, last_evaluated_key= usecase(user_id= repo_member.members[0].user_id,project_code=repo.actions[0].project_code,member_user_id=repo_member.members[2].user_id)
 
         assert all(type(action) is Action for action in actions)
 
@@ -73,22 +73,24 @@ class Test_GetHistoryProjectUsecase:
         repo_member = MemberRepositoryMock()
         with pytest.raises(PaginationAmountInvalid):
             usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-            actions = usecase(project_code= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', amount=5)
+            actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3',project_code='SF', amount=5)
     
     def test_get_history_project_usecase_DISCONNECTED_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase =GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
         user = repo_member.members[0]
+        action = repo.actions[0]
         user.active= ACTIVE.DISCONNECTED
         with pytest.raises(UserNotAllowed):
-            actions= usecase(project_code= user.user_id)
+            actions, last_evaluated_key= usecase(user_id= user.user_id, project_code= action.project_code)
     
     def test_get_history_project_usecase_FREEZE_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase =GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
         user = repo_member.members[0]
+        action = repo.actions[0]
         user.active= ACTIVE.FREEZE
         with pytest.raises(UserNotAllowed):
-            actions = usecase(prokec= user.user_id)
+            actions, last_evaluated_key = usecase(user_id= user.user_id, project_code= action.project_code)

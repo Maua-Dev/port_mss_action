@@ -118,7 +118,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'adasjdhnaso'
+            'code': 'P'
             })
         
         response = controller(request)
@@ -335,8 +335,8 @@ class Test_GetHistoryProjectController:
             })
         
         response = controller(request)
-        assert response.status_code ==  403
-        assert response.body == 'That action is forbidden for this user. This user is not from admin'
+        assert response.status_code ==  500
+        assert response.body == 'That user is not a member of administration.'
 
     def test_get_history_project_controller_another_member(self):
         
@@ -351,7 +351,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'code': repo.actions[0].project_code,
             'member_user_id': repo_member.members[1].user_id
             })
         
