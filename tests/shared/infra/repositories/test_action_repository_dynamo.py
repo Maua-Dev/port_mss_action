@@ -287,7 +287,7 @@ class Test_ActionRepositoryDynamo:
 
         assert len(resp) == 4
 
-    # @pytest.mark.skip("Can't run test in github actions")
+    @pytest.mark.skip("Can't run test in github actions")
     def test_get_all_actions_by_project_code(self):
         repo = ActionRepositoryDynamo()
         resp = repo.get_all_actions_by_project_code(project_code="SF", amount=20, start=1658136000000, end=1678116000000, exclusive_start_key={'action_id' : "ea95d4f7-d5ce-4944-9fa1-ab964655294b", 'start_date' : 1658136000000})
