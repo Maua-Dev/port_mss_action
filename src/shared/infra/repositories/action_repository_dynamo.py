@@ -513,7 +513,7 @@ class ActionRepositoryDynamo(IActionRepository):
         
         return durations_by_project
     
-    def get_all_actions_by_project_code(self, project_code: str, start: int, end: int, exclusive_start_key: Optional[dict] = None) -> List[Action]:
+    def get_all_actions_by_project_code(self, project_code: str, amount: Optional[int] = None, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[Action]:
         query_string = Key(self.dynamo.partition_key).eq(project_code)
 
         if amount is None:
@@ -528,17 +528,12 @@ class ActionRepositoryDynamo(IActionRepository):
 
         query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         if exclusive_start_key:
-            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(project_code), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
+            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(project_code), "SK" : self.action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
         resp = self.dynamo.query(**query_params)
 
-        if resp["Count"] == 0:
-            return 0
-        
         actions = []
-        for item in resp.get["Items"]:
-            action = ActionDynamoDTO.from_dynamo(item).to_entity()
-    
-            if action.project_code == project_code:
-                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+        for item in resp.get("Items"):
+            if item.get("entity") == "action":
+               actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
 
         return actions
