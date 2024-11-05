@@ -506,10 +506,11 @@ class ActionRepositoryDynamo(IActionRepository):
         for item in resp['Items']:
             action = ActionDynamoDTO.from_dynamo(item).to_entity()
 
-        if action.project_code in durations_by_project:
-            durations_by_project[action.project_code] += action.duration
-        else:
-            durations_by_project[action.project_code] = action.duration
+        if action.duration is not None:
+            if action.project_code in durations_by_project:
+                durations_by_project[action.project_code] += action.duration
+            else:
+                durations_by_project[action.project_code] = action.duration
         
         return durations_by_project
     
