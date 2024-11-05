@@ -286,3 +286,26 @@ class Test_ActionRepositoryDynamo:
         resp = repo.scan_project_actions_by_start_date(1641061363000, 1672510963000, 'PI')
 
         assert len(resp) == 4
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_durations_by_project(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+
+        assert resp == {'PT': 9500000000, 
+                            'SF': 96530000000, 
+                            'SM': 47430000000, 
+                            'GM': 1320000000, 
+                            'MF': 62120000000}
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_by_project_code(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=20, start=1658136000000, end=1678116000000, exclusive_start_key={'action_id' : "ea95d4f7-d5ce-4944-9fa1-ab964655294b", 'start_date' : 1658136000000})
+        assert all([type(action) == Action for action in resp])
+        assert all([action.project_code == "SF" for action in resp])
+        assert all([action.start_date >= 1658136000000 for action in resp])
+        assert all([action.start_date <= 1678116000000 for action in resp])
+        assert all([action.action_id != "ea95d4f7-d5ce-4944-9fa1-ab964655294b" for action in resp])
+        assert len(resp) <= 20

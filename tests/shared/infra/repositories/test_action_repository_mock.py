@@ -208,3 +208,45 @@ class Test_ActionRepositoryMock:
                             'GM': 1320000000, 
                             'MF': 62120000000}
     
+    def test_get_all_actions_by_project_code(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+        
+    def test_get_all_actions_by_project_code_with_start(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='PT', start=1644256000000, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'PT' for action in actions])
+        assert all([action.start_date >= 1644256000000 for action in actions])
+        
+    def test_get_all_actions_by_project_code_with_end(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='PT', end=1653756000000, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'PT' for action in actions])
+        assert all([action.start_date <= 1653756000000 for action in actions])
+        
+    def test_get_all_actions_by_project_code_exclusive_start_key(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', exclusive_start_key={'action_id' : '42e01f11-283c-4925-b0aa-e80ac6c1815a', 'start_date' :1676476000000}, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+        assert all([action.action_id != '42e01f11-283c-4925-b0aa-e80ac6c1815a' for action in actions])
+
+    def test_get_all_actions_by_project_code_not_found(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='DM', amount=20)
+        assert actions == []
+
+    def test_get_all_actions_by_project_code_with_exclusive_start_key(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', amount=20, exclusive_start_key={'action_id' : 'ea95d4f7-d5ce-4944-9fa1-ab964655294b', 'start_date' :1658136000000} )
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
