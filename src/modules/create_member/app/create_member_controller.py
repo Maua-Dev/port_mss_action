@@ -4,7 +4,7 @@ from io import BytesIO
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
-from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
+from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeFile, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
@@ -97,6 +97,9 @@ class CreateMemberController:
             return NotFound(body=err.message)
 
         except EntityError as err:
+            return BadRequest(body=err.message)
+
+        except WrongTypeFile as err:
             return BadRequest(body=err.message)
         
         except Exception as err:
