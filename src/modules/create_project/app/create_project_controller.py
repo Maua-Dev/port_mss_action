@@ -20,8 +20,7 @@ class CreateProjectController:
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
-            if request.data.get('code') is None:
-                raise MissingParameters('code')
+         
             if request.data.get('name') is None:
                 raise MissingParameters('name')
             if request.data.get('description') is None:
@@ -39,7 +38,6 @@ class CreateProjectController:
                     raise EntityError('photo')
             
             project = self.usecase(
-                code=request.data.get('code'),
                 name=request.data.get('name'),
                 description=request.data.get('description'),
                 po_user_id=request.data.get('po_user_id'),
@@ -65,6 +63,9 @@ class CreateProjectController:
             return BadRequest(body=err.message)
         
         except UnregisteredUser as err:
+            return BadRequest(body=err.message)
+        
+        except ValueError as err:
             return BadRequest(body=err.message)
         
         except Exception as err:

@@ -12,8 +12,25 @@ class CreateProjectUsecase:
         self.repo = repo
         self.repo_member = repo_member
         
-    def __call__(self, user_id: str, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None) -> Project:
-        
+    def __call__(self, user_id: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None) -> Project:
+    
+
+        words = name.split()
+        if len(words) >= 2:
+            base_code = (words[0][:1] + words[1][:1]).upper()
+        else:
+            base_code = words[0][:2].upper()
+
+
+        code = base_code
+        suffix = 1
+        for project in self.repo.get_all_projects():
+            if project.code == code: 
+                code = f"{base_code}{suffix}"
+                suffix += 1
+                if suffix == 10:  
+                    raise ValueError("It's not possible to generate a code for this project.")
+        code = code[:3]
         project = Project(
             code=code,
             name=name,

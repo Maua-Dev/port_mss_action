@@ -11,8 +11,9 @@ class Project(abc.ABC):
     scrum_user_id: str
     start_date: int # milliseconds
     members_user_ids: List[str]
-    photo: Optional[str] = None
-    PROJECT_CODE_LENGTH = 2
+    photo: List[str] = []
+    MIN_PROJECT_CODE_LENGTH = 2
+    MAX_PROJECT_CODE_LENGTH = 3
     USER_ID_LENGTH = 36
     
     def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None):
@@ -62,11 +63,7 @@ class Project(abc.ABC):
     def validate_project_code(code: str) -> bool:
         if type(code) != str:
             return False
-        if len(code) != Project.PROJECT_CODE_LENGTH:
-            return False
-        if not code.isupper():
-            return False
-        if not code.isalpha():
+        if len(code) < Project.MIN_PROJECT_CODE_LENGTH or len(code) > Project.MAX_PROJECT_CODE_LENGTH:
             return False
         return True
     
