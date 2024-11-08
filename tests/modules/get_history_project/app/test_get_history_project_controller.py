@@ -20,7 +20,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'start' : 1100000000000,
             'end' : 1800000000000,
             'amount' : 10,
@@ -39,7 +39,7 @@ class Test_GetHistoryProjectController:
         controller = GetHistoryProjectController(usecase)
         request = HttpRequest(body={
             'start' : "1688646000000",
-            'code': 'PT',
+            'project_code': 'PT',
             })
         
         response = controller(request)
@@ -59,7 +59,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT'
+            'project_code': 'PT'
             })
         
         response = controller(request)
@@ -79,7 +79,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT'
+            'project_code': 'PT'
             })
         
         response = controller(request)
@@ -98,12 +98,12 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 20
+            'project_code': 20
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field code isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
+        assert response.body == 'Field project_code isn\'t in the right type.\n Received: <class \'int\'>.\n Expected: str'
 
     def test_get_history_project_controller_invalid_code(self):
                         
@@ -118,12 +118,12 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'P'
+            'project_code': 'P'
             })
         
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == 'Field code is not valid'
+        assert response.body == 'Field project_code is not valid'
 
 
     def test_get_history_project_controller_wrong_type_start(self):
@@ -139,7 +139,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'start' : "1612137600000",
             })
         
@@ -161,7 +161,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'start' : 10,
             })
         
@@ -183,7 +183,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'end' : "1612137600000",
             })
         
@@ -203,7 +203,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'end' : 10,
             })
         
@@ -223,7 +223,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'start' : 1612137600000,
             'end' : 1512137600000,
             })
@@ -244,7 +244,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'exclusive_start_key' : {'action_id' : 'aaaaaaaaa0752-4ce2-9440-05e752e636fc', 'start_date' : "1634526000000"},
             })
         
@@ -264,7 +264,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'exclusive_start_key' : {'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :"163452600000000000"}
             })
 
@@ -285,7 +285,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'amount' : "20",
             })
         
@@ -306,7 +306,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'amount' : 0,
             })
         
@@ -330,7 +330,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[2].email,
                 "custom:isMaua": True,
             },
-            'code': 'PT',
+            'project_code': 'PT',
             'member_user_id': repo_member.members[0].user_id
             })
         
@@ -351,7 +351,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'code': repo.actions[0].project_code,
+            'project_code': repo.actions[0].project_code,
             'member_user_id': repo_member.members[1].user_id
             })
         
@@ -372,7 +372,7 @@ class Test_GetHistoryProjectController:
                     "email": repo_member.members[0].email,
                     "custom:isMaua": True,
                 },
-                'code': 'PT',
+                'project_code': 'PT',
                 'amount' : 5
                 })
             

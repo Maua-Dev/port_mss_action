@@ -19,12 +19,12 @@ class GetHistoryProjectController:
             if request.data.get('requester_user') is None:
                 raise MissingParameters('requester_user')            
 
-            if request.data.get('code') is None:
-                raise MissingParameters('code')
-            if type(request.data.get('code')) is not str:
-                raise WrongTypeParameter('code', 'str', type(request.data.get('code')))
-            if not Action.validate_project_code(request.data.get('code')):
-                raise EntityError('code')
+            if request.data.get('project_code') is None:
+                raise MissingParameters('project_code')
+            if type(request.data.get('project_code')) is not str:
+                raise WrongTypeParameter('project_code', 'str', type(request.data.get('project_code')))
+            if not Action.validate_project_code(request.data.get('project_code')):
+                raise EntityError('project_code')
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
@@ -79,7 +79,7 @@ class GetHistoryProjectController:
                 member_user_id = request.data.get('member_user_id')
             else:
                 member_user_id = None
-            actions, last_evaluated_key = self.usecase(project_code = request.data.get('code'),user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount, member_user_id=member_user_id)
+            actions, last_evaluated_key = self.usecase(project_code = request.data.get('project_code'),user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount, member_user_id=member_user_id)
 
             viewmodel = GetHistoryProjectViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
             return OK(viewmodel.to_dict())
