@@ -1,5 +1,5 @@
-from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
-from src.modules.get_history.app.get_history_viewmodel import GetHistoryViewmodel
+from src.modules.get_history_project.app.get_history_project_usecase import GetHistoryProjectUsecase
+from src.modules.get_history_project.app.get_history_project_viewmodel import GetHistoryProjectViewmodel
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.enums.active_enum import ACTIVE
@@ -8,88 +8,41 @@ class Test_GetHistoryProjectViewmodel:
     def test_get_history_project_viewmodel(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
-        usecase = GetHistoryUsecase(repo, repo_member)
+        usecase = GetHistoryProjectUsecase(repo, repo_member)
         user = repo_member.get_member(user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
         user.active = ACTIVE.ACTIVE
         actions, last_evaluated_key = usecase(
-            user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
-        viewmodel = GetHistoryViewmodel(
+            user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36',project_code='SF')
+        viewmodel = GetHistoryProjectViewmodel(
             actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
 
         expected = {
             "actions": [
-                {
-                    "user_id": "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                    "start_date": 1688646000000,
-                    "end_date": 1689966000000,
-                    "duration": 1320000000,
-                    "action_id": "46b35022-1a68-4cc8-a2e5-ae449e43e867",
+                 
+
+                 {
+                    "user_id": "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+                    "start_date": 1676476000000,
+                    "end_date": 1684306000000,
+                    "duration": 7830000000,
+                    "action_id": "24c7d7a3-6560-4652-a8d6-f2e4f3f23460",
                     "is_valid": True,
-                    "story_id": 237,
-                    "title": "Revisão",
-                    "description": "Sprint Planning",
-                    "project_code": "GM",
+                    "story_id": 368,
+                    "title": "Retrospectiva",
+                    "description": "Front-End",
+                    "project_code": "SF",
                     "associated_members_user_ids": [
-                        "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                        "75648hbr-184n-1985-91han-7ghn4HgF182",
                         "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                        "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
-                        "76h35dg4-h76v-1875-987hn-h67gfv45Gt4"
-                    ],
-                    "stack_tags": [
-                        "BACKEND"
-                    ],
-                    "action_type_tag": "WORK"
-                },
-
-
-                {
-                    "user_id": "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                    "start_date": 1667256000000,
-                    "end_date": 1690046000000,
-                    "duration": 22790000000,
-                    "action_id": "eefe6db8-e03e-42c3-9fd2-1de796139501",
-                    "is_valid": True,
-                    "story_id": 497,
-                    "title": "Retrospective",
-                    "description": "Reunião de planning",
-                    "project_code": "SM",
-                    "associated_members_user_ids": [
-                        "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                         "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
+                        "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
                     ],
                     "stack_tags": [
                         "INTERNAL"
                     ],
-                    "action_type_tag": "ARCHITECT"
+                    "action_type_tag": "DESIGN"
                 },
-
-                
+              
                 {
-                    "user_id": "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                    "start_date": 1663116000000,
-                    "end_date": 1683606000000,
-                    "duration": 20490000000,
-                    "action_id": "87d4a661-0752-4ce2-9440-05e752e636fc",
-                    "is_valid": True,
-                    "story_id": 932,
-                    "title": "Desenvolvimento",
-                    "description": "Revisão de sprint",
-                    "project_code": "MF",
-                    "associated_members_user_ids": [
-                        "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                        "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
-                        "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-                    ],
-                    "stack_tags": [
-                        "INFRA"
-                    ],
-                    "action_type_tag": "LEARN"
-                },
-
-                 {
                     "user_id": "7gh5yf5H-857H-1234-75hng-94832hvng1s",
                     "start_date": 1658136000000,
                     "end_date": 1678116000000,
@@ -111,6 +64,27 @@ class Test_GetHistoryProjectViewmodel:
                         "FRONTEND"
                     ],
                     "action_type_tag": "DESIGN"
+                },
+
+                {
+                    "user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                    "start_date": 1656666000000,
+                    "end_date": 1687596000000,
+                    "duration": 30930000000,
+                    "action_id": "7778ee40-d98b-4187-8b02-052b70cc1ec1",
+                    "is_valid": True,
+                    "story_id": 848,
+                    "title": "Daily",
+                    "description": "Sprint Planning",
+                    "project_code": "SF",
+                    "associated_members_user_ids": [
+                        "7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                        "6574hgyt-785n-9134-18gn4-7gh5uvn36cG"
+                    ],
+                    "stack_tags": [
+                        "INFRA"
+                    ],
+                    "action_type_tag": "LEARN"
                 },
 
                 {
@@ -136,6 +110,7 @@ class Test_GetHistoryProjectViewmodel:
                     ],
                     "action_type_tag": "WORK"
                 }
+
             ],
             "last_evaluated_key": None,
             "message": "the history was retrieved"
