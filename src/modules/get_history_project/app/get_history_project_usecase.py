@@ -14,7 +14,7 @@ class GetHistoryProjectUsecase:
         self.repo = repo 
         self.repo_member = repo_member 
     
-    def __call__(self, user_id: str, project_code: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
+    def __call__(self, user_id: str, project_code: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None):
     
         if amount is None:
             amount = 20
@@ -24,10 +24,6 @@ class GetHistoryProjectUsecase:
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
-        
-        if member_user_id is not None:
-            if not self.repo_member.get_member(user_id=member_user_id):
-                raise UnregisteredUser()
             
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
@@ -36,15 +32,11 @@ class GetHistoryProjectUsecase:
 
         adjusted_amount = amount+1
 
-        if is_admin and member_user_id is None:
-            actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
-        elif is_admin and member_user_id is not None:
-            actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
-        elif not is_admin and member_user_id is None:
+        if is_admin:
             actions = self.repo.get_all_actions_by_project_code(project_code=project_code, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
         else:
             raise UserIsNotFromAdmin()
-        
+
         actions_requested = actions[:amount]
         
         last_ev = None

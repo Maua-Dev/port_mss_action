@@ -58,13 +58,13 @@ class Test_GetHistoryProjectUsecase:
         repo_member = MemberRepositoryMock()
         with pytest.raises(UserNotAllowed):
             usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-            actions, last_evaluated_key= usecase(user_id= repo_member.members[2].user_id,project_code=repo.actions[0].project_code, member_user_id=repo_member.members[0].user_id)
+            actions, last_evaluated_key= usecase(user_id= repo_member.members[2].user_id,project_code=repo.actions[0].project_code)
 
     def test_get_history_project_usecase_another_user(self):
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryProjectUsecase(repo=repo, repo_member=repo_member)
-        actions, last_evaluated_key= usecase(user_id= repo_member.members[0].user_id,project_code=repo.actions[0].project_code,member_user_id=repo_member.members[2].user_id)
+        actions, last_evaluated_key= usecase(user_id= repo_member.members[0].user_id,project_code=repo.actions[0].project_code)
 
         assert all(type(action) is Action for action in actions)
 
