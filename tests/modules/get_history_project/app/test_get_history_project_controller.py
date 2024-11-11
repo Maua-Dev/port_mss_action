@@ -330,8 +330,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[2].email,
                 "custom:isMaua": True,
             },
-            'project_code': 'PT',
-            'member_user_id': repo_member.members[0].user_id
+            'project_code': 'PT'
             })
         
         response = controller(request)
@@ -351,8 +350,7 @@ class Test_GetHistoryProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True,
             },
-            'project_code': repo.actions[0].project_code,
-            'member_user_id': repo_member.members[1].user_id
+            'project_code': repo.actions[0].project_code
             })
         
         response = controller(request)

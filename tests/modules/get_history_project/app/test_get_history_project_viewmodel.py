@@ -9,10 +9,10 @@ class Test_GetHistoryProjectViewmodel:
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetHistoryProjectUsecase(repo, repo_member)
-        user = repo_member.get_member(user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36')
+        user = repo_member.get_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
         user.active = ACTIVE.ACTIVE
         actions, last_evaluated_key = usecase(
-            user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36',project_code='SF')
+            user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',project_code='SF')
         viewmodel = GetHistoryProjectViewmodel(
             actions=actions, last_evaluated_key=last_evaluated_key).to_dict()
 
