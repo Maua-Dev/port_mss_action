@@ -124,7 +124,7 @@ class MemberRepositoryDynamo(IMemberRepository):
                 url = new_photo
             else:
                 if member_to_update.photo is not None:
-                    self.s3_client.delete_object(Bucket=self.S3_BUCKET_NAME, Key=self.generate_key(user_id))
+                    self.s3_client.delete_object(Bucket=self.S3_BUCKET_NAME, Key=self.generate_key(user_id, file_type=member_to_update.photo[74:77]))
                 url = self.upload_member_photo(user_id, new_photo)
             member_to_update.photo = url
             
