@@ -299,13 +299,22 @@ class Test_ActionRepositoryDynamo:
                             'GM': 1320000000, 
                             'MF': 62120000000}
         
-    @pytest.mark.skip("Can't run test in github actions")
+    #@pytest.mark.skip("Can't run test in github actions")
     def test_get_all_actions_by_project_code(self):
         repo = ActionRepositoryDynamo()
-        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=20, start=1658136000000, end=1678116000000, exclusive_start_key={'action_id' : "ea95d4f7-d5ce-4944-9fa1-ab964655294b", 'start_date' : 1658136000000})
+        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=20)
+        print(resp)
+        assert all([type(action) == Action for action in resp])
+        assert all([action.project_code == "SF" for action in resp])
+        assert len(resp) == 3
+    
+    def test_get_all_actions_by_project_code_with_exclusive_start_key(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=2, start=1658136000000, end=1678116000000, exclusive_start_key={'action_id' : "24c7d7a3-6560-4652-a8d6-f2e4f3f23460", 'start_date' : 1644256000000})
+        print(resp)
         assert all([type(action) == Action for action in resp])
         assert all([action.project_code == "SF" for action in resp])
         assert all([action.start_date >= 1658136000000 for action in resp])
         assert all([action.start_date <= 1678116000000 for action in resp])
-        assert all([action.action_id != "ea95d4f7-d5ce-4944-9fa1-ab964655294b" for action in resp])
-        assert len(resp) <= 20
+        assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
+        assert len(resp) == 3

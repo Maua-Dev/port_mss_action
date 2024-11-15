@@ -204,7 +204,7 @@ class MemberRepositoryDynamo(IMemberRepository):
             
             content_type = f"'image/{file_type}"
 
-            s3_key = self.generate_key(user_id)
+            s3_key = self.generate_key(user_id, file_type)
 
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,

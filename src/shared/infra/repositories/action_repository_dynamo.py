@@ -464,7 +464,7 @@ class ActionRepositoryDynamo(IActionRepository):
             if file_type is None:
                 raise WrongTypeFile()
             
-            s3_key = self.generate_key(code)
+            s3_key = self.generate_key(code, file_type)
 
             content_type = f"'image/{file_type}"
 
@@ -521,26 +521,26 @@ class ActionRepositoryDynamo(IActionRepository):
         return durations_by_project
     
     def get_all_actions_by_project_code(self, project_code: str, amount: Optional[int] = None, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[Action]:
-        query_string = Key(self.dynamo.partition_key).eq(project_code)
+        query_string = Attr('project_code').eq(project_code) & Key('start_date').between(start, end) if start and end else Key('start_date').gte(start) if start else Key('start_date').lte(end)
 
-        if amount is None:
-            amount = 20
-            
-        if start and end:
-            query_string = query_string & Key('start_date').between(start, end)
-        elif start and not end:
-            query_string = query_string & Key('start_date').gte(start)
-        elif end and not start:
-            query_string = query_string & Key('start_date').lte(end)
+        query_params = {
+            'IndexName': "LSI1",
+            'FilterExpression': Attr('project_code').eq(project_code),
+            'Select': 'ALL_ATTRIBUTES',
+            'Limit': amount,
+            'ScanIndexForward': False
+        }
 
-        query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
         if exclusive_start_key:
-            query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(project_code), "SK" : self.action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
-        resp = self.dynamo.query(**query_params)
+            query_params['ExclusiveStartKey'] = {
+                "start_date": Decimal(str(exclusive_start_key['start_date']))
+            }
 
+        resp = self.dynamo.query(query_string, **query_params)
         actions = []
-        for item in resp.get("Items"):
+        for item in resp.get("Items", []):
             if item.get("entity") == "action":
-               actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+
 
         return actions
