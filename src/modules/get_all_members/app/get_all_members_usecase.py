@@ -18,7 +18,7 @@ class GetAllMembersUsecase:
             raise NoItemsFound('user_id')
         
         is_active = Member.validate_active(member.active)
-        is_admin = Member.validate_role_admin(member.role)  # Verifica se o membro é admin
+        is_admin = Member.validate_role_admin(member.role) or Member.validate_role_external(member.role)
 
         if start_date is None:
             now = datetime.now()

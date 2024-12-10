@@ -2,6 +2,7 @@ import pytest
 from src.modules.get_all_projects.app.get_all_projects_usecase import GetAllProjectsUsecase,ForbiddenAction, UserNotAllowed
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
+from src.shared.domain.enums.role_enum import ROLE
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.domain.enums.active_enum import ACTIVE
@@ -14,6 +15,17 @@ class Test_GetAllProjectsUsecase:
         usecase = GetAllProjectsUsecase(repo=repo, repo_member=repo_member)
         
         projects = usecase(repo_member.members[0].user_id)
+        assert type(projects) == list
+        assert len(projects) == 5
+        assert type(projects[0]) == Project
+
+    def test_get_all_projects_usecase_external(self):
+        repo = ActionRepositoryMock()
+        repo_member = MemberRepositoryMock()
+        usecase = GetAllProjectsUsecase(repo=repo, repo_member=repo_member)
+        member1 = repo_member.members[0]
+        member1.role = ROLE.EXTERNAL
+        projects = usecase(member1.user_id)
         assert type(projects) == list
         assert len(projects) == 5
         assert type(projects[0]) == Project
