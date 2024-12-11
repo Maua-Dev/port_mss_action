@@ -20,7 +20,7 @@ class GetAllProjectsUsecase:
             raise UserNotAllowed()
         projects = self.repo.get_all_projects()
 
-        is_admin = user.validate_role_admin(user.role)
+        is_admin = user.validate_role_admin(user.role) or user.validate_role_external(user.role)
 
         if not is_admin:
             raise ForbiddenAction("user. This user is not from admin")

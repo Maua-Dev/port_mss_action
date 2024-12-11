@@ -59,6 +59,11 @@ class Member(abc.ABC):
         if not Member.validate_email(email):
             raise EntityError('email')
         self.email = email
+
+        if role == ROLE.EXTERNAL:
+            if not Member.validate_email_maua(email):
+                raise EntityError('email')
+        self.email = email
         
         if type(role) != ROLE:
             raise EntityError("role")
@@ -126,7 +131,6 @@ class Member(abc.ABC):
 
         return year > 0 and year <= 6
         
-                
     @staticmethod
     def validate_ra(ra: str) -> bool:
         if ra == None:
@@ -147,6 +151,17 @@ class Member(abc.ABC):
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email_dev))
+
+    @staticmethod
+    def validate_email_maua(email_maua) -> bool:
+        if email_maua == None:
+            return False
+        if type(email_maua) != str:
+            return False
+        if email_maua[-8:] != "@maua.br":
+            return False
+        regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+        return bool(re.fullmatch(regex, email_maua))
 
     @staticmethod
     def validate_name(name) -> bool:
@@ -194,7 +209,15 @@ class Member(abc.ABC):
         if type(role) != ROLE:
             return False
         return (role == ROLE.DIRECTOR or role == ROLE.HEAD)
-    
+
+    @staticmethod
+    def validate_role_external(role: ROLE) -> bool:
+        if role == None:
+            return False
+        if type(role) != ROLE:
+            return False
+        return (role == ROLE.EXTERNAL)
+
     @staticmethod
     def validate_active(active: ACTIVE) -> bool:
         if active == None:
