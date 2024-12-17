@@ -44,9 +44,9 @@ class GetMemberUsecase:
 
             if (now.month <= 6) or (now.month == 12): 
                 if (now.month <= 6): 
-                    start_date = datetime(year, 6, 30).timestamp() * 1000
+                    end_date = datetime(year, 6, 30).timestamp() * 1000
                 else:
-                    start_date = datetime(year+1, 6, 30).timestamp() * 1000
+                    end_date = datetime(year+1, 6, 30).timestamp() * 1000
             else:  
                 end_date = datetime(year, 12, 31).timestamp() * 1000
 

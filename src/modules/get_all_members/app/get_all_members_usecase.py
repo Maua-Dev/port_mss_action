@@ -38,12 +38,12 @@ class GetAllMembersUsecase:
 
             if (now.month <= 6) or (now.month == 12):
                 if (now.month <= 6): 
-                    start_date = datetime(year, 6, 30).timestamp() * 1000
+                    end_date = datetime(year, 6, 30).timestamp() * 1000
                 else:
-                    start_date = datetime(year+1, 6, 30).timestamp() * 1000
+                    end_date = datetime(year+1, 6, 30).timestamp() * 1000
             else:
                 end_date = datetime(year, 12, 31).timestamp() * 1000
-
+        print(start_date, end_date)
         start_date, end_date = Decimal(start_date), Decimal(end_date)
         if is_admin:
             hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)
