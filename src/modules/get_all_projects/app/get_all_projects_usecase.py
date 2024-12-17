@@ -29,7 +29,7 @@ class GetAllProjectsUsecase:
             now = datetime.now()
             year = now.year
 
-            if now.month <= 6: 
+            if (now.month <= 6) or (now.month == 12): 
                 start_date = datetime(year, 1, 1).timestamp() * 1000
             else:  
                 start_date = datetime(year, 7, 1).timestamp() * 1000
@@ -38,7 +38,7 @@ class GetAllProjectsUsecase:
             now = datetime.now()
             year = now.year
 
-            if now.month <= 6: 
+            if (now.month <= 6) or (now.month == 12): 
                 end_date = datetime(year, 6, 30).timestamp() * 1000
             else:  
                 end_date = datetime(year, 12, 31).timestamp() * 1000
