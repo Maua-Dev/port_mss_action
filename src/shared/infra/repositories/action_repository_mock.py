@@ -600,3 +600,9 @@ class ActionRepositoryMock(IActionRepository):
             actions = list(filter(lambda x: x.start_date <= end, actions))
 
         return actions[:amount]
+    
+    def download_projects  (self, actions: List[Action]):
+   
+        #download csv of activity in real
+
+        return ""

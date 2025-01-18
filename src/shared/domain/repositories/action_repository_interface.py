@@ -156,3 +156,9 @@ class IActionRepository(ABC):
         Returns all actions of a project by its code
         """
         pass
+    @abstractmethod
+    def download_projects(self, actions: List[Action]):
+        """
+        Returns all actions of a project by its code
+        """
+        pass
