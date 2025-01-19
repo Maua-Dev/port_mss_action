@@ -159,6 +159,13 @@ class IActionRepository(ABC):
     @abstractmethod
     def download_projects(self, actions: List[Action]):
         """
-        Returns all actions of a project by its code
+        Download csv with projects
         """
         pass
+    @abstractmethod
+    def get_projects_with_actions_and_associations(self) -> dict:
+        """
+        Returns all projects and their actions and associated actions
+        """
+        pass
+    
