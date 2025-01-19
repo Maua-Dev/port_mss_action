@@ -606,3 +606,47 @@ class ActionRepositoryMock(IActionRepository):
         #download csv of activity in real
 
         return ""
+    
+    def get_projects_with_actions_and_associations(self) -> dict:
+      
+        projects_with_details = {}
+
+        for project in self.projects:
+            project_code = project.code
+            actions = list(filter(lambda action: action.project_code == project_code, self.actions))
+
+            actions_with_associations = []
+            for action in actions:
+                associations = list(filter(lambda assoc: assoc.action_id == action.action_id, self.associated_actions))
+                actions_with_associations.append({
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag,
+                    "associations": [
+                        {
+                            "associated_action_id": assoc.action_id,
+                            "user_id": assoc.user_id,
+                            "start_date": assoc.start_date
+                        } for assoc in associations
+                    ]
+                })
+
+
+            projects_with_details[project_code] = {
+                "project_name": project.name,
+                "description": project.description,
+                "po_user_id": project.po_user_id,
+                "scrum_user_id": project.scrum_user_id,
+                "photo": project.photo,
+                "members_user_ids": project.members_user_ids,
+                "actions": actions_with_associations
+            }
+
+        return projects_with_details

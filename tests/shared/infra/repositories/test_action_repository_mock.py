@@ -250,3 +250,15 @@ class Test_ActionRepositoryMock:
         assert type(actions) == list
         assert all([type(action) == Action for action in actions])
         assert all([action.project_code == 'SF' for action in actions])
+
+    def test_get_projects_with_actions_and_associations(self):
+
+        repo = ActionRepositoryMock()
+        
+    
+
+  
+        result = repo.get_projects_with_actions_and_associations()
+        assert type(result) == dict
+      
+      

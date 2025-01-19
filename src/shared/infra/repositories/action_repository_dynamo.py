@@ -544,3 +544,46 @@ class ActionRepositoryDynamo(IActionRepository):
 
 
         return actions
+    
+    def get_projects_with_actions_and_associations(self, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> dict:
+  
+
+        query_string = Key(self.dynamo.partition_key).eq('project')
+
+        if start and end:
+            query_string = query_string & Key('start_date').between(start, end)
+        elif start and not end:
+            query_string = query_string & Key('start_date').gte(start)
+        elif end and not start:
+            query_string = query_string & Key('start_date').lte(end)
+
+        query_params = {
+            'Select': 'ALL_ATTRIBUTES',
+            'ScanIndexForward': False,
+        }
+
+        if exclusive_start_key:
+            query_params['ExclusiveStartKey'] = exclusive_start_key
+
+       
+        resp = self.dynamo.query(key_condition_expression=query_string, **query_params)
+
+        projects = []
+        for item in resp.get("Items", []):
+            if item.get("entity") == "project":
+                project = ProjectDynamoDTO.from_dynamo(item).to_entity()
+                
+                actions = self.get_actions_by_project_code(project.code)
+
+                for action in actions:
+                    associated_actions = self.get_associated_actions_by_user_id(action.user_id)
+                    
+                    project_data = {
+                        "project": project,
+                        "actions": actions,
+                        "associated_actions": associated_actions
+                    }
+                    
+                    projects.append(project_data)
+
+        return projects

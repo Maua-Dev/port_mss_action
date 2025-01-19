@@ -319,3 +319,21 @@ class Test_ActionRepositoryDynamo:
         assert all([action.start_date <= 1678116000000 for action in resp])
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) == 3
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_projects_with_actions_and_associations(self):
+        # Inicializando os repositórios mockados
+        repo_activity_dynamo = ActionRepositoryDynamo()
+
+        start_date = 1641061363000
+        end_date = 1672510963000
+ 
+        
+        # Chama o método que queremos testar
+        projects_with_actions = repo_activity_dynamo.get_projects_with_actions_and_associations(start=start_date, end=end_date)
+
+        # Teste para garantir que retornou projetos com ações
+        assert len(projects_with_actions) > 0
+        assert all([type(project_data["project"]) == Project for project_data in projects_with_actions])
+        assert all([type(action) == Action for project_data in projects_with_actions for action in project_data["actions"]])
+    
