@@ -255,10 +255,50 @@ class Test_ActionRepositoryMock:
 
         repo = ActionRepositoryMock()
         
-    
-
-  
         result = repo.get_projects_with_actions_and_associations()
         assert type(result) == dict
       
+    def test_get_all_actions_by_user_id(self):
+
+        repo = ActionRepositoryMock()
+
+        result = repo.get_all_actions_by_user_id(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", start=1676476000000, end=1677067200000)
+
+    
+        assert isinstance(result, dict)
+        assert "actions" in result and "associated_actions" in result
+        assert isinstance(result["actions"], list) and isinstance(result["associated_actions"], list)
+        assert all(isinstance(action, Action) for action in result["actions"])
+        assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
+        assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["actions"])
+        assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["associated_actions"])
+        assert all(
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            for action in result["actions"]
+        )
+        assert all(
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            for action in result["associated_actions"]
+        )
+
+
+    def test_get_all_actions_and_associated_actions_by_project_code(self):
       
+        repo = ActionRepositoryMock()
+
+        result = repo.get_all_actions_and_associated_actions_by_project_code(project_code="PT", start=1676476000000, end=1677067200000)
+
+        assert isinstance(result, dict)
+        assert "actions" in result and "associated_actions" in result
+        assert isinstance(result["actions"], list) and isinstance(result["associated_actions"], list)
+        assert all(isinstance(action, Action) for action in result["actions"])
+        assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
+        assert all(action.project_code == "PT" for action in result["actions"])
+        assert all(
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            for action in result["actions"]
+        )
+        assert all(
+            assoc_action.action.start_date >= 1676476000000 and assoc_action.action.start_date <= 1677067200000 
+            for assoc_action in result["associated_actions"]
+        )

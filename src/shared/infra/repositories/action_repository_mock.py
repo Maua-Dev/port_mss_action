@@ -650,3 +650,45 @@ class ActionRepositoryMock(IActionRepository):
             }
 
         return projects_with_details
+
+    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+        """
+        Busca todas as ações e ações associadas de um determinado `user_id`.
+        """
+        # Filtrar ações pelo user_id
+        user_actions = list(filter(lambda x: x.user_id == user_id, self.actions))
+        user_associated_actions = list(filter(lambda x: x.user_id == user_id, self.associated_actions))
+
+        # Aplicar filtros de data, se fornecidos
+        if start:
+            user_actions = list(filter(lambda x: x.start_date >= start, user_actions))
+            user_associated_actions = list(filter(lambda x: x.start_date >= start, user_associated_actions))
+        if end:
+            user_actions = list(filter(lambda x: x.start_date <= end, user_actions))
+            user_associated_actions = list(filter(lambda x: x.start_date <= end, user_associated_actions))
+
+        return {
+            "actions": user_actions,
+            "associated_actions": user_associated_actions
+        }
+
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+     
+        project_actions = list(filter(lambda x: x.project_code == project_code, self.actions))
+
+        action_ids = [action.action_id for action in project_actions]
+
+  
+        associated_actions = list(filter(lambda x: x.action_id in action_ids, self.associated_actions))
+
+        if start:
+            project_actions = list(filter(lambda x: x.start_date >= start, project_actions))
+            associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
+        if end:
+            project_actions = list(filter(lambda x: x.start_date <= end, project_actions))
+            associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
+
+        return {
+            "actions": project_actions,
+            "associated_actions": associated_actions
+        }
