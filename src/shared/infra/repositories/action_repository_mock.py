@@ -601,11 +601,11 @@ class ActionRepositoryMock(IActionRepository):
 
         return actions[:amount]
     
-    def download_projects  (self, actions: List[Action]):
+    # def download_projects  (self, actions: List[Action]):
    
-        #download csv of activity in real
+    #     #download csv of activity in real
 
-        return ""
+    #     return ""
     
     def get_projects_with_actions_and_associations(self) -> dict:
       
@@ -652,14 +652,10 @@ class ActionRepositoryMock(IActionRepository):
         return projects_with_details
 
     def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-        """
-        Busca todas as ações e ações associadas de um determinado `user_id`.
-        """
-        # Filtrar ações pelo user_id
+      
         user_actions = list(filter(lambda x: x.user_id == user_id, self.actions))
         user_associated_actions = list(filter(lambda x: x.user_id == user_id, self.associated_actions))
 
-        # Aplicar filtros de data, se fornecidos
         if start:
             user_actions = list(filter(lambda x: x.start_date >= start, user_actions))
             user_associated_actions = list(filter(lambda x: x.start_date >= start, user_associated_actions))

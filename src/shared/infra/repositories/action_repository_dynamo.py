@@ -544,46 +544,184 @@ class ActionRepositoryDynamo(IActionRepository):
 
 
         return actions
+    def get_projects_with_actions_and_associations(self) -> dict:
+   
+        projects_resp = self.dynamo.scan_items(Attr('SK').begins_with('project#'))
+
+        if projects_resp["Count"] == 0:
+            return {}
+
+        projects_with_details = {}
+
+        # Iterar sobre os projetos
+        for project_item in projects_resp['Items']:
+            # Converter o projeto para uma entidade
+            project = ProjectDynamoDTO.from_dynamo(project_item).to_entity()
+            project_code = project.code
+
+            # Buscar ações relacionadas ao projeto
+            actions_expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
+            actions_resp = self.dynamo.scan_items(actions_expression)
+
+            actions = (
+                [
+                    ActionDynamoDTO.from_dynamo(action_item).to_entity()
+                    for action_item in actions_resp['Items']
+                ]
+                if actions_resp["Count"] > 0
+                else []
+            )
+
+            actions_with_associations = []
+
+            # Para cada ação, buscar suas associações
+            for action in actions:
+                associations_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').eq(action.action_id)
+                associations_resp = self.dynamo.scan_items(associations_expression)
+
+                associations = (
+                    [
+                        AssociatedActionDynamoDTO.from_dynamo(assoc_item).to_entity()
+                        for assoc_item in associations_resp['Items']
+                    ]
+                    if associations_resp["Count"] > 0
+                    else []
+                )
+
+                # Montar a estrutura de cada ação com suas associações
+                actions_with_associations.append({
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag,
+                    "associations": [
+                        {
+                            "associated_action_id": assoc.action_id,
+                            "user_id": assoc.user_id,
+                            "start_date": assoc.start_date
+                        }
+                        for assoc in associations
+                    ]
+                })
+
+            # Montar os detalhes do projeto com as ações e associações
+            projects_with_details[project_code] = {
+                "project_name": project.name,
+                "description": project.description,
+                "po_user_id": project.po_user_id,
+                "scrum_user_id": project.scrum_user_id,
+                "photo": project.photo,
+                "members_user_ids": project.members_user_ids,
+                "actions": actions_with_associations
+            }
+
+        return projects_with_details
+
     
-    def get_projects_with_actions_and_associations(self, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> dict:
+    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[dict]]:
   
+   
+        actions_expression = (
+            Attr('SK').begins_with('action#') &
+            Attr('user_id').eq(user_id) &
+            Attr('start_date').between(start, end) &
+            Attr('end_date').lte(end)
+        )
+        actions_resp = self.dynamo.scan_items(actions_expression)
 
-        query_string = Key(self.dynamo.partition_key).eq('project')
+        if actions_resp["Count"] == 0:
+            return {"actions": [], "associated_actions": []}
 
-        if start and end:
-            query_string = query_string & Key('start_date').between(start, end)
-        elif start and not end:
-            query_string = query_string & Key('start_date').gte(start)
-        elif end and not start:
-            query_string = query_string & Key('start_date').lte(end)
+        actions = [
+            ActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in actions_resp['Items']
+        ]
 
-        query_params = {
-            'Select': 'ALL_ATTRIBUTES',
-            'ScanIndexForward': False,
+        associated_actions = []
+
+        # Busca as ações associadas relacionadas a cada ação encontrada
+        for action in actions:
+            associated_expression = (
+                Attr('SK').begins_with('associated_action#') &
+                Attr('action_id').eq(action.action_id)
+            )
+            associated_resp = self.dynamo.scan_items(associated_expression)
+
+            if associated_resp["Count"] > 0:
+                associated_actions.extend([
+                    AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+                    for item in associated_resp['Items']
+                ])
+
+        # Estrutura a resposta com as ações e suas associadas
+        return {
+            "actions": [
+                {
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag
+                }
+                for action in actions
+            ],
+            "associated_actions": [
+                {
+                    "associated_action_id": associated_actions.action_id,
+                    "user_id": assoc.user_id,
+                    "start_date": assoc.start_date,
+                    "action_id": assoc.action_id 
+                }
+                for assoc in associated_actions
+            ]
         }
 
-        if exclusive_start_key:
-            query_params['ExclusiveStartKey'] = exclusive_start_key
+    
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
 
-       
-        resp = self.dynamo.query(key_condition_expression=query_string, **query_params)
+        expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
 
-        projects = []
-        for item in resp.get("Items", []):
-            if item.get("entity") == "project":
-                project = ProjectDynamoDTO.from_dynamo(item).to_entity()
-                
-                actions = self.get_actions_by_project_code(project.code)
+        if start:
+            expression = expression & Attr('start_date').gte(start)
+        if end:
+            expression = expression & Attr('end_date').lte(end)
 
-                for action in actions:
-                    associated_actions = self.get_associated_actions_by_user_id(action.user_id)
-                    
-                    project_data = {
-                        "project": project,
-                        "actions": actions,
-                        "associated_actions": associated_actions
-                    }
-                    
-                    projects.append(project_data)
+        actions_resp = self.dynamo.scan_items(expression)
 
-        return projects
+        if actions_resp["Count"] == 0:
+            return {"actions": [], "associated_actions": []}
+
+        actions = [
+            ActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in actions_resp['Items']
+        ]
+
+        action_ids = {action.action_id for action in actions}
+
+        associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
+
+        associated_resp = self.dynamo.scan_items(associated_expression)
+
+        associated_actions = (
+            [
+                AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+                for item in associated_resp['Items']
+            ]
+            if associated_resp["Count"] > 0
+            else []
+        )
+        return {
+            "actions": actions,
+            "associated_actions": associated_actions,
+        }

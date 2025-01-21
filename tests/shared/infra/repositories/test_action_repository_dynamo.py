@@ -320,20 +320,87 @@ class Test_ActionRepositoryDynamo:
         assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
         assert len(resp) == 3
     
-    @pytest.mark.skip("Can't run test in github actions")
-    def test_get_projects_with_actions_and_associations(self):
-        # Inicializando os repositórios mockados
-        repo_activity_dynamo = ActionRepositoryDynamo()
+    # #@pytest.mark.skip("Can't run test in github actions")
+    # def test_get_projects_with_actions_and_associations(self):
 
-        start_date = 1641061363000
-        end_date = 1672510963000
+    #     repo_activity_dynamo = ActionRepositoryDynamo()
+
+       
  
-        
-        # Chama o método que queremos testar
-        projects_with_actions = repo_activity_dynamo.get_projects_with_actions_and_associations(start=start_date, end=end_date)
+    #     projects_with_actions = repo_activity_dynamo.get_projects_with_actions_and_associations()
 
-        # Teste para garantir que retornou projetos com ações
-        assert len(projects_with_actions) > 0
-        assert all([type(project_data["project"]) == Project for project_data in projects_with_actions])
-        assert all([type(action) == Action for project_data in projects_with_actions for action in project_data["actions"]])
+  
+    #     assert len(projects_with_actions) > 0
+    #     assert all([type(project_data["project"]) == Project for project_data in projects_with_actions])
+    #     assert all([type(action) == Action for project_data in projects_with_actions for action in project_data["actions"]])
     
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_and_associated_by_user_id(self):
+        repo = ActionRepositoryDynamo()
+
+     
+        user_id = "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
+        start_date = 1672531200  
+        end_date = 1675123200    
+
+    
+        resp = repo.get_all_actions_by_user_id(user_id, start_date, end_date)
+
+        
+    
+        assert "actions" in resp
+
+      
+        for action in resp["actions"]:
+            assert "action_id" in action
+            assert "title" in action
+            assert "start_date" in action
+            assert "end_date" in action
+            assert "duration" in action
+            assert "user_id" in action
+            assert action["user_id"] == user_id
+            assert "associations" in action
+
+     
+            for association in action["associations"]:
+                assert "associated_action_id" in association
+                assert "user_id" in association
+                assert "start_date" in association
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_and_associated_actions_by_project_code(self):
+   
+        repo = ActionRepositoryDynamo()
+
+  
+        project_code = "SF"
+        start_date = 1672531200  
+        end_date = 1675123200    
+
+
+        resp = repo.get_all_actions_and_associated_actions_by_project_code(
+            project_code=project_code,
+            start=start_date,
+            end=end_date
+        )
+
+       
+        assert "actions" in resp
+        assert "associated_actions" in resp
+
+  
+        for action in resp["actions"]:
+            assert isinstance(action, Action)
+            assert action.project_code == project_code
+            assert action.start_date >= start_date
+            assert action.end_date <= end_date
+
+
+        for associated_action in resp["associated_actions"]:
+            assert isinstance(associated_action, AssociatedAction)
+            assert associated_action.action_id in [action.action_id for action in resp["actions"]]
+
+        action_ids = {action.action_id for action in resp["actions"]}
+        for associated_action in resp["associated_actions"]:
+            assert associated_action.action_id in action_ids
+
