@@ -403,4 +403,14 @@ class Test_ActionRepositoryDynamo:
         action_ids = {action.action_id for action in resp["actions"]}
         for associated_action in resp["associated_actions"]:
             assert associated_action.action_id in action_ids
-
+            
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_download_action(self):
+        repo_action_dynamo = ActionRepositoryDynamo()
+        project_code = "SF"
+        start_date = 1672531200  
+        end_date = 1675123200    
+        csv = repo_action_dynamo.download_actions_csv( project_code=project_code,
+            start=start_date,
+            end=end_date)
+        assert True

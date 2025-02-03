@@ -3,6 +3,7 @@ import datetime
 from decimal import Decimal
 import imghdr
 import os
+import hashlib
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -725,3 +726,94 @@ class ActionRepositoryDynamo(IActionRepository):
             "actions": actions,
             "associated_actions": associated_actions,
         }
+    def create_csv_actions(self,actions: List[dict], associated_actions: List[dict]) -> str:
+        """
+        Gera o conteúdo de um arquivo CSV com as ações e as ações associadas.
+        """
+        # Cabeçalhos do CSV
+        csv = (
+            'Action ID, Title, Description, Start Date, End Date, Duration, User ID, Associated Members, Stack Tags, Action Type\n'
+        )
+
+        # Adicionar ações ao CSV
+        for action in actions:
+            csv += (
+                f"{action['action_id']}, {action['title']}, {action['description']}, {action['start_date']}, "
+                f"{action['end_date']}, {action['duration']}, {action['user_id']}, "
+                f"{';'.join(action['associated_members_user_ids']) if action['associated_members_user_ids'] else ''}, "
+                f"{';'.join(action['stack_tags']) if action['stack_tags'] else ''}, {action['action_type_tag']}\n"
+            )
+
+        # Separador entre ações e ações associadas
+        csv += '\nAssociated Actions\n'
+        csv += 'Associated Action ID, User ID, Start Date, Action ID\n'
+
+        # Adicionar ações associadas ao CSV
+        for assoc_action in associated_actions:
+            csv += (
+                f"{assoc_action['associated_action_id']}, {assoc_action['user_id']}, "
+                f"{assoc_action['start_date']}, {assoc_action['action_id']}\n"
+            )
+
+        return csv
+
+
+    def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
+        """
+        Gera e faz o download de um CSV contendo ações e ações associadas, com base no user_id ou project_code.
+        """
+        try:
+            # Verificar se HASH_KEY está definido
+            hash_key = os.environ.get('HASH_KEY')
+            if not hash_key:
+                raise ValueError("HASH_KEY não está definido nas variáveis de ambiente.")
+
+            prefix = hashlib.sha256(hash_key.encode('utf-8')).hexdigest()
+
+            # Obter ações e ações associadas
+            if user_id:
+                actions_data = self.get_all_actions_by_user_id(user_id, start, end)
+            elif project_code:
+                actions_data = self.get_all_actions_and_associated_actions_by_project_code(project_code, start, end)
+            else:
+                raise ValueError("É necessário fornecer user_id ou project_code.")
+
+            actions = actions_data['actions']
+            associated_actions = actions_data['associated_actions']
+
+            # Gerar CSV
+            csv_content = self.create_csv_actions(actions, associated_actions)
+
+            # Definir chave S3
+            csv_key = f"{prefix}/actions_{user_id or project_code}.csv"
+
+            # Fazer upload do CSV para o S3
+            self.s3_client.put_object(
+                Bucket=self.S3_BUCKET_NAME,
+                Key=csv_key,
+                Body=csv_content,
+                ContentType="text/csv"
+            )
+
+            # Gerar URL pré-assinada para download
+            presigned_url = self.s3_client.generate_presigned_url(
+                ClientMethod='get_object',
+                Params={
+                    'Bucket': self.S3_BUCKET_NAME,
+                    'Key': csv_key
+                },
+                ExpiresIn=600  # URL expira em 10 minutos
+            )
+
+            # Substituir domínio S3 pelo CloudFront, se aplicável
+            if hasattr(self, 'cloud_front_distribution_domain_assets_project'):
+                presigned_url = presigned_url.replace(
+                    f"{self.S3_BUCKET_NAME}.s3.amazonaws.com",
+                    self.cloud_front_distribution_domain_assets_project
+                )
+
+            return presigned_url
+
+        except Exception as err:
+            print(f"Erro ao criar ou baixar o CSV: {err}")
+            return None
