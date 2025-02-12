@@ -763,13 +763,6 @@ class ActionRepositoryDynamo(IActionRepository):
         Gera e faz o download de um CSV contendo ações e ações associadas, com base no user_id ou project_code.
         """
         try:
-            # Verificar se HASH_KEY está definido
-            hash_key = os.environ.get('HASH_KEY')
-            if not hash_key:
-                raise ValueError("HASH_KEY não está definido nas variáveis de ambiente.")
-
-            prefix = hashlib.sha256(hash_key.encode('utf-8')).hexdigest()
-
             # Obter ações e ações associadas
             if user_id:
                 actions_data = self.get_all_actions_by_user_id(user_id, start, end)
@@ -784,8 +777,8 @@ class ActionRepositoryDynamo(IActionRepository):
             # Gerar CSV
             csv_content = self.create_csv_actions(actions, associated_actions)
 
-            # Definir chave S3
-            csv_key = f"{prefix}/actions_{user_id or project_code}.csv"
+            # Nome do arquivo CSV
+            csv_key = f"actions_{user_id or project_code}.csv"
 
             # Fazer upload do CSV para o S3
             self.s3_client.put_object(
@@ -805,12 +798,8 @@ class ActionRepositoryDynamo(IActionRepository):
                 ExpiresIn=600  # URL expira em 10 minutos
             )
 
-            # Substituir domínio S3 pelo CloudFront, se aplicável
-            if hasattr(self, 'cloud_front_distribution_domain_assets_project'):
-                presigned_url = presigned_url.replace(
-                    f"{self.S3_BUCKET_NAME}.s3.amazonaws.com",
-                    self.cloud_front_distribution_domain_assets_project
-                )
+            presigned_url = presigned_url.replace(
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
 
             return presigned_url
 
