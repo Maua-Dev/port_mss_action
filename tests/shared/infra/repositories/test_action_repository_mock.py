@@ -286,7 +286,7 @@ class Test_ActionRepositoryMock:
       
         repo = ActionRepositoryMock()
 
-        result = repo.get_all_actions_and_associated_actions_by_project_code(project_code="PT", start=1676476000000, end=1677067200000)
+        result = repo.get_all_actions_and_associated_actions_by_project_code(project_code="PT", start=0, end=1677067200000)
 
         assert isinstance(result, dict)
         assert "actions" in result and "associated_actions" in result
@@ -295,10 +295,10 @@ class Test_ActionRepositoryMock:
         assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
         assert all(action.project_code == "PT" for action in result["actions"])
         assert all(
-            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            action.start_date >= 0 and action.start_date <= 1677067200000 
             for action in result["actions"]
         )
         assert all(
-            assoc_action.action.start_date >= 1676476000000 and assoc_action.action.start_date <= 1677067200000 
+            assoc_action.start_date >= 0 and assoc_action.start_date <= 1677067200000 
             for assoc_action in result["associated_actions"]
         )

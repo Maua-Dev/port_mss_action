@@ -601,11 +601,12 @@ class ActionRepositoryMock(IActionRepository):
 
         return actions[:amount]
     
-    # def download_projects  (self, actions: List[Action]):
+    def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None):
+     
    
-    #     #download csv of activity in real
+        #download csv of activity in real
 
-    #     return ""
+        return ""
     
     def get_projects_with_actions_and_associations(self) -> dict:
       

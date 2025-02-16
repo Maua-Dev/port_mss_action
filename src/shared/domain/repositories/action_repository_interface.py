@@ -176,9 +176,15 @@ class IActionRepository(ABC):
         Returns all their actions and associated actions of a specific user
         """
         pass
+    @abstractmethod
     def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
       
         """
         Returns all their actions and associated actions of a specific project
         """
+        pass
+    @abstractmethod
+    def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
+      #     Download csv with projects
+
         pass
