@@ -757,6 +757,52 @@ class ActionRepositoryDynamo(IActionRepository):
 
         return csv
 
+    def send_csv_email(self, user_email: str, csv_content: str, csv_filename: str) -> bool:
+        """
+        Envia um e-mail com o CSV anexado.
+        """
+        try:
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        user_email,
+                    ],
+                    'BccAddresses': [
+                        Environments.get_envs().hidden_copy
+                    ]
+                },
+                Message={
+                    'Body': {
+                        'Text': {
+                            'Charset': "UTF-8",
+                            'Data': "Segue em anexo o arquivo CSV com as ações solicitadas."
+                        }
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Ações - Arquivo CSV"
+                    }
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email,
+                ],
+                Source=Environments.get_envs().from_email,
+                Attachments=[
+                    {
+                        'Filename': csv_filename,
+                        'Data': csv_content.encode('utf-8'),
+                        'ContentType': 'text/csv'
+                    }
+                ]
+            )
+
+            return True
+
+        except Exception as err:
+            print(f"Erro ao enviar o e-mail com o CSV: {err}")
+            return False
 
     def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
         """
@@ -801,6 +847,8 @@ class ActionRepositoryDynamo(IActionRepository):
             presigned_url = presigned_url.replace(
                 f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
 
+            self.send_csv_email(user_email=self.get_user_email(user_id), csv_content=csv_content, csv_filename=csv_key)
+            
             return presigned_url
 
         except Exception as err:
