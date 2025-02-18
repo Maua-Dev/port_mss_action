@@ -15,12 +15,16 @@ class DownloadProjectsUsecase:
     def __call__(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, member_user_id: Optional[str] = None,project_code: Optional[str] = None):
 
    
-
+        if Member.validate_user_id(user_id) is False:
+            raise EntityError('user_id')
+        
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
         
         if member_user_id is not None:
+            if Member.validate_user_id(member_user_id) is False:
+                raise EntityError('member_user_id')
             if not self.repo_member.get_member(user_id=member_user_id):
                 raise UnregisteredUser()
         is_admin = Member.validate_role_admin(user.role) or Member.validate_role_external(user.role)
@@ -30,14 +34,15 @@ class DownloadProjectsUsecase:
             raise UserNotAllowed()
         if start is not None and end is not None:
             if start > end:
-                raise PaginationAmountInvalid()
+                raise ForbiddenAction("start must be less than end")
         if project_code is not None:
             if Project.validate_project_code(project_code) is False:
                 raise EntityError('project_code')
             
             result = self.repo.get_all_actions_and_associated_actions_by_project_code(project_code=project_code, start=start, end=end)
-            if result.get('actions') == []and result.get('associated_actions') == []:
+            if result.get('actions') == [] and result.get('associated_actions') == []:
                 raise NoItemsFound('actions')
+            
         download_link = self.repo.download_actions_csv( user_id= member_user_id, project_code=project_code, start=start, end=end)
      
 
