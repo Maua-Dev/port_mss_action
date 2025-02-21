@@ -804,7 +804,7 @@ class ActionRepositoryDynamo(IActionRepository):
             print(f"Erro ao enviar o e-mail com o CSV: {err}")
             return False
 
-    def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
+    def download_actions_csv(self, email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
         """
         Gera e faz o download de um CSV contendo ações e ações associadas, com base no user_id ou project_code.
         """
@@ -847,7 +847,7 @@ class ActionRepositoryDynamo(IActionRepository):
             presigned_url = presigned_url.replace(
                 f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
 
-            self.send_csv_email(user_email=self.get_user_email(user_id), csv_content=csv_content, csv_filename=csv_key)
+            self.send_csv_email(user_email=email, csv_content=csv_content, csv_filename=csv_key)
             
             return presigned_url
 

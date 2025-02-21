@@ -184,7 +184,7 @@ class IActionRepository(ABC):
         """
         pass
     @abstractmethod
-    def download_actions_csv(self, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
+    def download_actions_csv(self,email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
       #     Download csv with projects
 
         pass

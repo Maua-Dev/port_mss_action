@@ -6,7 +6,8 @@ from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFou
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.active_enum import ACTIVE
-
+from datetime import datetime
+from decimal import Decimal
 class DownloadProjectsUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
         self.repo = repo
@@ -21,6 +22,33 @@ class DownloadProjectsUsecase:
         if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
+        
+        if start is None :
+            now = datetime.now()
+            year = now.year
+
+            if (now.month <= 6) or (now.month == 12):
+                if (now.month <= 6): 
+                    start = datetime(year-1, 12, 1).timestamp() * 1000
+                else:
+                    start = datetime(year, 12, 1).timestamp() * 1000
+            else:  
+                start = datetime(year, 7, 1).timestamp() * 1000
+        
+
+        if end is None:
+            now = datetime.now()
+            year = now.year
+
+            if (now.month <= 6) or (now.month == 12): 
+                if (now.month <= 6): 
+                    end = datetime(year, 6, 30).timestamp() * 1000
+                else:
+                    end = datetime(year+1, 6, 30).timestamp() * 1000
+            else:  
+                end = datetime(year, 11, 30).timestamp() * 1000
+
+        start, end = Decimal(start), Decimal(end)
         
         if member_user_id is not None:
             if Member.validate_user_id(member_user_id) is False:
@@ -42,8 +70,9 @@ class DownloadProjectsUsecase:
             result = self.repo.get_all_actions_and_associated_actions_by_project_code(project_code=project_code, start=start, end=end)
             if result.get('actions') == [] and result.get('associated_actions') == []:
                 raise NoItemsFound('actions')
+        
             
-        download_link = self.repo.download_actions_csv( user_id= member_user_id, project_code=project_code, start=start, end=end)
+        download_link = self.repo.download_actions_csv( email = user.email,user_id= member_user_id, project_code=project_code, start=start, end=end)
      
 
         return download_link
