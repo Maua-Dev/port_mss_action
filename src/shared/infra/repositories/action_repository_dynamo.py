@@ -554,13 +554,12 @@ class ActionRepositoryDynamo(IActionRepository):
 
         projects_with_details = {}
 
-        # Iterar sobre os projetos
+       
         for project_item in projects_resp['Items']:
-            # Converter o projeto para uma entidade
+
             project = ProjectDynamoDTO.from_dynamo(project_item).to_entity()
             project_code = project.code
 
-            # Buscar ações relacionadas ao projeto
             actions_expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
             actions_resp = self.dynamo.scan_items(actions_expression)
 
@@ -575,7 +574,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
             actions_with_associations = []
 
-            # Para cada ação, buscar suas associações
+            
             for action in actions:
                 associations_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').eq(action.action_id)
                 associations_resp = self.dynamo.scan_items(associations_expression)
@@ -589,7 +588,6 @@ class ActionRepositoryDynamo(IActionRepository):
                     else []
                 )
 
-                # Montar a estrutura de cada ação com suas associações
                 actions_with_associations.append({
                     "action_id": action.action_id,
                     "title": action.title,
@@ -611,7 +609,6 @@ class ActionRepositoryDynamo(IActionRepository):
                     ]
                 })
 
-            # Montar os detalhes do projeto com as ações e associações
             projects_with_details[project_code] = {
                 "project_name": project.name,
                 "description": project.description,
@@ -646,7 +643,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         associated_actions = []
 
-        # Busca as ações associadas relacionadas a cada ação encontrada
+      
         for action in actions:
             associated_expression = (
                 Attr('SK').begins_with('associated_action#') &
@@ -660,7 +657,6 @@ class ActionRepositoryDynamo(IActionRepository):
                     for item in associated_resp['Items']
                 ])
 
-        # Estrutura a resposta com as ações e suas associadas
         return {
             "actions": [
                 {
@@ -730,12 +726,12 @@ class ActionRepositoryDynamo(IActionRepository):
         """
         Gera o conteúdo de um arquivo CSV com as ações e as ações associadas.
         """
-        # Cabeçalhos do CSV
+
         csv = (
             'Action ID, Title, Description, Start Date, End Date, Duration, User ID, Associated Members, Stack Tags, Action Type\n'
         )
 
-        # Adicionar ações ao CSV
+
         for action in actions:
             csv += (
                 f"{action['action_id']}, {action['title']}, {action['description']}, {action['start_date']}, "
@@ -744,11 +740,10 @@ class ActionRepositoryDynamo(IActionRepository):
                 f"{';'.join(action['stack_tags']) if action['stack_tags'] else ''}, {action['action_type_tag']}\n"
             )
 
-        # Separador entre ações e ações associadas
         csv += '\nAssociated Actions\n'
         csv += 'Associated Action ID, User ID, Start Date, Action ID\n'
 
-        # Adicionar ações associadas ao CSV
+       
         for assoc_action in associated_actions:
             csv += (
                 f"{assoc_action['associated_action_id']}, {assoc_action['user_id']}, "
@@ -758,9 +753,7 @@ class ActionRepositoryDynamo(IActionRepository):
         return csv
 
     def send_csv_email(self, user_email: str, csv_content: str, csv_filename: str) -> bool:
-        """
-        Envia um e-mail com o CSV anexado.
-        """
+     
         try:
             client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
 
@@ -805,11 +798,8 @@ class ActionRepositoryDynamo(IActionRepository):
             return False
 
     def download_actions_csv(self, email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
-        """
-        Gera e faz o download de um CSV contendo ações e ações associadas, com base no user_id ou project_code.
-        """
+     
         try:
-            # Obter ações e ações associadas
             if user_id:
                 actions_data = self.get_all_actions_by_user_id(user_id, start, end)
             elif project_code:
@@ -820,13 +810,10 @@ class ActionRepositoryDynamo(IActionRepository):
             actions = actions_data['actions']
             associated_actions = actions_data['associated_actions']
 
-            # Gerar CSV
             csv_content = self.create_csv_actions(actions, associated_actions)
 
-            # Nome do arquivo CSV
             csv_key = f"actions_{user_id or project_code}.csv"
 
-            # Fazer upload do CSV para o S3
             self.s3_client.put_object(
                 Bucket=self.S3_BUCKET_NAME,
                 Key=csv_key,
@@ -834,14 +821,13 @@ class ActionRepositoryDynamo(IActionRepository):
                 ContentType="text/csv"
             )
 
-            # Gerar URL pré-assinada para download
             presigned_url = self.s3_client.generate_presigned_url(
                 ClientMethod='get_object',
                 Params={
                     'Bucket': self.S3_BUCKET_NAME,
                     'Key': csv_key
                 },
-                ExpiresIn=600  # URL expira em 10 minutos
+                ExpiresIn=600  
             )
 
             presigned_url = presigned_url.replace(
