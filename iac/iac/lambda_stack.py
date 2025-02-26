@@ -182,6 +182,13 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
+        self.download_projects_function = self.create_lambda_api_gateway_integration(
+            module_name="download_projects",
+            method="PUT",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
 
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
@@ -201,7 +208,8 @@ class LambdaStack(Construct):
                 self.update_action_function,
                 self.update_action_validation_function,
                 self.update_member_function,
-                self.delete_action_function
+                self.delete_action_function,
+                self.download_projects_function
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
@@ -222,12 +230,14 @@ class LambdaStack(Construct):
                 self.get_history_function,
                 self.get_history_project_function,
                 self.get_project_function,
-                self.delete_action_function
+                self.delete_action_function,
+                self.download_projects_function
         ]
         
         self.functions_that_need_ses_permissions = [
             self.update_member_function,
-            self.update_action_validation_function
+            self.update_action_validation_function,
+            self.download_projects_function
         ]
 
         self.functions_that_need_s3_permissions = [
@@ -235,6 +245,7 @@ class LambdaStack(Construct):
             self.update_member_function,
             self.create_project_function,
             self.update_project_function,
+            self.download_projects_function
         ]
 
         

@@ -156,3 +156,35 @@ class IActionRepository(ABC):
         Returns all actions of a project by its code
         """
         pass
+    # @abstractmethod
+    # def download_projects(self, actions: List[Action]):
+    #     """
+    #     Download csv with projects
+    #     """
+    #     pass
+    @abstractmethod
+    def get_projects_with_actions_and_associations(self) -> dict:
+        """
+        Returns all projects and their actions and associated actions
+        """
+        pass
+
+    @abstractmethod
+    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+    
+        """
+        Returns all their actions and associated actions of a specific user
+        """
+        pass
+    @abstractmethod
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+      
+        """
+        Returns all their actions and associated actions of a specific project
+        """
+        pass
+    @abstractmethod
+    def download_actions_csv(self,email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
+      #     Download csv with projects
+
+        pass

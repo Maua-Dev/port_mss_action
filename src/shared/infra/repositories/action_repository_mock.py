@@ -600,3 +600,92 @@ class ActionRepositoryMock(IActionRepository):
             actions = list(filter(lambda x: x.start_date <= end, actions))
 
         return actions[:amount]
+    
+    def download_actions_csv(self, email:str,user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None):
+     
+   
+        #download csv of activity in real
+
+        return ""
+    
+    def get_projects_with_actions_and_associations(self) -> dict:
+      
+        projects_with_details = {}
+
+        for project in self.projects:
+            project_code = project.code
+            actions = list(filter(lambda action: action.project_code == project_code, self.actions))
+
+            actions_with_associations = []
+            for action in actions:
+                associations = list(filter(lambda assoc: assoc.action_id == action.action_id, self.associated_actions))
+                actions_with_associations.append({
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag,
+                    "associations": [
+                        {
+                            "associated_action_id": assoc.action_id,
+                            "user_id": assoc.user_id,
+                            "start_date": assoc.start_date
+                        } for assoc in associations
+                    ]
+                })
+
+
+            projects_with_details[project_code] = {
+                "project_name": project.name,
+                "description": project.description,
+                "po_user_id": project.po_user_id,
+                "scrum_user_id": project.scrum_user_id,
+                "photo": project.photo,
+                "members_user_ids": project.members_user_ids,
+                "actions": actions_with_associations
+            }
+
+        return projects_with_details
+
+    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+      
+        user_actions = list(filter(lambda x: x.user_id == user_id, self.actions))
+        user_associated_actions = list(filter(lambda x: x.user_id == user_id, self.associated_actions))
+
+        if start:
+            user_actions = list(filter(lambda x: x.start_date >= start, user_actions))
+            user_associated_actions = list(filter(lambda x: x.start_date >= start, user_associated_actions))
+        if end:
+            user_actions = list(filter(lambda x: x.start_date <= end, user_actions))
+            user_associated_actions = list(filter(lambda x: x.start_date <= end, user_associated_actions))
+
+        return {
+            "actions": user_actions,
+            "associated_actions": user_associated_actions
+        }
+
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+     
+        project_actions = list(filter(lambda x: x.project_code == project_code, self.actions))
+
+        action_ids = [action.action_id for action in project_actions]
+
+  
+        associated_actions = list(filter(lambda x: x.action_id in action_ids, self.associated_actions))
+
+        if start:
+            project_actions = list(filter(lambda x: x.start_date >= start, project_actions))
+            associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
+        if end:
+            project_actions = list(filter(lambda x: x.start_date <= end, project_actions))
+            associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
+
+        return {
+            "actions": project_actions,
+            "associated_actions": associated_actions
+        }

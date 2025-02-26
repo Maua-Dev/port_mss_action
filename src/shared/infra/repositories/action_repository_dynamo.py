@@ -3,6 +3,7 @@ import datetime
 from decimal import Decimal
 import imghdr
 import os
+import hashlib
 from typing import List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
@@ -544,3 +545,298 @@ class ActionRepositoryDynamo(IActionRepository):
 
 
         return actions
+    def get_projects_with_actions_and_associations(self) -> dict:
+   
+        projects_resp = self.dynamo.scan_items(Attr('SK').begins_with('project#'))
+
+        if projects_resp["Count"] == 0:
+            return {}
+
+        projects_with_details = {}
+
+       
+        for project_item in projects_resp['Items']:
+
+            project = ProjectDynamoDTO.from_dynamo(project_item).to_entity()
+            project_code = project.code
+
+            actions_expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
+            actions_resp = self.dynamo.scan_items(actions_expression)
+
+            actions = (
+                [
+                    ActionDynamoDTO.from_dynamo(action_item).to_entity()
+                    for action_item in actions_resp['Items']
+                ]
+                if actions_resp["Count"] > 0
+                else []
+            )
+
+            actions_with_associations = []
+
+            
+            for action in actions:
+                associations_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').eq(action.action_id)
+                associations_resp = self.dynamo.scan_items(associations_expression)
+
+                associations = (
+                    [
+                        AssociatedActionDynamoDTO.from_dynamo(assoc_item).to_entity()
+                        for assoc_item in associations_resp['Items']
+                    ]
+                    if associations_resp["Count"] > 0
+                    else []
+                )
+
+                actions_with_associations.append({
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag,
+                    "associations": [
+                        {
+                            "associated_action_id": assoc.action_id,
+                            "user_id": assoc.user_id,
+                            "start_date": assoc.start_date
+                        }
+                        for assoc in associations
+                    ]
+                })
+
+            projects_with_details[project_code] = {
+                "project_name": project.name,
+                "description": project.description,
+                "po_user_id": project.po_user_id,
+                "scrum_user_id": project.scrum_user_id,
+                "photo": project.photo,
+                "members_user_ids": project.members_user_ids,
+                "actions": actions_with_associations
+            }
+
+        return projects_with_details
+
+    
+    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[dict]]:
+  
+   
+        actions_expression = (
+            Attr('SK').begins_with('action#') &
+            Attr('user_id').eq(user_id) &
+            Attr('start_date').between(start, end) &
+            Attr('end_date').lte(end)
+        )
+        actions_resp = self.dynamo.scan_items(actions_expression)
+
+        if actions_resp["Count"] == 0:
+            return {"actions": [], "associated_actions": []}
+
+        actions = [
+            ActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in actions_resp['Items']
+        ]
+
+        associated_actions = []
+
+      
+        for action in actions:
+            associated_expression = (
+                Attr('SK').begins_with('associated_action#') &
+                Attr('action_id').eq(action.action_id)
+            )
+            associated_resp = self.dynamo.scan_items(associated_expression)
+
+            if associated_resp["Count"] > 0:
+                associated_actions.extend([
+                    AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+                    for item in associated_resp['Items']
+                ])
+
+        return {
+            "actions": [
+                {
+                    "action_id": action.action_id,
+                    "title": action.title,
+                    "description": action.description,
+                    "start_date": action.start_date,
+                    "end_date": action.end_date,
+                    "duration": action.duration,
+                    "user_id": action.user_id,
+                    "associated_members_user_ids": action.associated_members_user_ids,
+                    "stack_tags": action.stack_tags,
+                    "action_type_tag": action.action_type_tag
+                }
+                for action in actions
+            ],
+            "associated_actions": [
+                {
+                    "associated_action_id": associated_actions.action_id,
+                    "user_id": assoc.user_id,
+                    "start_date": assoc.start_date,
+                    "action_id": assoc.action_id 
+                }
+                for assoc in associated_actions
+            ]
+        }
+
+    
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+
+        expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
+
+        if start:
+            expression = expression & Attr('start_date').gte(start)
+        if end:
+            expression = expression & Attr('end_date').lte(end)
+
+        actions_resp = self.dynamo.scan_items(expression)
+
+        if actions_resp["Count"] == 0:
+            return {"actions": [], "associated_actions": []}
+
+        actions = [
+            ActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in actions_resp['Items']
+        ]
+
+        action_ids = {action.action_id for action in actions}
+
+        associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
+
+        associated_resp = self.dynamo.scan_items(associated_expression)
+
+        associated_actions = (
+            [
+                AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+                for item in associated_resp['Items']
+            ]
+            if associated_resp["Count"] > 0
+            else []
+        )
+        return {
+            "actions": actions,
+            "associated_actions": associated_actions,
+        }
+    def create_csv_actions(self,actions: List[dict], associated_actions: List[dict]) -> str:
+        """
+        Gera o conteúdo de um arquivo CSV com as ações e as ações associadas.
+        """
+
+        csv = (
+            'Action ID, Title, Description, Start Date, End Date, Duration, User ID, Associated Members, Stack Tags, Action Type\n'
+        )
+
+
+        for action in actions:
+            csv += (
+                f"{action['action_id']}, {action['title']}, {action['description']}, {action['start_date']}, "
+                f"{action['end_date']}, {action['duration']}, {action['user_id']}, "
+                f"{';'.join(action['associated_members_user_ids']) if action['associated_members_user_ids'] else ''}, "
+                f"{';'.join(action['stack_tags']) if action['stack_tags'] else ''}, {action['action_type_tag']}\n"
+            )
+
+        csv += '\nAssociated Actions\n'
+        csv += 'Associated Action ID, User ID, Start Date, Action ID\n'
+
+       
+        for assoc_action in associated_actions:
+            csv += (
+                f"{assoc_action['associated_action_id']}, {assoc_action['user_id']}, "
+                f"{assoc_action['start_date']}, {assoc_action['action_id']}\n"
+            )
+
+        return csv
+
+    def send_csv_email(self, user_email: str, csv_content: str, csv_filename: str) -> bool:
+     
+        try:
+            client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
+
+            response = client_ses.send_email(
+                Destination={
+                    'ToAddresses': [
+                        user_email,
+                    ],
+                    'BccAddresses': [
+                        Environments.get_envs().hidden_copy
+                    ]
+                },
+                Message={
+                    'Body': {
+                        'Text': {
+                            'Charset': "UTF-8",
+                            'Data': "Segue em anexo o arquivo CSV com as ações solicitadas."
+                        }
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Ações - Arquivo CSV"
+                    }
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email,
+                ],
+                Source=Environments.get_envs().from_email,
+                Attachments=[
+                    {
+                        'Filename': csv_filename,
+                        'Data': csv_content.encode('utf-8'),
+                        'ContentType': 'text/csv'
+                    }
+                ]
+            )
+
+            return True
+
+        except Exception as err:
+            print(f"Erro ao enviar o e-mail com o CSV: {err}")
+            return False
+
+    def download_actions_csv(self, email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
+     
+        try:
+            if user_id:
+                actions_data = self.get_all_actions_by_user_id(user_id, start, end)
+            elif project_code:
+                actions_data = self.get_all_actions_and_associated_actions_by_project_code(project_code, start, end)
+            else:
+                raise ValueError("É necessário fornecer user_id ou project_code.")
+
+            actions = actions_data['actions']
+            associated_actions = actions_data['associated_actions']
+
+            csv_content = self.create_csv_actions(actions, associated_actions)
+
+            csv_key = f"actions_{user_id or project_code}.csv"
+
+            self.s3_client.put_object(
+                Bucket=self.S3_BUCKET_NAME,
+                Key=csv_key,
+                Body=csv_content,
+                ContentType="text/csv"
+            )
+
+            presigned_url = self.s3_client.generate_presigned_url(
+                ClientMethod='get_object',
+                Params={
+                    'Bucket': self.S3_BUCKET_NAME,
+                    'Key': csv_key
+                },
+                ExpiresIn=600  
+            )
+
+            presigned_url = presigned_url.replace(
+                f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
+
+            self.send_csv_email(user_email=email, csv_content=csv_content, csv_filename=csv_key)
+            
+            return presigned_url
+
+        except Exception as err:
+            print(f"Erro ao criar ou baixar o CSV: {err}")
+            return None
