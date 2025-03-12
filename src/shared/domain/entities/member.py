@@ -129,7 +129,10 @@ class Member(abc.ABC):
         if type(year) != int:
             return False
 
-        return year > 0 and year <= 6
+        if not 1577847601000 < year:
+            return False
+        
+        return year 
         
     @staticmethod
     def validate_ra(ra: str) -> bool:
