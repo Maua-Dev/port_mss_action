@@ -49,7 +49,7 @@ class Test_CreateMemberUsecase:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",

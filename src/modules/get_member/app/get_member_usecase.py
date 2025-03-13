@@ -75,4 +75,10 @@ class GetMemberUsecase:
         if not is_active:
             raise UserNotAllowed()
         
+        now = datetime.now()
+        year = now.year
+        dif = year - member.year
+        convert = dif/1000/60/60/24/365 + 1
+        member.year = convert
+        
         return member

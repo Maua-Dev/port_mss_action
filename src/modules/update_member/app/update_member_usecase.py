@@ -48,7 +48,7 @@ class UpdateMemberUsecase:
         if new_year is not None:
             if type(new_year) is not int:
                 raise EntityError('new_year')
-            if new_year < 1 or new_year>6:
+            if not Member.validate_year(new_year):
                 raise EntityError('new_year')
 
         if new_cellphone is not None:

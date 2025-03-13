@@ -49,7 +49,7 @@ class Test_MemberRepositoryMock:
             ra="19017311",
             role=ROLE.DEV,
             stack=STACK.BACKEND,
-            year=3,
+            year=1609459200000,
             cellphone="11911758098",
             course=COURSE.ECM,
             hired_date=1640192165000,
@@ -68,7 +68,7 @@ class Test_MemberRepositoryMock:
         assert member.email_dev == "teste.devmaua@gmail.com"
         assert member.role == ROLE.INTERNAL
         assert member.stack ==   STACK.BACKEND
-        assert member.year ==  234
+        assert member.year ==  1640995200000
         assert member.cellphone == "11234567890"
         assert member.course ==   COURSE.ECM
         assert member.active ==  ACTIVE.DISCONNECTED
@@ -84,7 +84,7 @@ class Test_MemberRepositoryMock:
         assert member.email_dev == "teste.devmaua@gmail.com"
         assert member.role == ROLE.INTERNAL
         assert member.stack ==   STACK.BACKEND
-        assert member.year ==  234
+        assert member.year ==  1640995200000
         assert member.cellphone == "11234567890"
         assert member.course ==   COURSE.ECM
         assert member.deactivated_date ==  16349217650000        

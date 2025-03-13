@@ -129,9 +129,9 @@ class Member(abc.ABC):
         if type(year) != int:
             return False
 
-        if not 1577847601000 < year:
+        if not 1420070400000 < year:
             return False
-        
+ 
         return year 
         
     @staticmethod

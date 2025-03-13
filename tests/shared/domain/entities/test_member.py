@@ -18,7 +18,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1614567601000,
@@ -32,7 +32,7 @@ class Test_Member:
         assert member.ra == "21017310"
         assert member.role == ROLE.DIRECTOR
         assert member.stack == STACK.INFRA
-        assert member.year == 1
+        assert member.year == 1609459200000
         assert member.cellphone == "11991758098"
         assert member.course == COURSE.ECA
         assert member.hired_date == 1614567601000
@@ -49,7 +49,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -66,7 +66,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -83,7 +83,7 @@ class Test_Member:
             ra=21017310,
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -100,7 +100,7 @@ class Test_Member:
             ra="210173A0",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -117,7 +117,7 @@ class Test_Member:
             ra="221017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -135,7 +135,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -152,7 +152,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -170,7 +170,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -187,7 +187,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.EXTERNAL,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -204,7 +204,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
@@ -221,7 +221,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
@@ -238,7 +238,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
@@ -255,7 +255,7 @@ class Test_Member:
             ra="21017310",
             role="ROLE.DIRECTOR",
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -272,7 +272,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack="STACK.INFRA",
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -297,7 +297,7 @@ class Test_Member:
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
-    def test_member_year_bigger_than_6(self): 
+    def test_member_year_bigger_than_2015(self): 
         with pytest.raises(EntityError):
             Member(
             name="Vitor Guirão MPNTM",
@@ -306,7 +306,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=10,
+            year=1356998400000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -314,23 +314,6 @@ class Test_Member:
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
             
-    def test_member_year_smaller_than_0(self): 
-        with pytest.raises(EntityError):
-            Member(
-            name="Vitor Guirão MPNTM",
-            email_dev="vsoller.devmaua@gmail.com",
-            email="vsoller@airubio.com",
-            ra="21017310",
-            role=ROLE.DIRECTOR,
-            stack=STACK.INFRA,
-            year=-2,
-            cellphone="11991758098",
-            course=COURSE.ECA,
-            hired_date=1671728165,
-            active=ACTIVE.FREEZE,
-            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
-        )
-
     def test_member_cellphone_not_str(self): 
         with pytest.raises(EntityError):
             Member(
@@ -340,7 +323,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone=11991758098,
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -357,7 +340,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="551991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -375,7 +358,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course="COURSE.ECA",
             hired_date=1671728165,
@@ -393,7 +376,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date="10/10/2002",
@@ -410,7 +393,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=-1671728165,
@@ -427,7 +410,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -444,7 +427,7 @@ class Test_Member:
             ra="21017310",
             role=ROLE.DIRECTOR,
             stack=STACK.INFRA,
-            year=1,
+            year=1609459200000,
             cellphone="11991758098",
             course=COURSE.ECA,
             hired_date=1671728165,
@@ -462,7 +445,7 @@ class Test_Member:
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
-                year=1,
+                year=1609459200000,
                 cellphone="11991758098",
                 course=COURSE.ECA,
                 hired_date=1671728165,
@@ -480,7 +463,7 @@ class Test_Member:
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
-                year=1,
+                year=1609459200000,
                 cellphone="11991758098",
                 course=COURSE.ECA,
                 hired_date=1671728165,
@@ -498,7 +481,7 @@ class Test_Member:
                 ra="21017310",
                 role=ROLE.DIRECTOR,
                 stack=STACK.INFRA,
-                year=1,
+                year=1609459200000,
                 cellphone="11991758098",
                 course=COURSE.ECA,
                 hired_date=1671728165,

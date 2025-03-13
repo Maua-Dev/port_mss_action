@@ -50,7 +50,7 @@ class Test_CreateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"email_dev":"vsoller.devmaua@gmail.com","ra":"21017315","role":"DIRECTOR","stack":"INFRA","year":1,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000}',
+            "body": '{"email_dev":"vsoller.devmaua@gmail.com","ra":"21017315","role":"DIRECTOR","stack":"INFRA","year":1609459200000,"cellphone":"11991758098","course":"ECA","hired_date":1614567601000}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -64,7 +64,7 @@ class Test_CreateMemberPresenter:
         assert json.loads(response["body"])['member']['ra'] == "21017315"
         assert json.loads(response["body"])['member']['role'] == ROLE.DIRECTOR.value
         assert json.loads(response["body"])['member']['stack'] == STACK.INFRA.value
-        assert json.loads(response["body"])['member']['year'] == 1
+        assert json.loads(response["body"])['member']['year'] == 1609459200000
         assert json.loads(response["body"])['member']['cellphone'] == "11991758098"
         assert json.loads(response["body"])['member']['course'] == COURSE.ECA.value
         assert json.loads(response["body"])['member']['active'] == ACTIVE.ON_HOLD.value

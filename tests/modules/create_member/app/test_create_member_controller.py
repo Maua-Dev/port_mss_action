@@ -28,7 +28,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -44,7 +44,7 @@ class Test_CreateMemberController:
         assert response.body['member']['ra'] == "21017315"
         assert response.body['member']['role'] == 'DIRECTOR'
         assert response.body['member']['stack'] == STACK.INFRA.value
-        assert response.body['member']['year'] == 1
+        assert response.body['member']['year'] == 1609459200000
         assert response.body['member']['cellphone'] == "11991758098"
         assert response.body['member']['course'] == COURSE.ECA.value
         assert response.body['member']['photo'] == None
@@ -66,7 +66,7 @@ class Test_CreateMemberController:
             'email_dev':"vsoller.devmaua@gmail.com",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -95,7 +95,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -122,7 +122,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -149,7 +149,7 @@ class Test_CreateMemberController:
             'ra':"21017ertert315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -176,7 +176,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':'ROLE',
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -203,7 +203,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':'STACK.INFRA.value',
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -257,7 +257,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"18098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -284,7 +284,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':'COURSE.ECA.value',
             'photo': None,
@@ -305,7 +305,7 @@ class Test_CreateMemberController:
             'ra':"21017315",
             'role':ROLE.DIRECTOR.value,
             'stack':STACK.INFRA.value,
-            'year':1,
+            'year':1609459200000,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
             'photo': None,
@@ -342,7 +342,7 @@ class Test_CreateMemberController:
         assert response.body['member']['ra'] == "00000000"
         assert response.body['member']['role'] == 'EXTERNAL'
         assert response.body['member']['stack'] == STACK.BUSINESS.value
-        assert response.body['member']['year'] == 1
+        assert response.body['member']['year'] == 1609459200000
         assert response.body['member']['cellphone'] == "11991758098"
         assert response.body['member']['course'] == COURSE.ADM.value
         assert response.body['member']['photo'] == None
