@@ -22,7 +22,7 @@ class Test_GetMemberViewModel:
                     'role': 'DIRECTOR',
                     'stack': 'INFRA',
                     'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                    'year': 1,
+                    'year': 5,
                     'cellphone': '11991758098',
                     'course': 'ECA',
                     'hired_date': 1634576165000,

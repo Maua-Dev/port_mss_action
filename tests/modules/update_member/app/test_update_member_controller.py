@@ -29,7 +29,7 @@ class Test_UpdateMemberController:
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
-            'new_year':3,
+            'new_year':1609459200000,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.DISCONNECTED.value,  
@@ -40,7 +40,7 @@ class Test_UpdateMemberController:
        
         assert response.status_code == 200
         assert response.body["message"] == "the member was updated"
-        assert response.body["member"]["year"] == 3
+        assert response.body["member"]["year"] == 1609459200000
         
     def test_update_member_controller_only_name(self):
         
@@ -81,14 +81,14 @@ class Test_UpdateMemberController:
                     "custom:isMaua": True
                 },
        
-            'new_year':3
+            'new_year':1609459200000
              
             })
         
         response = controller(request)
        
         assert response.status_code == 200
-        assert response.body["member"]["year"] == 3
+        assert response.body["member"]["year"] == 1609459200000
         assert response.body["message"] == "the member was updated"
     
     
@@ -135,7 +135,7 @@ class Test_UpdateMemberController:
             'email_dev':"jbranco.devmaua@gmail.com",
             'role':ROLE.HEAD.value,
             'stack':STACK.BACKEND.value,
-            'year':3,
+            'year':1609459200000,
             'cellphone':"11991152348",
             'course':COURSE.ECM.value,
             'active':ACTIVE.ACTIVE.value
@@ -266,7 +266,7 @@ class Test_UpdateMemberController:
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
-            'new_year':3,
+            'new_year':1609459200000,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
@@ -278,7 +278,7 @@ class Test_UpdateMemberController:
        
         assert response.status_code == 200
         assert response.body["message"] == "the member was updated"
-        assert response.body["member"]["year"] == 3
+        assert response.body["member"]["year"] == 1609459200000
 
     def test_update_member_controller_forbidden_user(self):
         
@@ -299,7 +299,7 @@ class Test_UpdateMemberController:
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
-            'new_year':3,
+            'new_year':1609459200000,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
@@ -332,7 +332,7 @@ class Test_UpdateMemberController:
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
-            'new_year':3,
+            'new_year':1609459200000,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,
@@ -365,7 +365,7 @@ class Test_UpdateMemberController:
             'new_email_dev':"test.devmaua@gmail.com",
             'new_role':ROLE.HEAD.value,
             'new_stack':STACK.BACKEND.value,
-            'new_year':3,
+            'new_year':1609459200000,
             'new_cellphone':"11987654321",
             'new_course':COURSE.ECM.value,
             'new_active':ACTIVE.ACTIVE.value,

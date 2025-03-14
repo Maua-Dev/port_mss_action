@@ -30,7 +30,7 @@ class Test_DeleteMemberController:
         assert response.body["member"]["ra"] == "21017310"
         assert response.body["member"]["role"] == "DIRECTOR"
         assert response.body["member"]["stack"] == "INFRA"
-        assert response.body["member"]["year"] == 1
+        assert response.body["member"]["year"] == 1609459200000
         assert response.body["member"]["cellphone"] == "11991758098"
         assert response.body["member"]["course"] == "ECA"
         assert response.body["member"]["hired_date"] == 1634576165000

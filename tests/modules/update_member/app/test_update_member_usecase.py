@@ -16,7 +16,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,
@@ -55,9 +55,9 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_year=5)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_year=1609459200000)
         
-        assert repo.members[0].year == 5
+        assert repo.members[0].year == 1609459200000
 
     def test_update_member_usecase_new_cellphone(self):
         repo = MemberRepositoryMock()
@@ -198,7 +198,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
@@ -213,7 +213,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000)
@@ -228,7 +228,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
@@ -244,7 +244,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
@@ -260,7 +260,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
@@ -274,7 +274,7 @@ class Test_UpdateMemberUsecase:
                 new_email_dev="jbranco.devmaua@gmail.com",
                 new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
-                new_year=3,
+                new_year=1609459200000,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE)

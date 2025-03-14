@@ -23,7 +23,7 @@ class Test_UpdateMemberViewmodel:
                 'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 'role':ROLE.DIRECTOR.value,
                 'stack':STACK.INFRA.value,
-                'year':1,
+                'year':1609459200000,
                 'cellphone':"11991758098",
                 'course':COURSE.ECA.value,
                 'hired_date':1634576165000,

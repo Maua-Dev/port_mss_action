@@ -62,13 +62,13 @@ class Test_MemberRepositoryMock:
         
     def test_update_member(self):
         repo = MemberRepositoryMock()
-        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_photo="photo")
+        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=1609459200000,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_photo="photo")
         assert type(member) == Member
         assert member.name == 'Teste'
         assert member.email_dev == "teste.devmaua@gmail.com"
         assert member.role == ROLE.INTERNAL
         assert member.stack ==   STACK.BACKEND
-        assert member.year ==  1640995200000
+        assert member.year ==  1609459200000
         assert member.cellphone == "11234567890"
         assert member.course ==   COURSE.ECM
         assert member.active ==  ACTIVE.DISCONNECTED
@@ -77,14 +77,14 @@ class Test_MemberRepositoryMock:
         
     def test_update_member_deactivated_date(self):
         repo = MemberRepositoryMock()
-        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=234,new_cellphone="11234567890",new_deactivated_date=16349217650000,new_course=COURSE.ECM)
+        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=1609459200000,new_cellphone="11234567890",new_deactivated_date=16349217650000,new_course=COURSE.ECM)
 
         assert type(member) == Member
         assert member.name == 'Teste'
         assert member.email_dev == "teste.devmaua@gmail.com"
         assert member.role == ROLE.INTERNAL
         assert member.stack ==   STACK.BACKEND
-        assert member.year ==  1640995200000
+        assert member.year ==  1609459200000
         assert member.cellphone == "11234567890"
         assert member.course ==   COURSE.ECM
         assert member.deactivated_date ==  16349217650000        

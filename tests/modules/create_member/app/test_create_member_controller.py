@@ -342,7 +342,7 @@ class Test_CreateMemberController:
         assert response.body['member']['ra'] == "00000000"
         assert response.body['member']['role'] == 'EXTERNAL'
         assert response.body['member']['stack'] == STACK.BUSINESS.value
-        assert response.body['member']['year'] == 1609459200000
+        assert response.body['member']['year'] == 1735689600000
         assert response.body['member']['cellphone'] == "11991758098"
         assert response.body['member']['course'] == COURSE.ADM.value
         assert response.body['member']['photo'] == None

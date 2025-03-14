@@ -34,7 +34,7 @@ class CreateMemberController:
             if role == ROLE.EXTERNAL:
                 ra = "00000000"
                 course = COURSE.ADM
-                year = 1
+                year = 1735689600000
                 stack = STACK.BUSINESS
                 email_dev = "external.devmaua@gmail.com"
             else:
