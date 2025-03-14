@@ -67,4 +67,9 @@ class GetAllMembersUsecase:
         if not is_active:
             raise UserNotAllowed()
         
+        for member in members:
+            now = datetime.now()
+            member_year = now.year - datetime.fromtimestamp(member.hired_date/1000).year + 1
+            member.year = member_year
+
         return members
