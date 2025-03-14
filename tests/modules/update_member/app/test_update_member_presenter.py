@@ -45,7 +45,7 @@ class Test_UpdateMemberPresenter:
                 "time": "12/Mar/2020:19:03:58 +0000",
                 "timeEpoch": 1583348638390
             },
-            "body": '{"new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":3,"new_cellphone":"11991152348","new_course":"ECM","new_active":"DISCONNECTED"}',
+            "body": '{"new_name":"Joao Branco","new_email_dev":"jbranco.devmaua@gmail.com","new_role":"HEAD","new_stack":"BACKEND","new_year":1609459200000,"new_cellphone":"11991152348","new_course":"ECM","new_active":"DISCONNECTED"}',
             "pathParameters": None,
             "isBase64Encoded": None,
             "stageVariables": None
@@ -60,7 +60,7 @@ class Test_UpdateMemberPresenter:
         assert json.loads(response["body"])["member"]["user_id"] == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert json.loads(response["body"])["member"][ "role"] == "HEAD"
         assert json.loads(response["body"])["member"][ "stack"] == "BACKEND"
-        assert json.loads(response["body"])["member"]["year"] == 3
+        assert json.loads(response["body"])["member"]["year"] == 1609459200000
         assert json.loads(response["body"])["member"]["cellphone"] == "11991152348"
         assert json.loads(response["body"])["member"]["course"] == "ECM"
         assert json.loads(response["body"])["member"]["hired_date"] == 1634576165000

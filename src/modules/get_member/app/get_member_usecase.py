@@ -76,9 +76,7 @@ class GetMemberUsecase:
             raise UserNotAllowed()
         
         now = datetime.now()
-        year = now.year
-        dif = year - member.year
-        convert = dif/1000/60/60/24/365 + 1
-        member.year = convert
-        
+        member_year = now.year - datetime.fromtimestamp(member.hired_date/1000).year + 1
+        member.year = member_year
+
         return member

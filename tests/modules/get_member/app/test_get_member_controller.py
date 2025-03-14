@@ -34,7 +34,7 @@ class Test_GetMemberController:
                 'role' : self.first_member.role.value,
                 'stack' : self.first_member.stack.value,
                 'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                'year' : self.first_member.year,
+                'year' : 5,
                 'cellphone' : self.first_member.cellphone,
                 'course' : self.first_member.course.value,
                 'hired_date' : self.first_member.hired_date,

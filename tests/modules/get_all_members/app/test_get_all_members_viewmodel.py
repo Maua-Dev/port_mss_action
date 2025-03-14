@@ -261,7 +261,7 @@ class Test_GetAllMembersViewModel:
                         'role': 'DIRECTOR',
                         'stack': 'INFRA',
                         'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                        'year': 5,
+                        'year': 1609459200000,
                         'cellphone': '11991758098',
                         'course': 'ECA',
                         'hired_date': 1634576165000,
@@ -435,6 +435,7 @@ class Test_GetAllMembersViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
+                        'hours_worked': 0,
                         'photo': None
                         }
                 },
