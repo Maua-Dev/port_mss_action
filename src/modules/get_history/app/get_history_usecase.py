@@ -1,4 +1,5 @@
 from typing import Optional, Tuple
+from src.shared.domain.entities import action
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, PaginationAmountInvalid, UnregisteredUser, UserNotAllowed, UserIsNotFromAdmin
@@ -51,7 +52,11 @@ class GetHistoryUsecase:
 
         action_ids = [action.action_id for action in actions_requested]
         actions = self.repo.batch_get_action(action_ids=action_ids)
+        
+        for action in actions:
+            if self.repo.update_action(action_id=action.action_id,new_user_id=action.user_id, new_start_date=action.start_date, new_end_date=action.end_date, new_duration=action.duration, new_story_id=action.story_id, new_title=action.title, new_description=action.description, new_project_code=action.project_code, new_associated_members_user_ids=action.associated_members_user_ids, new_stack_tags=action.stack_tags, new_action_type_tag=action.action_type_tag):
+                actions = self.repo.batch_get_action(action_ids=action_ids)
+
         actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
         
-
         return actions, last_ev
