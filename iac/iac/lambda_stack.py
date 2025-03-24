@@ -5,7 +5,8 @@ from aws_cdk import (
 )
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
-from aws_cdk.aws_events import Schedule
+from aws_cdk.aws_events import Rule, Schedule
+from aws_cdk.aws_events_target import LambdaFunction
 
 class LambdaStack(Construct):
 
@@ -30,6 +31,27 @@ class LambdaStack(Construct):
 
         return function
 
+    def create_lambda_event_bridge_integration(self,module_name: str,cron_schedule: Schedule.cron,environment_variables: dict = {"STAGE": "TEST"}):
+        function = lambda_.Function(
+            self,
+            module_name.title(),
+            code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
+            handler=f"app.{module_name}_presenter.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_9,
+            layers=[self.lambda_layer],
+            environment=environment_variables,
+            timeout=Duration.seconds(15)
+        )
+
+        rule = Rule(
+            self, f"{module_name.title()}EventRule",
+            schedule=cron_schedule
+        )
+
+        rule.add_target(LambdaFunction(function))
+
+        return function
+
     def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict,
                  authorizer: CognitoUserPoolsAuthorizer) -> None:
         super().__init__(scope, "PortalInterno_Lambdas")
@@ -50,7 +72,6 @@ class LambdaStack(Construct):
         self.create_project_function = self.create_lambda_api_gateway_integration(
             module_name="create_project",
             method="POST",
-            api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
         )
@@ -183,11 +204,10 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
-        self.download_members_function = self.create_lambda_api_gateway_integration(
+        self.download_members_function = self.create_lambda_event_bridge_integration(
             module_name="download_members",
             cron_schedule=Schedule.cron(week_day="FRI", hour=18),
-            environment_variables=environment_variables,
-            authorizer=authorizer    
+            environment_variables=environment_variables   
         )
 
         self.download_projects_function = self.create_lambda_api_gateway_integration(
