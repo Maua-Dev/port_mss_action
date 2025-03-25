@@ -6,7 +6,7 @@ from aws_cdk import (
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
 from aws_cdk.aws_events import Rule, Schedule
-from aws_cdk.aws_events_target import LambdaFunction
+from aws_cdk.aws_events_targets import LambdaFunction
 
 class LambdaStack(Construct):
 
@@ -72,6 +72,7 @@ class LambdaStack(Construct):
         self.create_project_function = self.create_lambda_api_gateway_integration(
             module_name="create_project",
             method="POST",
+            api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
         )
