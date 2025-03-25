@@ -207,7 +207,7 @@ class LambdaStack(Construct):
 
         self.download_members_function = self.create_lambda_event_bridge_integration(
             module_name="download_members",
-            cron_schedule=Schedule.cron(week_day="FRI", hour=18),
+            cron_schedule=Schedule.cron(week_day="TUE", hour="18", minute="0"),
             environment_variables=environment_variables   
         )
 
