@@ -51,7 +51,11 @@ class GetHistoryUsecase:
 
         action_ids = [action.action_id for action in actions_requested]
         actions = self.repo.batch_get_action(action_ids=action_ids)
-        actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
         
+        updated_actions = []
+        for action in actions:
+            if self.repo.is_action_updated(action.action_id):
+                updated_actions.append(action)
 
+        actions = sorted(actions + updated_actions, key=lambda action: action.start_date, reverse= True)
         return actions, last_ev

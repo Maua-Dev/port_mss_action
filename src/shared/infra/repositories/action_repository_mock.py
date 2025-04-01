@@ -492,8 +492,7 @@ class ActionRepositoryMock(IActionRepository):
                     action.action_type_tag = new_action_type_tag
                 new_action = action
         return new_action
-    
-
+            
     def delete_action(self, action_id: str) -> Action:
         for action in self.actions[:]:
             if action.action_id == action_id:
@@ -502,6 +501,39 @@ class ActionRepositoryMock(IActionRepository):
                 return action
         return None
     
+    def is_action_updated(self, action_id: str) -> bool:
+        action = self.get_action(action_id)
+        if not action: 
+            return False
+        
+        original_action = action
+
+        if original_action.user_id != action.user_id:
+            return True
+        elif original_action.start_date != action.start_date:
+            return True
+        elif original_action.end_date != action.end_date:
+            return True
+        elif original_action.duration != action.duration:
+            return True
+        elif original_action.story_id != action.story_id:
+            return True
+        elif original_action.is_valid != action.is_valid:
+            return True
+        elif original_action.title != action.title:
+            return True
+        elif original_action.description != action.description:
+            return True
+        elif original_action.project_code != action.project_code:
+            return True
+        elif original_action.associated_members_user_ids != action.associated_members_user_ids:
+            return True
+        elif original_action.stack_tags != action.stack_tags:
+            return True
+        elif original_action.action_type_tag != action.action_type_tag:
+            return True
+        else:
+            return False
 
     def batch_delete_associated_actions(self, action_id: str) -> List[AssociatedAction]:
         deleted_actions = []

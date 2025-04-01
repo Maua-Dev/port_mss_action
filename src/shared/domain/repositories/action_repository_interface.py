@@ -188,3 +188,10 @@ class IActionRepository(ABC):
       #     Download csv with projects
 
         pass
+
+    @abstractmethod
+    def is_action_updated(self, action_id: str) -> bool:
+        """
+        Returns True if action is updated
+        """
+        pass
