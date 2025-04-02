@@ -144,6 +144,13 @@ class Test_ActionRepositoryMock:
         assert type(action) == Action
         assert repo.actions[0] == action
 
+    def test_is_action_updated(self):
+        repo = ActionRepositoryMock()
+        action = repo.get_action(action_id=repo.actions[0].action_id)
+        updated_action = repo.get_action(action_id=repo.actions[0].action_id)
+        updated_action = repo.update_action(action_id=updated_action.action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_associated_members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4'], new_is_valid=False, new_story_id=200, new_duration=2*60*60*1000, new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
+        assert repo.is_action_updated(action.action_id, updated_action.action_id) == True
+        
     def test_batch_delete_associated_actions_(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.associated_actions)

@@ -493,36 +493,36 @@ class ActionRepositoryMock(IActionRepository):
                 new_action = action
         return new_action
     
-    def is_action_updated(self, action_id: str) -> bool:
+    def is_action_updated(self, action_id: str, updated_action_id: str) -> bool:
         action = self.get_action(action_id)
-        if not action: 
+        updated_action = self.get_action(updated_action_id) 
+
+        if not action or not updated_action: 
             return False
-         
-        original_action = action
- 
-        if original_action.user_id != action.user_id:
+
+        if action.user_id != updated_action.user_id:
             return True
-        if original_action.start_date != action.start_date:
+        if action.start_date != updated_action.start_date:
             return True
-        if original_action.end_date != action.end_date:
+        if action.end_date != updated_action.end_date:
             return True
-        if original_action.duration != action.duration:
+        if action.duration != updated_action.duration:
             return True
-        if original_action.story_id != action.story_id:
+        if action.story_id != updated_action.story_id:
             return True
-        if original_action.is_valid != action.is_valid:
+        if action.title != updated_action.title:
             return True
-        if original_action.title != action.title:
+        if action.description != updated_action.description:
             return True
-        if original_action.description != action.description:
+        if action.project_code != updated_action.project_code:
             return True
-        if original_action.project_code != action.project_code:
+        if action.associated_members_user_ids != updated_action.associated_members_user_ids:
             return True
-        if original_action.associated_members_user_ids != action.associated_members_user_ids:
+        if action.stack_tags != updated_action.stack_tags:
             return True
-        if original_action.stack_tags != action.stack_tags:
+        if action.action_type_tag != updated_action.action_type_tag:
             return True
-        if original_action.action_type_tag != action.action_type_tag:
+        if action.is_valid != updated_action.is_valid:
             return True
         
         return False
