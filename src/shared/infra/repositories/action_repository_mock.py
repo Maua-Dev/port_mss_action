@@ -501,13 +501,6 @@ class ActionRepositoryMock(IActionRepository):
                 return action
         return None
     
-    def is_action_updated(self, action_id: str) -> bool:
-        action = self.get_action(action_id)
-        if not action: 
-            return False
-        
-        original_action = action
-
         if original_action.user_id != action.user_id:
             return True
         elif original_action.start_date != action.start_date:
