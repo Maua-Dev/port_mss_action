@@ -396,17 +396,17 @@ class ActionRepositoryMock(IActionRepository):
     def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]]= None) -> Project:
         for project in self.projects:
             if project.code == code:
-                if new_name is not None:
+                if new_name != None:
                     project.name = new_name
-                if new_description is not None:
+                if new_description != None:
                     project.description = new_description
-                if new_po_user_id is not None:
+                if new_po_user_id != None:
                     project.change_po_user_id(new_po_user_id)
-                if new_scrum_user_id is not None:
+                if new_scrum_user_id != None:
                     project.change_scrum_user_id(new_scrum_user_id)
-                if new_photo is not None:
+                if new_photo != None:
                     project.photo = new_photo
-                if new_members_user_ids is not None:
+                if new_members_user_ids != None:
                     project.members_user_ids = new_members_user_ids
 
                 return project
@@ -423,7 +423,10 @@ class ActionRepositoryMock(IActionRepository):
             action0 = associated_actions[0]
             while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
                 associated_actions.pop(0)
-                action0 = associated_actions[0] if len(associated_actions) > 0 else None
+                if len(associated_actions) == 0:
+                    action0 = None
+                else:
+                    action0 = associated_actions[0]
             associated_actions.pop(0) if len(associated_actions) > 0 else None
         if start:
             associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
@@ -466,29 +469,29 @@ class ActionRepositoryMock(IActionRepository):
         new_action = None
         for action in self.actions:
             if action.action_id == action_id:
-                if new_user_id is not None:
+                if new_user_id != None:
                     action.user_id = new_user_id
-                if new_start_date is not None:
+                if new_start_date != None:
                     action.start_date = new_start_date
-                if new_end_date is not None:
+                if new_end_date != None:
                     action.end_date = new_end_date
-                if new_duration is not None:
+                if new_duration != None:
                     action.duration = new_duration
-                if new_story_id is not -1:
+                if new_story_id != -1:
                     action.story_id = new_story_id
-                if new_is_valid is not None:
+                if new_is_valid != None:
                     action.is_valid = new_is_valid
-                if new_title is not None:
+                if new_title != None:
                     action.title = new_title
-                if new_description is not '':
+                if new_description != '':
                     action.description = new_description
-                if new_project_code is not None:
+                if new_project_code != None:
                     action.project_code = new_project_code
-                if new_associated_members_user_ids is not None:
+                if new_associated_members_user_ids != None:
                     action.associated_members_user_ids = new_associated_members_user_ids
-                if new_stack_tags is not None:
+                if new_stack_tags != None:
                     action.stack_tags = new_stack_tags
-                if new_action_type_tag is not None:
+                if new_action_type_tag != None:
                     action.action_type_tag = new_action_type_tag
                 new_action = action
         return new_action
@@ -559,7 +562,7 @@ class ActionRepositoryMock(IActionRepository):
             
             if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
 
-                if action.duration is not None:
+                if action.duration != None:
                     if action.user_id in durations_by_user_id:
                         durations_by_user_id[action.user_id] += action.duration
                     else:
@@ -586,7 +589,7 @@ class ActionRepositoryMock(IActionRepository):
             
             if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
                 
-                if action.duration is not None:
+                if action.duration != None:
                     if action.user_id == user_id:
                         total_duration += action.duration
                     
@@ -611,7 +614,7 @@ class ActionRepositoryMock(IActionRepository):
             
             if (start_date is None or action.start_date >= start_date) and (end_date is None or action.end_date <= end_date):
                 
-                if action.duration is not None:
+                if action.duration != None:
                     if action.project_code in total_duration:
                         total_duration[action.project_code] += action.duration
                     else:
@@ -623,7 +626,7 @@ class ActionRepositoryMock(IActionRepository):
         actions = list(filter(lambda x: x.project_code == project_code, actions))
         if exclusive_start_key:
             action0 = actions[0]
-            while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
+            while action0 != None and action0.action_id != exclusive_start_key["action_id"]:
                 actions.pop(0)
                 action0 = actions[0] if len(actions) > 0 else None
             actions.pop(0) if len(actions) > 0 else None
