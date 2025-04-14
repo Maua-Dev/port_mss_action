@@ -1,4 +1,4 @@
-from src.modules.download_members.app.download_members_extractor import DownloadMembersExtractor
+from .download_members_extractor import DownloadMembersExtractor
 import pandas as pd
 import io
 

@@ -1,6 +1,6 @@
 import boto3
-from src.modules.download_members.app.download_members_extractor import DownloadMembersExtractor
-from src.modules.download_members.app.download_members_transformer import DownloadMembersTransformer
+from .download_members_extractor import DownloadMembersExtractor
+from .download_members_transformer import DownloadMembersTransformer
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
