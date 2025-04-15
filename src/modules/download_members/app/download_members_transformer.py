@@ -12,7 +12,8 @@ class DownloadMembersTransformer:
 
         output = io.BytesIO()
 
-        df_members.to_csv(output, index = False)
+        with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+            df_members.to_excel(writer, sheet_name="Membros")
 
         output.seek(0)
 
