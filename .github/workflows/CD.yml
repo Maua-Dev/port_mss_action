@@ -62,3 +62,4 @@ jobs:
               REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
               FROM_EMAIL: ${{ vars.FROM_EMAIL }}
               HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
+              S3_BUCKET_NAME: ${{ vars.S3_BUCKET_NAME }}
