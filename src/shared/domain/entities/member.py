@@ -59,6 +59,11 @@ class Member(abc.ABC):
         if not Member.validate_email(email):
             raise EntityError('email')
         self.email = email
+
+        if role == ROLE.EXTERNAL:
+            if not Member.validate_email_maua(email):
+                raise EntityError('email')
+        self.email = email
         
         if type(role) != ROLE:
             raise EntityError("role")
@@ -126,7 +131,6 @@ class Member(abc.ABC):
 
         return year > 0 and year <= 6
         
-                
     @staticmethod
     def validate_ra(ra: str) -> bool:
         if ra == None:
@@ -147,6 +151,17 @@ class Member(abc.ABC):
             return False
         regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
         return bool(re.fullmatch(regex, email_dev))
+
+    @staticmethod
+    def validate_email_maua(email_maua) -> bool:
+        if email_maua == None:
+            return False
+        if type(email_maua) != str:
+            return False
+        if email_maua[-8:] != "@maua.br":
+            return False
+        regex = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+        return bool(re.fullmatch(regex, email_maua))
 
     @staticmethod
     def validate_name(name) -> bool:
@@ -194,7 +209,15 @@ class Member(abc.ABC):
         if type(role) != ROLE:
             return False
         return (role == ROLE.DIRECTOR or role == ROLE.HEAD)
-    
+
+    @staticmethod
+    def validate_role_external(role: ROLE) -> bool:
+        if role == None:
+            return False
+        if type(role) != ROLE:
+            return False
+        return (role == ROLE.EXTERNAL)
+
     @staticmethod
     def validate_active(active: ACTIVE) -> bool:
         if active == None:
@@ -205,15 +228,17 @@ class Member(abc.ABC):
     
     @staticmethod
     def validate_photo(photo: str) -> bool:
-        if photo is None: return True
-        if type(photo) != str: return False
+        if photo is None:
+            return True
+        if type(photo) != str:
+            return False
         return True
     
     def __repr__(self):
-        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}"
+        return f"Member(name={self.name}, email_dev={self.email_dev}, email={self.email}, ra={self.ra}, role={self.role}, stack={self.stack}, year={self.year}, cellphone={self.cellphone}, course={self.course}, hired_date={self.hired_date}, deactivated_date={self.deactivated_date}, active={self.active}), user_id={self.user_id}, photo={self.photo}"
     
     def __eq__(self, other):
         if not isinstance(other, Member):
             return False
 
-        return self.name == other.name and self.email_dev == other.email_dev and self.email == other.email and self.ra == other.ra and self.role == other.role and self.stack == other.stack and self.year == other.year and self.cellphone == other.cellphone and self.course == other.course and self.hired_date == other.hired_date and self.deactivated_date == other.deactivated_date and self.active == other.active
+        return self.name == other.name and self.email_dev == other.email_dev and self.email == other.email and self.ra == other.ra and self.role == other.role and self.stack == other.stack and self.year == other.year and self.cellphone == other.cellphone and self.course == other.course and self.hired_date == other.hired_date and self.deactivated_date == other.deactivated_date and self.active == other.active and self.user_id == other.user_id and self.photo == other.photo

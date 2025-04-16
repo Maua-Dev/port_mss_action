@@ -28,7 +28,7 @@ class GetHistoryUsecase:
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
         
-        is_admin = Member.validate_role_admin(user.role)
+        is_admin = Member.validate_role_admin(user.role) or Member.validate_role_external(user.role)
 
         adjusted_amount = amount+1
 

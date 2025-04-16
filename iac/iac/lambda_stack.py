@@ -5,7 +5,8 @@ from aws_cdk import (
 )
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
-
+from aws_cdk.aws_events import Rule, Schedule
+from aws_cdk.aws_events_targets import LambdaFunction
 
 class LambdaStack(Construct):
 
@@ -27,6 +28,27 @@ class LambdaStack(Construct):
                                                                                         integration=LambdaIntegration(
                                                                                             function),
                                                                                         authorizer=authorizer)
+
+        return function
+
+    def create_lambda_event_bridge_integration(self,module_name: str,cron_schedule: Schedule.cron,environment_variables: dict = {"STAGE": "TEST"}):
+        function = lambda_.Function(
+            self,
+            module_name.title(),
+            code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
+            handler=f"app.{module_name}_presenter.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_9,
+            layers=[self.lambda_layer],
+            environment=environment_variables,
+            timeout=Duration.seconds(15)
+        )
+
+        rule = Rule(
+            self, f"{module_name.title()}EventRule",
+            schedule=cron_schedule
+        )
+
+        rule.add_target(LambdaFunction(function))
 
         return function
 
@@ -94,7 +116,15 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
-        
+
+        self.get_history_project_function = self.create_lambda_api_gateway_integration(
+            module_name="get_history_project",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+ 
         self.get_member_function = self.create_lambda_api_gateway_integration(
             module_name="get_member",
             method="POST",
@@ -175,6 +205,20 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.download_members_function = self.create_lambda_event_bridge_integration(
+            module_name="download_members",
+            cron_schedule=Schedule.cron(week_day="TUE", hour="18", minute="0"),
+            environment_variables=environment_variables   
+        )
+
+        self.download_projects_function = self.create_lambda_api_gateway_integration(
+            module_name="download_projects",
+            method="PUT",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
@@ -184,6 +228,7 @@ class LambdaStack(Construct):
                 self.get_all_projects_function,
                 self.batch_get_member_function,
                 self.get_history_function,
+                self.get_history_project_function,
                 self.get_member_function,
                 self.get_project_function,
                 self.get_all_members_function,
@@ -192,7 +237,9 @@ class LambdaStack(Construct):
                 self.update_action_function,
                 self.update_action_validation_function,
                 self.update_member_function,
-                self.delete_action_function
+                self.delete_action_function,
+                self.download_projects_function,
+                self.download_members_function
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
@@ -211,13 +258,26 @@ class LambdaStack(Construct):
                 self.get_member_function,
                 self.get_all_projects_function,
                 self.get_history_function,
+                self.get_history_project_function,
                 self.get_project_function,
-                self.delete_action_function
+                self.delete_action_function,
+                self.download_projects_function,
+                self.download_members_function
         ]
         
         self.functions_that_need_ses_permissions = [
             self.update_member_function,
-            self.update_action_validation_function
+            self.update_action_validation_function,
+            self.download_projects_function,
+            self.download_members_function
+        ]
+
+        self.functions_that_need_s3_permissions = [
+            self.create_member_function,
+            self.update_member_function,
+            self.create_project_function,
+            self.update_project_function,
+            self.download_projects_function
         ]
 
         

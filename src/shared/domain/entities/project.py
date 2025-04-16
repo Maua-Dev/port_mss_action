@@ -1,6 +1,6 @@
 import abc
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from src.shared.helpers.errors.domain_errors import EntityError
 
 class Project(abc.ABC):
@@ -11,11 +11,12 @@ class Project(abc.ABC):
     scrum_user_id: str
     start_date: int # milliseconds
     members_user_ids: List[str]
-    photos: List[str] = []
-    PROJECT_CODE_LENGTH = 2
+    photo: List[str] = []
+    MIN_PROJECT_CODE_LENGTH = 2
+    MAX_PROJECT_CODE_LENGTH = 3
     USER_ID_LENGTH = 36
     
-    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: List[str] = []):
+    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None):
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
@@ -44,10 +45,9 @@ class Project(abc.ABC):
             raise EntityError("start_date")
         self.start_date = start_date
         
-        if photos is not None:
-            if type(photos) != list:
-                raise EntityError("photos")
-            self.photos = photos
+        if not self.validate_photo(photo):
+            raise EntityError("photo")
+        self.photo = photo
         
         if type(members_user_ids) != list:
             raise EntityError("members_user_ids")
@@ -63,11 +63,7 @@ class Project(abc.ABC):
     def validate_project_code(code: str) -> bool:
         if type(code) != str:
             return False
-        if len(code) != Project.PROJECT_CODE_LENGTH:
-            return False
-        if not code.isupper():
-            return False
-        if not code.isalpha():
+        if len(code) < Project.MIN_PROJECT_CODE_LENGTH or len(code) > Project.MAX_PROJECT_CODE_LENGTH:
             return False
         return True
     
@@ -92,6 +88,14 @@ class Project(abc.ABC):
         self.scrum_user_id = new_scrum_user_id
         self.members_user_ids.append(new_scrum_user_id)
         self.members_user_ids = sorted(list(set(self.members_user_ids)))
+
+    @staticmethod
+    def validate_photo(photo: str) -> bool:
+        if photo is None:
+            return True
+        if type(photo) != str:
+            return False
+        return True
     
     def __repr__(self):
         return f"Project(code={self.code}, name={self.name}, description={self.description})"
