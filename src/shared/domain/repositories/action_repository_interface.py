@@ -55,7 +55,7 @@ class IActionRepository(ABC):
         pass
 
     @abstractmethod
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         '''
         If project exists, updates it and returns it
         else returns None
@@ -142,49 +142,4 @@ class IActionRepository(ABC):
         When member becomes active, notify the member and return True.
         Only in real repo
         """
-        pass
-    
-    @abstractmethod
-    def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
-        """
-        Checks all actions of all projects and returns the sum of their durations        
-        """
-
-    @abstractmethod
-    def get_all_actions_by_project_code(self, project_code: str, user_id: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[Action]:
-        """
-        Returns all actions of a project by its code
-        """
-        pass
-    # @abstractmethod
-    # def download_projects(self, actions: List[Action]):
-    #     """
-    #     Download csv with projects
-    #     """
-    #     pass
-    @abstractmethod
-    def get_projects_with_actions_and_associations(self) -> dict:
-        """
-        Returns all projects and their actions and associated actions
-        """
-        pass
-
-    @abstractmethod
-    def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-    
-        """
-        Returns all their actions and associated actions of a specific user
-        """
-        pass
-    @abstractmethod
-    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-      
-        """
-        Returns all their actions and associated actions of a specific project
-        """
-        pass
-    @abstractmethod
-    def download_actions_csv(self,email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
-      #     Download csv with projects
-
         pass
