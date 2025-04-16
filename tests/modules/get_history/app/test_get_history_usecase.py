@@ -1,7 +1,6 @@
 import pytest
 from src.modules.get_history.app.get_history_usecase import GetHistoryUsecase
 from src.shared.domain.entities.action import Action
-from src.shared.domain.enums.role_enum import ROLE
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import UnregisteredUser, PaginationAmountInvalid, UserIsNotFromAdmin, UserNotAllowed
@@ -93,13 +92,3 @@ class Test_GetHistoryUsecase:
         user.active= ACTIVE.FREEZE
         with pytest.raises(UserNotAllowed):
             actions, last_evaluated_key = usecase(user_id= user.user_id)
-
-    def test_get_history_usecase_another_user_external(self):
-        repo = ActionRepositoryMock()
-        repo_member = MemberRepositoryMock()
-        usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
-        member1 = repo_member.members[0]
-        member1.role = ROLE.EXTERNAL
-        actions, last_evaluated_key = usecase(user_id= member1.user_id, member_user_id=repo_member.members[2].user_id)
-
-        assert all(type(action) is Action for action in actions)

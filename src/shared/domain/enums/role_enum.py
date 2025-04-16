@@ -9,4 +9,3 @@ class ROLE(Enum):
     PO = "PO"
     SCRUM = "SCRUM"
     DESIGNER = "DESIGNER"
-    EXTERNAL = "EXTERNAL"
