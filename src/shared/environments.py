@@ -54,6 +54,7 @@ class Environments:
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
             self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.bucket_endpoint_url = "http://localhost:9000"
             self.reply_to_email = "dev@maua.br"
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
