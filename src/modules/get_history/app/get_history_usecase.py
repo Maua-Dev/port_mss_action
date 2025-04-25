@@ -34,10 +34,13 @@ class GetHistoryUsecase:
 
         if is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+            print("checkpoint1")
         elif is_admin and member_user_id is not None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=member_user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+            print("checkpoint2")
         elif not is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
+            print("checkpoint3")
         else:
             raise UserIsNotFromAdmin()
         
@@ -52,6 +55,6 @@ class GetHistoryUsecase:
         action_ids = [action.action_id for action in actions_requested]
         actions = self.repo.batch_get_action(action_ids=action_ids)
         actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
-        
+        print("checkpoint4")
 
         return actions, last_ev
