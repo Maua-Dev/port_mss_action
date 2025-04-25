@@ -17,21 +17,24 @@ class GetHistoryUsecase:
         elif amount is not None and amount < 10:
             raise PaginationAmountInvalid()
 
+        print("entrou no usecase")
+
         if self.repo_member.get_member(user_id=user_id) is None:
+            print("membro não encontrado:", user_id)
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
         
         if member_user_id is not None:
             if not self.repo_member.get_member(user_id=member_user_id):
                 raise UnregisteredUser()
-            
+        print("membero ativo?", user.active)
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
         
         is_admin = Member.validate_role_admin(user.role) or Member.validate_role_external(user.role)
 
         adjusted_amount = amount+1
-
+        print("chamando get_associated_actions_by_user_id")
         if is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
             print("checkpoint1")
