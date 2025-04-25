@@ -423,12 +423,16 @@ class ActionRepositoryMock(IActionRepository):
             action0 = associated_actions[0]
             while action0 is not None and action0.action_id != exclusive_start_key["action_id"]:
                 associated_actions.pop(0)
+                print("check7")
                 action0 = associated_actions[0] if len(associated_actions) > 0 else None
             associated_actions.pop(0) if len(associated_actions) > 0 else None
+            print("check10")
         if start:
             associated_actions = list(filter(lambda x: x.start_date >= start, associated_actions))
+            print("check8")
         if end:
             associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
+            print("check9")
         
         
         return associated_actions[:amount]
