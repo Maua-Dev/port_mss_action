@@ -9,6 +9,7 @@ usecase = GetHistoryUsecase(repo=repo, repo_member=repo_member)
 controller = GetHistoryController(usecase=usecase)
 
 def lambda_handler(event, context):
+    print("entrou na lambda handler")
     httpRequest = LambdaHttpRequest(data=event)
     httpRequest.data['requester_user'] = event.get('requestContext', {}).get('authorizer', {}).get('claims', None)
     response = controller(request=httpRequest)

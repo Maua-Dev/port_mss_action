@@ -9,7 +9,7 @@ class GetHistoryUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
         self.repo = repo
         self.repo_member = repo_member
-        
+
     def __call__(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
 
         if amount is None:
