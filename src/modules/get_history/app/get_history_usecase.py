@@ -34,6 +34,7 @@ class GetHistoryUsecase:
         is_admin = Member.validate_role_admin(user.role) or Member.validate_role_external(user.role)
 
         adjusted_amount = amount+1
+        print(f"Parâmetros: user_id={user_id}, start={start}, end={end}, exclusive_start_key={exclusive_start_key}, amount={adjusted_amount}")
         print("chamando get_associated_actions_by_user_id")
         if is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
