@@ -15,7 +15,6 @@ class GetHistoryController:
         self.usecase = usecase
     
     def __call__(self, request: IRequest) -> IResponse:
-        print("controller iniciado")
         try:
             if request.data.get('requester_user') is None:
                 raise MissingParameters('requester_user')
@@ -73,7 +72,6 @@ class GetHistoryController:
                 member_user_id = request.data.get('member_user_id')
             else:
                 member_user_id = None
-            print("chamando usecase com user_id:", requester_user.user_id)
             actions, last_evaluated_key = self.usecase(user_id=requester_user.user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=amount, member_user_id=member_user_id)
 
             viewmodel = GetHistoryViewmodel(actions=actions, last_evaluated_key=last_evaluated_key)
