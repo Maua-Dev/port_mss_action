@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 from src.shared.domain.entities.project import Project
 
 class ProjectViewmodel:
@@ -8,7 +8,7 @@ class ProjectViewmodel:
     po_user_id: str
     scrum_user_id: str
     start_date: int # milliseconds
-    photo: Optional[str] = None
+    photos: List[str] = []
     members_user_ids: List[str]
 
     def __init__(self, project: Project):
@@ -18,7 +18,7 @@ class ProjectViewmodel:
         self.po_user_id = project.po_user_id
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
-        self.photo = project.photo
+        self.photos = project.photos
         self.members_user_ids = project.members_user_ids
 
     def to_dict(self):
@@ -29,7 +29,7 @@ class ProjectViewmodel:
             "po_user_id": self.po_user_id,
             "scrum_user_id": self.scrum_user_id,
             "start_date": self.start_date,
-            "photo": self.photo,
+            "photos": self.photos,
             "members_user_ids": self.members_user_ids
         }
     

@@ -13,11 +13,12 @@ class Test_Project():
             po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             scrum_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
             start_date=1672585200000,
-            photo='https://i.imgur.com/gHoRKJU.png',
+            photos=['https://i.imgur.com/gHoRKJU.png',
+                    'https://i.imgur.com/gHoRKJU.png'],
             members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         )
         assert type(project) == Project
-        assert project.photo != None
+        assert project.photos != []
 
     def test_project_code_must_be_str(self):
         with pytest.raises(EntityError):
@@ -28,7 +29,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -41,7 +43,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -54,7 +57,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -67,7 +71,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -80,7 +85,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -93,7 +99,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -106,7 +113,8 @@ class Test_Project():
                 po_user_id=1,
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -119,7 +127,8 @@ class Test_Project():
                 po_user_id="51ah5jaj",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -132,7 +141,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id=1,
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -145,7 +155,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="51ah5jaj",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -158,7 +169,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date="1672585200000",
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -171,7 +183,8 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=-362,
-                photo='https://i.imgur.com/gHoRKJU.png', 
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'], 
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
@@ -185,11 +198,12 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=now + 3000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png',
+                        'https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
             
-    def test_project_photo_can_be_none(self):
+    def test_project_photos_can_be_none(self):
         project = Project(
             code='MF',
             name='test_project',
@@ -199,8 +213,21 @@ class Test_Project():
             start_date=1672585200000,
             members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         )
-        assert project.photo == None
+        assert project.photos == []
         
+    def test_project_photos_must_be_list(self):
+        with pytest.raises(EntityError):
+            Project(
+                code='MF',
+                name='test_project',
+                description='test_description',
+                po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                start_date=1672585200000,
+                photos='https://i.imgur.com/gHoRKJU.png',
+                members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
+            )
+
     def test_project_membersuser_ids_must_be_list(self):
         with pytest.raises(EntityError):
             Project(
@@ -210,7 +237,7 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids='76h35dg4-h76v-1875-987hn-h67gfv45Gt4'
             )
 
@@ -223,7 +250,7 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=[]
             )
 
@@ -235,7 +262,7 @@ class Test_Project():
             po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
-            photo='https://i.imgur.com/gHoRKJU.png',
+            photos=['https://i.imgur.com/gHoRKJU.png'],
             members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
@@ -250,7 +277,7 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4']
             )
 
@@ -262,7 +289,7 @@ class Test_Project():
             po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
-            photo='https://i.imgur.com/gHoRKJU.png',
+            photos=['https://i.imgur.com/gHoRKJU.png'],
             members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
@@ -279,7 +306,7 @@ class Test_Project():
             po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             start_date=1672585200000,
-            photo='https://i.imgur.com/gHoRKJU.png',
+            photos=['https://i.imgur.com/gHoRKJU.png'],
             members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]
         )
 
@@ -297,7 +324,7 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids='76h35dg4-h76v-1875-987hn-h67gfv45Gt4'
             )
 
@@ -310,6 +337,6 @@ class Test_Project():
                 po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 scrum_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 start_date=1672585200000,
-                photo='https://i.imgur.com/gHoRKJU.png',
+                photos=['https://i.imgur.com/gHoRKJU.png'],
                 members_user_ids=['76']
             )
