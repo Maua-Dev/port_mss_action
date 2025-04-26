@@ -230,7 +230,6 @@ class ActionRepositoryDynamo(IActionRepository):
         for item in resp.get("Items"):
             if item.get("entity") == "associated_action":
                 associated_actions.append(AssociatedActionDynamoDTO.from_dynamo(item).to_entity())
-                print("check6")
         
         return associated_actions
         
