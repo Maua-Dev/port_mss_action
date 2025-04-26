@@ -49,8 +49,12 @@ class UpdateActionUsecase:
 
     
         start_date = new_start_date if new_start_date is not None else action.start_date
-        if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):
-            self.repo.batch_update_associated_action_members(action_id, members, start_date=start_date)
+
+        # update_action fix
+        full_members = list(set([action.user_id] + members))
+        if set(full_members) != set([action.user_id] + action.associated_members_user_ids):
+            self.repo.batch_update_associated_action_members(action_id, full_members, start_date=start_date)
+
         elif start_date != action.start_date:
             self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
             
