@@ -25,26 +25,21 @@ class GetAllMembersAdminUsecase:
             now = datetime.now()
             year = now.year
 
-            if (now.month <= 6) or (now.month == 12):
-                if (now.month <= 6): 
-                    start_date = datetime(year-1, 12, 1).timestamp() * 1000
-                else:
-                    start_date = datetime(year, 12, 1).timestamp() * 1000
+            if now.month <= 6: 
+                start_date = datetime(year, 1, 1).timestamp() * 1000
             else:  
                 start_date = datetime(year, 7, 1).timestamp() * 1000
         
+
         if end_date is None:
             now = datetime.now()
             year = now.year
 
-            if (now.month <= 6) or (now.month == 12): 
-                if (now.month <= 6): 
-                    end_date = datetime(year, 6, 30).timestamp() * 1000
-                else:
-                    end_date = datetime(year+1, 6, 30).timestamp() * 1000
+            if now.month <= 6: 
+                end_date = datetime(year, 6, 30).timestamp() * 1000
             else:  
-                end_date = datetime(year, 11, 30).timestamp() * 1000
-                
+                end_date = datetime(year, 12, 31).timestamp() * 1000
+
         start_date, end_date = Decimal(start_date), Decimal(end_date)
 
         hours_worked = self.actionrepo.get_all_actions_durations_by_user_id(start_date, end_date)

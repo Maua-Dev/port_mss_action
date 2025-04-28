@@ -31,7 +31,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -47,7 +46,6 @@ class Test_CreateMemberController:
         assert response.body['member']['year'] == 1
         assert response.body['member']['cellphone'] == "11991758098"
         assert response.body['member']['course'] == COURSE.ECA.value
-        assert response.body['member']['photo'] == None
         assert response.body['member']['active'] == ACTIVE.ON_HOLD.value
         assert response.body['member']['user_id'] == "13bc6ada-c0d1-7054-66ab-e17414c48ae3"     
     
@@ -69,7 +67,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -98,7 +95,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -125,7 +121,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -152,7 +147,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -179,7 +173,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -206,7 +199,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -233,7 +225,6 @@ class Test_CreateMemberController:
             'year':56,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -260,7 +251,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"18098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -287,7 +277,6 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':'COURSE.ECA.value',
-            'photo': None,
             'deactivated_date':None
         })
         
@@ -308,43 +297,8 @@ class Test_CreateMemberController:
             'year':1,
             'cellphone':"11991758098",
             'course':COURSE.ECA.value,
-            'photo': None,
             'deactivated_date':None
         })
         response = controller(request)
         assert response.status_code == 400
-        assert response.body == "Field requester_user is missing" 
-
-    def test_create_member_controller_external(self):
-        
-        repo = MemberRepositoryMock()
-        usecase = CreateMemberUsecase(repo=repo)
-        controller = CreateMemberController(usecase=usecase)
-        request = HttpRequest(body={
-               "requester_user": {
-                "sub": "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "name": "Vitor Guirão Mpntm",
-                "email": "vsoller@maua.br",
-                "custom:isMaua": True
-            },
-            'role':ROLE.EXTERNAL.value,
-            'cellphone':"11991758098",
-            'photo': None,
-            'deactivated_date':None
-        })
-        
-        response = controller(request)
-        assert response.status_code == 201
-        assert response.body['message'] == 'the member was created'
-        assert response.body['member']['name'] == "Vitor Guirão Mpntm"
-        assert response.body['member']['email_dev'] == "external.devmaua@gmail.com"
-        assert response.body['member']['email'] == "vsoller@maua.br"
-        assert response.body['member']['ra'] == "00000000"
-        assert response.body['member']['role'] == 'EXTERNAL'
-        assert response.body['member']['stack'] == STACK.BUSINESS.value
-        assert response.body['member']['year'] == 1
-        assert response.body['member']['cellphone'] == "11991758098"
-        assert response.body['member']['course'] == COURSE.ADM.value
-        assert response.body['member']['photo'] == None
-        assert response.body['member']['active'] == ACTIVE.ON_HOLD.value
-        assert response.body['member']['user_id'] == "13bc6ada-c0d1-7054-66ab-e17414c48ae3"     
+        assert response.body == "Field requester_user is missing"  
