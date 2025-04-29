@@ -19,8 +19,7 @@ class Test_UpdateMemberUsecase:
                 new_year=3,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
-                new_active=ACTIVE.ACTIVE,
-            new_photo=None)
+                new_active=ACTIVE.ACTIVE)
         
         assert repo.members[0] == member
 
@@ -79,6 +78,8 @@ class Test_UpdateMemberUsecase:
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_active=ACTIVE.DISCONNECTED)
         
         assert repo.members[0].active == ACTIVE.DISCONNECTED
+
+
 
     def test_update_member_no_items_found(self):
         repo = MemberRepositoryMock()
