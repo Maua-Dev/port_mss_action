@@ -3,7 +3,7 @@ from src.shared.infra.repositories.member_repository_mock import MemberRepositor
 from .update_member_usecase import UpdateMemberUsecase
 from .update_member_viewmodel import UpdateMemberViewmodel
 from src.shared.domain.entities.member import Member
-from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
+from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeFile, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
@@ -99,8 +99,7 @@ class UpdateMemberController:
                     raise WrongTypeParameter(fieldName='new_photo', fieldTypeExpected='str', fieldTypeReceived=type(new_photo))
                 if not Member.validate_photo(new_photo):
                     raise EntityError('new_photo')
-                          
-            
+                
             member = self.usecase(
                 user_id=requester_user.user_id,
                 new_name=new_name,
@@ -134,6 +133,9 @@ class UpdateMemberController:
         
         except UserNotAllowed as err:
             return Forbidden(body=err.message)
+        
+        except WrongTypeFile as err:
+            return BadRequest(body=err.message)
         
         except Exception as err:
             return InternalServerError(body=err.args[0])

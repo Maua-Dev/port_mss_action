@@ -23,9 +23,7 @@ class Test_GetProjectViewmodel:
                 'scrum_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
                 'start_date': 1634576165000,
                 'members_user_ids': ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','6f5g4h7J-876j-0098-123hb-hgb567fy4hb','93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
-                'photos': [
-                    'https://i.imgur.com/gHoRKJU.png'
-                ]
+                'photo': 'https://i.imgur.com/gHoRKJU.png'
             },
             'message': 'the project was retrieved'
         }

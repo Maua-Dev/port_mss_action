@@ -178,6 +178,23 @@ class Test_Member:
             user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         )
 
+    def test_member_email_dev_not_maua(self): 
+        with pytest.raises(EntityError):
+            Member(
+            name="Vitor Guirão MPNTM",
+            email_dev="vitor.guirao@gmail.com",
+            email="vsoller@airubio.com",
+            ra="21017310",
+            role=ROLE.EXTERNAL,
+            stack=STACK.INFRA,
+            year=1,
+            cellphone="11991758098",
+            course=COURSE.ECA,
+            hired_date=1671728165,
+            active=ACTIVE.FREEZE,
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+        )
+
     def test_member_email_is_not_str(self):
         with pytest.raises(EntityError):
             Member(

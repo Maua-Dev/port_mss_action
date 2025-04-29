@@ -15,7 +15,7 @@ class UpdateMemberUsecase:
     def __init__(self, repo: IMemberRepository):
         self.repo = repo
         
-    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_member_user_id: Optional[str] = None, new_photo: Optional[str] = None) -> Member:
+    def __call__(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,  new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_member_user_id: Optional[str] = None, new_photo:Optional[str] = None) -> Member:
 
         if not Member.validate_user_id(user_id):
             raise EntityError("user_id")
@@ -84,7 +84,12 @@ class UpdateMemberUsecase:
             if new_member.active == ACTIVE.ON_HOLD and new_active is not None:
                 self.repo.send_active_member_email(new_member)
             
-               
+        if new_photo is not None:
+            if type(new_photo) is not str:
+                raise EntityError('new_photo')
+            if not Member.validate_photo(new_photo):
+                raise EntityError('new_photo')
+            
         is_active = Member.validate_active(member.active)
         
         if not is_active:
@@ -93,10 +98,10 @@ class UpdateMemberUsecase:
         is_admin = Member.validate_role_admin(member.role)
         
         if is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active, new_photo=new_photo)
+            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active,new_photo=new_photo)
         elif is_admin and new_member_user_id is not None:
-            return self.repo.update_member(user_id=new_member_user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active, new_photo=new_photo)
+            return self.repo.update_member(user_id=new_member_user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active,new_photo=new_photo)
         elif not is_admin and new_member_user_id is None:
-            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active, new_photo=new_photo)
+            return self.repo.update_member(user_id=user_id,  new_name=new_name, new_email_dev=new_email_dev, new_role=new_role, new_stack=new_stack, new_year=new_year, new_cellphone=new_cellphone, new_course=new_course,new_deactivated_date=new_deactivated_date, new_active=new_active,new_photo=new_photo)
         else:
             raise UserIsNotFromAdmin()
