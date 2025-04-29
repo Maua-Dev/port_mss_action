@@ -20,8 +20,7 @@ class CreateProjectController:
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
-            if request.data.get('code') is None:
-                raise MissingParameters('code')
+         
             if request.data.get('name') is None:
                 raise MissingParameters('name')
             if request.data.get('description') is None:
@@ -34,22 +33,18 @@ class CreateProjectController:
                 raise MissingParameters('start_date')
             if request.data.get('members_user_ids') is None:
                 raise MissingParameters('members_user_ids')
-            if request.data.get('photos') is not None:
-                if type(request.data.get('photos')) is not list:
-                    raise EntityError('photos')
-                for value in request.data.get('photos'):
-                    if type(value) is not str:
-                        raise EntityError('photos')
+            if request.data.get('photo') is not None:
+                if type(request.data.get('photo')) is not str:
+                    raise EntityError('photo')
             
             project = self.usecase(
-                code=request.data.get('code'),
                 name=request.data.get('name'),
                 description=request.data.get('description'),
                 po_user_id=request.data.get('po_user_id'),
                 scrum_user_id=request.data.get('scrum_user_id'),
                 start_date=request.data.get('start_date'),
                 members_user_ids=request.data.get('members_user_ids'),
-                photos=request.data.get('photos'),
+                photo=request.data.get('photo'),
                 user_id=requester_user.user_id
             )
             
@@ -68,6 +63,9 @@ class CreateProjectController:
             return BadRequest(body=err.message)
         
         except UnregisteredUser as err:
+            return BadRequest(body=err.message)
+        
+        except ValueError as err:
             return BadRequest(body=err.message)
         
         except Exception as err:
