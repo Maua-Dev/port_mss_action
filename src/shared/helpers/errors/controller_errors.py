@@ -7,3 +7,6 @@ class MissingParameters(BaseError):
 class WrongTypeParameter(BaseError):
     def __init__(self, fieldName: str, fieldTypeExpected: str, fieldTypeReceived: str):
         super().__init__(f'Field {fieldName} isn\'t in the right type.\n Received: {fieldTypeReceived}.\n Expected: {fieldTypeExpected}')
+class WrongTypeFile(BaseError):
+    def __init__(self):
+        super().__init__(f'File isn\'t in the right type. It must be png or jpg')

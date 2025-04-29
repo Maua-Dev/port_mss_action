@@ -12,7 +12,7 @@ class UpdateProjectUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
         self.repo = repo
         self.repo_member = repo_member
-    def __call__(self, code, user_id: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
+    def __call__(self, code, user_id: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
 
         if self.repo_member.get_member(user_id) is None:
             raise UnregisteredUser()
@@ -25,7 +25,6 @@ class UpdateProjectUsecase:
         if user.validate_role_admin(user.role) is False:
             raise UserIsNotFromAdmin()
 
-        
         if not Project.validate_project_code(code):
             raise EntityError("code")
         project = self.repo.get_project(code=code)
@@ -46,7 +45,7 @@ class UpdateProjectUsecase:
                                             new_description=new_description,
                                             new_po_user_id=new_po_user_id,
                                             new_scrum_user_id=new_scrum_user_id, 
-                                            new_photos=new_photos,
+                                            new_photo=new_photo,
                                             new_members_user_ids=new_members_user_ids)
         
         return project

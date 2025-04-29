@@ -42,11 +42,11 @@ class Test_ActionRepositoryMock:
     def test_create_project(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.projects)
-        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', start_date=1649955600000, photos=['https://i.imgur.com/7QF7uCk.png'], members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']))
+        project = repo.create_project(project=Project(code='DM', name='DevMedias', description='Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano', po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', start_date=1649955600000, photo='https://i.imgur.com/7QF7uCk.png', members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']))
         assert len(repo.projects) == len_before + 1
         assert project == repo.projects[-1]
         assert repo.projects[-1].code == 'DM'
-        assert repo.projects[-1].photos == ['https://i.imgur.com/7QF7uCk.png']
+        assert repo.projects[-1].photo == 'https://i.imgur.com/7QF7uCk.png'
         assert repo.projects[-1].members_user_ids == ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
         
     def test_delete_project(self):
@@ -69,13 +69,13 @@ class Test_ActionRepositoryMock:
 
     def test_update_project(self):
         repo = ActionRepositoryMock()
-        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', new_photos=['https://i.imgur.com/7QF7uCk.png'], new_members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'])
+        project = repo.update_project(code='MF', new_name='Teste', new_description='Teste', new_po_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_scrum_user_id='7465hvnb-143g-1675-86HnG-75hgnFbcg36', new_photo='https://i.imgur.com/7QF7uCk.png', new_members_user_ids=['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36'])
         assert type(project) == Project
         assert project.name == 'Teste'
         assert project.description == 'Teste'
         assert project.po_user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3'
         assert project.scrum_user_id == '7465hvnb-143g-1675-86HnG-75hgnFbcg36'
-        assert project.photos == ['https://i.imgur.com/7QF7uCk.png']
+        assert project.photo == 'https://i.imgur.com/7QF7uCk.png'
         assert project.members_user_ids == ['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36']
 
     def test_update_project_not_found(self):
@@ -196,4 +196,109 @@ class Test_ActionRepositoryMock:
 
         assert resp == 143960000000
 
+    def test_get_all_actions_durations_by_project(self):
+   
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo_mock.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+
+        assert resp == {'PT': 9500000000, 
+                            'SF': 96530000000, 
+                            'SM': 47430000000, 
+                            'GM': 1320000000, 
+                            'MF': 62120000000}
     
+    def test_get_all_actions_by_project_code(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+        
+    def test_get_all_actions_by_project_code_with_start(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='PT', start=1644256000000, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'PT' for action in actions])
+        assert all([action.start_date >= 1644256000000 for action in actions])
+        
+    def test_get_all_actions_by_project_code_with_end(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='PT', end=1653756000000, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'PT' for action in actions])
+        assert all([action.start_date <= 1653756000000 for action in actions])
+        
+    def test_get_all_actions_by_project_code_exclusive_start_key(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', exclusive_start_key={'action_id' : '42e01f11-283c-4925-b0aa-e80ac6c1815a', 'start_date' :1676476000000}, amount=20)
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+        assert all([action.action_id != '42e01f11-283c-4925-b0aa-e80ac6c1815a' for action in actions])
+
+    def test_get_all_actions_by_project_code_not_found(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='DM', amount=20)
+        assert actions == []
+
+    def test_get_all_actions_by_project_code_with_exclusive_start_key(self):
+        repo = ActionRepositoryMock()
+        actions = repo.get_all_actions_by_project_code(project_code='SF', amount=20, exclusive_start_key={'action_id' : 'ea95d4f7-d5ce-4944-9fa1-ab964655294b', 'start_date' :1658136000000} )
+        assert type(actions) == list
+        assert all([type(action) == Action for action in actions])
+        assert all([action.project_code == 'SF' for action in actions])
+
+    def test_get_projects_with_actions_and_associations(self):
+
+        repo = ActionRepositoryMock()
+        
+        result = repo.get_projects_with_actions_and_associations()
+        assert type(result) == dict
+      
+    def test_get_all_actions_by_user_id(self):
+
+        repo = ActionRepositoryMock()
+
+        result = repo.get_all_actions_by_user_id(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", start=1676476000000, end=1677067200000)
+
+    
+        assert isinstance(result, dict)
+        assert "actions" in result and "associated_actions" in result
+        assert isinstance(result["actions"], list) and isinstance(result["associated_actions"], list)
+        assert all(isinstance(action, Action) for action in result["actions"])
+        assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
+        assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["actions"])
+        assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["associated_actions"])
+        assert all(
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            for action in result["actions"]
+        )
+        assert all(
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            for action in result["associated_actions"]
+        )
+
+
+    def test_get_all_actions_and_associated_actions_by_project_code(self):
+      
+        repo = ActionRepositoryMock()
+
+        result = repo.get_all_actions_and_associated_actions_by_project_code(project_code="PT", start=0, end=1677067200000)
+
+        assert isinstance(result, dict)
+        assert "actions" in result and "associated_actions" in result
+        assert isinstance(result["actions"], list) and isinstance(result["associated_actions"], list)
+        assert all(isinstance(action, Action) for action in result["actions"])
+        assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
+        assert all(action.project_code == "PT" for action in result["actions"])
+        assert all(
+            action.start_date >= 0 and action.start_date <= 1677067200000 
+            for action in result["actions"]
+        )
+        assert all(
+            assoc_action.start_date >= 0 and assoc_action.start_date <= 1677067200000 
+            for assoc_action in result["associated_actions"]
+        )
