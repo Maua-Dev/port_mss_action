@@ -11,12 +11,22 @@ class Project(abc.ABC):
     scrum_user_id: str
     start_date: int # milliseconds
     members_user_ids: List[str]
-    photo: List[str] = []
+    photo: Optional[str] = None
     MIN_PROJECT_CODE_LENGTH = 2
     MAX_PROJECT_CODE_LENGTH = 3
     USER_ID_LENGTH = 36
     
-    def __init__(self, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None):
+    def __init__(self, 
+                 code: str, 
+                 name: str, 
+                 description: str, 
+                 po_user_id: str, 
+                 scrum_user_id: str, 
+                 start_date: int, 
+                 members_user_ids: List[str], 
+                 photo: Optional[str] = None
+                 ):
+                 
         if not self.validate_project_code(code):
             raise EntityError("code")
         self.code = code
