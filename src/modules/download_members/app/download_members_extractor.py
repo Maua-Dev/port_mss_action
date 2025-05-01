@@ -12,8 +12,12 @@ class DownloadMembersExtractor:
             members = self.repo_member.get_all_members()
         except:
             raise NoItemsFound('members')
-        
-        members_dict = [{
+
+        members_dict = {}
+
+        for m in members:
+
+            members_dict[m.name] = {
                 "name": m.name,
                 "email_dev": m.email_dev,
                 "email": m.email,
@@ -29,6 +33,5 @@ class DownloadMembersExtractor:
                 "user_id": m.user_id,
                 "photo": m.photo
             }
-            for m in members
-        ]
+
         return members_dict

@@ -8,7 +8,7 @@ class DownloadMembersTransformer:
 
     def __call__(self):
         members = self.extractor()
-        df_members = pd.DataFrame.from_dict(members, orient = "index")
+        df_members = pd.DataFrame.from_dict(members)
 
         output = io.BytesIO()
 

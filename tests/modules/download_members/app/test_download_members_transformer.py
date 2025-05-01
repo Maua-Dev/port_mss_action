@@ -8,7 +8,6 @@ from src.shared.infra.repositories.member_repository_dynamo import MemberReposit
 
 class TestDownloadMembersTransformer:
 
-    @pytest.mark.skip("Can't run test in gh actions")
     def test_download_members_transformer(self):
         
         repo = MemberRepositoryDynamo()
