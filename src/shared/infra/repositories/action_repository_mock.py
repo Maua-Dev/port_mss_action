@@ -430,7 +430,6 @@ class ActionRepositoryMock(IActionRepository):
         if end:
             associated_actions = list(filter(lambda x: x.start_date <= end, associated_actions))
         
-        
         return associated_actions[:amount]
     
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
@@ -455,11 +454,11 @@ class ActionRepositoryMock(IActionRepository):
         for associated_action in self.associated_actions[:]:
             if associated_action.action_id == action_id:
                 self.associated_actions.remove(associated_action)
-                
+
         for member in user_ids:
             up_associated_action = self.associated_actions.append(AssociatedAction(action_id=action_id, start_date=start_date, user_id=member))
-            new_associated_actions.append(up_associated_action)        
-        
+            new_associated_actions.append(up_associated_action) 
+
         return new_associated_actions
     
     def update_action(self, action_id: str, new_user_id: Optional[str] = None, new_start_date: Optional[int] = None, new_end_date: Optional[int] = None, new_duration: Optional[int] = None, new_story_id: Optional[str] = None, new_title: Optional[str] = None, new_description: Optional[str] = None, new_project_code: Optional[str] = None, new_associated_members_user_ids: Optional[List[str]] = None, new_stack_tags: Optional[List[str]] = None, new_action_type_tag: Optional[str] = None, new_is_valid: Optional[bool] = None) -> Action:

@@ -9,7 +9,7 @@ class GetHistoryUsecase:
     def __init__(self, repo: IActionRepository, repo_member: IMemberRepository):
         self.repo = repo
         self.repo_member = repo_member
-        
+
     def __call__(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None, amount: Optional[int] = None, member_user_id: Optional[str] = None):
 
         if amount is None:
@@ -18,20 +18,19 @@ class GetHistoryUsecase:
             raise PaginationAmountInvalid()
 
         if self.repo_member.get_member(user_id=user_id) is None:
+            print("membro não encontrado:", user_id)
             raise UnregisteredUser()
         user = self.repo_member.get_member(user_id=user_id)
         
         if member_user_id is not None:
             if not self.repo_member.get_member(user_id=member_user_id):
                 raise UnregisteredUser()
-            
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
         
         is_admin = Member.validate_role_admin(user.role) or Member.validate_role_external(user.role)
 
         adjusted_amount = amount+1
-
         if is_admin and member_user_id is None:
             associated_actions = self.repo.get_associated_actions_by_user_id(user_id=user_id, start=start, end=end, exclusive_start_key=exclusive_start_key, amount=adjusted_amount)
         elif is_admin and member_user_id is not None:
@@ -53,4 +52,5 @@ class GetHistoryUsecase:
         actions = self.repo.batch_get_action(action_ids=action_ids)
         
         actions = sorted(actions, key=lambda action: action.start_date, reverse= True)
+
         return actions, last_ev

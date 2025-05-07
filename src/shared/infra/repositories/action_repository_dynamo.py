@@ -172,7 +172,7 @@ class ActionRepositoryDynamo(IActionRepository):
                 url = new_photo
             else:
                 if project_to_update.photo is not None:
-                    s3_key = self.generate_key(code)
+                    s3_key = self.generate_key(code, file_type=project_to_update.photo[74:77])
                     self.s3_client.delete_object(Bucket=self.S3_BUCKET_NAME, Key=s3_key)
                 url = self.upload_project_photo(code, new_photo)
             project_to_update.photo = url
@@ -184,7 +184,7 @@ class ActionRepositoryDynamo(IActionRepository):
             "description": project_to_update.description,
             "po_user_id": project_to_update.po_user_id,
             "scrum_user_id": project_to_update.scrum_user_id,
-            "photo": project_to_update.photo,
+            "photo": url if new_photo is not None else None,
             "members_user_ids": project_to_update.members_user_ids if project_to_update.members_user_ids is not None else None
         }
         
