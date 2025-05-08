@@ -500,7 +500,6 @@ class ActionRepositoryMock(IActionRepository):
                 return action
         return None
     
-
     def batch_delete_associated_actions(self, action_id: str) -> List[AssociatedAction]:
         deleted_actions = []
 
