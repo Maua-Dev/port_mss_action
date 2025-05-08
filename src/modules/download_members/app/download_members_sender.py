@@ -33,10 +33,20 @@ def lambda_handler(event,context):
                                                    file_type=".xlsx",
                                                    decode_string=download,
                                                    )
-            print("Download generated and uploaded successfully")
-            return 1
-        except:
-
+            if response.get('s3_response', {}).get('ResponseMetadata', {}).get('HTTPStatusCode') == 200:
+                print("Download generated and uploaded successfully")
+                return {
+                    "statusCode": 200,
+                    "body": f"File {file_name} successfully uploaded to S3."
+                }
+            else:
+                print("Error uploading file to S3")
+                return {
+                    "statusCode": 500,
+                    "body": "Error uploading file to S3"
+                }
+        except Exception as e:
+            print(f"Error: {str(e)}")
             raise Exception("Error uploading file to S3")
         
     else:
