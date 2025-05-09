@@ -6,7 +6,7 @@ from src.modules.download_actions.app.download_actions_extractor import Download
 from src.modules.download_actions.app.download_actions_transformer import DownloadActionsTransformer
 from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
 
-class TestDownloadactionsTransformer:
+class TestDownloadActionsTransformer:
 
    #@pytest.mark.skip("Can't run test in gh actions")
     def test_download_actions_transformer(self):
