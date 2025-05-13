@@ -364,7 +364,7 @@ class ActionRepositoryDynamo(IActionRepository):
         expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
     
         durations_by_user_id = {}
-        exclusive_start_key = None
+        exclusive_start_key = {}
 
         while exclusive_start_key is not None:
             query_params = {
