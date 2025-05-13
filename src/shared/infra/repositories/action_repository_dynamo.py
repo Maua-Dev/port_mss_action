@@ -366,15 +366,15 @@ class ActionRepositoryDynamo(IActionRepository):
         durations_by_user_id = {}
         exclusive_start_key = None
 
-        while True:
+        while exclusive_start_key is not None:
             query_params = {
                 'KeyConditionExpression': expression,
                 'ExclusiveStartKey': exclusive_start_key,
                 'Select': 'ALL_ATTRIBUTES'
-            } if exclusive_start_key else {
-                'KeyConditionExpression': expression,
-                'Select': 'ALL_ATTRIBUTES'
-            }
+            } 
+
+            if exclusive_start_key:
+                query_params['ExclusiveStartKey'] = exclusive_start_key
 
             resp = self.dynamo.scan_items(**query_params)
         
@@ -398,9 +398,6 @@ class ActionRepositoryDynamo(IActionRepository):
 
             exclusive_start_key = resp.get("LastEvaluatedKey")
         
-            if not exclusive_start_key:
-                break
-
         return durations_by_user_id
 
 
