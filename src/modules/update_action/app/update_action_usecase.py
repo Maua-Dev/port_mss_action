@@ -63,6 +63,6 @@ class UpdateActionUsecase:
         else:
             story_id = new_story_id
 
-
-        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
+        updated_action = self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         
+        return updated_action
