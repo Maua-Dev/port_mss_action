@@ -16,7 +16,7 @@ class TestDownloadActionsTransformer:
 
         transformer = DownloadActionsTransformer(extractor=extractor)
 
-        output = transformer()
+        output = transformer("SM")
 
         with tempfile.NamedTemporaryFile(delete=False, suffix = ".xlsx") as temp_file:
             temp_file.write(output.read())
