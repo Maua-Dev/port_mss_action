@@ -19,7 +19,7 @@ def lambda_handler(event,context):
     file_name = f"relatorio_gerado_em_{day}_{month}_{year}.xlsx"
     file_path = f"relatorios/"
 
-    extractor = DownloadMembersExtractor(member_repository=repo)
+    extractor = DownloadMembersExtractor(repo=repo)
     transformer = DownloadMembersTransformer(extractor)
     download = transformer()
 
