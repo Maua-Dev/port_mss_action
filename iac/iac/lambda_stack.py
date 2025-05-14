@@ -277,7 +277,7 @@ class LambdaStack(Construct):
             self.update_member_function,
             self.create_project_function,
             self.update_project_function,
-            self.download_projects_function
+            self.download_projects_function,
             self.download_members_function
         ]
 
