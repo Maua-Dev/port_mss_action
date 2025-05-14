@@ -62,12 +62,12 @@ class LambdaStack(Construct):
                                                  )
 
         self.lambda_layer_pandas = lambda_.LayerVersion(self, "PortalInterno_Layer_Pandas",
-                                                        code=lambda_.Code.from_asset("./lambda_requirements_layer/pandas"),
+                                                        code=lambda_.Code.from_asset("./lambda_requirements_layer_temp/pandas"),
                                                         compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                         )
 
         self.lamba_layer_xlsxwriter = lambda_.LayerVersion(self, "PortalInterno_Layer_XlsxWriter",
-                                                              code=lambda_.Code.from_asset("./lambda_requirements_layer/xlsxwriter"),
+                                                              code=lambda_.Code.from_asset("./lambda_requirements_layer_temp/xlsxwriter"),
                                                               compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                               )
         
