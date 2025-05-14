@@ -362,11 +362,11 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
         expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
-        # testing
+        
         durations_by_user_id = {}
         exclusive_start_key = None
 
-        while exclusive_start_key is not None or exclusive_start_key is None:
+        while True:
             query_params = {
                 'KeyConditionExpression': expression,
                 'Select': 'ALL_ATTRIBUTES'
@@ -378,7 +378,7 @@ class ActionRepositoryDynamo(IActionRepository):
             resp = self.dynamo.scan_items(**query_params)
 
             if resp.get("Count", 0) == 0:
-                return {}
+                break
 
             for item in resp['Items']:
                 action = ActionDynamoDTO.from_dynamo(item).to_entity()
@@ -396,6 +396,9 @@ class ActionRepositoryDynamo(IActionRepository):
                             durations_by_user_id[associated_user_id] = action.duration
 
             exclusive_start_key = resp.get("LastEvaluatedKey")
+
+            if not exclusive_start_key:
+                break
 
         return durations_by_user_id
 
