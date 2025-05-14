@@ -19,7 +19,7 @@ class LambdaStack(Construct):
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
-            layers=[self.lambda_layer],
+            layers=[self.lambda_layer, self.lambda_layer_pandas, self.lamba_layer_xlsxwriter],
             environment=environment_variables,
             timeout=Duration.seconds(15)
         )
