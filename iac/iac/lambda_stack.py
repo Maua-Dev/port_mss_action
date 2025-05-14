@@ -60,7 +60,17 @@ class LambdaStack(Construct):
                                                  code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
-                
+
+        self.lambda_layer_pandas = lambda_.LayerVersion(self, "PortalInterno_Layer_Pandas",
+                                                        code=lambda_.Code.from_asset("./lambda_requirements_layer_pandas_out_temp"),
+                                                        compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
+                                                        )
+
+        self.lamba_layer_xlsxwriter = lambda_.LayerVersion(self, "PortalInterno_Layer_XlsxWriter",
+                                                              code=lambda_.Code.from_asset("./lambda_requirements_layer_xlsxwriter_out_temp"),
+                                                              compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
+                                                              )
+        
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",
