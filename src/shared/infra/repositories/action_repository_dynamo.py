@@ -362,11 +362,11 @@ class ActionRepositoryDynamo(IActionRepository):
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
         expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
-
+        
         durations_by_user_id = {}
-        exclusive_start_key = {}
+        exclusive_start_key = None
 
-        while exclusive_start_key is not None:
+        while exclusive_start_key is not None or exclusive_start_key is None:
             query_params = {
                 'KeyConditionExpression': expression,
                 'Select': 'ALL_ATTRIBUTES'
@@ -377,17 +377,23 @@ class ActionRepositoryDynamo(IActionRepository):
 
             resp = self.dynamo.scan_items(**query_params)
 
-            if resp.get("Count ", 0) == 0:
+            if resp.get("Count", 0) == 0:
                 return {}
 
             for item in resp['Items']:
                 action = ActionDynamoDTO.from_dynamo(item).to_entity()
-
+                
                 if action.duration is not None:
-                    durations_by_user_id[action.user_id] = durations_by_user_id.get(action.user_id, 0) + action.duration
+                    if action.user_id in durations_by_user_id:
+                        durations_by_user_id[action.user_id] += action.duration
+                    else:
+                        durations_by_user_id[action.user_id] = action.duration
 
                     for associated_user_id in action.associated_members_user_ids:
-                        durations_by_user_id[associated_user_id] = durations_by_user_id.get(associated_user_id, 0) + action.duration
+                        if associated_user_id in durations_by_user_id:
+                            durations_by_user_id[associated_user_id] += action.duration
+                        else:
+                            durations_by_user_id[associated_user_id] = action.duration
 
             exclusive_start_key = resp.get("LastEvaluatedKey")
 
