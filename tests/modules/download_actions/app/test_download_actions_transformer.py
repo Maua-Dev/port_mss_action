@@ -8,7 +8,7 @@ from src.shared.infra.repositories.action_repository_dynamo import ActionReposit
 
 class TestDownloadActionsTransformer:
 
-   #@pytest.mark.skip("Can't run test in gh actions")
+    @pytest.mark.skip("Can't run test in gh actions")
     def test_download_actions_transformer(self):
         
         repo = ActionRepositoryDynamo()
