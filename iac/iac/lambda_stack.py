@@ -211,6 +211,12 @@ class LambdaStack(Construct):
             environment_variables=environment_variables   
         )
 
+        self.download_actions_function = self.create_lambda_event_bridge_integration(
+            module_name="download_actions",
+            cron_schedule=Schedule.cron(week_day="TUE", hour="18", minute="0"),
+            environment_variables=environment_variables   
+        )
+
         self.download_projects_function = self.create_lambda_api_gateway_integration(
             module_name="download_projects",
             method="PUT",
@@ -239,7 +245,8 @@ class LambdaStack(Construct):
                 self.update_member_function,
                 self.delete_action_function,
                 self.download_projects_function,
-                self.download_members_function
+                self.download_members_function,
+                self.download_actions_function
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
@@ -262,14 +269,16 @@ class LambdaStack(Construct):
                 self.get_project_function,
                 self.delete_action_function,
                 self.download_projects_function,
-                self.download_members_function
+                self.download_members_function,
+                self.download_actions_function
         ]
         
         self.functions_that_need_ses_permissions = [
             self.update_member_function,
             self.update_action_validation_function,
             self.download_projects_function,
-            self.download_members_function
+            self.download_members_function,
+            self.download_actions_function
         ]
 
         self.functions_that_need_s3_permissions = [
