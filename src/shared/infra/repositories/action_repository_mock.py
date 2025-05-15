@@ -491,8 +491,7 @@ class ActionRepositoryMock(IActionRepository):
                     action.action_type_tag = new_action_type_tag
                 new_action = action
         return new_action
-    
-
+            
     def delete_action(self, action_id: str) -> Action:
         for action in self.actions[:]:
             if action.action_id == action_id:
@@ -501,7 +500,6 @@ class ActionRepositoryMock(IActionRepository):
                 return action
         return None
     
-
     def batch_delete_associated_actions(self, action_id: str) -> List[AssociatedAction]:
         deleted_actions = []
 

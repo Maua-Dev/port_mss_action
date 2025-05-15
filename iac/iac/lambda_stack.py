@@ -38,7 +38,7 @@ class LambdaStack(Construct):
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
-            layers=[self.lambda_layer],
+            layers=[self.lambda_layer, self.lambda_layer_pandas, self.lamba_layer_xlsxwriter],
             environment=environment_variables,
             timeout=Duration.seconds(15)
         )
@@ -60,7 +60,17 @@ class LambdaStack(Construct):
                                                  code=lambda_.Code.from_asset("./lambda_layer_out_temp"),
                                                  compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                  )
-                
+
+        self.lambda_layer_pandas = lambda_.LayerVersion(self, "PortalInterno_Layer_Pandas",
+                                                        code=lambda_.Code.from_asset("./lambda_requirements_layer_temp/pandas"),
+                                                        compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
+                                                        )
+
+        self.lamba_layer_xlsxwriter = lambda_.LayerVersion(self, "PortalInterno_Layer_XlsxWriter",
+                                                              code=lambda_.Code.from_asset("./lambda_requirements_layer_temp/xlsxwriter"),
+                                                              compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
+                                                              )
+        
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",
@@ -286,7 +296,8 @@ class LambdaStack(Construct):
             self.update_member_function,
             self.create_project_function,
             self.update_project_function,
-            self.download_projects_function
+            self.download_projects_function,
+            self.download_members_function
         ]
 
         
