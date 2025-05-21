@@ -4,6 +4,7 @@ import os
 import aws_cdk as cdk
 
 from adjust_layer_directory import adjust_layer_directory
+from setup_requirements_layers import setup_requirements_layers
 from iac.iac_stack import IacStack
 
 print("Starting the CDK")
@@ -12,6 +13,9 @@ print("Adjusting the layer directory")
 adjust_layer_directory(shared_dir_name="shared", destination="lambda_layer_out_temp")
 print("Finished adjusting the layer directory")
 
+print("Setting up the requirements layers")
+setup_requirements_layers(destination="lambda_requirements_layer_temp")
+print("Finished setting up the requirements layers")
 
 app = cdk.App()
 

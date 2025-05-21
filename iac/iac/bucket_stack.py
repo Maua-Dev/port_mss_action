@@ -1,5 +1,5 @@
 import os
-
+#test uploading
 from aws_cdk import (
     aws_s3, aws_s3_notifications, aws_lambda,
     aws_stepfunctions,
@@ -89,3 +89,29 @@ class BucketStack(Construct):
                                                                      )
                                             )
 
+        self.s3_bucket_member_report = aws_s3.Bucket(self, "PortalInterno_Member_Report_S3_Bucket",
+                                                     versioned=True,
+                                                     block_public_access=aws_s3.BlockPublicAccess.BLOCK_ALL,
+                                                     event_bridge_enabled=False,
+                                                     cors=[aws_s3.CorsRule(
+                                                     allowed_methods=[
+                                                          aws_s3.HttpMethods.GET, aws_s3.HttpMethods.PUT, aws_s3.HttpMethods.POST],
+                                                     allowed_origins=["*"],
+                                                     allowed_headers=["*"],
+                                                     max_age=3000
+                                                      )],
+                                                     removal_policy=REMOVAL_POLICY
+                                                     )
+        
+        self.cloudfront_distribution_member_report = aws_cloudfront.Distribution(self, "PortalInterno_Member_Report_CloudFront_Distribution",
+                                                                     default_behavior=aws_cloudfront.BehaviorOptions(
+                                                                          origin=aws_cloudfront_origins.S3Origin(
+                                                                            self.s3_bucket_member_report,
+                                                                            origin_access_identity=oai),
+                                                                          origin_request_policy=aws_cloudfront.OriginRequestPolicy.CORS_S3_ORIGIN,
+                                                                          viewer_protocol_policy=aws_cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                                                                          response_headers_policy=aws_cloudfront.ResponseHeadersPolicy.CORS_ALLOW_ALL_ORIGINS,
+                                                                          cache_policy=aws_cloudfront.CachePolicy.CACHING_OPTIMIZED,
+                                                                          allowed_methods=aws_cloudfront.AllowedMethods.ALLOW_ALL
+                                                                     )
+                                                                     )

@@ -47,12 +47,13 @@ class UpdateActionUsecase:
         else:
             members = action.associated_members_user_ids
 
-    
         start_date = new_start_date if new_start_date is not None else action.start_date
-        if members != None and set(members) != set([action.user_id] + action.associated_members_user_ids):
-            self.repo.batch_update_associated_action_members(action_id, members, start_date=start_date)
+
+        full_members = list(set([action.user_id] + members))
+        if set(full_members) != set([action.user_id] + action.associated_members_user_ids):
+            self.repo.batch_update_associated_action_members(action_id, full_members, start_date=start_date)
         elif start_date != action.start_date:
-            self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
+            self.repo.batch_update_associated_action_members(action_id, full_members, start_date=start_date)
             
         description = new_description if new_description != '' else action.description
         if new_story_id == -1:
@@ -62,6 +63,6 @@ class UpdateActionUsecase:
         else:
             story_id = new_story_id
 
-
-        return self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
+        updated_action = self.repo.update_action(action_id=action_id, new_user_id=action.user_id, new_start_date=new_start_date, new_end_date=new_end_date, new_duration=new_duration, new_story_id=story_id, new_title=new_title, new_description=description, new_project_code=new_project_code, new_associated_members_user_ids=members, new_stack_tags=new_stack_tags, new_action_type_tag=new_action_type_tag)
         
+        return updated_action
