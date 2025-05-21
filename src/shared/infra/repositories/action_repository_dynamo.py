@@ -1,4 +1,5 @@
 import base64
+import time
 import datetime
 from decimal import Decimal
 import imghdr
@@ -234,21 +235,36 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        # query →  PK = action_id && SK Begins with action	
-        if len(action_ids) == 0:
+        # lógica pra verificar se existem elementos que foram jogados pra lista de UnprocessedKeys
+        if not action_ids:
             return []
-        			
-        keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
 
-        resp = self.dynamo.batch_get_items(keys=keys)
-
-        actions = []
-        for item in resp.get("Responses", { }).get(self.dynamo.dynamo_table.name,[]):
-            if item.get("entity") == "action":
-                actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
-
+        actions_retrieved = []
+        keys_to_fetch = [{self.dynamo.partition_key: self.action_partition_key_format(action_id),
+                            self.dynamo.sort_key: self.action_sort_key_format(action_id)}
+                        for action_id in action_ids]
         
-        return actions
+        retries = 0
+        max_retries = 5 
+
+        # coloquei 5 como o número máximo de retries mas acho que tanto faz
+        while keys_to_fetch and retries < max_retries:
+            response = self.dynamo.batch_get_items(keys=keys_to_fetch)
+            
+            processed_items = response.get("Responses", {}).get(self.dynamo.dynamo_table_name, [])
+            for item in processed_items:
+                if item.get("entity") == "action":
+                    actions_retrieved.append(ActionDynamoDTO.from_dynamo(item).to_entity())
+            
+            unprocessed_keys = response.get("UnprocessedKeys", {}).get(self.dynamo.dynamo_table_name, {}).get("Keys", [])
+            
+            if unprocessed_keys:
+                keys_to_fetch = unprocessed_keys 
+                retries += 1
+                time.sleep((2 ** retries) / 10) 
+            else:
+                keys_to_fetch = [] 
+        return actions_retrieved
     
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
         '''
