@@ -235,30 +235,42 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        # faz uma verificação para ver se todas as ações foram puxadas (algumas podem cair no UnprocessedKeys)
         if not action_ids:
             return []
+        
         actions_retrieved = []
         keys_to_fetch = [{self.dynamo.partition_key: self.action_partition_key_format(action_id),
                             self.dynamo.sort_key: self.action_sort_key_format(action_id)}
-                        for action_id in action_ids]
+                           for action_id in action_ids]
 
         retries = 0
-        max_retries = 5 
-        # coloquei 5 tentativas mas da pra escolher outro numero
+        max_retries = 5
 
         while keys_to_fetch and retries < max_retries:
             response = self.dynamo.batch_get_items(keys=keys_to_fetch)
-            processed_items = response.get("Responses", {}).get(self.dynamo.dynamo_table_name, [])
+            
+            processed_items = response.get("Responses", {}).get(self.dynamo.dynamo_table, [])
             for item in processed_items:
                 if item.get("entity") == "action":
                     actions_retrieved.append(ActionDynamoDTO.from_dynamo(item).to_entity())
-            unprocessed_keys = response.get("UnprocessedKeys", {}).get(self.dynamo.dynamo_table_name, {}).get("Keys", [])
+
+            unprocessed_keys_raw = response.get("UnprocessedKeys", {}).get(self.dynamo.dynamo_table, {}).get("Keys", [])
             
-            if unprocessed_keys:
-                keys_to_fetch = unprocessed_keys 
+            if unprocessed_keys_raw:
+                keys_to_fetch = []
+                for key_raw in unprocessed_keys_raw:
+                    pk_value = key_raw.get(self.dynamo.partition_key, {}).get('S')
+                    sk_value = key_raw.get(self.dynamo.sort_key, {}).get('S')
+                    if pk_value and sk_value:
+                         keys_to_fetch.append({self.dynamo.partition_key: pk_value, self.dynamo.sort_key: sk_value})
+                    elif pk_value: 
+                         keys_to_fetch.append({self.dynamo.partition_key: pk_value})
+                
+                if not keys_to_fetch:
+                    break
+
                 retries += 1
-                time.sleep((2 ** retries) / 10) 
+                time.sleep((2 ** retries) / 10)
             else:
                 keys_to_fetch = [] 
 
