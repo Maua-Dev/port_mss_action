@@ -11,6 +11,9 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_dynamo import ActionRepositoryDynamo
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
+from unittest.mock import MagicMock, patch
+from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
+
 
 
 class Test_ActionRepositoryDynamo:
@@ -414,3 +417,78 @@ class Test_ActionRepositoryDynamo:
             start=start_date,
             end=end_date)
         assert True
+    @pytest.mark.skip("Can't run test in github actions") 
+    def test_batch_get_action_with_unprocessed_keys(self):
+        repo = ActionRepositoryDynamo()
+        repo_mock = ActionRepositoryMock() 
+        repo.dynamo = MagicMock() 
+        repo.dynamo.partition_key = 'PK'
+        repo.dynamo.sort_key = 'SK'
+        repo.dynamo.dynamo_table_name = 'test_table'
+
+        actions_to_get = repo_mock.actions[:3]
+        action_ids = [action.action_id for action in actions_to_get]
+
+        action_dynamo_dtos = [ActionDynamoDTO.from_entity(action) for action in actions_to_get]
+        action_items_dynamo = [dto.to_dynamo() for dto in action_dynamo_dtos]
+
+        keys_initial_call = [
+            {repo.dynamo.partition_key: repo.action_partition_key_format(action_id),
+             repo.dynamo.sort_key: repo.action_sort_key_format(action_id)}
+            for action_id in action_ids
+        ]
+
+        unprocessed_keys_dynamo_format = {
+            repo.dynamo.dynamo_table_name: {
+                'Keys': [
+                    {
+                        repo.dynamo.partition_key: {'S': repo.action_partition_key_format(action_ids[1])},
+                        repo.dynamo.sort_key: {'S': repo.action_sort_key_format(action_ids[1])}
+                    },
+                    {
+                        repo.dynamo.partition_key: {'S': repo.action_partition_key_format(action_ids[2])},
+                        repo.dynamo.sort_key: {'S': repo.action_sort_key_format(action_ids[2])}
+                    }
+                ]
+            }
+        }
+
+        keys_second_call = [
+             {
+                repo.dynamo.partition_key: repo.action_partition_key_format(action_ids[1]),
+                repo.dynamo.sort_key: repo.action_sort_key_format(action_ids[1])
+             },
+             {
+                repo.dynamo.partition_key: repo.action_partition_key_format(action_ids[2]),
+                repo.dynamo.sort_key: repo.action_sort_key_format(action_ids[2])
+             }
+        ]
+
+        mock_response_1 = {
+            'Responses': {
+                repo.dynamo.dynamo_table_name: [action_items_dynamo[0]]
+            },
+            'UnprocessedKeys': unprocessed_keys_dynamo_format 
+        }
+        mock_response_2 = {
+            'Responses': {
+                repo.dynamo.dynamo_table_name: [action_items_dynamo[1], action_items_dynamo[2]] 
+            },
+            'UnprocessedKeys': {} 
+        }
+
+        repo.dynamo.batch_get_items.side_effect = [mock_response_1, mock_response_2]
+
+        resp = repo.batch_get_action(action_ids)
+
+        assert repo.dynamo.batch_get_items.call_count == 2
+
+        repo.dynamo.batch_get_items.assert_any_call(keys=keys_initial_call)
+        repo.dynamo.batch_get_items.assert_any_call(keys=keys_second_call)
+
+        expected_actions = actions_to_get
+        expected_actions.sort(key=lambda x: x.action_id)
+        resp.sort(key=lambda x: x.action_id)
+
+        assert len(resp) == len(expected_actions)
+        assert resp == expected_actions
