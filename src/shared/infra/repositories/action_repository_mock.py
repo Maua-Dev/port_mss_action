@@ -666,7 +666,7 @@ class ActionRepositoryMock(IActionRepository):
             "associated_actions": user_associated_actions
         }
 
-    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: Optional[str], start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
      
         project_actions = list(filter(lambda x: x.project_code == project_code, self.actions))
 

@@ -684,8 +684,7 @@ class ActionRepositoryDynamo(IActionRepository):
             ]
         }
 
-    
-    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
 
         expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
 
