@@ -24,15 +24,7 @@ def lambda_handler(event, context):
     member = member_repo.get_member(user_id)
     if member is None:
         return {"statusCode": 404, "body": f"Member with user_id {user_id} not found"}
-
-    # project = Project(code=project_code, 
-    #                   name="Dummy Project",  
-    #                   description="Dummy Description",  
-    #                   po_user_id=member.user_id, 
-    #                   scrum_user_id=member.user_id, 
-    #                   start_date=int(datetime.now().timestamp() * 1000),  
-    #                   members_user_ids=[member.user_id])  
-
+ 
     project = action_repo.get_project(code=project_code)
     
     extractor = DownloadActionsExtractor(action_repo)
@@ -60,7 +52,7 @@ def lambda_handler(event, context):
         excel_content.read(),
         _subtype='vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
-    attachment.add_header('Content-Disposition', 'attachment', filename='acoes_projeto.xlsx')
+    attachment.add_header('Content-Disposition', 'attachment', filename=f'acoes_projeto_{project_code}.xlsx')
     msg.attach(attachment)
 
     try:
