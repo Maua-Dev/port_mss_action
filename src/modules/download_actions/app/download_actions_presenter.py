@@ -11,7 +11,7 @@ from email.mime.text import MIMEText
 import email.mime.application
 
 def lambda_handler(event, context):
-    current_date = datetime.datetime.now()
+    current_date = datetime.now()
 
     year = current_date.year
     month = current_date.month
