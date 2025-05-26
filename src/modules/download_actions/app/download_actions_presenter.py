@@ -49,6 +49,7 @@ def lambda_handler(event, context):
     msg['From'] = envs.from_email
     msg['To'] = member.email
     msg['Bcc'] = envs.hidden_copy
+    msg['Reply-To'] = envs.reply_to_email
 
     msg.attach(MIMEText(email_html, 'html'))
 
@@ -64,8 +65,7 @@ def lambda_handler(event, context):
         response = ses_client.send_raw_email(
             Source=envs.from_email,
             Destinations=[member.email],
-            RawMessage={'Data': msg.as_string()},
-            ReplyToAddresses=[envs.reply_to_email]
+            RawMessage={'Data': msg.as_string()}
         )
     except Exception as e:
         return {"statusCode": 500, "body": f"Error sending email: {str(e)}"}
