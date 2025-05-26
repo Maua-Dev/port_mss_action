@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import boto3
 from src.shared.environments import Environments
 from src.shared.domain.entities.member import Member
