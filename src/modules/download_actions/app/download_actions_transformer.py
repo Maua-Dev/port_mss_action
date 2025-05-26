@@ -13,8 +13,6 @@ class DownloadActionsTransformer:
         all_actions = data["actions"] + data["associated_actions"]
 
         df_actions = pd.DataFrame([a.__dict__ for a in all_actions])
-        # df_actions = pd.DataFrame([a.__dict__ for a in data["actions"]])
-        # df_associated = pd.DataFrame([a.__dict__ for a in data["associated_actions"]])
 
         if "associated_members_user_ids" in df_actions.columns:
             df_actions = df_actions.drop(columns=["associated_members_user_ids"])
