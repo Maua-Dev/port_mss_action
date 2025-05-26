@@ -33,7 +33,7 @@ def lambda_handler(event, context):
     #                   start_date=int(datetime.now().timestamp() * 1000),  
     #                   members_user_ids=[member.user_id])  
 
-    project = action_repo.get_project(project_code)
+    project = action_repo.get_project(code=project_code)
     
     extractor = DownloadActionsExtractor(action_repo)
     transformer = DownloadActionsTransformer(extractor)
