@@ -28,7 +28,7 @@ def lambda_handler(event, context):
     project = action_repo.get_project(code=project_code)
     
     extractor = DownloadActionsExtractor(action_repo)
-    transformer = DownloadActionsTransformer(extractor)
+    transformer = DownloadActionsTransformer(extractor,member_repo)
     try:
         excel_content = transformer(project_code)
     except Exception as e:
