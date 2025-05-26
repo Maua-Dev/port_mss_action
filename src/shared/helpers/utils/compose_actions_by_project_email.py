@@ -1,7 +1,7 @@
 from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 
-def compose_actions_by_project_email(self, member: Member, project: Project) -> str:
+def compose_actions_by_project_email( member: Member, project: Project) -> str:
     member_name = member.name
     project_name = project.name
     message = """
