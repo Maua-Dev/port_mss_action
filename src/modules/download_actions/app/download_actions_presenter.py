@@ -1,3 +1,4 @@
+import datetime
 import boto3
 from src.shared.environments import Environments
 from src.shared.domain.entities.member import Member
@@ -24,7 +25,13 @@ def lambda_handler(event, context):
     if member is None:
         return {"statusCode": 404, "body": f"Member with user_id {user_id} not found"}
 
-    project = Project(project_code=project_code)
+    project = Project(project_code=project_code, 
+                      name="Dummy Project",  
+                      description="Dummy Description",  
+                      po_user_id=member.user_id, 
+                      scrum_user_id="dummy_scrum_user_id", 
+                      start_date=int(datetime.now().timestamp() * 1000),  
+                      members_user_ids=[member.user_id])  
 
     extractor = DownloadActionsExtractor(action_repo)
     transformer = DownloadActionsTransformer(extractor)
