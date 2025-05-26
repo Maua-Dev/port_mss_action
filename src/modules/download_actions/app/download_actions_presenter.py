@@ -29,7 +29,7 @@ def lambda_handler(event, context):
                       name="Dummy Project",  
                       description="Dummy Description",  
                       po_user_id=member.user_id, 
-                      scrum_user_id="dummy_scrum_user_id", 
+                      scrum_user_id=member.user_id, 
                       start_date=int(datetime.now().timestamp() * 1000),  
                       members_user_ids=[member.user_id])  
 
