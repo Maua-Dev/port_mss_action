@@ -25,7 +25,7 @@ def lambda_handler(event, context):
     if member is None:
         return {"statusCode": 404, "body": f"Member with user_id {user_id} not found"}
 
-    project = Project(project_code=project_code, 
+    project = Project(code=project_code, 
                       name="Dummy Project",  
                       description="Dummy Description",  
                       po_user_id=member.user_id, 
