@@ -11,6 +11,12 @@ from email.mime.text import MIMEText
 import email.mime.application
 
 def lambda_handler(event, context):
+    current_date = datetime.datetime.now()
+
+    year = current_date.year
+    month = current_date.month
+    day = current_date.day
+
     project_code = event.get("project_code")
     user_id = event.get("user_id")
 
@@ -52,7 +58,7 @@ def lambda_handler(event, context):
         excel_content.read(),
         _subtype='vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
-    attachment.add_header('Content-Disposition', 'attachment', filename=f'acoes_projeto_{project_code}.xlsx')
+    attachment.add_header('Content-Disposition', 'attachment', filename=f'acoes_projeto_{project_code}_{day}_{month}_{year}.xlsx')
     msg.attach(attachment)
 
     try:
