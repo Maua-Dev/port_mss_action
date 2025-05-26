@@ -17,6 +17,9 @@ class DownloadActionsTransformer:
         if "associated_members_user_ids" in df_actions.columns:
             df_actions = df_actions.drop(columns=["associated_members_user_ids"])
         
+        if "project_code" in df_actions.columns:
+            df_actions = df_actions.drop(columns=["project_code"])
+            
         user_ids = set(df_actions['user_id'].dropna().unique())
 
         user_map = {}
