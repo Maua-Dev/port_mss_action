@@ -18,7 +18,7 @@ def lambda_handler(event, context):
         return {"statusCode": 400, "body": "Missing project_code or user_id"}
 
     envs = Environments.get_envs()
-    action_repo = envs.get_action_repo()
+    action_repo = envs.get_action_repo()()
     member_repo = envs.get_member_repo()()
 
     member = member_repo.get_member(user_id)
