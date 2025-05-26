@@ -18,21 +18,23 @@ def lambda_handler(event, context):
         return {"statusCode": 400, "body": "Missing project_code or user_id"}
 
     envs = Environments.get_envs()
-    action_repo = envs.get_action_repo()()
+    action_repo = envs.get_action_repo()
     member_repo = envs.get_member_repo()()
 
     member = member_repo.get_member(user_id)
     if member is None:
         return {"statusCode": 404, "body": f"Member with user_id {user_id} not found"}
 
-    project = Project(code=project_code, 
-                      name="Dummy Project",  
-                      description="Dummy Description",  
-                      po_user_id=member.user_id, 
-                      scrum_user_id=member.user_id, 
-                      start_date=int(datetime.now().timestamp() * 1000),  
-                      members_user_ids=[member.user_id])  
+    # project = Project(code=project_code, 
+    #                   name="Dummy Project",  
+    #                   description="Dummy Description",  
+    #                   po_user_id=member.user_id, 
+    #                   scrum_user_id=member.user_id, 
+    #                   start_date=int(datetime.now().timestamp() * 1000),  
+    #                   members_user_ids=[member.user_id])  
 
+    project = action_repo.get_project(project_code)
+    
     extractor = DownloadActionsExtractor(action_repo)
     transformer = DownloadActionsTransformer(extractor)
     try:
