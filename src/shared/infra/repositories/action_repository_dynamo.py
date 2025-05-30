@@ -235,15 +235,12 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        """
-        Fetch multiple Action entities by their IDs using DynamoDB BatchGetItem,
-        handling unprocessed keys with exponential backoff.
-        """
+       
         if not action_ids:
             return []
 
         actions_retrieved: List[Action] = []
-        # build the list of keys we need to fetch
+   
         keys_to_fetch = [
             {
                 self.dynamo.partition_key: self.action_partition_key_format(action_id),
