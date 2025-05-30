@@ -83,7 +83,7 @@ class Test_ActionRepositoryDynamo:
 
         assert delected_project == project
     
-    @pytest.mark.skip("Can't run test in github actions")
+    # @pytest.mark.skip("Can't run test in github actions")
     def test_batch_get_action(self):
         repo = ActionRepositoryDynamo()
         repo_mock = ActionRepositoryMock()
@@ -492,3 +492,90 @@ class Test_ActionRepositoryDynamo:
 
         assert len(resp) == len(expected_actions)
         assert resp == expected_actions
+        class TestBatchGetAction:
+            def test_batch_get_action_returns_all_actions(self):
+                repo = ActionRepositoryDynamo()
+                repo.dynamo = MagicMock()
+                repo.dynamo.partition_key = 'PK'
+                repo.dynamo.sort_key = 'SK'
+                repo.dynamo.dynamo_table = 'test_table'
+
+                # Prepare mock actions
+                mock_actions = ActionRepositoryMock().actions[:3]
+                action_ids = [a.action_id for a in mock_actions]
+                dynamo_items = [ActionDynamoDTO.from_entity(a).to_dynamo() for a in mock_actions]
+
+                repo.dynamo.batch_get_items.return_value = {
+                    "Responses": {repo.dynamo.dynamo_table: dynamo_items},
+                    "UnprocessedKeys": {}
+                }
+
+                result = repo.batch_get_action(action_ids)
+                assert sorted(result, key=lambda x: x.action_id) == sorted(mock_actions, key=lambda x: x.action_id)
+
+            def test_batch_get_action_empty_input(self):
+                repo = ActionRepositoryDynamo()
+                result = repo.batch_get_action([])
+                assert result == []
+
+            def test_batch_get_action_with_unprocessed_keys(self):
+                repo = ActionRepositoryDynamo()
+                repo.dynamo = MagicMock()
+                repo.dynamo.partition_key = 'PK'
+                repo.dynamo.sort_key = 'SK'
+                repo.dynamo.dynamo_table = 'test_table'
+
+                mock_actions = ActionRepositoryMock().actions[:3]
+                action_ids = [a.action_id for a in mock_actions]
+                dynamo_items = [ActionDynamoDTO.from_entity(a).to_dynamo() for a in mock_actions]
+
+                # First call returns only the first action, and two unprocessed keys
+                unprocessed_keys = {
+                    repo.dynamo.dynamo_table: {
+                        'Keys': [
+                            {
+                                repo.dynamo.partition_key: {'S': repo.action_partition_key_format(action_ids[1])},
+                                repo.dynamo.sort_key: {'S': repo.action_sort_key_format(action_ids[1])}
+                            },
+                            {
+                                repo.dynamo.partition_key: {'S': repo.action_partition_key_format(action_ids[2])},
+                                repo.dynamo.sort_key: {'S': repo.action_sort_key_format(action_ids[2])}
+                            }
+                        ]
+                    }
+                }
+                # Second call returns the remaining two actions
+                repo.dynamo.batch_get_items.side_effect = [
+                    {
+                        "Responses": {repo.dynamo.dynamo_table: [dynamo_items[0]]},
+                        "UnprocessedKeys": unprocessed_keys
+                    },
+                    {
+                        "Responses": {repo.dynamo.dynamo_table: [dynamo_items[1], dynamo_items[2]]},
+                        "UnprocessedKeys": {}
+                    }
+                ]
+
+                result = repo.batch_get_action(action_ids)
+                assert sorted(result, key=lambda x: x.action_id) == sorted(mock_actions, key=lambda x: x.action_id)
+                assert repo.dynamo.batch_get_items.call_count == 2
+
+            def test_batch_get_action_with_nonexistent_ids(self):
+                repo = ActionRepositoryDynamo()
+                repo.dynamo = MagicMock()
+                repo.dynamo.partition_key = 'PK'
+                repo.dynamo.sort_key = 'SK'
+                repo.dynamo.dynamo_table = 'test_table'
+
+                # Only one action exists
+                mock_action = ActionRepositoryMock().actions[0]
+                action_ids = [mock_action.action_id, "nonexistent-id"]
+                dynamo_items = [ActionDynamoDTO.from_entity(mock_action).to_dynamo()]
+
+                repo.dynamo.batch_get_items.return_value = {
+                    "Responses": {repo.dynamo.dynamo_table: dynamo_items},
+                    "UnprocessedKeys": {}
+                }
+
+                result = repo.batch_get_action(action_ids)
+                assert result == [mock_action]

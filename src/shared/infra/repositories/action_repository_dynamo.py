@@ -235,46 +235,65 @@ class ActionRepositoryDynamo(IActionRepository):
         return associated_actions
         
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
+        """
+        Fetch multiple Action entities by their IDs using DynamoDB BatchGetItem,
+        handling unprocessed keys with exponential backoff.
+        """
         if not action_ids:
             return []
-        
-        actions_retrieved = []
-        keys_to_fetch = [{self.dynamo.partition_key: self.action_partition_key_format(action_id),
-                            self.dynamo.sort_key: self.action_sort_key_format(action_id)}
-                           for action_id in action_ids]
+
+        actions_retrieved: List[Action] = []
+        # build the list of keys we need to fetch
+        keys_to_fetch = [
+            {
+                self.dynamo.partition_key: self.action_partition_key_format(action_id),
+                self.dynamo.sort_key:      self.action_sort_key_format(action_id)
+            }
+            for action_id in action_ids
+        ]
 
         retries = 0
         max_retries = 5
 
         while keys_to_fetch and retries < max_retries:
             response = self.dynamo.batch_get_items(keys=keys_to_fetch)
-            
-            processed_items = response.get("Responses", {}).get(self.dynamo.dynamo_table, [])
-            for item in processed_items:
-                if item.get("entity") == "action":
-                    actions_retrieved.append(ActionDynamoDTO.from_dynamo(item).to_entity())
 
-            unprocessed_keys_raw = response.get("UnprocessedKeys", {}).get(self.dynamo.dynamo_table, {}).get("Keys", [])
-            
-            if unprocessed_keys_raw:
+            for items in response.get("Responses", {}).values():
+                for item in items:
+                    if item.get("entity") == "action":
+                        actions_retrieved.append(
+                            ActionDynamoDTO.from_dynamo(item).to_entity()
+                        )
+
+            unprocessed_raw = []
+            for table_block in response.get("UnprocessedKeys", {}).values():
+                unprocessed_raw.extend(table_block.get("Keys", []))
+
+            if unprocessed_raw:
                 keys_to_fetch = []
-                for key_raw in unprocessed_keys_raw:
-                    pk_value = key_raw.get(self.dynamo.partition_key, {}).get('S')
-                    sk_value = key_raw.get(self.dynamo.sort_key, {}).get('S')
-                    if pk_value and sk_value:
-                         keys_to_fetch.append({self.dynamo.partition_key: pk_value, self.dynamo.sort_key: sk_value})
-                    elif pk_value: 
-                         keys_to_fetch.append({self.dynamo.partition_key: pk_value})
-                
-                if not keys_to_fetch:
-                    break
-
+                for key_raw in unprocessed_raw:
+                    pk_val = (
+                        key_raw.get(self.dynamo.partition_key, {}).get("S")
+                        if isinstance(key_raw.get(self.dynamo.partition_key), dict)
+                        else key_raw.get(self.dynamo.partition_key)
+                    )
+                    sk_val = (
+                        key_raw.get(self.dynamo.sort_key, {}).get("S")
+                        if isinstance(key_raw.get(self.dynamo.sort_key), dict)
+                        else key_raw.get(self.dynamo.sort_key)
+                    )
+                    if pk_val and sk_val:
+                        keys_to_fetch.append({
+                            self.dynamo.partition_key: pk_val,
+                            self.dynamo.sort_key:      sk_val
+                        })
                 retries += 1
                 time.sleep((2 ** retries) / 10)
             else:
-                keys_to_fetch = [] 
+                break
 
         return actions_retrieved
+
     
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
         '''
