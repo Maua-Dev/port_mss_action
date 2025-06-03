@@ -217,3 +217,27 @@ class DynamoDatasource:
             }
         )
         return resp
+    
+
+    def scan_items_last_ev_key(self, filter_expression, **kwargs):
+        """
+        Scan all items from the table, handling pagination.
+        @return: list of all items matching the filter
+        """
+        all_items = []
+        
+        response = self.dynamo_table.scan(
+            FilterExpression=filter_expression,
+            **kwargs
+        )
+        all_items.extend(response.get('Items', []))
+
+        while 'LastEvaluatedKey' in response:
+            response = self.dynamo_table.scan(
+                FilterExpression=filter_expression,
+                ExclusiveStartKey=response['LastEvaluatedKey'],
+                **kwargs
+            )
+            all_items.extend(response.get('Items', []))
+        
+        return all_items
