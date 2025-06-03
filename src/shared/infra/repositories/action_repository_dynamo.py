@@ -362,36 +362,44 @@ class ActionRepositoryDynamo(IActionRepository):
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
-        expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
+        expression_attribute_names = {
+            '#sk_attr': 'SK',
+            '#start_date_attr': 'start_date',
+            '#end_date_attr': 'end_date',
+            '#dur': 'duration',
+            '#uid': 'user_id',
+            '#amuid': 'associated_members_user_ids'
+        }
 
-        projection_expression = "SK, start_date, end_date, user_id, duration, associated_members_user_ids" 
+        expression = Attr('#sk_attr').begins_with('action#') & \
+                     Attr('#start_date_attr').between(start_date, end_date) & \
+                     Attr('#end_date_attr').lte(end_date)
 
-        all_matching_items = self.dynamo.scan_items_last_ev_key(expression, ProjectionExpression=projection_expression)
+        projection_expression = "#sk_attr, #start_date_attr, #end_date_attr, #uid, #dur, #amuid"
+
+        all_matching_items = self.scan_items(
+            filter_expression=expression,
+            expression_attribute_names=expression_attribute_names,
+            projection_expression=projection_expression
+        )
         
         if not all_matching_items:
             return {}
 
         durations_by_user_id = {}
         
-        for item in all_matching_items: 
-
-            user_id = item.get('user_id')
-            duration = item.get('duration')
+        for item in all_matching_items:
+            user_id = item.get('user_id') 
+            item_duration = item.get('duration')
             associated_members_user_ids = item.get('associated_members_user_ids', [])
 
-            if duration is not None: 
-                if user_id: 
-                    if user_id in durations_by_user_id:
-                        durations_by_user_id[user_id] += duration
-                    else:
-                        durations_by_user_id[user_id] = duration
+            if item_duration is not None:
+                if user_id:
+                    durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + item_duration
                 
                 for associated_user_id in associated_members_user_ids:
-                    if associated_user_id: 
-                        if associated_user_id in durations_by_user_id:
-                            durations_by_user_id[associated_user_id] += duration
-                        else:
-                            durations_by_user_id[associated_user_id] = duration
+                    if associated_user_id:
+                        durations_by_user_id[associated_user_id] = durations_by_user_id.get(associated_user_id, 0) + item_duration
             
         return durations_by_user_id
 
