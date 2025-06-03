@@ -231,7 +231,7 @@ class DynamoDatasource:
         if projection_expression:
             scan_kwargs['ProjectionExpression'] = projection_expression
             
-        response = self.dynamo_table.scan(**scan_kwargs)
+        response = self.dynamo_table.scan(**scan_kwargs) 
         all_items.extend(response.get('Items', []))
 
         while 'LastEvaluatedKey' in response:

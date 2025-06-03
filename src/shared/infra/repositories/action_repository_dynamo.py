@@ -377,7 +377,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         projection_expression = "#sk_attr, #start_date_attr, #end_date_attr, #uid, #dur, #amuid"
 
-        all_matching_items = self.dynamo.scan_items_last_ev_key(
+        all_matching_items = self.scan_items_last_ev_key(
             filter_expression=expression,
             expression_attribute_names=expression_attribute_names,
             projection_expression=projection_expression
@@ -390,16 +390,19 @@ class ActionRepositoryDynamo(IActionRepository):
         
         for item in all_matching_items:
             user_id = item.get('user_id') 
-            item_duration = item.get('duration')
+            raw_item_duration = item.get('duration')
             associated_members_user_ids = item.get('associated_members_user_ids', [])
 
-            if item_duration is not None:
-                if user_id:
-                    durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + item_duration
-                
-                for associated_user_id in associated_members_user_ids:
-                    if associated_user_id:
-                        durations_by_user_id[associated_user_id] = durations_by_user_id.get(associated_user_id, 0) + item_duration
+            processed_duration = 0
+            if raw_item_duration is not None:
+                processed_duration = int(raw_item_duration) 
+            
+            if user_id:
+                durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + processed_duration
+            
+            for associated_user_id in associated_members_user_ids:
+                if associated_user_id:
+                    durations_by_user_id[associated_user_id] = durations_by_user_id.get(associated_user_id, 0) + processed_duration
             
         return durations_by_user_id
 
