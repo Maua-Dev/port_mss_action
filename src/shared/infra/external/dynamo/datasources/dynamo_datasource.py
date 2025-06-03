@@ -219,7 +219,7 @@ class DynamoDatasource:
         return resp
     
 
-    def scan_items(self, filter_expression, expression_attribute_names=None, projection_expression=None, **kwargs):
+    def scan_items_last_ev_key(self, filter_expression, expression_attribute_names=None, projection_expression=None, **kwargs):
         all_items = []
         scan_kwargs = {
             'FilterExpression': filter_expression,
