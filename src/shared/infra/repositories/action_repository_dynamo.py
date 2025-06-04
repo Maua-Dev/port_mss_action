@@ -362,28 +362,21 @@ class ActionRepositoryDynamo(IActionRepository):
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
-        # Log the input parameters to be absolutely sure
         print(f"INFO: get_all_actions_durations_by_user_id called with start_date={start_date}, end_date={end_date}")
 
-        expression_attribute_names = {
+        expression_attribute_names_test = {
             '#sk_attr': 'SK',
             '#start_date_attr': 'start_date',
-            '#end_date_attr': 'end_date',
-            '#dur': 'duration',
-            '#uid': 'user_id',
-            '#amuid': 'associated_members_user_ids'
+            '#end_date_attr': 'end_date'   
         }
 
-        expression = Attr('#sk_attr').begins_with('action#') & \
-                     Attr('#start_date_attr').between(start_date, end_date) & \
-                     Attr('#end_date_attr').lte(end_date)
-
-        projection_expression = "#sk_attr, #start_date_attr, #end_date_attr, #uid, #dur, #amuid"
+        expression_test = Attr('#sk_attr').begins_with('action#')
+        projection_expression_test = "#sk_attr, #start_date_attr, #end_date_attr" 
 
         all_matching_items = self.dynamo.scan_items_last_ev_key(
-            filter_expression=expression, 
-            expression_attribute_names=expression_attribute_names,
-            projection_expression=projection_expression
+            filter_expression=expression_test,
+            expression_attribute_names=expression_attribute_names_test,
+            projection_expression=projection_expression_test
         )
         
         if not all_matching_items:
