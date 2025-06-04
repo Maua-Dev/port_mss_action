@@ -239,4 +239,5 @@ class DynamoDatasource:
             response = self.dynamo_table.scan(**scan_kwargs)
             all_items.extend(response.get('Items', []))
         
+        print(all_items)
         return all_items
