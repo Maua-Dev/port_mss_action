@@ -362,7 +362,6 @@ class ActionRepositoryDynamo(IActionRepository):
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
-        print(f"INFO: get_all_actions_durations_by_user_id called with start_date={start_date}, end_date={end_date}")
 
         filter_expression = (
             Attr('SK').begins_with('action#') &
@@ -382,20 +381,19 @@ class ActionRepositoryDynamo(IActionRepository):
         )
 
         if not all_matching_items:
-            print("INFO: No items were returned by the scan operation.")
             return {}
 
         durations_by_user_id = {}
 
         for item in all_matching_items:
             user_id = item.get('user_id')
-            raw_duration = item.get('duration')  # DynamoDB still returns original name
+            raw_duration = item.get('duration')  
             associated_members = item.get('associated_members_user_ids', [])
 
             try:
                 duration = int(raw_duration)
             except (TypeError, ValueError):
-                print(f"WARNING: Invalid duration '{raw_duration}' in item {item.get('SK')}. Skipping.")
+                print(f"WRNING: Invalid duration '{raw_duration}' in item {item.get('SK')}. Skipping.")
                 continue
 
             if user_id:
@@ -409,27 +407,40 @@ class ActionRepositoryDynamo(IActionRepository):
 
 
     def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
-        expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
-        
-        resp = self.dynamo.scan_items(expression)
-        
-        if resp["Count"] == 0:
+        expression = (
+            Attr('SK').begins_with('action#') & 
+            Attr('start_date').between(start_date, end_date) & 
+            Attr('end_date').lte(end_date)
+        )
+
+        projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
+        expression_attribute_names = {
+            "#dur": "duration"
+        }
+
+        resp = self.dynamo.scan_items_last_ev_key(
+            filter_expression=expression,
+            projection_expression=projection_expression,
+            expression_attribute_names=expression_attribute_names
+        )
+
+        if resp.get("Count", 0) == 0:
             return 0
-        
+
         total_duration = 0
-        
+
         for item in resp['Items']:
             action = ActionDynamoDTO.from_dynamo(item).to_entity()
-            
+
             if action.duration is not None:
-                
                 if action.user_id == user_id:
                     total_duration += action.duration
-                
-                if user_id in action.associated_members_user_ids:
+
+                if user_id in (action.associated_members_user_ids or []):
                     total_duration += action.duration
-        
+
         return total_duration
+
 
         
     def send_invalid_action_email(self, member: Member, action: Action) -> bool:

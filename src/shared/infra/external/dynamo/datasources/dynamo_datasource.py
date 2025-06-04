@@ -229,12 +229,10 @@ class DynamoDatasource:
         if expression_attribute_names:
             scan_kwargs['ExpressionAttributeNames'] = expression_attribute_names
 
-        print(f"DEBUG: Initial scan_kwargs being sent to DynamoDB: {scan_kwargs}")
 
         try:
             response = self.dynamo_table.scan(**scan_kwargs)
         except Exception as e:
-            print(f"ERROR: Exception during initial DynamoDB scan: {e}")
             return []
 
         all_items.extend(response.get('Items', []))
@@ -245,7 +243,6 @@ class DynamoDatasource:
             try:
                 response = self.dynamo_table.scan(**scan_kwargs)
             except Exception as e:
-                print(f"ERROR: Exception during paginated scan: {e}")
                 break
 
             all_items.extend(response.get('Items', []))
