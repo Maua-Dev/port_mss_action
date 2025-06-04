@@ -362,6 +362,9 @@ class ActionRepositoryDynamo(IActionRepository):
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
     
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
+        # Log the input parameters to be absolutely sure
+        print(f"INFO: get_all_actions_durations_by_user_id called with start_date={start_date}, end_date={end_date}")
+
         expression_attribute_names = {
             '#sk_attr': 'SK',
             '#start_date_attr': 'start_date',
@@ -377,13 +380,14 @@ class ActionRepositoryDynamo(IActionRepository):
 
         projection_expression = "#sk_attr, #start_date_attr, #end_date_attr, #uid, #dur, #amuid"
 
-        all_matching_items = self.dynamo.scan_items_last_ev_key(
-            filter_expression=expression,
+        all_matching_items = self.scan_items_last_ev_key(
+            filter_expression=expression, 
             expression_attribute_names=expression_attribute_names,
             projection_expression=projection_expression
         )
         
         if not all_matching_items:
+            print("INFO: No items were returned by the scan operation.")
             return {}
 
         durations_by_user_id = {}
@@ -395,7 +399,10 @@ class ActionRepositoryDynamo(IActionRepository):
 
             processed_duration = 0
             if raw_item_duration is not None:
-                processed_duration = int(raw_item_duration) 
+                try:
+                    processed_duration = int(raw_item_duration)
+                except (ValueError, TypeError) as e:
+                    print(f"WARNING: Could not convert duration '{raw_item_duration}' for item {item.get('SK')}. Error: {e}. Using 0.")
             
             if user_id:
                 durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + processed_duration

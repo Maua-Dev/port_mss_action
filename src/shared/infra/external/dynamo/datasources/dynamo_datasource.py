@@ -219,10 +219,10 @@ class DynamoDatasource:
         return resp
     
 
-    def scan_items_last_ev_key(self, filter_expression, expression_attribute_names=None, projection_expression=None, **kwargs):
+def scan_items_last_ev_key(self, filter_expression, expression_attribute_names=None, projection_expression=None, **kwargs):
         all_items = []
         scan_kwargs = {
-            'FilterExpression': filter_expression,
+            'FilterExpression': filter_expression, 
             **kwargs
         }
         
@@ -230,14 +230,37 @@ class DynamoDatasource:
             scan_kwargs['ExpressionAttributeNames'] = expression_attribute_names
         if projection_expression:
             scan_kwargs['ProjectionExpression'] = projection_expression
-            
-        response = self.dynamo_table.scan(**scan_kwargs) 
+        
+        print(f"DEBUG: Initial scan_kwargs being sent to DynamoDB: {scan_kwargs}")
+        
+        try:
+            response = self.dynamo_table.scan(**scan_kwargs)
+        except Exception as e:
+            print(f"ERROR: Exception during initial DynamoDB scan: {e}")
+            print(f"ERROR: Scan arguments that caused exception: {scan_kwargs}")
+            return []
+
+        count = response.get('Count', 0)
+        scanned_count = response.get('ScannedCount', 0)
+        print(f"DEBUG: Initial scan response: Items returned: {count}, Items scanned: {scanned_count}, LastEvaluatedKey: {response.get('LastEvaluatedKey')}")
         all_items.extend(response.get('Items', []))
 
+        page_num = 1
         while 'LastEvaluatedKey' in response:
+            page_num += 1
             scan_kwargs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-            response = self.dynamo_table.scan(**scan_kwargs)
+            print(f"DEBUG: Paginated scan_kwargs (page {page_num}): {scan_kwargs}")
+            try:
+                response = self.dynamo_table.scan(**scan_kwargs)
+            except Exception as e:
+                print(f"ERROR: Exception during paginated DynamoDB scan (page {page_num}): {e}")
+                print(f"ERROR: Scan arguments that caused exception: {scan_kwargs}")
+                break 
+
+            count = response.get('Count', 0)
+            scanned_count = response.get('ScannedCount', 0)
+            print(f"DEBUG: Paginated scan response (page {page_num}): Items returned: {count}, Items scanned: {scanned_count}, LastEvaluatedKey: {response.get('LastEvaluatedKey')}")
             all_items.extend(response.get('Items', []))
         
-        print(all_items)
+        print(f"DEBUG: Total items retrieved after all pages: {len(all_items)}")
         return all_items
