@@ -219,38 +219,36 @@ class DynamoDatasource:
         return resp
     
 
-    def scan_items_last_ev_key(self, filter_expression, projection_expression=None):
+    def scan_items_last_ev_key(self, filter_expression, projection_expression=None, expression_attribute_names=None):
         all_items = []
         scan_kwargs = {'FilterExpression': filter_expression}
 
         if projection_expression:
             scan_kwargs['ProjectionExpression'] = projection_expression
 
+        if expression_attribute_names:
+            scan_kwargs['ExpressionAttributeNames'] = expression_attribute_names
+
         print(f"DEBUG: Initial scan_kwargs being sent to DynamoDB: {scan_kwargs}")
 
         try:
-            response = self.dynamo_table.scan(**scan_kwargs)
+            response = self.table.scan(**scan_kwargs)
         except Exception as e:
             print(f"ERROR: Exception during initial DynamoDB scan: {e}")
             return []
 
         all_items.extend(response.get('Items', []))
-        print(f"DEBUG: Initial scan response: Items returned: {response.get('Count')}, Items scanned: {response.get('ScannedCount')}")
 
-        page = 1
         while 'LastEvaluatedKey' in response:
-            page += 1
             scan_kwargs['ExclusiveStartKey'] = response['LastEvaluatedKey']
-            print(f"DEBUG: Paginated scan_kwargs (page {page}): {scan_kwargs}")
 
             try:
-                response = self.dynamo_table.scan(**scan_kwargs)
+                response = self.table.scan(**scan_kwargs)
             except Exception as e:
-                print(f"ERROR: Exception during paginated scan (page {page}): {e}")
+                print(f"ERROR: Exception during paginated scan: {e}")
                 break
 
             all_items.extend(response.get('Items', []))
-            print(f"DEBUG: Paginated scan response (page {page}): Items returned: {response.get('Count')}")
 
-        print(f"DEBUG: Total items retrieved after all pages: {len(all_items)}")
         return all_items
+

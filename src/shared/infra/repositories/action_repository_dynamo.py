@@ -369,11 +369,16 @@ class ActionRepositoryDynamo(IActionRepository):
             Attr('start_date').gte(start_date) &
             Attr('end_date').lte(end_date)
         )
-        projection_expression = "SK, start_date, end_date, user_id, duration, associated_members_user_ids"
-        
+
+        projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
+        expression_attribute_names = {
+            "#dur": "duration"
+        }
+
         all_matching_items = self.dynamo.scan_items_last_ev_key(
             filter_expression=filter_expression,
-            projection_expression=projection_expression
+            projection_expression=projection_expression,
+            expression_attribute_names=expression_attribute_names
         )
 
         if not all_matching_items:
@@ -384,7 +389,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         for item in all_matching_items:
             user_id = item.get('user_id')
-            raw_duration = item.get('duration')
+            raw_duration = item.get('duration')  # DynamoDB still returns original name
             associated_members = item.get('associated_members_user_ids', [])
 
             try:
@@ -401,6 +406,7 @@ class ActionRepositoryDynamo(IActionRepository):
                     durations_by_user_id[assoc_id] = durations_by_user_id.get(assoc_id, 0) + duration
 
         return durations_by_user_id
+
 
     def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
         expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
