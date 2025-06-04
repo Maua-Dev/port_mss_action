@@ -364,45 +364,42 @@ class ActionRepositoryDynamo(IActionRepository):
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
         print(f"INFO: get_all_actions_durations_by_user_id called with start_date={start_date}, end_date={end_date}")
 
-        test_expression_attribute_names = {
-            '#sk_attr': 'SK',
-            '#start_date_attr': 'start_date',
-            '#end_date_attr': 'end_date'
-        }
-        test_filter_expression = Attr('#sk_attr').begins_with('action#')
-        test_projection_expression = "#sk_attr, #start_date_attr, #end_date_attr"
-
-        all_matching_items = self.dynamo.scan_items_last_ev_key(
-            filter_expression=test_filter_expression,
-            expression_attribute_names=test_expression_attribute_names,
-            projection_expression=test_projection_expression
+        filter_expression = (
+            Attr('SK').begins_with('action#') &
+            Attr('start_date').gte(start_date) &
+            Attr('end_date').lte(end_date)
         )
+        projection_expression = "SK, start_date, end_date, user_id, duration, associated_members_user_ids"
         
+        all_matching_items = self.dynamo.scan_items_last_ev_key(
+            filter_expression=filter_expression,
+            projection_expression=projection_expression
+        )
+
         if not all_matching_items:
             print("INFO: No items were returned by the scan operation.")
             return {}
 
         durations_by_user_id = {}
-        
-        for item in all_matching_items:
-            user_id = item.get('user_id') 
-            raw_item_duration = item.get('duration')
-            associated_members_user_ids = item.get('associated_members_user_ids', [])
 
-            processed_duration = 0
-            if raw_item_duration is not None:
-                try:
-                    processed_duration = int(raw_item_duration)
-                except (ValueError, TypeError) as e:
-                    print(f"WARNING: Could not convert duration '{raw_item_duration}' for item {item.get('SK')}. Error: {e}. Using 0.")
-            
+        for item in all_matching_items:
+            user_id = item.get('user_id')
+            raw_duration = item.get('duration')
+            associated_members = item.get('associated_members_user_ids', [])
+
+            try:
+                duration = int(raw_duration)
+            except (TypeError, ValueError):
+                print(f"WARNING: Invalid duration '{raw_duration}' in item {item.get('SK')}. Skipping.")
+                continue
+
             if user_id:
-                durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + processed_duration
-            
-            for associated_user_id in associated_members_user_ids:
-                if associated_user_id:
-                    durations_by_user_id[associated_user_id] = durations_by_user_id.get(associated_user_id, 0) + processed_duration
-            
+                durations_by_user_id[user_id] = durations_by_user_id.get(user_id, 0) + duration
+
+            for assoc_id in associated_members:
+                if assoc_id:
+                    durations_by_user_id[assoc_id] = durations_by_user_id.get(assoc_id, 0) + duration
+
         return durations_by_user_id
 
     def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
