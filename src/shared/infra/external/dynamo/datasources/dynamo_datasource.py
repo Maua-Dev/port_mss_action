@@ -219,7 +219,7 @@ class DynamoDatasource:
         return resp
     
 
-    def scan_items_last_ev_key(filter_expression, projection_expression=None):
+    def scan_items_last_ev_key(self, filter_expression, projection_expression=None):
         all_items = []
         scan_kwargs = {'FilterExpression': filter_expression}
 
@@ -229,7 +229,7 @@ class DynamoDatasource:
         print(f"DEBUG: Initial scan_kwargs being sent to DynamoDB: {scan_kwargs}")
 
         try:
-            response = table.scan(**scan_kwargs)
+            response = self.dynamo_table.scan(**scan_kwargs)
         except Exception as e:
             print(f"ERROR: Exception during initial DynamoDB scan: {e}")
             return []
@@ -244,7 +244,7 @@ class DynamoDatasource:
             print(f"DEBUG: Paginated scan_kwargs (page {page}): {scan_kwargs}")
 
             try:
-                response = table.scan(**scan_kwargs)
+                response = self.dynamo_table.scan(**scan_kwargs)
             except Exception as e:
                 print(f"ERROR: Exception during paginated scan (page {page}): {e}")
                 break
