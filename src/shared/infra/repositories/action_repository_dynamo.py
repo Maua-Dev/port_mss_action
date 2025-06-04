@@ -372,7 +372,7 @@ class ActionRepositoryDynamo(IActionRepository):
         test_filter_expression = Attr('#sk_attr').begins_with('action#')
         test_projection_expression = "#sk_attr, #start_date_attr, #end_date_attr"
 
-        all_matching_items = self.scan_items_last_ev_key(
+        all_matching_items = self.dynamo.scan_items_last_ev_key(
             filter_expression=test_filter_expression,
             expression_attribute_names=test_expression_attribute_names,
             projection_expression=test_projection_expression
