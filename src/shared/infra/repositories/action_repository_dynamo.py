@@ -380,7 +380,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         projection_expression = "#sk_attr, #start_date_attr, #end_date_attr, #uid, #dur, #amuid"
 
-        all_matching_items = self.scan_items_last_ev_key(
+        all_matching_items = self.dynamo.scan_items_last_ev_key(
             filter_expression=expression, 
             expression_attribute_names=expression_attribute_names,
             projection_expression=projection_expression
