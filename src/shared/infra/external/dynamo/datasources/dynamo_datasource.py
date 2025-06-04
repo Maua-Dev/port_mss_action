@@ -242,7 +242,7 @@ def scan_items_last_ev_key(self, filter_expression, expression_attribute_names=N
 
         count = response.get('Count', 0)
         scanned_count = response.get('ScannedCount', 0)
-        print(f"DEBUG: Initial scan response: Items returned: {count}, Items scanned: {scanned_count}, LastEvaluatedKey: {response.get('LastEvaluatedKey')}")
+        print(f"DEBUG: Initial scan response: Items returned: {count}, Items scanned: {scanned_count}, LastEvaluatedKey: {response.get('LastEvaluatedKey')}") 
         all_items.extend(response.get('Items', []))
 
         page_num = 1
