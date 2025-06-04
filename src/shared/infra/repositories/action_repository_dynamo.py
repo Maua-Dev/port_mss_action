@@ -364,19 +364,18 @@ class ActionRepositoryDynamo(IActionRepository):
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
         print(f"INFO: get_all_actions_durations_by_user_id called with start_date={start_date}, end_date={end_date}")
 
-        expression_attribute_names_test = {
+        test_expression_attribute_names = {
             '#sk_attr': 'SK',
             '#start_date_attr': 'start_date',
-            '#end_date_attr': 'end_date'   
+            '#end_date_attr': 'end_date'
         }
+        test_filter_expression = Attr('#sk_attr').begins_with('action#')
+        test_projection_expression = "#sk_attr, #start_date_attr, #end_date_attr"
 
-        expression_test = Attr('#sk_attr').begins_with('action#')
-        projection_expression_test = "#sk_attr, #start_date_attr, #end_date_attr" 
-
-        all_matching_items = self.dynamo.scan_items_last_ev_key(
-            filter_expression=expression_test,
-            expression_attribute_names=expression_attribute_names_test,
-            projection_expression=projection_expression_test
+        all_matching_items = self.scan_items_last_ev_key(
+            filter_expression=test_filter_expression,
+            expression_attribute_names=test_expression_attribute_names,
+            projection_expression=test_projection_expression
         )
         
         if not all_matching_items:
