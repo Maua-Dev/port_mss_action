@@ -5,8 +5,7 @@ from aws_cdk import (
 )
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
-from aws_cdk.aws_events import Rule, Schedule
-from aws_cdk.aws_events_targets import LambdaFunction
+
 
 class LambdaStack(Construct):
 
@@ -126,15 +125,7 @@ class LambdaStack(Construct):
             environment_variables=environment_variables,
             authorizer=authorizer
         )
-
-        self.get_history_project_function = self.create_lambda_api_gateway_integration(
-            module_name="get_history_project",
-            method="POST",
-            api_resource=api_gateway_resource,
-            environment_variables=environment_variables,
-            authorizer=authorizer
-        )
- 
+        
         self.get_member_function = self.create_lambda_api_gateway_integration(
             module_name="get_member",
             method="POST",
@@ -244,7 +235,6 @@ class LambdaStack(Construct):
                 self.get_all_projects_function,
                 self.batch_get_member_function,
                 self.get_history_function,
-                self.get_history_project_function,
                 self.get_member_function,
                 self.get_project_function,
                 self.get_all_members_function,
@@ -275,7 +265,6 @@ class LambdaStack(Construct):
                 self.get_member_function,
                 self.get_all_projects_function,
                 self.get_history_function,
-                self.get_history_project_function,
                 self.get_project_function,
                 self.delete_action_function,
                 self.download_projects_function,

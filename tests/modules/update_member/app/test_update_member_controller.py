@@ -66,7 +66,6 @@ class Test_UpdateMemberController:
         assert response.body["member"]["name"] == "Teste Tester"
         assert response.body["message"] == "the member was updated"
 
-
     def test_update_member_controller_only_year(self):
         
         repo = MemberRepositoryMock()
