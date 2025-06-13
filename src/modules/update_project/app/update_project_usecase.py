@@ -40,6 +40,7 @@ class UpdateProjectUsecase:
         if new_scrum_user_id is not None:
             if new_scrum_user_id not in new_members_user_ids:
                 raise EntityError("scrum_user_id")
+        
 
         project = self.repo.update_project(code=code,
                                             new_name=new_name,

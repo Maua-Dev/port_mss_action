@@ -217,3 +217,35 @@ class DynamoDatasource:
             }
         )
         return resp
+    
+
+    def scan_items_last_ev_key(self, filter_expression, projection_expression=None, expression_attribute_names=None):
+        all_items = []
+        scan_kwargs = {'FilterExpression': filter_expression}
+
+        if projection_expression:
+            scan_kwargs['ProjectionExpression'] = projection_expression
+
+        if expression_attribute_names:
+            scan_kwargs['ExpressionAttributeNames'] = expression_attribute_names
+
+
+        try:
+            response = self.dynamo_table.scan(**scan_kwargs)
+        except Exception as e:
+            return []
+
+        all_items.extend(response.get('Items', []))
+
+        while 'LastEvaluatedKey' in response:
+            scan_kwargs['ExclusiveStartKey'] = response['LastEvaluatedKey']
+
+            try:
+                response = self.dynamo_table.scan(**scan_kwargs)
+            except Exception as e:
+                break
+
+            all_items.extend(response.get('Items', []))
+
+        return all_items
+
