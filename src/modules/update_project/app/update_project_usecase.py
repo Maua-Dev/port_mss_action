@@ -40,12 +40,7 @@ class UpdateProjectUsecase:
         if new_scrum_user_id is not None:
             if new_scrum_user_id not in new_members_user_ids:
                 raise EntityError("scrum_user_id")
-            
-        if new_photo is not None:
-            if type(new_photo) is not str:
-                raise EntityError("photo")
-            if not Project.validate_photo(new_photo):
-                raise EntityError("photo")
+        
 
         project = self.repo.update_project(code=code,
                                             new_name=new_name,
