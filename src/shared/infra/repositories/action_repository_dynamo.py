@@ -5,7 +5,7 @@ from decimal import Decimal
 import imghdr
 import os
 import hashlib
-from typing import List, Optional
+from typing import List, Dict, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
@@ -716,39 +716,65 @@ class ActionRepositoryDynamo(IActionRepository):
             ]
         }
 
-    def get_all_actions_and_associated_actions_by_project_code(self, project_code, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action | AssociatedAction]]:
+        pk = f"project#{project_code}"
 
-        expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
+        filter_expression = None
+        if start is not None:
+            filter_expression = Attr('start_date').gte(start)
+        if end is not None:
+            end_filter = Attr('end_date').lte(end)
+            filter_expression = filter_expression & end_filter if filter_expression else end_filter
 
-        if start:
-            expression = expression & Attr('start_date').gte(start)
-        if end:
-            expression = expression & Attr('end_date').lte(end)
+        try:
+            query_kwargs = {
+                'KeyConditionExpression': Key('PK').eq(pk) & Key('SK').begins_with('action#')
+            }
+            if filter_expression is not None:
+                query_kwargs['FilterExpression'] = filter_expression
 
-        actions_resp = self.dynamo.scan_items(expression)
+            response = self.dynamo.query_items(**query_kwargs)
+            actions_raw = response.get('Items', [])
+        except Exception as e:
+            raise NoItemsFound(f"Error fetching actions: {str(e)}")
 
-        if actions_resp["Count"] == 0:
+        if not actions_raw:
             return {"actions": [], "associated_actions": []}
 
         actions = [
             ActionDynamoDTO.from_dynamo(item).to_entity()
-            for item in actions_resp['Items']
+            for item in actions_raw
         ]
 
         action_ids = {action.action_id for action in actions}
 
+        if not action_ids:
+            return {"actions": actions, "associated_actions": []}
+
         associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
 
-        associated_resp = self.dynamo.scan_items(associated_expression)
+        associated_items = []
+        last_key = None
+        has_more = True
 
-        associated_actions = (
-            [
-                AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
-                for item in associated_resp['Items']
-            ]
-            if associated_resp["Count"] > 0
-            else []
-        )
+        while has_more:
+            scan_kwargs = {
+                "FilterExpression": associated_expression
+            }
+            if last_key:
+                scan_kwargs["ExclusiveStartKey"] = last_key
+
+            associated_resp = self.dynamo.scan_items(**scan_kwargs)
+            associated_items.extend(associated_resp.get("Items", []))
+
+            last_key = associated_resp.get("LastEvaluatedKey")
+            has_more = last_key is not None
+
+        associated_actions = [
+            AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in associated_items
+        ]
+
         return {
             "actions": actions,
             "associated_actions": associated_actions,
