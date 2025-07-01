@@ -5,7 +5,7 @@ from decimal import Decimal
 import imghdr
 import os
 import hashlib
-from typing import List, Optional
+from typing import Dict, List, Optional
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.associated_action import AssociatedAction
 from src.shared.domain.entities.member import Member
