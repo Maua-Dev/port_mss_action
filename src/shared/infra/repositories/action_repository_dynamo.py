@@ -716,8 +716,7 @@ class ActionRepositoryDynamo(IActionRepository):
             ]
         }
 
-    def get_all_actions_and_associated_actions_by_project_code(self, project_code, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-
+    def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> Dict[str, List]:
         expression = Attr('SK').begins_with('action#') & Attr('project_code').eq(project_code)
 
         if start:
@@ -725,30 +724,47 @@ class ActionRepositoryDynamo(IActionRepository):
         if end:
             expression = expression & Attr('end_date').lte(end)
 
-        actions_resp = self.dynamo.scan_items(expression)
+        actions_items = []
+        last_key = None
+        while True:
+            scan_kwargs = {
+                "FilterExpression": expression
+            }
+            if last_key:
+                scan_kwargs["ExclusiveStartKey"] = last_key
 
-        if actions_resp["Count"] == 0:
+            actions_resp = self.dynamo.scan_items(**scan_kwargs)
+            actions_items.extend(actions_resp.get("Items", []))
+            
+            last_key = actions_resp.get("LastEvaluatedKey")
+            if not last_key:
+                break
+                
+        if not actions_items:
             return {"actions": [], "associated_actions": []}
 
         actions = [
             ActionDynamoDTO.from_dynamo(item).to_entity()
-            for item in actions_resp['Items']
+            for item in actions_items
         ]
 
         action_ids = {action.action_id for action in actions}
 
-        associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
+        if not action_ids:
+            return {"actions": actions, "associated_actions": []}
 
-        associated_resp = self.dynamo.scan_items(associated_expression)
+        associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
+        associated_resp = self.dynamo.scan_items(FilterExpression=associated_expression)
 
         associated_actions = (
             [
                 AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
                 for item in associated_resp['Items']
             ]
-            if associated_resp["Count"] > 0
+            if associated_resp.get("Count", 0) > 0
             else []
         )
+        
         return {
             "actions": actions,
             "associated_actions": associated_actions,
