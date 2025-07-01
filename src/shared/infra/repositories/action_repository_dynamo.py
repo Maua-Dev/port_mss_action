@@ -727,13 +727,12 @@ class ActionRepositoryDynamo(IActionRepository):
         actions_items = []
         last_key = None
         while True:
-            scan_kwargs = {
-                "FilterExpression": expression
-            }
+            scan_kwargs = {}
             if last_key:
                 scan_kwargs["ExclusiveStartKey"] = last_key
 
-            actions_resp = self.dynamo.scan_items(**scan_kwargs)
+            actions_resp = self.dynamo.scan_items(expression, **scan_kwargs)
+            
             actions_items.extend(actions_resp.get("Items", []))
             
             last_key = actions_resp.get("LastEvaluatedKey")
@@ -754,16 +753,25 @@ class ActionRepositoryDynamo(IActionRepository):
             return {"actions": actions, "associated_actions": []}
 
         associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
-        associated_resp = self.dynamo.scan_items(FilterExpression=associated_expression)
+        
+        associated_items = []
+        last_key_assoc = None
+        while True:
+            scan_kwargs_assoc = {}
+            if last_key_assoc:
+                scan_kwargs_assoc["ExclusiveStartKey"] = last_key_assoc
 
-        associated_actions = (
-            [
-                AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
-                for item in associated_resp['Items']
-            ]
-            if associated_resp.get("Count", 0) > 0
-            else []
-        )
+            associated_resp = self.dynamo.scan_items(associated_expression, **scan_kwargs_assoc)
+            associated_items.extend(associated_resp.get("Items", []))
+
+            last_key_assoc = associated_resp.get("LastEvaluatedKey")
+            if not last_key_assoc:
+                break
+        
+        associated_actions = [
+            AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
+            for item in associated_items
+        ]
         
         return {
             "actions": actions,
