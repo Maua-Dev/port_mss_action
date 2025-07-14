@@ -7,7 +7,6 @@ class COURSE(Enum):
     CIC = "CIC"
     EMC = "EMC"
     ADM = "ADM"
-    ARQ = "ARQ"
     EET = "EET"
     EEE = "EEE"
     EQM = "EQM"
@@ -16,5 +15,3 @@ class COURSE(Enum):
     ETC = "ETC"
     EAL = "EAL"
     EPM = "EPM"
-    RIN = "RIN"
-    IAC = "IAC"
