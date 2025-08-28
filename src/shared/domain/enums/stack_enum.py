@@ -3,8 +3,9 @@ from enum import Enum
 
 class STACK(Enum):
     BACKEND = "BACKEND"
-    FRONTEND = "FRONTEND" 
+    FRONTEND = "FRONTEND"
     INFRA = "INFRA"
     UX_UI = "UX_UI"
     BUSINESS = "BUSINESS"
-    INTERNAL = "INTERNAL" 
+    INTERNAL = "INTERNAL"
+    RH = "RH"
