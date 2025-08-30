@@ -29,7 +29,7 @@ class Test_ActionRepositoryDynamo:
     def test_create_action(self):
         repo = ActionRepositoryDynamo()
         action = Action(action_id="eefe6db8-e03e-42c3-9fd2-1de796139501", story_id=497, associated_members_user_ids=["148c6ada-c0d1-7054-66ab-e17414c48ae3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "148caada-c0d1-7054-66ab-e17414c48ae3"], stack_tags=[
-                        STACK.INTERNAL], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
+                        STACK.MKT], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
                         user_id="131c6ada-c0d1-7054-66ab-e17414c48ae3", is_valid=True)
         resp = repo.create_action(action=action)
 

@@ -23,7 +23,7 @@ class UpdateActionValidationUsecase:
             raise UserNotAllowed()
         
         
-        if user.role not in [ROLE.DIRECTOR, ROLE.HEAD, ROLE.PO]:
+        if user.role not in [ROLE.DIRECTOR, ROLE.BUSINESS]:
             raise UserNotAllowed()
         
         action = self.repo_action.get_action(action_id)
