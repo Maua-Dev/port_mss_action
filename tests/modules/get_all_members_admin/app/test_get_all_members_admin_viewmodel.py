@@ -235,6 +235,46 @@ class Test_GetAllMembersAdminViewModel:
                         'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
@@ -480,6 +520,46 @@ class Test_GetAllMembersAdminViewModel:
                         'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
