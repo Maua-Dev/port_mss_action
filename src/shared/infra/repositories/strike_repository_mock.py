@@ -7,7 +7,7 @@ from typing import List, Optional
 class StrikeRepositoryMock(IStrikeRepository):
     def __init__(self):
         # 20 exemplos de strikes
-        self.strikes = [
+               self.strikes = [
             Strike(
                 strike_id="a1b2c3d4-e5f6-7890-1234-567890abcdef",
                 owner_user_id="12345678-1234-1234-1234-123456789abc",
@@ -102,7 +102,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 strike_id="k1l2m3n4-o5p6-7890-1234-567890klmnop",
                 owner_user_id="12345678-1234-5678-9012-bcdefghijklm",
                 target_user_id="89876543-4321-4321-4321-mlkj89876543",
-                applier_user_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffffffff",
+                applier_user_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
                 ocurred_date=1704844800000,  # 2024-01-09
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Compartilhamento indevido de informações confidenciais"
@@ -189,6 +189,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 description="Insubordinação repetida às orientações da liderança"
             )
         ]
+
 
     def create_strike(self, strike: Strike) -> Strike:
         self.strikes.append(strike)

@@ -78,13 +78,13 @@ class TestStrikeRepositoryMock:
         assert self.repo.find_by_id("") is None
         assert self.repo.find_by_id(None) is None
 
-    def test_remove_should_return_and_remove_strike_when_exists(self):
+    def test_delete_strike_should_return_and_remove_strike_when_exists(self):
         # Arrange
         existing_strike_id = "a1b2c3d4-e5f6-7890-1234-567890abcdef"
         initial_count = len(self.repo.strikes)
         
         # Act
-        result = self.repo.remove(existing_strike_id)
+        result = self.repo.delete_strike(existing_strike_id)
         
         # Assert
         assert result is not None
@@ -94,34 +94,34 @@ class TestStrikeRepositoryMock:
         # Verifica que realmente foi removido
         assert self.repo.find_by_id(existing_strike_id) is None
 
-    def test_remove_should_return_none_when_not_exists(self):
+    def test_delete_strike_should_return_none_when_not_exists(self):
         # Arrange
         non_existing_id = "99999999-9999-9999-9999-999999999999"
         initial_count = len(self.repo.strikes)
         
         # Act
-        result = self.repo.remove(non_existing_id)
+        result = self.repo.delete_strike(non_existing_id)
         
         # Assert
         assert result is None
         assert len(self.repo.strikes) == initial_count  # Não removeu nada
 
-    def test_remove_should_return_none_when_id_is_empty(self):
+    def test_delete_strike_should_return_none_when_id_is_empty(self):
         # Arrange
         initial_count = len(self.repo.strikes)
         
         # Act & Assert
-        assert self.repo.remove("") is None
-        assert self.repo.remove(None) is None
+        assert self.repo.delete_strike("") is None
+        assert self.repo.delete_strike(None) is None
         assert len(self.repo.strikes) == initial_count
 
-    def test_remove_twice_same_id_should_work_correctly(self):
+    def test_delete_strike_twice_same_id_should_work_correctly(self):
         # Arrange
         existing_strike_id = "a1b2c3d4-e5f6-7890-1234-567890abcdef"
         
         # Act
-        first_removal = self.repo.remove(existing_strike_id)
-        second_removal = self.repo.remove(existing_strike_id)
+        first_removal = self.repo.delete_strike(existing_strike_id)
+        second_removal = self.repo.delete_strike(existing_strike_id)
         
         # Assert
         assert first_removal is not None
@@ -169,7 +169,7 @@ class TestStrikeRepositoryMock:
         )
         
         strike2 = Strike(
-            strike_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffffffff",
+            strike_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
             owner_user_id="44444444-4444-4444-4444-444444444444",
             target_user_id="55555555-5555-5555-5555-555555555555",
             applier_user_id="66666666-6666-6666-6666-666666666666",
