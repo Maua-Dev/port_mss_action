@@ -193,7 +193,7 @@ class Member(abc.ABC):
             return False
         if type(role) != ROLE:
             return False
-        return (role == ROLE.DIRECTOR or role == ROLE.HEAD)
+        return (role == ROLE.DIRECTOR)
     
     @staticmethod
     def validate_active(active: ACTIVE) -> bool:
