@@ -2,10 +2,8 @@ from src.shared.domain.entities.strike import Strike
 from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
 
-import pytest
-from src.shared.domain.entities.strike import Strike
-from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
-from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
+
+
 
 
 class TestStrikeRepositoryMock:
