@@ -41,7 +41,7 @@ class Test_GetAllMembersViewModel:
                         'email_dev': 'jbranco.devmaua@gmail.com',
                         'email': 'jbranco@gmail.com',
                         'ra': '21010757',
-                        'role': 'HEAD',
+                        'role': 'DIRECTOR',
                         'stack': 'BACKEND',
                         'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
@@ -98,8 +98,8 @@ class Test_GetAllMembersViewModel:
                         'email_dev': 'mneto.devmaua@gmail.com',
                         'email': 'mneto@gmail.com',
                         'ra': '19017310',
-                        'role': 'PO',
-                        'stack': 'BUSINESS',
+                        'role': 'DIRECTOR',
+                        'stack': 'PO',
                         'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
@@ -137,7 +137,7 @@ class Test_GetAllMembersViewModel:
                         'email': 'djangofett@starwars.com',
                         'ra': '17033730',
                         'role': 'INTERNAL',
-                        'stack': 'INTERNAL',
+                        'stack': 'MKT',
                         'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
@@ -193,8 +193,8 @@ class Test_GetAllMembersViewModel:
                         'email_dev' : "fernandinho.devmaua@gmail.com",
                         'email' : "fernandao@gmail.com",
                         'ra' : "22014322",
-                        'role' : 'PO',
-                        'stack' : 'BUSINESS',
+                        'role' : 'BUSINESS',
+                        'stack' : 'PO',
                         'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
@@ -225,6 +225,45 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'photo': None
+                    }
+                }, 
+
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
@@ -269,7 +308,7 @@ class Test_GetAllMembersViewModel:
                         'email_dev': 'jbranco.devmaua@gmail.com',
                         'email': 'jbranco@gmail.com',
                         'ra': '21010757',
-                        'role': 'HEAD',
+                        'role': 'DIRECTOR',
                         'stack': 'BACKEND',
                         'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
@@ -329,8 +368,8 @@ class Test_GetAllMembersViewModel:
                         'email_dev': 'mneto.devmaua@gmail.com',
                         'email': 'mneto@gmail.com',
                         'ra': '19017310',
-                        'role': 'PO',
-                        'stack': 'BUSINESS',
+                        'role': 'DIRECTOR',
+                        'stack': 'PO',
                         'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
@@ -370,7 +409,7 @@ class Test_GetAllMembersViewModel:
                         'email': 'djangofett@starwars.com',
                         'ra': '17033730',
                         'role': 'INTERNAL',
-                        'stack': 'INTERNAL',
+                        'stack': 'MKT',
                         'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
@@ -427,8 +466,8 @@ class Test_GetAllMembersViewModel:
                         'email_dev' : "fernandinho.devmaua@gmail.com",
                         'email' : "fernandao@gmail.com",
                         'ra' : "22014322",
-                        'role' : 'PO',
-                        'stack' : 'BUSINESS',
+                        'role' : 'BUSINESS',
+                        'stack' : 'PO',
                         'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
@@ -459,6 +498,44 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
