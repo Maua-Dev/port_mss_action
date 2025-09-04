@@ -13,7 +13,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1703980800000,  # 2023-12-30
+                occurred_date=1703980800000,  # 2023-12-30
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Comportamento inadequado durante reunião"
             ),
@@ -22,7 +22,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704067200000,  # 2023-12-31
+                occurred_date=1704067200000,  # 2023-12-31
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Ausência injustificada em projeto crítico"
             ),
@@ -31,7 +31,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704153600000,  # 2024-01-01
+                occurred_date=1704153600000,  # 2024-01-01
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Violação das políticas de segurança da informação"
             ),
@@ -40,7 +40,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704240000000,  # 2024-01-02
+                occurred_date=1704240000000,  # 2024-01-02
                 category=STRIKE_CATEGORY.OTHER,
                 description="Uso inadequado de recursos da empresa"
             ),
@@ -49,7 +49,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704326400000,  # 2024-01-03
+                occurred_date=1704326400000,  # 2024-01-03
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Linguagem inapropriada com colegas"
             ),
@@ -58,7 +58,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704412800000,  # 2024-01-04
+                occurred_date=1704412800000,  # 2024-01-04
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Não cumprimento de prazos estabelecidos"
             ),
@@ -67,7 +67,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 target_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704499200000,  # 2024-01-05
+                occurred_date=1704499200000,  # 2024-01-05
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Acesso não autorizado a sistemas"
             ),
@@ -76,7 +76,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 target_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704585600000,  # 2024-01-06
+                occurred_date=1704585600000,  # 2024-01-06
                 category=STRIKE_CATEGORY.OTHER,
                 description="Descumprimento do código de conduta"
             ),
@@ -85,7 +85,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 target_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704672000000,  # 2024-01-07
+                occurred_date=1704672000000,  # 2024-01-07
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Conflito de interesses não declarado"
             ),
@@ -94,22 +94,16 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 target_user_id="3b07232f-4f65-42c6-b005-242550b8b8dc",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                ocurred_date=1704758400000,  # 2024-01-08
+                occurred_date=1704758400000,  # 2024-01-08
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Baixa qualidade nas entregas"
             ),
             Strike(
                 strike_id="k1l2m3n4-o5p6-7890-1234-567890klmnop",
-<<<<<<< HEAD
-                owner_user_id="12345678-1234-5678-9012-bcdefghijklm",
-                target_user_id="89876543-4321-4321-4321-mlkj89876543",
-                applier_user_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffffffff",
-=======
                 owner_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 target_user_id="5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
->>>>>>> 653f66d (fix: Strike's IDs)
-                ocurred_date=1704844800000,  # 2024-01-09
+                occurred_date=1704844800000,  # 2024-01-09
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Compartilhamento indevido de informações confidenciais"
             ),
@@ -118,7 +112,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 target_user_id="9183jBnh-997H-1010-10god-914gHy46tBh",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1704931200000,  # 2024-01-10
+                occurred_date=1704931200000,  # 2024-01-10
                 category=STRIKE_CATEGORY.OTHER,
                 description="Negligência na manutenção de equipamentos"
             ),
@@ -127,7 +121,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="75648hbr-184n-1985-91han-7ghn4HgF182",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705017600000,  # 2024-01-11
+                occurred_date=1705017600000,  # 2024-01-11
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Discriminação no ambiente de trabalho"
             ),
@@ -136,7 +130,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705104000000,  # 2024-01-12
+                occurred_date=1705104000000,  # 2024-01-12
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Falta de participação em treinamentos obrigatórios"
             ),
@@ -145,7 +139,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705190400000,  # 2024-01-13
+                occurred_date=1705190400000,  # 2024-01-13
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Uso pessoal excessivo de recursos corporativos"
             ),
@@ -154,7 +148,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705276800000,  # 2024-01-14
+                occurred_date=1705276800000,  # 2024-01-14
                 category=STRIKE_CATEGORY.OTHER,
                 description="Falha na documentação de processos críticos"
             ),
@@ -163,7 +157,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705363200000,  # 2024-01-15
+                occurred_date=1705363200000,  # 2024-01-15
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Assédio moral reportado por múltiplas pessoas"
             ),
@@ -172,7 +166,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705449600000,  # 2024-01-16
+                occurred_date=1705449600000,  # 2024-01-16
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Abandono de responsabilidades sem notificação"
             ),
@@ -181,7 +175,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705536000000,  # 2024-01-17
+                occurred_date=1705536000000,  # 2024-01-17
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Violação das normas de saúde e segurança"
             ),
@@ -190,7 +184,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                ocurred_date=1705622400000,  # 2024-01-18
+                occurred_date=1705622400000,  # 2024-01-18
                 category=STRIKE_CATEGORY.OTHER,
                 description="Insubordinação repetida às orientações da liderança"
             )
