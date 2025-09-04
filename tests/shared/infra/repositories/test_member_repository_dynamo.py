@@ -26,7 +26,6 @@ class Test_MemberRepositoryDynamo:
         members.sort(key=lambda x: x.user_id)
         
         assert resp == members
-    #falhou
         
     @pytest.mark.skip("Can't run test in github actions")
     def test_create_member(self):
@@ -104,4 +103,3 @@ class Test_MemberRepositoryDynamo:
         send_email = repo_activity_dynamo.send_active_member_email(user)
 
         assert send_email
-        #falhou

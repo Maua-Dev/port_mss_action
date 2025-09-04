@@ -29,7 +29,7 @@ class Test_ActionRepositoryDynamo:
     def test_create_action(self):
         repo = ActionRepositoryDynamo()
         action = Action(action_id="eefe6db8-e03e-42c3-9fd2-1de796139501", story_id=497, associated_members_user_ids=["148c6ada-c0d1-7054-66ab-e17414c48ae3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "148caada-c0d1-7054-66ab-e17414c48ae3"], stack_tags=[
-                        STACK.MKT], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
+                        STACK.INTERNAL], action_type_tag=ACTION_TYPE.ARCHITECT, project_code="SM", title="Retrospective", description="Reunião de planning", start_date=1667256000000, end_date=1690046000000, duration=22790000000,
                         user_id="131c6ada-c0d1-7054-66ab-e17414c48ae3", is_valid=True)
         resp = repo.create_action(action=action)
 
@@ -95,7 +95,6 @@ class Test_ActionRepositoryDynamo:
         resp.sort(key=lambda x: x.action_id)
 
         assert resp == repo_mock.actions
-    #falhou
 
 
     @pytest.mark.skip("Can't run test in github actions")
@@ -142,7 +141,6 @@ class Test_ActionRepositoryDynamo:
 
         assert resp.code == "MF"
         assert resp.name == "Mauá Fud"
-    #falhou
         
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_project(self):
@@ -154,7 +152,6 @@ class Test_ActionRepositoryDynamo:
         resp = repo.get_project(project.code)
 
         assert resp == project
-    #falhou
 
     @pytest.mark.skip("Can't run test in github actions")
     def test_batch_update_associated_action_members(self):
@@ -179,7 +176,6 @@ class Test_ActionRepositoryDynamo:
 
         assert resp.action_id == action.action_id
         assert resp.is_valid == False
-    #falhou
 
     @pytest.mark.skip("Can't run test in github actions")
     def test_update_project_with_member_ids(self):
@@ -211,7 +207,6 @@ class Test_ActionRepositoryDynamo:
         delected_action = repo.delete_action(action.action_id)
 
         assert delected_action == action
-    #falhou
 
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_associated_action_by_user_id_not_found(self):
@@ -231,7 +226,6 @@ class Test_ActionRepositoryDynamo:
         resp = repo.scan_actions_by_start_date(1641061363000, 1672510963000)
 
         assert len(resp) == 7
-    #falhou
     
     @pytest.mark.skip("Can't run test in github actions")
     def test_get_all_actions_durations_by_user_id(self):
@@ -247,7 +241,6 @@ class Test_ActionRepositoryDynamo:
                         '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 72430000000, 
                         '7gh5yf5H-857H-1234-75hng-94832hvng1s': 107350000000, 
                         '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 143960000000}
-    #falhou
     
     @pytest.mark.skip("Can't run test in github actions")   
     def test_get_action_durations_for_user(self):
@@ -256,7 +249,6 @@ class Test_ActionRepositoryDynamo:
         resp = repo.get_action_durations_for_user("7465hvnb-143g-1675-86HnG-75hgnFbcg36", 1624576165000, 1690046000000)
         print(resp)
         assert resp == 79580000000
-    #falhou
         
     @pytest.mark.skip("Can't test ses in Github")
     def test_send_invalid_action_email(self):
@@ -281,7 +273,6 @@ class Test_ActionRepositoryDynamo:
                 deactivated_date=None,
                 user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
             )
-    #falhou
         
 
         send_email = repo_activity_dynamo.send_invalid_action_email(action=action_1, member=member_1)
