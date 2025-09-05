@@ -71,6 +71,38 @@ class LambdaStack(Construct):
                                                               compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                               )
         
+        self.auth_sign_up_function = self.create_lambda_api_gateway_integration(
+            module_name="auth_sign_up",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=None
+        )
+
+        self.auth_confirm_function = self.create_lambda_api_gateway_integration(
+            module_name="auth_confirm",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=None
+        )
+
+        self.auth_sign_in_function = self.create_lambda_api_gateway_integration(
+            module_name="auth_sign_in",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=None
+        )
+
+        self.auth_resend_function = self.create_lambda_api_gateway_integration(
+            module_name="auth_resend",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=None
+        )
+
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",

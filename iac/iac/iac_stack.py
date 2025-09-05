@@ -11,6 +11,7 @@ from constructs import Construct
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
+from .cognito_stack import CognitoStack
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
 
@@ -73,7 +74,9 @@ class IacStack(Stack):
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.cloudfront_distribution_project.domain_name,
             "S3_BUCKET_NAME_MEMBER_REPORT": self.bucket_stack.s3_bucket_member_report.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT": self.bucket_stack.cloudfront_distribution_member_report.domain_name,
-
+             "COGNITO_USER_POOL_ID": "",
+            "COGNITO_CLIENT_ID": "",
+            "CONFIRMATION_URL_BASE": os.environ.get("CONFIRMATION_URL_BASE", "https://portal-interno.dev/auth/confirm"),
         }
         
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
