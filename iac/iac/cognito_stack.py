@@ -14,21 +14,21 @@ class CognitoStack(Construct):
 
         github_ref = os.environ.get("GITHUB_REF_NAME", stage)
 
-        self.custom_message_fn = _lambda.Function(
-            self, f"CustomMessageFn-{stage}",
-            runtime=_lambda.Runtime.PYTHON_3_9,
-            handler="handler.handler",
-            code=_lambda.Code.from_asset("src/cognito_triggers/custom_message"),
-            timeout=Duration.seconds(10),
-            memory_size=256,
-            environment={
-                "STAGE": stage,
-                "CONFIRMATION_URL_BASE": os.environ.get(
-                    "CONFIRMATION_URL_BASE",
-                    "https://portal-interno.dev/auth/confirm" 
-                )
-            }
-        )
+        # self.custom_message_fn = _lambda.Function(
+        #     self, f"CustomMessageFn-{stage}",
+        #     runtime=_lambda.Runtime.PYTHON_3_9,
+        #     handler="handler.handler",
+        #     code=_lambda.Code.from_asset("src/cognito_triggers/custom_message"),
+        #     timeout=Duration.seconds(10),
+        #     memory_size=256,
+        #     environment={
+        #         "STAGE": stage,
+        #         "CONFIRMATION_URL_BASE": os.environ.get(
+        #             "CONFIRMATION_URL_BASE",
+        #             "https://portal-interno.dev/auth/confirm" 
+        #         )
+        #     }
+        # )
 
         self.user_pool = cognito.UserPool(
             self, f"PortalInternoUserPool-{stage}",
@@ -48,9 +48,6 @@ class CognitoStack(Construct):
                 require_symbols=False,
                 temp_password_validity=Duration.days(7)
             ),
-            lambda_triggers=cognito.UserPoolTriggers(
-                custom_message=self.custom_message_fn 
-            ),
             removal_policy=RemovalPolicy.DESTROY  
         )
 
@@ -62,8 +59,12 @@ class CognitoStack(Construct):
                 admin_user_password=True
             ),
             generate_secret=False,
-            prevent_user_existence_errors=True
+            prevent_user_existence_errors=True,
+            access_token_validity=Duration.hours(1),
+            id_token_validity=Duration.hours(1),
+            refresh_token_validity=Duration.days(30),
         )
 
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
         CfnOutput(self, f"UserPoolClientId-{stage}", value=self.client.user_pool_client_id)
+        CfnOutput(self, f"UserPoolArn-{stage}", value=self.user_pool.user_pool_arn)
