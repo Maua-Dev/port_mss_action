@@ -1,46 +1,66 @@
-from typing import List
-from src.shared.domain.entities.project import Project
+from typing import List, Optional
+from src.shared.domain.entities.member import Member
+from src.shared.domain.enums.course_enum import COURSE
+from src.shared.domain.enums.role_enum import ROLE
+from src.shared.domain.enums.stack_enum import STACK
+from src.shared.domain.enums.active_enum import ACTIVE
 
-class ProjectViewModel:
-    code: str
-    name: str
-    description: str
-    po_user_id: str
-    scrum_user_id: str
-    start_date: int
-    members_user_ids: List[str]
-    photos: List[str] = None
-    
-    def __init__(self, project: Project):
-        self.code = project.code
-        self.name = project.name
-        self.description = project.description
-        self.po_user_id = project.po_user_id
-        self.scrum_user_id = project.scrum_user_id
-        self.start_date = project.start_date
-        self.members_user_ids = project.members_user_ids
-        self.photos = project.photos if project.photos else []
-        
+class MemberViewModel:
+    name:str
+    email_dev:str
+    email:str
+    ra:str
+    role:ROLE
+    stack:STACK
+    year:int
+    cellphone:str
+    course: COURSE
+    hired_date: int
+    active: ACTIVE
+    user_id: str
+    photo: Optional[str] = None
+
+    def __init__(self, member: Member):
+        self.name = member.name
+        self.email_dev = member.email_dev
+        self.email = member.email
+        self.ra = member.ra
+        self.role = member.role
+        self.stack = member.stack
+        self.year = member.year
+        self.cellphone = member.cellphone
+        self.course = member.course
+        self.hired_date = member.hired_date
+        self.active = member.active
+        self.user_id = member.user_id
+        self.photo = member.photo
+
     def to_dict(self):
         return {
-            'code' : self.code,
             'name' : self.name,
-            'description' : self.description,
-            'po_user_id' : self.po_user_id,
-            'scrum_user_id' : self.scrum_user_id,
-            'start_date' : self.start_date,
-            'members_user_ids' : self.members_user_ids,
-            'photos' : self.photos
+            'email_dev' : self.email_dev,
+            'email' : self.email,
+            'ra' : self.ra,
+            'role' : self.role.value,
+            'stack' : self.stack.value,
+            'year' : self.year,
+            'cellphone' : self.cellphone,
+            'course' : self.course.value,
+            'hired_date' : self.hired_date,
+            'active' : self.active.value,
+            'deactivated_date' : None,
+            'user_id' : self.user_id,
+            'photo' : self.photo
         }
 
-class CreateProjectViewmodel:
-    project: Project
-    
-    def __init__(self, project: Project):
-        self.project = project
-        
+class CreateMemberViewmodel:
+    model: Member
+
+    def __init__(self, member: Member):
+        self.member= member
+
     def to_dict(self) -> dict:
         return {
-            'project' : ProjectViewModel(self.project).to_dict(),
-            'message' : 'the project was created'
+            'member' : MemberViewModel(self.member).to_dict(),
+            'message' : 'the member was created'
         }

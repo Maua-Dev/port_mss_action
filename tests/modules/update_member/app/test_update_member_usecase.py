@@ -19,7 +19,8 @@ class Test_UpdateMemberUsecase:
                 new_year=3,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
-                new_active=ACTIVE.ACTIVE)
+                new_active=ACTIVE.ACTIVE,
+                new_photo=None)
         
         assert repo.members[0] == member
 
