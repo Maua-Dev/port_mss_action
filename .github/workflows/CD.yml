@@ -21,6 +21,18 @@ jobs:
 
     steps:
         - uses: actions/checkout@v2
+        
+        - name: Set AWS Account ID
+          run: |
+            if [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOMOLOG }}" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "prod" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
+            else
+              echo "Invalid branch name!" && exit 1
+            fi
         - name: Setup AWS Credentials
           uses: aws-actions/configure-aws-credentials@v2
           with:
@@ -31,6 +43,17 @@ jobs:
         - name: Setting stage and stack name
           run: |
             echo "STAGE=${{ github.ref_name }}" 
+            if [[ "${{ github.ref_name }}" == "prod" ]]; then
+              echo "STAGE=prod" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+              echo "STAGE=homolog" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "STAGE=dev" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "fix/githubActions" ]]; then
+              echo "STAGE=dev" >> $GITHUB_ENV
+            else
+              echo "Invalid branch name!" && exit 1
+            fi
             echo "STACK_NAME=PortalInternoActionStack${{github.ref_name}}" >> $GITHUB_ENV
 
         - uses: actions/checkout@v3
@@ -52,7 +75,7 @@ jobs:
 
           env:
               AWS_REGION: ${{ vars.AWS_REGION }}
-              AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+              AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
               STACK_NAME: ${{ env.STACK_NAME }}
               GITHUB_REF_NAME: ${{ github.ref_name }}
               MSS_NAME: ${{ github.event.repository.name }}
