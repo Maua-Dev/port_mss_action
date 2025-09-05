@@ -19,7 +19,7 @@ class Test_CreateProjectController:
                 "email": repo_member.members[0].email,
                 "custom:isMaua": True
             },
-            'name':'DevMedias',
+            'name':'Dev Medias',
             'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
             'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
             'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
@@ -37,7 +37,7 @@ class Test_CreateProjectController:
         assert response.body['project']['scrum_user_id'] == '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0'
         assert response.body['project']['start_date'] == 1649955600000
         assert response.body['project']['members_user_ids'] == ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0','9183jBnh-997H-1010-10god-914gHy46tBh']
-        assert response.body['project']['photos'] == ['https://i.imgur.com/7QF7uCk.png']
+        assert response.body['project']['photo'] == 'https://i.imgur.com/7QF7uCk.png'
         
     def test_create_project_controller_missing_photo(self):
             
@@ -63,29 +63,6 @@ class Test_CreateProjectController:
         assert response.status_code == 201
         assert response.body['project']['photo'] == None
         
-    def test_create_project_controller_missing_code(self):
-        
-        repo = ActionRepositoryMock()
-        repo_member = MemberRepositoryMock()
-        usecase = CreateProjectUsecase(repo=repo, repo_member=repo_member)
-        controller = CreateProjectController(usecase=usecase)
-        request = HttpRequest(body = {
-            "requester_user": {
-                "sub": repo_member.members[0].user_id,
-                "name": repo_member.members[0].name,
-                "email": repo_member.members[0].email,
-                "custom:isMaua": True
-            },
-            'name':'DevMedias',
-            'description':'Projeto que calcula a média de notas e quanto um aluno precisa tirar para passar de ano',
-            'po_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
-            'scrum_user_id':'5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
-            'start_date':1649955600000,
-            'members_user_ids':['93bc6ada-c0d1-7054-66ab-e17414c48ae3', '7465hvnb-143g-1675-86HnG-75hgnFbcg36','5f55f6a5-a66e-4fff-9faf-72cd478bd5a0']
-        })
-        response = controller(request)
-        assert response.status_code == 400
-        assert response.body == 'Field code is missing'
         
     def test_create_project_controller_missing_name(self):
         

@@ -6,8 +6,10 @@ from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeFile, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
+from src.shared.helpers.external_interfaces.http_codes import BadRequest, Conflict, InternalServerError
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
+from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
 
 class CreateMemberController:
 
@@ -33,6 +35,7 @@ class CreateMemberController:
                 year = 1
                 stack = STACK.BUSINESS
                 email_dev = "external.devmaua@gmail.com"
+                cellphone = request.data.get('cellphone')
             else:
                 if request.data.get('ra') is None:
                     raise MissingParameters('ra')
@@ -91,7 +94,8 @@ class CreateMemberController:
             )
 
             viewmodel = CreateMemberViewmodel(member=member)
-            return viewmodel.to_response()
+            from src.shared.helpers.external_interfaces.http_codes import Created
+            return Created(body=viewmodel.to_dict())
 
         except DuplicatedItem as err:
             return Conflict(body=err.message)
