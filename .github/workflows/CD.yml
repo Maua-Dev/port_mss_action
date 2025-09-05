@@ -63,3 +63,6 @@ jobs:
               FROM_EMAIL: ${{ vars.FROM_EMAIL }}
               HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
               S3_BUCKET_NAME:  ${{ vars.S3_BUCKET_NAME }}
+              CONFIRMATION_URL_BASE: ${{ vars.CONFIRMATION_URL_BASE }}
+              COGNITO_USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
+              COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
