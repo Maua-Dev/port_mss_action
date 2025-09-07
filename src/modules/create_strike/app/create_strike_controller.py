@@ -1,11 +1,12 @@
-from src.modules.create_strike.app.create_strike_usecase import CreateStrikeUsecase
+from .create_strike_viewmodel import CreateStrikeViewmodel
+from .create_strike_usecase import CreateStrikeUsecase
 from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
 from src.shared.helpers.errors.controller_errors import MissingParameters, WrongTypeParameter
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, UnregisteredUser
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
-from src.shared.helpers.external_interfaces.http_codes import BadRequest, InternalServerError
+from src.shared.helpers.external_interfaces.http_codes import BadRequest, Created, InternalServerError
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
 
@@ -38,6 +39,7 @@ class CreateStrikeController:
                     fieldTypeExpected="str",
                     fieldTypeReceived=request.data.get('owner_user_id').__class__.__name__
                 )
+                
             
             if type(request.data.get('target_user_id')) != str:
                 raise WrongTypeParameter(
@@ -46,12 +48,12 @@ class CreateStrikeController:
                     fieldTypeReceived=request.data.get('target_user_id').__class__.__name__
                 )
             
-            if type(request.data.get('category')) != STRIKE_CATEGORY:
-                raise WrongTypeParameter(
-                    fieldName="category",
-                    fieldTypeExpected="str",
-                    fieldTypeReceived=request.data.get('category').__class__.__name__
-                )
+            category_tag_str= request.data.get('category')
+
+            if  category_tag_str not in [category.value for category in STRIKE_CATEGORY]:
+                raise EntityError('category')
+            
+            category_type_tag= STRIKE_CATEGORY[category_tag_str]
             
             if request.data.get('description') is not None:
                 if type(request.data.get('description')) != str:
@@ -60,20 +62,24 @@ class CreateStrikeController:
                         fieldTypeExpected="str",
                         fieldTypeReceived=request.data.get('description').__class__.__name__
                     )
+                
+            
                 description= request.data.get('description')
             else:
                 description= None
 
-            
             strike= self.usecase(
                 owner_user_id= request.data.get('owner_user_id'),
                 target_user_id= request.data.get('target_user_id'),
                 applier_user_id= requester_user.user_id,
                 occurred_date= request.data.get('occurred_date'),
-                category= request.data.get('category'),
+                category= category_type_tag,
                 description= description
             )
+
+            viewmodel= CreateStrikeViewmodel(strike=strike[0], case_number=strike[1])
         
+            return Created(viewmodel.to_dict())
         
         except WrongTypeParameter as err:
             return BadRequest(body=err.message)

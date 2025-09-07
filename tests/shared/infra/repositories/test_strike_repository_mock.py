@@ -184,3 +184,51 @@ class TestStrikeRepositoryMock:
         assert len(self.repo.strikes) == 22  # 20 + 2
         assert self.repo.find_by_id(strike1.strike_id) == strike1
         assert self.repo.find_by_id(strike2.strike_id) == strike2
+
+    def test_get_strike_by_target_user_id(self):
+        first_strike= Strike(
+                strike_id="a1b2c3d4-e5f6-7890-1234-567890abcdef",
+                owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.MISCONDUCT,
+                description="Comportamento inadequado durante reunião"
+            )
+
+        second_strike= Strike(
+                strike_id="c3d4e5f6-g7h8-9012-3456-789012cdefgh",
+                owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                occurred_date=1756987200000,  # 2025-09-4 
+                category=STRIKE_CATEGORY.RULE_VIOLATION,
+                description="Violação das políticas de segurança da informação"
+            )
+        
+        third_strike= Strike(
+                strike_id="n4o5p6q7-r8s9-0123-4567-890123nopqrs",
+                owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
+                description="Falta de participação em treinamentos obrigatórios"
+            )
+
+        expected_list=[first_strike, second_strike, third_strike]
+        
+        list_strike= self.repo.get_strike_by_target_id(target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36")
+
+        assert expected_list[0].strike_id == list_strike[0].strike_id
+
+        assert expected_list[1].strike_id == list_strike[1].strike_id
+
+        assert expected_list[2].strike_id == list_strike[2].strike_id
+
+        assert len(expected_list) == len(list_strike)
+
+    def test_get_strike_by_targer_user_id_return_none(self):
+        list_strike= self.repo.get_strike_by_target_id(target_user_id="71ab32de-4906-4f3e-a614-88be1f5b2521")
+
+        assert list_strike == None
