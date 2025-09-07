@@ -24,7 +24,7 @@ class Test_CreateStrikeViewmodel:
             'target_user_id': '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', 
             'applier_user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
             'occurred_date': 1725512986000, 
-            'category': STRIKE_CATEGORY.OTHER,
+            'category': 'OTHER',
             'description': 'testing creating a strike',
             'case_number': 0,
             'message': 'Strike was created successfully'
@@ -53,7 +53,7 @@ class Test_CreateStrikeViewmodel:
             'target_user_id': '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0', 
             'applier_user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
             'occurred_date': 1725512986000, 
-            'category': STRIKE_CATEGORY.OTHER,
+            'category': 'OTHER',
             'description': 'testing creating a strike',
             'case_number': 1,
             'message': 'Strike was created successfully and hours were reset'

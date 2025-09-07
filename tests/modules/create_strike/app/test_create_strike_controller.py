@@ -26,17 +26,17 @@ class Test_CreateStrikeController:
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'target_user_id': "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0", 
             'occurred_date': 1725512986000,
-            'category': STRIKE_CATEGORY.OTHER,
+            'category': 'OTHER',
             'description': "testing creating a strike"
         })
         response= controller(request=request)   
 
-        assert response.status_code == 200
+        assert response.status_code == 201
         assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['target_user_id'] == "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
         assert response.body['applier_user_id'] == "3b07232f-4f65-42c6-b005-242550b8b8bf"
         assert response.body['occurred_date'] == 1725512986000
-        assert response.body['category'] == STRIKE_CATEGORY.OTHER
+        assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
         assert response.body['message'] == "Strike was created successfully"
     
@@ -57,18 +57,18 @@ class Test_CreateStrikeController:
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'target_user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s", 
             'occurred_date': 1757073600000,
-            'category': STRIKE_CATEGORY.OTHER,
+            'category': 'OTHER',
             'description': "testing creating a strike"
         })
 
         response= controller(request=request)
 
-        assert response.status_code == 200
+        assert response.status_code == 201
         assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['target_user_id'] == "7gh5yf5H-857H-1234-75hng-94832hvng1s"
         assert response.body['applier_user_id'] == "3b07232f-4f65-42c6-b005-242550b8b8bf"
         assert response.body['occurred_date'] == 1757073600000
-        assert response.body['category'] == STRIKE_CATEGORY.OTHER
+        assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
         assert response.body['message'] == "Strike was created successfully and hours were reset"
 
@@ -258,14 +258,14 @@ class Test_CreateStrikeController:
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'target_user_id': "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
             'occurred_date': 1725512986000,
-            'category': "OTHER",
+            'category': STRIKE_CATEGORY.OTHER,
             'description': "testing creating a strike"
         })
 
         response= controller(request=request)
 
         assert response.status_code == 400
-        assert response.body == "Field category isn't in the right type.\n Received: str.\n Expected: <enum 'STRIKE_CATEGORY'>"
+        assert response.body == "Field category is not valid"
 
     def test_create_strike_controller_description_wrong_type(self):
         repo= StrikeRepositoryMock()
@@ -284,7 +284,7 @@ class Test_CreateStrikeController:
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             'target_user_id': "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
             'occurred_date': 1725512986000,
-            'category': STRIKE_CATEGORY.OTHER,
+            'category': 'OTHER',
             'description': 12345
         })
 
