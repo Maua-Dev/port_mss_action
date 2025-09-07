@@ -11,7 +11,6 @@ print("Starting the CDK")
 
 print("Adjusting the layer directory")
 adjust_layer_directory(shared_dir_name="shared", destination="lambda_layer_out_temp")
-adjust_layer_directory(shared_dir_name="modules", destination="lambda_layer_out_temp")
 print("Finished adjusting the layer directory")
 
 print("Setting up the requirements layers")

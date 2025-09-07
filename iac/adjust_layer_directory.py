@@ -35,4 +35,3 @@ def adjust_layer_directory(shared_dir_name: str, destination: str):
 
 if __name__ == '__main__':
     adjust_layer_directory(shared_dir_name="shared", destination="lambda_layer_out_temp")
-    adjust_layer_directory(shared_dir_name="modules", destination="lambda_layer_out_temp")
