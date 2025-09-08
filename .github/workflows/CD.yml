@@ -21,17 +21,41 @@ jobs:
 
     steps:
         - uses: actions/checkout@v2
+        
+        - name: Set AWS Account ID
+          run: |
+            if [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOMOLOG }}" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "prod" ]]; then
+              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
+            else
+              echo "Invalid branch name!" && exit 1
+            fi
+
         - name: Setup AWS Credentials
           uses: aws-actions/configure-aws-credentials@v2
           with:
             aws-region: ${{ vars.AWS_REGION }}
-            role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsRole
+            role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole
             role-session-name: github-action
 
         - name: Setting stage and stack name
           run: |
             echo "STAGE=${{ github.ref_name }}" 
-            echo "STACK_NAME=PortalInternoActionStack${{github.ref_name}}" >> $GITHUB_ENV
+            if [[ "${{ github.ref_name }}" == "prod" ]]; then
+              echo "STAGE=prod" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+              echo "STAGE=homolog" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "dev" ]]; then
+              echo "STAGE=dev" >> $GITHUB_ENV
+            elif [[ "${{ github.ref_name }}" == "fix/githubActions" ]]; then
+              echo "STAGE=dev" >> $GITHUB_ENV
+            else
+              echo "Invalid branch name!" && exit 1
+            fi
+            echo "STACK_NAME=PortalInternoActionStack${{env.STAGE}}" >> $GITHUB_ENV
 
         - uses: actions/checkout@v3
         - uses: actions/setup-python@v4
@@ -52,7 +76,7 @@ jobs:
 
           env:
               AWS_REGION: ${{ vars.AWS_REGION }}
-              AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+              AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
               STACK_NAME: ${{ env.STACK_NAME }}
               GITHUB_REF_NAME: ${{ github.ref_name }}
               MSS_NAME: ${{ github.event.repository.name }}
@@ -62,3 +86,7 @@ jobs:
               REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
               FROM_EMAIL: ${{ vars.FROM_EMAIL }}
               HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
+              S3_BUCKET_NAME:  ${{ vars.S3_BUCKET_NAME }}
+              CONFIRMATION_URL_BASE: ${{ vars.CONFIRMATION_URL_BASE }}
+              COGNITO_USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
+              COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}

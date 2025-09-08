@@ -19,7 +19,7 @@ class Test_ActionRepositoryDynamo:
     def test_create_project(self):
         repo = ActionRepositoryDynamo()
         project = Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza", po_user_id="113vlada-c0d1-7054-66ab-e17414c48ae3", scrum_user_id="l90ilada-c0d1-7054-66ab-e17414c48ae3",
-                          start_date=1634576165000, photos=["https://i.imgur.com/gHoRKJU.png"],
+                          start_date=1634576165000, photo="https://i.imgur.com/gHoRKJU.png",
                           members_user_ids=["113vlada-c0d1-7054-66ab-e17414c48ae3", "l90ilada-c0d1-7054-66ab-e17414c48ae3", "mu67lada-c0d1-7054-66ab-e17414c48ae3"])
         resp = repo.create_project(project=project)
 
@@ -63,8 +63,8 @@ class Test_ActionRepositoryDynamo:
 
         assert resp == [
         Project(code="GM", name="Gameficação", description="Projeto para organização dos membros do DEV", po_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4", scrum_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s", start_date=1672585200000, members_user_ids=["76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "7gh5yf5H-857H-1234-75hng-94832hvng1s"]),
-        Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza", po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", start_date=1634576165000, photos=["https://i.imgur.com/gHoRKJU.png"], members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"]),
-        Project(code="PT", name="Portfólio", description="É um site", po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", start_date=1673535600000, photos=["https://i.imgur.com/gHoRKJU.png"], members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"]),
+        Project(code="MF", name="Maua Food", description="É um aplicativo #foramoleza", po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", start_date=1634576165000, photo="https://i.imgur.com/gHoRKJU.png", members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"]),
+        Project(code="PT", name="Portfólio", description="É um site", po_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", scrum_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", start_date=1673535600000, photo="https://i.imgur.com/gHoRKJU.png", members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"]),
         Project(code="SF", name="Selfie Mauá", description="Aplicativo para reconhecimento facial", po_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", scrum_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG", start_date=1686754800000, members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "7gh5yf5H-857H-1234-75hng-94832hvng1s", "51ah5jaj-c9jm-1345-666ab-e12341c14a3", "93bc6ada-c0d1-7054-66ab-e17414c48ae3", "6574hgyt-785n-9134-18gn4-7gh5uvn36cG"]),
         Project(code="SM", name="SMILE", description="Site do evento SMILE", po_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s", scrum_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1639321200000, members_user_ids=["6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "7465hvnb-143g-1675-86HnG-75hgnFbcg36", "7gh5yf5H-857H-1234-75hng-94832hvng1s", "51ah5jaj-c9jm-1345-666ab-e12341c14a3"]),
         ]
@@ -278,3 +278,139 @@ class Test_ActionRepositoryDynamo:
         send_email = repo_activity_dynamo.send_invalid_action_email(action=action_1, member=member_1)
 
         assert send_email
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_scan_project_actions_by_start_date(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.scan_project_actions_by_start_date(1641061363000, 1672510963000, 'PI')
+
+        assert len(resp) == 4
+
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_durations_by_project(self):
+        repo = ActionRepositoryDynamo()
+
+        resp = repo.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+
+        assert resp == {'PT': 9500000000, 
+                            'SF': 96530000000, 
+                            'SM': 47430000000, 
+                            'GM': 1320000000, 
+                            'MF': 62120000000}
+        
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_by_project_code(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=20)
+        print(resp)
+        assert all([type(action) == Action for action in resp])
+        assert all([action.project_code == "SF" for action in resp])
+        assert len(resp) == 3
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_by_project_code_with_exclusive_start_key(self):
+        repo = ActionRepositoryDynamo()
+        resp = repo.get_all_actions_by_project_code(project_code="SF", amount=2, start=1658136000000, end=1678116000000, exclusive_start_key={'action_id' : "24c7d7a3-6560-4652-a8d6-f2e4f3f23460", 'start_date' : 1644256000000})
+        print(resp)
+        assert all([type(action) == Action for action in resp])
+        assert all([action.project_code == "SF" for action in resp])
+        assert all([action.start_date >= 1658136000000 for action in resp])
+        assert all([action.start_date <= 1678116000000 for action in resp])
+        assert all([action.action_id != "5f4f13df-e7d3-4a10-9219-197ceae9e3f0" for action in resp])
+        assert len(resp) == 3
+    
+    # #@pytest.mark.skip("Can't run test in github actions")
+    # def test_get_projects_with_actions_and_associations(self):
+
+    #     repo_activity_dynamo = ActionRepositoryDynamo()
+
+       
+ 
+    #     projects_with_actions = repo_activity_dynamo.get_projects_with_actions_and_associations()
+
+  
+    #     assert len(projects_with_actions) > 0
+    #     assert all([type(project_data["project"]) == Project for project_data in projects_with_actions])
+    #     assert all([type(action) == Action for project_data in projects_with_actions for action in project_data["actions"]])
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_and_associated_by_user_id(self):
+        repo = ActionRepositoryDynamo()
+
+     
+        user_id = "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
+        start_date = 1672531200  
+        end_date = 1675123200    
+
+    
+        resp = repo.get_all_actions_by_user_id(user_id, start_date, end_date)
+
+        
+    
+        assert "actions" in resp
+
+      
+        for action in resp["actions"]:
+            assert "action_id" in action
+            assert "title" in action
+            assert "start_date" in action
+            assert "end_date" in action
+            assert "duration" in action
+            assert "user_id" in action
+            assert action["user_id"] == user_id
+            assert "associations" in action
+
+     
+            for association in action["associations"]:
+                assert "associated_action_id" in association
+                assert "user_id" in association
+                assert "start_date" in association
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_all_actions_and_associated_actions_by_project_code(self):
+   
+        repo = ActionRepositoryDynamo()
+
+  
+        project_code = "SF"
+        start_date = 1672531200  
+        end_date = 1675123200    
+
+
+        resp = repo.get_all_actions_and_associated_actions_by_project_code(
+            project_code=project_code,
+            start=start_date,
+            end=end_date
+        )
+
+       
+        assert "actions" in resp
+        assert "associated_actions" in resp
+
+  
+        for action in resp["actions"]:
+            assert isinstance(action, Action)
+            assert action.project_code == project_code
+            assert action.start_date >= start_date
+            assert action.end_date <= end_date
+
+
+        for associated_action in resp["associated_actions"]:
+            assert isinstance(associated_action, AssociatedAction)
+            assert associated_action.action_id in [action.action_id for action in resp["actions"]]
+
+        action_ids = {action.action_id for action in resp["actions"]}
+        for associated_action in resp["associated_actions"]:
+            assert associated_action.action_id in action_ids
+            
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_download_action(self):
+        repo_action_dynamo = ActionRepositoryDynamo()
+        project_code = "SF"
+        start_date = 1672531200  
+        end_date = 1675123200    
+        csv = repo_action_dynamo.download_actions_csv( project_code=project_code,
+            start=start_date,
+            end=end_date)
+        assert True

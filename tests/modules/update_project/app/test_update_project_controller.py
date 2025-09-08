@@ -26,7 +26,7 @@ class TestUpdateProjectController:
                 'new_description': 'Projeto do site portfolio',
                 'new_po_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                 'new_scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
-                'new_photos': ['new_photos'],
+                'new_photo': 'new_photo',
                 'new_members_user_ids': ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
             }
         )
@@ -39,7 +39,7 @@ class TestUpdateProjectController:
         assert response.body['project']['description'] == 'Projeto do site portfolio'
         assert response.body['project']['po_user_id'] == '6574hgyt-785n-9134-18gn4-7gh5uvn36cG'
         assert response.body['project']['scrum_user_id'] == '7gh5yf5H-857H-1234-75hng-94832hvng1s'
-        assert response.body['project']['photos'] == ['new_photos']
+        assert response.body['project']['photo'] == 'new_photo'
         assert response.body['project']['members_user_ids'] == ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
 
     def test_update_project_controller_missing_code(self):
@@ -60,7 +60,7 @@ class TestUpdateProjectController:
                 'new_description': 'Projeto do site portfolio',
                 'new_po_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                 'new_scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
-                'new_photos': ['new_photos'],
+                'new_photo': 'new_photo',
                 'new_members_user_ids': ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
             }
         )
@@ -89,7 +89,7 @@ class TestUpdateProjectController:
                 'new_description': 'Projeto do site portfolio',
                 'new_po_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                 'new_scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
-                'new_photos': ['new_photos'],
+                'new_photo': 'new_photo',
                 'new_members_user_ids': ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
             }
         )
@@ -118,7 +118,7 @@ class TestUpdateProjectController:
                 'new_description': 'Projeto do site portfolio',
                 'new_po_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                 'new_scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
-                'new_photos': ['new_photos'],
+                'new_photo': 'new_photo',
                 'new_members_user_ids': ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
             }
         )
@@ -249,7 +249,7 @@ class TestUpdateProjectController:
         assert response.status_code == 400
         assert response.body == "Field scrum_user_id is not valid"
         
-    def test_update_project_controller_invalid_photos(self): 
+    def test_update_project_controller_invalid_photo(self): 
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = UpdateProjectUsecase(repo, repo_member)
@@ -264,14 +264,14 @@ class TestUpdateProjectController:
                     "custom:isMaua": True
             },
                 'code': 'PT',
-                'new_photos': 25
+                'new_photo': 25
             }
         )
 
         response = controller(request)
 
         assert response.status_code == 400
-        assert response.body == "Field photos is not valid"
+        assert response.body == "Field photo is not valid"
 
     def test_update_project_missing_requester_user(self):
         repo = ActionRepositoryMock()
@@ -286,7 +286,7 @@ class TestUpdateProjectController:
                 'new_description': 'Projeto do site portfolio',
                 'new_po_user_id': '6574hgyt-785n-9134-18gn4-7gh5uvn36cG',
                 'new_scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
-                'new_photos': ['new_photos'],
+                'new_photo': 'new_photo',
                 'new_members_user_ids': ['6574hgyt-785n-9134-18gn4-7gh5uvn36cG', '7gh5yf5H-857H-1234-75hng-94832hvng1s']
             }
         )

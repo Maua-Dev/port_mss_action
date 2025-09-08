@@ -83,6 +83,9 @@ class Environments:
             self.from_email = os.environ.get("FROM_EMAIL")
             self.hidden_copy = os.environ.get("HIDDEN_COPY")
             self.ses_region = os.environ.get("SES_REGION")
+            self.cognito_user_pool_id = os.environ.get("COGNITO_USER_POOL_ID")
+            self.cognito_client_id = os.environ.get("COGNITO_CLIENT_ID")
+            self.confirmation_url_base = os.environ.get("CONFIRMATION_URL_BASE", "https://portal-interno.dev/auth/confirm")
 
     @staticmethod
     def get_action_repo() -> IActionRepository:
