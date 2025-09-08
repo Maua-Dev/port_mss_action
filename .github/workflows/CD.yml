@@ -38,13 +38,8 @@ jobs:
           uses: aws-actions/configure-aws-credentials@v2
           with:
             aws-region: ${{ vars.AWS_REGION }}
-            role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsRole
+            role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole
             role-session-name: github-action
-
-        - name: Echo target role (compile-time)
-          run: |
-            echo "Vou assumir arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole"
-            echo "Region: ${{ vars.AWS_REGION }}"
 
         - name: Setting stage and stack name
           run: |
@@ -79,7 +74,7 @@ jobs:
 
           env:
               AWS_REGION: ${{ vars.AWS_REGION }}
-              AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+              AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
               STACK_NAME: ${{ env.STACK_NAME }}
               GITHUB_REF_NAME: ${{ github.ref_name }}
               MSS_NAME: ${{ github.event.repository.name }}
