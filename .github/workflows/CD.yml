@@ -34,11 +34,6 @@ jobs:
               echo "Invalid branch name!" && exit 1
             fi
 
-        - name: Echo target role
-          run: |
-            echo "Vou assumir arn:aws:iam::${AWS_ACCOUNT_ID}:role/GithubActionsRole"
-            echo "Region: ${AWS_REGION}"
-
         - name: Setup AWS Credentials
           uses: aws-actions/configure-aws-credentials@v2
           with:
@@ -46,10 +41,10 @@ jobs:
             role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/GithubActionsRole
             role-session-name: github-action
 
-        - name: Who am I?
+        - name: Echo target role (compile-time)
           run: |
-            aws sts get-caller-identity
-            aws configure list
+            echo "Vou assumir arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole"
+            echo "Region: ${{ vars.AWS_REGION }}"
 
         - name: Setting stage and stack name
           run: |
@@ -59,8 +54,6 @@ jobs:
             elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
               echo "STAGE=homolog" >> $GITHUB_ENV
             elif [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "STAGE=dev" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "fix/githubActions" ]]; then
               echo "STAGE=dev" >> $GITHUB_ENV
             else
               echo "Invalid branch name!" && exit 1
