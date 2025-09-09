@@ -179,14 +179,14 @@ class Test_ActionRepositoryMock:
 
         resp = repo_mock.get_all_actions_durations_by_user_id(1624576165000, 1690046000000)
 
-        assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 104090000000, 
-                            '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 184430000000, 
-                            '6f5g4h7J-876j-0098-123hb-hgb567fy4hb': 160010000000, 
+        assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 94590000000, 
+                            '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 174930000000, 
+                            '6f5g4h7J-876j-0098-123hb-hgb567fy4hb': 150510000000, 
                             '7465hvnb-143g-1675-86HnG-75hgnFbcg36': 79580000000, 
-                            '75648hbr-184n-1985-91han-7ghn4HgF182': 119700000000, 
-                            '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 72430000000, 
-                            '7gh5yf5H-857H-1234-75hng-94832hvng1s': 107350000000, 
-                            '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 143960000000}
+                            '75648hbr-184n-1985-91han-7ghn4HgF182': 110200000000,
+                            '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 62930000000, 
+                            '7gh5yf5H-857H-1234-75hng-94832hvng1s': 97850000000, 
+                            '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 134460000000}
         
     def test_get_action_durations_for_user(self):
         
@@ -194,6 +194,6 @@ class Test_ActionRepositoryMock:
 
         resp = repo_mock.get_action_durations_for_user(start_date=1624576165000, end_date=1690046000000, user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
 
-        assert resp == 143960000000
+        assert resp == 134460000000
 
     

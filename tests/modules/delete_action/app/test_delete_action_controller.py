@@ -32,9 +32,9 @@ class Test_DeleteActionController:
             assert response.body["action"]["project_code"] == "PT"
             assert response.body["action"]["title"] == "Retrospectiva"
             assert response.body["action"]["description"] == "Revisão de sprint"
-            assert response.body["action"]["start_date"] == 1644256000000
-            assert response.body["action"]["end_date"] == 1653756000000
-            assert response.body["action"]["duration"] == 9500000000
+            assert response.body["action"]["start_date"] == 1756987200000
+            assert response.body["action"]["end_date"] == 1756990800000
+            assert response.body["action"]["duration"] == 3600000
 
     def test_delete_action_controller_missing_action_id(self):
             repo = ActionRepositoryMock()
