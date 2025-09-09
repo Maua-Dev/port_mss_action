@@ -36,6 +36,7 @@ class IStrikeRepository(ABC):
         '''
         pass
 
+
     @abstractmethod
     def get_strike_by_target_id(self, target_user_id: str) -> Optional[List[Strike]]:
         ''''
@@ -43,4 +44,5 @@ class IStrikeRepository(ABC):
         If there is no strike with the given ID, return None.
         '''
         pass
+
 
