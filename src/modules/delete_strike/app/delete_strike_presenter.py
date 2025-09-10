@@ -3,10 +3,9 @@ from src.modules.delete_strike.app.delete_strike_usecase import DeleteStrikeUseC
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
-
 repo = Environments.get_strike_repo()()
 repo_member = Environments.get_member_repo()()
-usecase =   DeleteStrikeUseCase(repo_strike=repo, repo_member=repo_member)
+usecase =   DeleteStrikeUseCase(repo=repo, repo_member=repo_member)
 controller = DeleteStrikeController(usecase=usecase)
 
 def lambda_handler(event, context):

@@ -207,6 +207,9 @@ class StrikeRepositoryMock(IStrikeRepository):
                 return strike
         return None
 
+    def get_strike(self, strike_id: str) -> Optional[Strike]:
+        return self.find_by_id(strike_id)
+
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
         if not strike_id:
             return None

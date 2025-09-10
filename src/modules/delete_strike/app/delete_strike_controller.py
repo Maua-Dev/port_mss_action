@@ -2,7 +2,7 @@ from src.modules.delete_strike.app.delete_strike_viewmodel import DeleteStrikeVi
 from src.shared.domain.entities.strike import Strike
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UnregisteredUser
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError, NotFound
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
@@ -25,7 +25,7 @@ class DeleteStrikeController:
                 raise EntityError('strike_id')
 
             strike_id = request.data.get('strike_id')
-            strike = self.DeleteStrikeUseCase(user_id=requester_user.user_id, strike_id=strike_id)
+            strike = self.usecase(user_id=requester_user.user_id, strike_id=strike_id)
 
             viewmodel = DeleteStrikeViewModel(strike)
 
@@ -38,9 +38,12 @@ class DeleteStrikeController:
             return BadRequest(body=err.message)
 
         except NoItemsFound as err:
-            return NotFound(body=err.message)
+            return NotFound(body="No items found for strike_id")
 
         except ForbiddenAction as err:
+            return Forbidden(body=err.message)
+
+        except UnregisteredUser as err:
             return Forbidden(body=err.message)
 
         except Exception as err:

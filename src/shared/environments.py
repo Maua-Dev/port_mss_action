@@ -4,6 +4,7 @@ import os
 
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 
 
 class STAGE(Enum):
@@ -61,7 +62,7 @@ class Environments:
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
             self.hidden_copy = "dev@maua.br"
-            
+
 
         else:
             self.s3_bucket_name_member = os.environ.get("S3_BUCKET_NAME_MEMBER")
@@ -94,7 +95,7 @@ class Environments:
             return ActionRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
-    
+
     @staticmethod
     def get_member_repo() -> IMemberRepository:
         if Environments.get_envs().stage == STAGE.TEST:
@@ -105,7 +106,17 @@ class Environments:
             return MemberRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
-        
+
+    @staticmethod
+    def get_strike_repo() -> IStrikeRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
+            return StrikeRepositoryMock
+        # elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+        #     from src.shared.infra.repositories
+        #     #need to add the strike repo mock when it's created
+        else:
+            raise Exception("No repository found for this stage")
 
     @staticmethod
     def get_envs() -> "Environments":

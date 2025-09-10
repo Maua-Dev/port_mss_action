@@ -39,7 +39,9 @@ class DeleteStrikeViewModel:
         self.strike = strike
 
     def to_dict(self) -> dict:
+        strike_dict = StrikeViewModel(self.strike).to_dict()
+        strike_dict['is_valid'] = True
         return {
-            'strike': StrikeViewModel(self.strike).to_dict(),
+            'strike': strike_dict,
             'message' : 'the strike was deleted successfully'
         }

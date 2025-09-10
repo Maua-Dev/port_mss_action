@@ -48,7 +48,7 @@ class MemberRepositoryMock(IMemberRepository):
                 deactivated_date=None,
                 user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 photo=None
-                              
+
             ),
 
             Member(
@@ -189,7 +189,7 @@ class MemberRepositoryMock(IMemberRepository):
                 photo=None
             )
             ,
-            
+
             Member(
                 name = "Carlinhos Miau",
                 email_dev = "carlinhos.devmaua@gmail.com",
@@ -205,10 +205,27 @@ class MemberRepositoryMock(IMemberRepository):
                 deactivated_date = None,
                 user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc",
                 photo=None
+            ),
+
+            Member(
+                name= "Ryuske",
+                email_dev= "ryuske.devmaua@gmail.com",
+                email= "ryuske@gmail.com",
+                ra= "20123456",
+                role= ROLE.DIRECTOR,
+                stack= STACK.RH,
+                year= 5,
+                cellphone = "11995623456",
+                course= COURSE.ECM,
+                hired_date= 1640192165000,
+                active= ACTIVE.ACTIVE,
+                deactivated_date= None,
+                user_id= "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                photo=None
             )
         ]
 
-   
+
 
     def create_member(self, member: Member) -> Member:
         self.members.append(member)
@@ -226,10 +243,10 @@ class MemberRepositoryMock(IMemberRepository):
             if member.user_id == user_id:
                 return member
         return None
-    
-    
+
+
     def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_photo: Optional[str] = None) -> Member:
-       
+
         for member in self.members:
             if member.user_id == user_id:
                 if new_name is not None:
@@ -251,15 +268,15 @@ class MemberRepositoryMock(IMemberRepository):
                 if new_active is not None:
                     member.active = new_active
                     if new_active == ACTIVE.DISCONNECTED:
-                        member.deactivated_date = int(datetime.datetime.now().timestamp() * 1000) 
+                        member.deactivated_date = int(datetime.datetime.now().timestamp() * 1000)
                 if new_photo is not None:
                     member.photo = new_photo
-                
+
                 return member
-            
+
         return None
-    
- 
+
+
 
     def get_all_members(self) -> List[Member]:
         active_members = []
@@ -267,7 +284,7 @@ class MemberRepositoryMock(IMemberRepository):
             active_members.append(member)
         return active_members
 
- 
+
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         members = []
         for member in self.members:
@@ -275,6 +292,6 @@ class MemberRepositoryMock(IMemberRepository):
                 members.append(member)
         return members
 
-    def send_active_member_email(self, member: Member) -> bool: 
+    def send_active_member_email(self, member: Member) -> bool:
         # send email in real
         return True

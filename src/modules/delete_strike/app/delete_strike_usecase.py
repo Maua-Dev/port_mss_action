@@ -8,33 +8,35 @@ from src.shared.helpers.errors.usecase_errors import ForbiddenAction, Unregister
 
 
 class DeleteStrikeUseCase:
-    def __init__(self, repo_strike: IStrikeRepository, repo: IMemberRepository):
+    def __init__(self, repo: IStrikeRepository, repo_member: IMemberRepository):
+        self.repo_member = repo_member
         self.repo = repo
-        self.repo_strike = repo_strike
 
     def __call__(self, user_id: str, strike_id: str):
 
-        if self.repo.get_member(user_id=user_id) is None:
+        if self.repo_member.get_member(user_id=user_id) is None:
             raise UnregisteredUser()
 
         if not Strike.validate_strike_id(strike_id):
             raise EntityError('strike_id')
 
-        user = self.repo.get_member(user_id=user_id)
+        user = self.repo_member.get_member(user_id=user_id)
 
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
 
-        strike = self.repo_strike.get_strike(strike_id=strike_id)
-
-        is_admin = user.validate_role_admin(user.role)
-
-        if not is_admin or user.stack != STACK.RH:
-            raise ForbiddenAction('This user can´t delete this strike. He is not the owner of the strike or an admin.')
-
-        strike = self.repo_strike.delete_strike(strike_id=strike_id)
+        strike = self.repo.get_strike(strike_id=strike_id)
 
         if strike is None:
-            raise EntityError('strike_id')
+            from src.shared.helpers.errors.usecase_errors import NoItemsFound
+            raise NoItemsFound("No items found for strike_id")
+
+        is_admin = user.validate_role_admin(user.role) and user.stack == STACK.RH
+
+        if not is_admin and strike.owner_user_id != user.user_id:
+            from src.shared.helpers.errors.usecase_errors import ForbiddenAction
+            raise ForbiddenAction("type of user")
+
+        strike = self.repo.delete_strike(strike_id=strike_id)
 
         return strike
