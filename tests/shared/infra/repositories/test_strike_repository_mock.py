@@ -7,7 +7,7 @@ from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
 
 
 class TestStrikeRepositoryMock:
-
+    
     def setup_method(self):
         """Executado antes de cada teste"""
         self.repo = StrikeRepositoryMock()
@@ -24,7 +24,7 @@ class TestStrikeRepositoryMock:
     def test_create_strike(self):
         # Act
         result = self.repo.create_strike(self.sample_strike)
-
+        
         # Assert
         assert result == self.sample_strike
         assert len(self.repo.strikes) == 21  # 20 exemplos + 1 novo
@@ -33,29 +33,29 @@ class TestStrikeRepositoryMock:
     def test_get_all(self):
         # Act
         result = self.repo.get_all()
-
+        
         # Assert
         assert len(result) == 20  # Os 20 exemplos iniciais
         assert isinstance(result, list)
-
+        
     def test_get_all_should_return_copy_not_original_list(self):
         # Act
         result = self.repo.get_all()
         original_length = len(self.repo.strikes)
-
+        
         # Modifica a lista retornada
         result.clear()
-
+        
         # Assert
         assert len(self.repo.strikes) == original_length  # Lista original não foi afetada
 
     def test_find_by_id_should_return_strike_when_exists(self):
         # Arrange
         existing_strike_id = "a1b2c3d4-e5f6-7890-1234-567890abcdef"  # Primeiro exemplo
-
+        
         # Act
         result = self.repo.find_by_id(existing_strike_id)
-
+        
         # Assert
         assert result is not None
         assert result.strike_id == existing_strike_id
@@ -64,10 +64,10 @@ class TestStrikeRepositoryMock:
     def test_find_by_id_should_return_none_when_not_exists(self):
         # Arrange
         non_existing_id = "99999999-9999-9999-9999-999999999999"
-
+        
         # Act
         result = self.repo.find_by_id(non_existing_id)
-
+        
         # Assert
         assert result is None
 
@@ -80,15 +80,15 @@ class TestStrikeRepositoryMock:
         # Arrange
         existing_strike_id = "a1b2c3d4-e5f6-7890-1234-567890abcdef"
         initial_count = len(self.repo.strikes)
-
+        
         # Act
         result = self.repo.delete_strike(existing_strike_id)
-
+        
         # Assert
         assert result is not None
         assert result.strike_id == existing_strike_id
         assert len(self.repo.strikes) == initial_count - 1
-
+        
         # Verifica que realmente foi removido
         assert self.repo.find_by_id(existing_strike_id) is None
 
@@ -96,10 +96,10 @@ class TestStrikeRepositoryMock:
         # Arrange
         non_existing_id = "99999999-9999-9999-9999-999999999999"
         initial_count = len(self.repo.strikes)
-
+        
         # Act
         result = self.repo.delete_strike(non_existing_id)
-
+        
         # Assert
         assert result is None
         assert len(self.repo.strikes) == initial_count  # Não removeu nada
@@ -107,7 +107,7 @@ class TestStrikeRepositoryMock:
     def test_delete_strike_should_return_none_when_id_is_empty(self):
         # Arrange
         initial_count = len(self.repo.strikes)
-
+        
         # Act & Assert
         assert self.repo.delete_strike("") is None
         assert self.repo.delete_strike(None) is None
@@ -116,11 +116,11 @@ class TestStrikeRepositoryMock:
     def test_delete_strike_twice_same_id_should_work_correctly(self):
         # Arrange
         existing_strike_id = "a1b2c3d4-e5f6-7890-1234-567890abcdef"
-
+        
         # Act
         first_removal = self.repo.delete_strike(existing_strike_id)
         second_removal = self.repo.delete_strike(existing_strike_id)
-
+        
         # Assert
         assert first_removal is not None
         assert second_removal is None  # Já foi removido
@@ -128,7 +128,7 @@ class TestStrikeRepositoryMock:
     def test_repository_should_start_with_20_examples(self):
         # Assert
         assert len(self.repo.strikes) == 20
-
+        
         # Verifica se tem strikes de todas as categorias
         categories = {strike.category for strike in self.repo.strikes}
         expected_categories = {
@@ -142,7 +142,7 @@ class TestStrikeRepositoryMock:
     def test_all_example_strikes_have_valid_data(self):
         # Act
         strikes = self.repo.get_all()
-
+        
         # Assert
         for strike in strikes:
             assert len(strike.strike_id) == 36
@@ -165,7 +165,7 @@ class TestStrikeRepositoryMock:
             category=STRIKE_CATEGORY.OTHER,
             description="Strike 1"
         )
-
+        
         strike2 = Strike(
             strike_id="bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
             owner_user_id="44444444-4444-4444-4444-444444444444",
@@ -175,12 +175,60 @@ class TestStrikeRepositoryMock:
             category=STRIKE_CATEGORY.RULE_VIOLATION,
             description="Strike 2"
         )
-
+        
         # Act
         self.repo.create_strike(strike1)
         self.repo.create_strike(strike2)
-
+        
         # Assert
         assert len(self.repo.strikes) == 22  # 20 + 2
         assert self.repo.find_by_id(strike1.strike_id) == strike1
         assert self.repo.find_by_id(strike2.strike_id) == strike2
+
+    def test_get_strike_by_target_user_id(self):
+        first_strike= Strike(
+                strike_id="a1b2c3d4-e5f6-7890-1234-567890abcdef",
+                owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.MISCONDUCT,
+                description="Comportamento inadequado durante reunião"
+            )
+
+        second_strike= Strike(
+                strike_id="c3d4e5f6-g7h8-9012-3456-789012cdefgh",
+                owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                occurred_date=1756987200000,  # 2025-09-4 
+                category=STRIKE_CATEGORY.RULE_VIOLATION,
+                description="Violação das políticas de segurança da informação"
+            )
+        
+        third_strike= Strike(
+                strike_id="n4o5p6q7-r8s9-0123-4567-890123nopqrs",
+                owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
+                description="Falta de participação em treinamentos obrigatórios"
+            )
+
+        expected_list=[first_strike, second_strike, third_strike]
+        
+        list_strike= self.repo.get_strike_by_target_id(target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36")
+
+        assert expected_list[0].strike_id == list_strike[0].strike_id
+
+        assert expected_list[1].strike_id == list_strike[1].strike_id
+
+        assert expected_list[2].strike_id == list_strike[2].strike_id
+
+        assert len(expected_list) == len(list_strike)
+
+    def test_get_strike_by_targer_user_id_return_none(self):
+        list_strike= self.repo.get_strike_by_target_id(target_user_id="71ab32de-4906-4f3e-a614-88be1f5b2521")
+
+        assert list_strike == None

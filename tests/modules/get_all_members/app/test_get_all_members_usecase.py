@@ -12,7 +12,7 @@ class Test_GetAllMembersUseCase:
         
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         assert type(members) == list
-        assert len(members) == 11
+        assert len(members) == 14
         assert all([type(member) == Member for member in members])
   
 

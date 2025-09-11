@@ -25,7 +25,7 @@ class DeleteStrikeUseCase:
         if user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
 
-        strike = self.repo.get_strike(strike_id=strike_id)
+        strike = self.repo.find_by_id(strike_id=strike_id)
 
         if strike is None:
             from src.shared.helpers.errors.usecase_errors import NoItemsFound

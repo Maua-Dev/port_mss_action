@@ -146,7 +146,7 @@ class Test_Strike:
                 description="x" * 501
             )
 
-    def test_ocurred_date_not_int(self):
+    def test_occurred_date_not_int(self):
         with pytest.raises(EntityError):
             Strike(
                 strike_id="46b7ed28-02d9-4ea3-9f8b-85cd8708d846",

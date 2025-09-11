@@ -31,7 +31,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                        'hours_worked': 143960000000,
+                        'hours_worked': 134460000000,
                         'photo': None
                         
                         }
@@ -42,7 +42,7 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev': 'jbranco.devmaua@gmail.com',
                         'email': 'jbranco@gmail.com',
                         'ra': '21010757',
-                        'role': 'HEAD',
+                        'role': 'DIRECTOR',
                         'stack': 'BACKEND',
                         'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
@@ -52,7 +52,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-                        'hours_worked': 104090000000,
+                        'hours_worked': 94590000000,
                         'photo': None
                         }
                 },
@@ -64,7 +64,7 @@ class Test_GetAllMembersAdminViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Gameficação'],
+                        'project': ['Gameficação', 'Zeragem de Horas'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -72,7 +72,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
-                        'hours_worked': 72430000000,
+                        'hours_worked': 62930000000,
                         'photo': None
                         }
                 },
@@ -92,7 +92,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                        'hours_worked': 160010000000,
+                        'hours_worked': 150510000000,
                         'photo': None
                         }
                 },
@@ -102,8 +102,8 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev': 'mneto.devmaua@gmail.com',
                         'email': 'mneto@gmail.com',
                         'ra': '19017310',
-                        'role': 'PO',
-                        'stack': 'BUSINESS',
+                        'role': 'DIRECTOR',
+                        'stack': 'PO',
                         'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
@@ -112,7 +112,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                        'hours_worked': 184430000000,
+                        'hours_worked': 174930000000,
                         'photo': None
                         }               
                 },
@@ -124,7 +124,7 @@ class Test_GetAllMembersAdminViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação', 'Zeragem de Horas'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -132,7 +132,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                        'hours_worked': 107350000000,
+                        'hours_worked': 97850000000,
                         'photo': None
                         }
                 },
@@ -143,7 +143,7 @@ class Test_GetAllMembersAdminViewModel:
                         'email': 'djangofett@starwars.com',
                         'ra': '17033730',
                         'role': 'INTERNAL',
-                        'stack': 'INTERNAL',
+                        'stack': 'MKT',
                         'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
@@ -172,7 +172,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        'hours_worked': 119700000000,
+                        'hours_worked': 110200000000,
                         'photo': None
                         }
                 },
@@ -202,8 +202,8 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev' : "fernandinho.devmaua@gmail.com",
                         'email' : "fernandao@gmail.com",
                         'ra' : "22014322",
-                        'role' : 'PO',
-                        'stack' : 'BUSINESS',
+                        'role' : 'BUSINESS',
+                        'stack' : 'PO',
                         'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
@@ -235,6 +235,66 @@ class Test_GetAllMembersAdminViewModel:
                         'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                },
+                {
+                    'member':{
+                        'name': 'Ana Julia',
+                        'email_dev': 'anaju.devmaua@gmail.com',
+                        'email': 'anaju@gmail.com',
+                        'ra': '25123457',
+                        'role': 'INTERNAL',
+                        'stack': 'MKT',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828565',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
@@ -269,7 +329,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'photo': None
                         
                         }
@@ -280,7 +340,7 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev': 'jbranco.devmaua@gmail.com',
                         'email': 'jbranco@gmail.com',
                         'ra': '21010757',
-                        'role': 'HEAD',
+                        'role': 'DIRECTOR',
                         'stack': 'BACKEND',
                         'project': ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE'],
                         'year': 3,
@@ -290,7 +350,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-                        'hours_worked': 0,
+                        'hours_worked':  3600000,
                         'photo': None
                         }
                 },
@@ -303,7 +363,7 @@ class Test_GetAllMembersAdminViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Gameficação'],
+                        'project': ['Gameficação', 'Zeragem de Horas'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -311,7 +371,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
-                        'hours_worked': 0,
+                        'hours_worked':  3600000,
                         'photo': None
                         }
                 },
@@ -332,7 +392,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                        'hours_worked': 0,
+                        'hours_worked':  3600000,
                         'photo': None
                         }
                 },
@@ -343,8 +403,8 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev': 'mneto.devmaua@gmail.com',
                         'email': 'mneto@gmail.com',
                         'ra': '19017310',
-                        'role': 'PO',
-                        'stack': 'BUSINESS',
+                        'role': 'DIRECTOR',
+                        'stack': 'PO',
                         'project': ['Selfie Mauá'],
                         'year': 4,  
                         'cellphone': '11991753208',
@@ -353,7 +413,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                        'hours_worked': 0,
+                        'hours_worked':  3600000,
                         'photo': None
                         }               
                 },
@@ -366,7 +426,7 @@ class Test_GetAllMembersAdminViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação', 'Zeragem de Horas'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -374,7 +434,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                        'hours_worked': 0,
+                        'hours_worked':  3600000,
                         'photo': None
                         }
                 },
@@ -386,7 +446,7 @@ class Test_GetAllMembersAdminViewModel:
                         'email': 'djangofett@starwars.com',
                         'ra': '17033730',
                         'role': 'INTERNAL',
-                        'stack': 'INTERNAL',
+                        'stack': 'MKT',
                         'project': ['SMILE'],
                         'year': 2,
                         'cellphone': '11915758098',
@@ -416,7 +476,7 @@ class Test_GetAllMembersAdminViewModel:
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'photo': None
                         }
                 },
@@ -446,8 +506,8 @@ class Test_GetAllMembersAdminViewModel:
                         'email_dev' : "fernandinho.devmaua@gmail.com",
                         'email' : "fernandao@gmail.com",
                         'ra' : "22014322",
-                        'role' : 'PO',
-                        'stack' : 'BUSINESS',
+                        'role' : 'BUSINESS',
+                        'stack' : 'PO',
                         'project': [],
                         'year' : 3,
                         'cellphone' : "11991123498",
@@ -480,10 +540,71 @@ class Test_GetAllMembersAdminViewModel:
                         'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
+                },
+                {
+                    'member':{
+                        'name': 'Ana Julia',
+                        'email_dev': 'anaju.devmaua@gmail.com',
+                        'email': 'anaju@gmail.com',
+                        'ra': '25123457',
+                        'role': 'INTERNAL',
+                        'stack': 'MKT',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828565',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                        'hours_worked': 0,
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
         }
         print(viewmodel)
         assert viewmodel == expected
+        #no futuro tera que zerar essas hours worked, porem estou testando o lancamento de strikes e preciso que tenha horas trabalahdas no 2 semestre de 2025
     

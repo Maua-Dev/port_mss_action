@@ -12,9 +12,9 @@ class Test_GetAllMembersAdminUseCase:
         
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3", start_date= 1624576165000, end_date= 1690046000000)
         assert type(members) == list
-        assert len(members) == 11
+        assert len(members) == 14
         assert all([type(member) == Member for member in members])
-        assert members[0].hours_worked == 143960000000
+        assert members[0].hours_worked == 134460000000
 
 
     def test_get_all_members_admin_usecase_user_id_not_found(self):
@@ -41,7 +41,7 @@ class Test_GetAllMembersAdminUseCase:
         
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         assert type(members) == list
-        assert len(members) == 11
+        assert len(members) == 14
         assert all([type(member) == Member for member in members])
-        assert members[0].hours_worked == 0
+        assert members[0].hours_worked == 3600000
 

@@ -27,7 +27,7 @@ class Test_UpdateMemberController:
 
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11987654321",
@@ -105,14 +105,14 @@ class Test_UpdateMemberController:
                     "custom:isMaua": True
                 },
      
-            'new_role':ROLE.HEAD.value
+            'new_role':ROLE.DIRECTOR.value
              
             })
         
         response = controller(request)
        
         assert response.status_code == 200
-        assert response.body["member"]["role"] == ROLE.HEAD.value
+        assert response.body["member"]["role"] == ROLE.DIRECTOR.value
         assert response.body["message"] == "the member was updated"
 
             
@@ -132,7 +132,7 @@ class Test_UpdateMemberController:
                 },
             'name':"Joao Branco",
             'email_dev':"jbranco.devmaua@gmail.com",
-            'role':ROLE.HEAD.value,
+            'role':ROLE.DIRECTOR.value,
             'stack':STACK.BACKEND.value,
             'year':3,
             'cellphone':"11991152348",
@@ -160,7 +160,7 @@ class Test_UpdateMemberController:
                 },
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':7,
             'new_cellphone':"11987654321",
@@ -190,7 +190,7 @@ class Test_UpdateMemberController:
                 },
             'new_name':123,
             'new_email_dev':"jbranco.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11991152348",
@@ -218,7 +218,7 @@ class Test_UpdateMemberController:
                 },
             'new_name':"Joao Branco",
             'new_email_dev':123,
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11991152348",
@@ -263,7 +263,7 @@ class Test_UpdateMemberController:
 
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11987654321",
@@ -296,7 +296,7 @@ class Test_UpdateMemberController:
 
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11987654321",
@@ -329,7 +329,7 @@ class Test_UpdateMemberController:
 
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11987654321",
@@ -362,7 +362,7 @@ class Test_UpdateMemberController:
 
             'new_name':"Teste Tester",
             'new_email_dev':"test.devmaua@gmail.com",
-            'new_role':ROLE.HEAD.value,
+            'new_role':ROLE.DIRECTOR.value,
             'new_stack':STACK.BACKEND.value,
             'new_year':3,
             'new_cellphone':"11987654321",

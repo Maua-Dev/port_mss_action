@@ -1,5 +1,7 @@
 import json
+from src.modules.delete_strike.app.delete_strike_controller import DeleteStrikeController
 from src.modules.delete_strike.app.delete_strike_presenter import lambda_handler
+from src.modules.delete_strike.app.delete_strike_usecase import DeleteStrikeUseCase
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 
@@ -30,7 +32,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
+                "occurred_date": 1756987200000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True
@@ -68,7 +70,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
+                "occurred_date": 1756987200000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True
@@ -106,7 +108,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
+                "occurred_date": 1756987200000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True
@@ -144,7 +146,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
+                "occurred_date": 1756987200000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True
@@ -157,6 +159,11 @@ class Test_DeleteStrikePresenter:
 
 
     def test_delete_strike_presenter_forbidden(self):
+
+        repo = StrikeRepositoryMock() # novo repo isolado
+        repo_member = MemberRepositoryMock()  # novo repo isolado
+        usecase = DeleteStrikeUseCase(repo=repo, repo_member=repo_member)
+        controller = DeleteStrikeController(usecase=usecase)
 
         event = {
             "version": "2.0",
@@ -172,20 +179,20 @@ class Test_DeleteStrikePresenter:
                     }
                 }
             },
-            "body": '{"strike_id" : "a1b2c3d4-e5f6-7890-1234-567890abcdef"}'
+            "body": '{"strike_id" : "b2c3d4e5-f6g7-8901-2345-678901bcdefg"}'
         }
 
         response = lambda_handler(event, None)
 
         expected_body = {
             "strike": {
-                "strike_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+                "strike_id": "b2c3d4e5-f6g7-8901-2345-678901bcdefg",
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
+                "target_user_id": "7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
-                "category": "MISCONDUCT",
-                "description": "Comportamento inadequado durante reunião",
+                "occurred_date": 1756987200000,
+                "category": "LACK_OF_COMMITMENT",
+                "description": "Ausência injustificada em projeto crítico",
                 "is_valid": True
             },
             "message": "the strike was deleted successfully"
@@ -221,7 +228,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1703980800000,
+                "occurred_date": 1756987200000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True

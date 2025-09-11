@@ -42,7 +42,7 @@ class Test_GetMemberController:
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
                 'photo' : None,
-                'hours_worked' : 143960000000
+                'hours_worked' : 134460000000
             },
             "message" : "the member was retrieved"
         }
@@ -142,7 +142,7 @@ class Test_GetMemberController:
                 'active' : self.first_member.active.value,
                 'user_id' : self.first_member.user_id,
                 'photo' : None,
-                'hours_worked' : 0
+                'hours_worked' : 3600000
             },
             "message" : "the member was retrieved"
         }
@@ -151,3 +151,5 @@ class Test_GetMemberController:
 
         assert response.status_code == 200
         assert response.body == expected_dict
+
+        #futuramente apos segundo semestre de 2025 teremos que colocar hours_worked : 0

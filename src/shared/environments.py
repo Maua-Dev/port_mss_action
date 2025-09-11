@@ -62,7 +62,7 @@ class Environments:
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
             self.hidden_copy = "dev@maua.br"
-
+            
 
         else:
             self.s3_bucket_name_member = os.environ.get("S3_BUCKET_NAME_MEMBER")
@@ -95,7 +95,7 @@ class Environments:
             return ActionRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
-
+    
     @staticmethod
     def get_member_repo() -> IMemberRepository:
         if Environments.get_envs().stage == STAGE.TEST:
@@ -106,7 +106,7 @@ class Environments:
             return MemberRepositoryDynamo
         else:
             raise Exception("No repository found for this stage")
-
+        
     @staticmethod
     def get_strike_repo() -> IStrikeRepository:
         if Environments.get_envs().stage == STAGE.TEST:

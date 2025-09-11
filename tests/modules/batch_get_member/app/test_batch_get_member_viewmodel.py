@@ -32,7 +32,7 @@ class Test_BatchGetMemberViewmodel:
                     'email_dev': 'jbranco.devmaua@gmail.com',
                     'email': 'jbranco@gmail.com',
                     'ra': '21010757',
-                    'role': 'HEAD',
+                    'role': 'DIRECTOR',
                     'stack': 'BACKEND',
                     'year': 3,
                     'cellphone': '11991152348',

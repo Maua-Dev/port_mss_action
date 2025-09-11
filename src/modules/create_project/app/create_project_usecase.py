@@ -30,10 +30,10 @@ class CreateProjectUsecase:
         
         po = self.repo_member.get_member(user_id=po_user_id)
 
-        if po.role not in [ROLE.PO, ROLE.SCRUM]:
+        if po.role is not ROLE.BUSINESS:
             raise UserIsNotFromBusiness()
         
-        if po.stack is not STACK.BUSINESS:
+        if po.stack not in [STACK.PO, STACK.SCRUM]:
             raise UserIsNotFromBusiness()
         
         if po.active != ACTIVE.ACTIVE:
@@ -41,10 +41,10 @@ class CreateProjectUsecase:
         
         scrum = self.repo_member.get_member(user_id=scrum_user_id)
 
-        if scrum.role not in [ROLE.PO, ROLE.SCRUM]:
+        if scrum.role is not ROLE.BUSINESS:
             raise UserIsNotFromBusiness()
         
-        if scrum.stack is not STACK.BUSINESS:
+        if scrum.stack not in [STACK.PO, STACK.SCRUM]:
             raise UserIsNotFromBusiness()
         
         if scrum.active != ACTIVE.ACTIVE:
