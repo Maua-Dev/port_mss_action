@@ -39,29 +39,29 @@ class CreateStrikeUsecase:
 
         if not self.repo_member.get_member(user_id=owner_user_id) or not self.repo_member.get_member(user_id=applier_user_id) or not self.repo_member.get_member(user_id=target_user_id):
             raise UnregisteredUser()
-        
+
         owner_user= self.repo_member.get_member(user_id=owner_user_id)
 
         if not Member.validate_role_admin(role= owner_user.role):
             raise ForbiddenAction('Owner user is not a director')
-        
+
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
             raise ForbiddenAction("RH member is not active")
-        
+
         if applier_user.role is ROLE.INTERNAL:
             if applier_user.stack is not STACK.RH:
                 raise UserIsNotFromRH(user='applier user')
-            
+
         elif not Member.validate_role_admin(role=applier_user.role):
             raise ForbiddenAction('Applier user is not a director')
-        
+
         target_user= self.repo_member.get_member(user_id=target_user_id)
 
         if not Member.validate_active(active=target_user.active):
             raise ForbiddenAction('target user is not active')
-        
+
         now= datetime.now()
         year= now.year
 
@@ -82,7 +82,7 @@ class CreateStrikeUsecase:
         if taget_user_list_stike:
             target_user_list_strike_this_sem= [
                 s for s in taget_user_list_stike
-                if start_sem <= s.occurred_date <= end_sem 
+                if start_sem <= s.occurred_date <= end_sem
             ]
 
             total_projects= 0
@@ -90,7 +90,7 @@ class CreateStrikeUsecase:
             for project in projects:
                 if project.members_user_ids == target_user_id:
                     total_projects+= 1
-            
+
             if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > 2) or (total_projects == 2 and len(target_user_list_strike_this_sem) > 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > 4):
 
                 target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_sem, end_date=end_sem)
@@ -107,14 +107,14 @@ class CreateStrikeUsecase:
                     is_valid=True,
                     title="ZERAGEM DE HORAS",
                     project_code="HZ",
-                    action_type_tag= ACTION_TYPE.HOURS_REZET,
+                    action_type_tag= ACTION_TYPE.HOURS_RESET,
                     description="Ação criada devido ao atingimento do limite de strikes"
                 )
 
                 self.repo_action.create_action(action=strike_action)
 
                 return (created_strike, 1)
-            
+
             return (created_strike, 0)
-        
+
     # fazer uma logica parecida com o que esta no auth user, mandando uma mensagem caso as horas sejam zeradas e uma caso seja so criado o strike
