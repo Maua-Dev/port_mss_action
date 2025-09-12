@@ -39,12 +39,11 @@ class CreateStrikeUsecase:
 
         if not self.repo_member.get_member(user_id=owner_user_id) or not self.repo_member.get_member(user_id=applier_user_id) or not self.repo_member.get_member(user_id=target_user_id):
             raise UnregisteredUser()
-
         owner_user= self.repo_member.get_member(user_id=owner_user_id)
 
         if not Member.validate_role_admin(role= owner_user.role):
             raise ForbiddenAction('Owner user is not a director')
-
+        
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
@@ -61,7 +60,6 @@ class CreateStrikeUsecase:
 
         if not Member.validate_active(active=target_user.active):
             raise ForbiddenAction('target user is not active')
-
         now= datetime.now()
         year= now.year
 
