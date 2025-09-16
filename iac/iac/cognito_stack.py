@@ -51,20 +51,6 @@ class CognitoStack(Construct):
             removal_policy=RemovalPolicy.DESTROY  #todo mudar para RETAIN em produção
         )
 
-        self.client = self.user_pool.add_client(
-            f"PortalInternoUserPoolClient-{stage}",
-            auth_flows=cognito.AuthFlow(
-                user_srp=True,
-                user_password=True,
-                admin_user_password=True
-            ),
-            generate_secret=False,
-            prevent_user_existence_errors=True,
-            access_token_validity=Duration.hours(1),
-            id_token_validity=Duration.hours(1),
-            refresh_token_validity=Duration.days(30),
-        )
-
         # Cognito Hosted UI (Login)
         cognito_custom_domain = os.environ.get("COGNITO_CUSTOM_DOMAIN")
         cognito_custom_domain_cert_arn = os.environ.get("COGNITO_CUSTOM_DOMAIN_CERT_ARN")
@@ -89,6 +75,21 @@ class CognitoStack(Construct):
                     domain_prefix=f"port-interno-{stage.lower()}"
                 )
             )
+
+        # Habilita client secret
+        self.client = self.user_pool.add_client(
+            f"PortalInternoUserPoolClient-{stage}",
+            auth_flows=cognito.AuthFlow(
+                user_srp=True,
+                user_password=True,
+                admin_user_password=True
+            ),
+            generate_secret=True,  # Habilita client secret
+            prevent_user_existence_errors=True,
+            access_token_validity=Duration.hours(1),
+            id_token_validity=Duration.hours(1),
+            refresh_token_validity=Duration.days(30),
+        )
 
 
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
