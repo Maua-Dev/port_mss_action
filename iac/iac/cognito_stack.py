@@ -65,6 +65,14 @@ class CognitoStack(Construct):
             refresh_token_validity=Duration.days(30),
         )
 
+        # Cognito Hosted UI (Login)
+        self.user_pool_domain = self.user_pool.add_domain(
+            f"PortalInternoUserPoolDomain-{stage}",
+            cognito.DomainOptions(
+                domain_prefix=f"port-interno-{stage.lower()}"
+            )
+        )
+
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
         CfnOutput(self, f"UserPoolClientId-{stage}", value=self.client.user_pool_client_id)
         CfnOutput(self, f"UserPoolArn-{stage}", value=self.user_pool.user_pool_arn)
