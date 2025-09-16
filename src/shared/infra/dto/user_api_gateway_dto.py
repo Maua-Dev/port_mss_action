@@ -19,6 +19,7 @@ class UserApiGatewayDTO:
         return UserApiGatewayDTO(
             name=user_data['name'],
             email=user_data['email'] ,
+            is_maua=True,
             user_id=user_data['sub']
         )
     
