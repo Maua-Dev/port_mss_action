@@ -24,10 +24,16 @@ jobs:
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.DEV_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.DEV_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
             echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOML }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.HOML_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.HML_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref_name }}" == "prod" ]]; then
             echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.PROD_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.PROD_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
           else
             echo "Invalid branch name!" && exit 1
           fi
@@ -82,3 +88,5 @@ jobs:
           REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
           FROM_EMAIL: ${{ vars.FROM_EMAIL }}
           HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
+          COGNITO_CUSTOM_DOMAIN: ${{ vars.COGNITO_CUSTOM_DOMAIN }}
+          COGNITO_CUSTOM_DOMAIN_CERT_ARN: ${{ env.ACM_CERTIFICATE_ARN }}

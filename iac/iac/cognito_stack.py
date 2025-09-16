@@ -65,6 +65,31 @@ class CognitoStack(Construct):
             refresh_token_validity=Duration.days(30),
         )
 
+        # Cognito Hosted UI (Login)
+        cognito_custom_domain = os.environ.get("COGNITO_CUSTOM_DOMAIN")
+        cognito_custom_domain_cert_arn = os.environ.get("COGNITO_CUSTOM_DOMAIN_CERT_ARN")
+        if cognito_custom_domain and cognito_custom_domain_cert_arn:
+            from aws_cdk import aws_certificatemanager as acm
+            certificate = acm.Certificate.from_certificate_arn(
+                self, f"CognitoCustomDomainCert-{stage}", cognito_custom_domain_cert_arn
+            )
+            self.user_pool_domain = cognito.UserPoolDomain(
+                self, f"PortalInternoUserPoolDomain-{stage}",
+                user_pool=self.user_pool,
+                custom_domain=cognito.CustomDomainOptions(
+                    domain_name=cognito_custom_domain,
+                    certificate=certificate
+                )
+            )
+        else:
+            self.user_pool_domain = cognito.UserPoolDomain(
+                self, f"PortalInternoUserPoolDomain-{stage}",
+                user_pool=self.user_pool,
+                cognito_domain=cognito.CognitoDomainOptions(
+                    domain_prefix=f"port-interno-{stage.lower()}"
+                )
+            )
+
 
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
         CfnOutput(self, f"UserPoolClientId-{stage}", value=self.client.user_pool_client_id)
