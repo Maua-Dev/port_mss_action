@@ -48,7 +48,7 @@ class CognitoStack(Construct):
                 require_symbols=False,
                 temp_password_validity=Duration.days(7)
             ),
-            removal_policy=RemovalPolicy.DESTROY  
+            removal_policy=RemovalPolicy.DESTROY  #todo mudar para RETAIN em produção
         )
 
         self.client = self.user_pool.add_client(
@@ -65,13 +65,6 @@ class CognitoStack(Construct):
             refresh_token_validity=Duration.days(30),
         )
 
-        # Cognito Hosted UI (Login)
-        self.user_pool_domain = self.user_pool.add_domain(
-            f"PortalInternoUserPoolDomain-{stage}",
-            cognito.UserPoolDomainOptions(
-                domain_prefix=f"port-interno-{stage.lower()}"
-            )
-        )
 
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
         CfnOutput(self, f"UserPoolClientId-{stage}", value=self.client.user_pool_client_id)
