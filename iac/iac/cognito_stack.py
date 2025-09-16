@@ -68,7 +68,7 @@ class CognitoStack(Construct):
         # Cognito Hosted UI (Login)
         self.user_pool_domain = self.user_pool.add_domain(
             f"PortalInternoUserPoolDomain-{stage}",
-            cognito.DomainOptions(
+            cognito.UserPoolDomainOptions(
                 domain_prefix=f"port-interno-{stage.lower()}"
             )
         )
