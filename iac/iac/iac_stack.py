@@ -80,7 +80,7 @@ class IacStack(Stack):
                                                        )
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
-                                        environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth.user_pool)
+                                        environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth)
         
         ses_admin_policy = aws_iam.PolicyStatement(
             effect=aws_iam.Effect.ALLOW,
