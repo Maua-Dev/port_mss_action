@@ -1,7 +1,8 @@
 import os
 from aws_cdk import (
+    # Duration,
     Stack,
-    aws_cognito,  # (mantido se quiser tipar/usar no futuro)
+    # aws_sqs as sqs,
     aws_iam
 )
 from constructs import Construct
@@ -19,53 +20,35 @@ class IacStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        self.github_ref_name = (os.environ.get("GITHUB_REF_NAME") or "dev").lower()
-        self.aws_region = os.environ.get("AWS_REGION") or "us-east-1"
+        self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
+        self.aws_region = os.environ.get("AWS_REGION")
+        
+        self.rest_api = RestApi(self, "PortalInterno_RestApi",
+                                rest_api_name="PortalInterno_RestApi",
+                                description="This is the Portal Interno RestApi",
+                                default_cors_preflight_options=
+                                {
+                                    "allow_origins": Cors.ALL_ORIGINS,
+                                    "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                                    "allow_headers": ["*"]
+                                },
+                                )
 
-        self.rest_api = RestApi(
-            self,
-            "PortalInterno_RestApi",
-            rest_api_name="PortalInterno_RestApi",
-            description="This is the Portal Interno RestApi",
-            default_cors_preflight_options={
-                "allow_origins": Cors.ALL_ORIGINS,
-                "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-                "allow_headers": ["*"],
-            },
-        )
-
-        api_gateway_resource = self.rest_api.root.add_resource(
-            "mss-action",
-            default_cors_preflight_options={
-                "allow_origins": Cors.ALL_ORIGINS,
-                "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-                "allow_headers": Cors.DEFAULT_HEADERS,
-            },
-        )
-
+        api_gateway_resource = self.rest_api.root.add_resource("mss-action", default_cors_preflight_options=
+        {
+            "allow_origins": Cors.ALL_ORIGINS,
+            "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": Cors.DEFAULT_HEADERS
+        }
+                                                                   )
+        
         self.dynamo_stack = DynamoStack(self)
+
         self.bucket_stack = BucketStack(self)
 
-        self.cognito = CognitoStack(
-            self,
-            f"PortalCognito-{self.github_ref_name}",
-            stage=self.github_ref_name.upper(),
-        )
-
-        self.cognito_auth = CognitoUserPoolsAuthorizer(
-            self,
-            f"port_cognito_auth_{self.github_ref_name}",
-            cognito_user_pools=[self.cognito.user_pool],
-        )
-
-        def _default_confirmation_url_base() -> str:
-            name = self.github_ref_name
-            if "prod" in name:
-                return "https://onlydevs.devmaua.com/auth/confirm"
-            if "hml" in name:
-                return "https://onlydevs-hml.devmaua.com/auth/confirm"
-            return "https://onlydevs-dev.devmaua.com/auth/confirm"
-
+        # Create Cognito stack
+        self.cognito_stack = CognitoStack(self, "CognitoStack", stage=self.github_ref_name)
+        
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
             "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table_action.table_name,
@@ -75,47 +58,56 @@ class IacStack(Stack):
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.aws_region,
-            "REPLY_TO_EMAIL": "dev@maua.br",
-            "FROM_EMAIL": "contato@devmaua.com",
-            "HIDDEN_COPY": "dev@maua.br",
+            "REPLY_TO_EMAIL": os.environ.get("REPLY_TO_EMAIL", "dev@maua.br"),
+            "FROM_EMAIL": os.environ.get("FROM_EMAIL", "contato@devmaua.com"),
+            "HIDDEN_COPY": os.environ.get("HIDDEN_COPY", "dev@maua.br"),
             "S3_BUCKET_NAME_MEMBER": self.bucket_stack.s3_bucket_member.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER": self.bucket_stack.cloudfront_distribution_member.domain_name,
             "S3_BUCKET_NAME_PROJECT": self.bucket_stack.s3_bucket_project.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.cloudfront_distribution_project.domain_name,
             "S3_BUCKET_NAME_MEMBER_REPORT": self.bucket_stack.s3_bucket_member_report.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT": self.bucket_stack.cloudfront_distribution_member_report.domain_name,
-            "COGNITO_USER_POOL_ID": self.cognito.user_pool.user_pool_id,
-            "COGNITO_CLIENT_ID": self.cognito.client.user_pool_client_id,
-            "CONFIRMATION_URL_BASE": os.environ.get(
-                "CONFIRMATION_URL_BASE", _default_confirmation_url_base()
-            ),
+            "COGNITO_USER_POOL_ID": self.cognito_stack.user_pool.user_pool_id,
+            "COGNITO_CLIENT_ID": self.cognito_stack.client.user_pool_client_id,
+            "MSS_NAME": os.environ.get("MSS_NAME", "port_mss_action"),
+            "S3_ASSETS_CDN": os.environ.get("S3_ASSETS_CDN", ""),
+
         }
+        
+        # Use the new Cognito stack for authorization
+        self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
+                                                       cognito_user_pools=[self.cognito_stack.user_pool]
+                                                       )
 
-        self.lambda_stack = LambdaStack(
-            self,
-            api_gateway_resource=api_gateway_resource,
-            environment_variables=ENVIRONMENT_VARIABLES,
-            authorizer=self.cognito_auth,
-        )
-
+        self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
+                                        environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth)
+        
         ses_admin_policy = aws_iam.PolicyStatement(
             effect=aws_iam.Effect.ALLOW,
-            actions=["ses:*"],
-            resources=["*"],
+            actions=[
+                "ses:*",
+            ],
+            resources=[
+                "*"
+            ]
         )
 
         s3_admin_policy = aws_iam.PolicyStatement(
             effect=aws_iam.Effect.ALLOW,
-            actions=["s3:*"],
-            resources=["*"],
+            actions=[
+                "s3:*",
+            ],
+            resources=[
+                "*"
+            ]
         )
 
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)
-
+        
         for f in self.lambda_stack.functions_that_need_dynamo_member_permissions:
             self.dynamo_stack.dynamo_table_member.grant_read_write_data(f)
-
+        
         for f in self.lambda_stack.functions_that_need_ses_permissions:
             f.add_to_role_policy(ses_admin_policy)
 
