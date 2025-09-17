@@ -1,4 +1,3 @@
-
 name: CD
 
 on:
@@ -13,80 +12,81 @@ on:
 jobs:
   DeployToAWS:
     environment:
-        name: ${{ github.ref_name }}
+      name: ${{ github.ref_name }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
 
     steps:
-        - uses: actions/checkout@v2
-        
-        - name: Set AWS Account ID
-          run: |
-            if [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOML }}" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "prod" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
-            else
-              echo "Invalid branch name!" && exit 1
-            fi
+      - uses: actions/checkout@v2
+      - name: Set AWS Account ID
+        run: |
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+            echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.DEV_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.DEV_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+            echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOML }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.HOML_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.HML_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "prod" ]]; then
+            echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
+            echo "HOSTED_ZONE_ID=${{ secrets.PROD_HOSTED_ZONE_ID }}" >> $GITHUB_ENV
+            echo "ACM_CERTIFICATE_ARN=${{ secrets.PROD_ACM_DEVMAUA_CERTIFICATE_ARN }}" >> $GITHUB_ENV
+          else
+            echo "Invalid branch name!" && exit 1
+          fi
 
-        - name: Setup AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v2
-          with:
-            aws-region: ${{ vars.AWS_REGION }}
-            role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole
-            role-session-name: github-action
+      - name: Setup AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole
+          role-session-name: github-action
 
-        - name: Setting stage and stack name
-          run: |
-            echo "STAGE=${{ github.ref_name }}" 
-            if [[ "${{ github.ref_name }}" == "prod" ]]; then
-              echo "STAGE=prod" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
-              echo "STAGE=homolog" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "STAGE=dev" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "fix/githubActions" ]]; then
-              echo "STAGE=dev" >> $GITHUB_ENV
-            else
-              echo "Invalid branch name!" && exit 1
-            fi
-            echo "STACK_NAME=PortalInternoActionStack${{env.STAGE}}" >> $GITHUB_ENV
+      - name: Setting stage and stack name
+        run: |
+          echo "STAGE=${{ github.ref_name }}" 
+          if [[ "${{ github.ref_name }}" == "prod" ]]; then
+            echo "STAGE=prod" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
+            echo "STAGE=homolog" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "dev" ]]; then
+            echo "STAGE=dev" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "fix/githubActions" ]]; then
+            echo "STAGE=dev" >> $GITHUB_ENV
+          else
+            echo "Invalid branch name!" && exit 1
+          fi
+          echo "STACK_NAME=PortalInternoActionStack${{env.STAGE}}" >> $GITHUB_ENV
 
-        - uses: actions/checkout@v3
-        - uses: actions/setup-python@v4
-          with:
-            python-version: '3.9'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
 
-        - name: Installing Dependencies
-          run: |
-            npm install -g aws-cdk
-            cd iac
-            pip install -r requirements.txt
+      - name: Installing Dependencies
+        run: |
+          npm install -g aws-cdk
+          cd iac
+          pip install -r requirements.txt
 
-        - name: DeployWithCDK
-          run: |
-            cd iac
-            cdk synth
-            cdk deploy --require-approval never 
+      - name: DeployWithCDK
+        run: |
+          cd iac
+          cdk synth
+          cdk deploy --require-approval never
 
-          env:
-              AWS_REGION: ${{ vars.AWS_REGION }}
-              AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
-              STACK_NAME: ${{ env.STACK_NAME }}
-              GITHUB_REF_NAME: ${{ github.ref_name }}
-              MSS_NAME: ${{ github.event.repository.name }}
-              S3_ASSETS_CDN: ${{ vars.S3_ASSETS_CDN }}
-              AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV: ${{ secrets.AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV }}
-              AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD: ${{ secrets.AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD }}
-              REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
-              FROM_EMAIL: ${{ vars.FROM_EMAIL }}
-              HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
-              S3_BUCKET_NAME:  ${{ vars.S3_BUCKET_NAME }}
-              CONFIRMATION_URL_BASE: ${{ vars.CONFIRMATION_URL_BASE }}
-              COGNITO_USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
-              COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
+        env:
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
+          STACK_NAME: ${{ env.STACK_NAME }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          MSS_NAME: ${{ github.event.repository.name }}
+          S3_ASSETS_CDN: ${{ vars.S3_ASSETS_CDN }}
+          REPLY_TO_EMAIL: ${{ vars.REPLY_TO_EMAIL }}
+          FROM_EMAIL: ${{ vars.FROM_EMAIL }}
+          HIDDEN_COPY: ${{ vars.HIDDEN_COPY }}
+          COGNITO_CUSTOM_DOMAIN: ${{ vars.COGNITO_CUSTOM_DOMAIN }}
+          COGNITO_CUSTOM_DOMAIN_CERT_ARN: ${{ env.ACM_CERTIFICATE_ARN }}
