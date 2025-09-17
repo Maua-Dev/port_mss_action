@@ -48,35 +48,9 @@ class CognitoStack(Construct):
                 require_symbols=False,
                 temp_password_validity=Duration.days(7)
             ),
-            removal_policy=RemovalPolicy.DESTROY  #todo mudar para RETAIN em produção
+            removal_policy=RemovalPolicy.DESTROY  
         )
 
-        # Cognito Hosted UI (Login)
-        cognito_custom_domain = os.environ.get("COGNITO_CUSTOM_DOMAIN")
-        cognito_custom_domain_cert_arn = os.environ.get("COGNITO_CUSTOM_DOMAIN_CERT_ARN")
-        if cognito_custom_domain and cognito_custom_domain_cert_arn:
-            from aws_cdk import aws_certificatemanager as acm
-            certificate = acm.Certificate.from_certificate_arn(
-                self, f"CognitoCustomDomainCert-{stage}", cognito_custom_domain_cert_arn
-            )
-            self.user_pool_domain = cognito.UserPoolDomain(
-                self, f"PortalInternoUserPoolDomain-{stage}",
-                user_pool=self.user_pool,
-                custom_domain=cognito.CustomDomainOptions(
-                    domain_name=cognito_custom_domain,
-                    certificate=certificate
-                )
-            )
-        else:
-            self.user_pool_domain = cognito.UserPoolDomain(
-                self, f"PortalInternoUserPoolDomain-{stage}",
-                user_pool=self.user_pool,
-                cognito_domain=cognito.CognitoDomainOptions(
-                    domain_prefix=f"port-interno-{stage.lower()}"
-                )
-            )
-
-        # Habilita client secret
         self.client = self.user_pool.add_client(
             f"PortalInternoUserPoolClient-{stage}",
             auth_flows=cognito.AuthFlow(
@@ -84,13 +58,12 @@ class CognitoStack(Construct):
                 user_password=True,
                 admin_user_password=True
             ),
-            generate_secret=True,  # Habilita client secret
+            generate_secret=False,
             prevent_user_existence_errors=True,
             access_token_validity=Duration.hours(1),
             id_token_validity=Duration.hours(1),
             refresh_token_validity=Duration.days(30),
         )
-
 
         CfnOutput(self, f"UserPoolId-{stage}", value=self.user_pool.user_pool_id)
         CfnOutput(self, f"UserPoolClientId-{stage}", value=self.client.user_pool_client_id)

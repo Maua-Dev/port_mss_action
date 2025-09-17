@@ -19,7 +19,7 @@ class UserApiGatewayDTO:
         return UserApiGatewayDTO(
             name=user_data['name'],
             email=user_data['email'] ,
-            is_maua=True,
+            is_maua=eval(str(user_data['custom:isMaua']).title()),
             user_id=user_data['sub']
         )
     

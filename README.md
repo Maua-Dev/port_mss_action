@@ -44,7 +44,6 @@ The Portal Interno MSS project streamlines Infrastructure as Code (IaC) developm
 ---
 
 ##  Features
-### Clean Architecture  🧼🏰
 
 |      | Feature         | Summary       |
 | :--- | :---:           | :---          |
