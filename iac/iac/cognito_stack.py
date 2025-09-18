@@ -36,7 +36,7 @@ class CognitoStack(Construct):
             sign_in_aliases=cognito.SignInAliases(email=True),
             standard_attributes=cognito.StandardAttributes(
                 email=cognito.StandardAttribute(required=True, mutable=False),
-                name=cognito.StandardAttribute(required=True,   mutable=True),
+                fullname=cognito.StandardAttribute(required=True, mutable=True),
                 preferred_username=cognito.StandardAttribute(required=False, mutable=True),
             ),
             auto_verify=cognito.AutoVerifiedAttrs(email=True),
