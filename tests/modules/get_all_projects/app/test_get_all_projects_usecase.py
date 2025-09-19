@@ -16,7 +16,7 @@ class Test_GetAllProjectsUsecase:
         
         projects = usecase(repo_member.members[0].user_id)
         assert type(projects) == list
-        assert len(projects) == 5
+        assert len(projects) == 6
         assert type(projects[0]) == Project
 
     def test_get_all_projects_usecase_external(self):

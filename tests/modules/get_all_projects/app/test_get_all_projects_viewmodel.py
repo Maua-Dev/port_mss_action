@@ -36,9 +36,10 @@ class Test_GetAllProjectsViewmodel:
                         'po_user_id': '6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
                         'scrum_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
                         'start_date': 1673535600000,
-                        'members_user_ids': ["51ah5jaj-c9jm-1345-666ab-e12341c14a3","6f5g4h7J-876j-0098-123hb-hgb567fy4hb", "93bc6ada-c0d1-7054-66ab-e17414c48ae3"],
-                        'hours_worked': 9500000000,
-                        'photo': 'https://i.imgur.com/gHoRKJU.png'
+                        'members_user_ids': ['51ah5jaj-c9jm-1345-666ab-e12341c14a3','6f5g4h7J-876j-0098-123hb-hgb567fy4hb', '93bc6ada-c0d1-7054-66ab-e17414c48ae3'],
+                        'photos': [
+                            'https://i.imgur.com/gHoRKJU.png'
+                        ]
                     }
                 },
                 {
@@ -76,8 +77,23 @@ class Test_GetAllProjectsViewmodel:
                         'scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
                         'start_date': 1672585200000,
                         'members_user_ids': ['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '7gh5yf5H-857H-1234-75hng-94832hvng1s'],
-                        'hours_worked': 1320000000,
-                        'photo': None
+                        'photos': [
+
+                        ]
+                    }
+                },
+                {   
+                    'project' : {
+                        'code': 'HZ',
+                        'name': 'Zeragem de Horas',
+                        'description': 'Projeto de molde para zerar as horas',
+                        'po_user_id': '76h35dg4-h76v-1875-987hn-h67gfv45Gt4',
+                        'scrum_user_id': '7gh5yf5H-857H-1234-75hng-94832hvng1s',
+                        'start_date': 1672585200000,
+                        'members_user_ids': ['76h35dg4-h76v-1875-987hn-h67gfv45Gt4', '7gh5yf5H-857H-1234-75hng-94832hvng1s'],
+                        'photos': [
+                            
+                        ]
                     }
                 }
             ],

@@ -544,7 +544,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Gameficação'],
+                        'project': ['Gameficação', 'Zeragem de Horas'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -601,7 +601,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação', 'Zeragem de Horas'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -706,6 +706,64 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'photo': None
+                    }
+                }, 
+
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'photo': None
+                    }
+                },
+                {
+                    'member':{
+                        'name': 'Ana Julia',
+                        'email_dev': 'anaju.devmaua@gmail.com',
+                        'email': 'anaju@gmail.com',
+                        'ra': '25123457',
+                        'role': 'INTERNAL',
+                        'stack': 'MKT',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828565',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'
@@ -771,7 +829,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Gameficação'],
+                        'project': ['Gameficação', 'Zeragem de Horas'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
@@ -831,7 +889,7 @@ class Test_GetAllMembersViewModel:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação', 'Zeragem de Horas'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
@@ -939,6 +997,63 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
+                },
+                {
+                    'member':{
+                        'name': 'Ryuske', 
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone' : "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+                        'photo': None
+                    }
+                }, 
+                {
+                    'member':{
+                        'name': 'Layala Sam',
+                        'email_dev':'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'photo': None
+                    }
+                },
+                {
+                    'member':{
+                        'name': 'Ana Julia',
+                        'email_dev': 'anaju.devmaua@gmail.com',
+                        'email': 'anaju@gmail.com',
+                        'ra': '25123457',
+                        'role': 'INTERNAL',
+                        'stack': 'MKT',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828565',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                        'photo': None
+                    }
                 }
             ],
             'message' : 'the members were retrieved'

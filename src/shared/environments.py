@@ -4,6 +4,7 @@ import os
 
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 
 
 class STAGE(Enum):
@@ -109,6 +110,16 @@ class Environments:
         else:
             raise Exception("No repository found for this stage")
         
+    @staticmethod
+    def get_strike_repo() -> IStrikeRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
+            return StrikeRepositoryMock
+        # elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+        #     from src.shared.infra.repositories
+        #     #need to add the strike repo mock when it's created
+        else:
+            raise Exception("No repository found for this stage")
 
     @staticmethod
     def get_envs() -> "Environments":
