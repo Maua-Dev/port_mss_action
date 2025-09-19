@@ -1,4 +1,5 @@
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.helpers.errors.usecase_errors import NoItemsFound
 from .download_actions_extractor import DownloadActionsExtractor
 import pandas as pd
 import io
@@ -14,6 +15,9 @@ class DownloadActionsTransformer:
 
         df_actions = pd.DataFrame([a.__dict__ for a in all_actions])
 
+        if not all_actions:
+            raise NoItemsFound("actions")
+        
         if "associated_members_user_ids" in df_actions.columns:
             df_actions = df_actions.drop(columns=["associated_members_user_ids"])
         

@@ -84,6 +84,11 @@ class UpdateMemberUsecase:
             if new_member.active == ACTIVE.ON_HOLD and new_active is not None:
                 self.repo.send_active_member_email(new_member)
             
+        if new_photo is not None:
+            if type(new_photo) is not str:
+                raise EntityError('new_photo')
+            if not Member.validate_photo(new_photo):
+                raise EntityError('new_photo')    
                
         is_active = Member.validate_active(member.active)
         
