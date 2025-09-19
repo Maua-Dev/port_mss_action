@@ -4,6 +4,9 @@ from enum import Enum
 class ROLE(Enum):
     DIRECTOR = "DIRECTOR"
     DEV = "DEV"
-    BUSINESS = "BUSINESS"
+    HEAD = "HEAD"
     INTERNAL = "INTERNAL"
+    PO = "PO"
+    SCRUM = "SCRUM"
     DESIGNER = "DESIGNER"
+    EXTERNAL = "EXTERNAL"

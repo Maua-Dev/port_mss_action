@@ -1,3 +1,4 @@
+from typing import List, Optional
 from typing import List
 from src.shared.domain.entities.project import Project
 
@@ -9,8 +10,8 @@ class ProjectViewModel:
     scrum_user_id: str
     start_date: int
     members_user_ids: List[str]
-    photos: List[str] = None
-    
+    photo: Optional[str] = None
+
     def __init__(self, project: Project):
         self.code = project.code
         self.name = project.name
@@ -19,8 +20,8 @@ class ProjectViewModel:
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
         self.members_user_ids = project.members_user_ids
-        self.photos = project.photos if project.photos else []
-        
+        self.photo = project.photo
+
     def to_dict(self):
         return {
             'code' : self.code,
@@ -30,15 +31,15 @@ class ProjectViewModel:
             'scrum_user_id' : self.scrum_user_id,
             'start_date' : self.start_date,
             'members_user_ids' : self.members_user_ids,
-            'photos' : self.photos
+            'photo' : self.photo
         }
 
 class CreateProjectViewmodel:
     project: Project
-    
+
     def __init__(self, project: Project):
         self.project = project
-        
+
     def to_dict(self) -> dict:
         return {
             'project' : ProjectViewModel(self.project).to_dict(),

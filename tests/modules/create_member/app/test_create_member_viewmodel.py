@@ -2,6 +2,7 @@ from src.modules.create_action.app.create_action_viewmodel import CreateActionVi
 from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
 from src.shared.domain.entities.action import Action
 from src.shared.domain.entities.member import Member
+import cgi
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
@@ -26,6 +27,7 @@ class Test_CreateMemberViewmodel:
             hired_date=1614567601000,
             active=ACTIVE.ACTIVE ,
             user_id="13bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            photo= None,
             deactivated_date=None)
         
      
@@ -44,6 +46,7 @@ class Test_CreateMemberViewmodel:
             'hired_date' : 1614567601000,
             'active' : ACTIVE.ACTIVE.value,
             'user_id' : "13bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            'photo' : None,
             'deactivated_date' : None
                     },
                     'message':'the member was created'

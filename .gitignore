@@ -136,3 +136,7 @@ dmypy.json
 module_creation.py
 module_creation_inline.py
 iac/local/docker/dynamodb/shared-local-instance.db
+iac/lambda_requirements_layer_temp/
+iac/lambda_layer_out_temp/
+iac/cdk.out/
+

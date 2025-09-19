@@ -38,7 +38,7 @@ class MemberRepositoryMock(IMemberRepository):
                 email_dev="jbranco.devmaua@gmail.com",
                 email="jbranco@gmail.com",
                 ra="21010757",
-                role=ROLE.DIRECTOR,
+                role=ROLE.HEAD,
                 stack=STACK.BACKEND,
                 year=3,
                 cellphone="11991152348",
@@ -90,8 +90,8 @@ class MemberRepositoryMock(IMemberRepository):
                 email_dev="mneto.devmaua@gmail.com",
                 email="mneto@gmail.com",
                 ra="19017310",
-                role=ROLE.DIRECTOR,
-                stack=STACK.PO,
+                role=ROLE.PO,
+                stack=STACK.BUSINESS,
                 year=4,
                 cellphone="11991753208",
                 course=COURSE.EMC,
@@ -125,7 +125,7 @@ class MemberRepositoryMock(IMemberRepository):
                 email="djangofett@starwars.com",
                 ra="17033730",
                 role=ROLE.INTERNAL,
-                stack=STACK.MKT,
+                stack=STACK.INTERNAL,
                 year=2,
                 cellphone="11915758098",
                 course=COURSE.ECA,
@@ -177,8 +177,8 @@ class MemberRepositoryMock(IMemberRepository):
                 email_dev = "fernandinho.devmaua@gmail.com",
                 email = "fernandao@gmail.com",
                 ra = "22014322",
-                role = ROLE.BUSINESS,
-                stack = STACK.PO,
+                role = ROLE.PO,
+                stack = STACK.BUSINESS,
                 year = 3,
                 cellphone = "11991123498",
                 course = COURSE.EPM,
@@ -239,23 +239,6 @@ class MemberRepositoryMock(IMemberRepository):
                 deactivated_date= None,
                 user_id= "3b07232f-4f65-42c6-b005-242550b8b8ty",
                 photo=None
-            ),
-
-            Member(
-                name= "Ana Julia",
-                email_dev= "anaju.devmaua@gmail.com",
-                email= "anaju@gmail.com",
-                ra= "25123457",
-                role= ROLE.INTERNAL,
-                stack= STACK.MKT,
-                year= 1,
-                cellphone="11997828565",
-                course= COURSE.ADM,
-                hired_date= 1640192165000,
-                active= ACTIVE.ACTIVE,
-                deactivated_date= None,
-                user_id= "3b07232f-4f65-42c6-b005-242550b8h9ir",
-                photo=None 
             )
         ]
 
@@ -279,7 +262,7 @@ class MemberRepositoryMock(IMemberRepository):
         return None
     
     
-    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None, new_photo: Optional[str] = None) -> Member:
+    def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[bytes] = None) -> Member:
        
         for member in self.members:
             if member.user_id == user_id:
