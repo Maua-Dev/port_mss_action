@@ -9,7 +9,7 @@ from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFoun
 from src.shared.helpers.external_interfaces.http_codes import BadRequest, Conflict, InternalServerError
 from src.shared.helpers.external_interfaces.external_interface import IRequest, IResponse
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
-from src.modules.create_member.app.create_member_viewmodel import CreateMemberViewmodel
+from .create_member_viewmodel import CreateMemberViewmodel
 
 class CreateMemberController:
 
