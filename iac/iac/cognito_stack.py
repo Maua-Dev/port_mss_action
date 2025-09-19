@@ -12,7 +12,9 @@ class CognitoStack(Construct):
     def __init__(self, scope: Construct, construct_id: str, *, stage: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        github_ref = os.environ.get("GITHUB_REF_NAME", stage)
+        self.github_ref_name = os.environ.get("GITHUB_REF_NAME", stage)
+
+        REMOVAL_POLICY = RemovalPolicy.RETAIN if 'prod' in self.github_ref_name else RemovalPolicy.DESTROY
 
         # self.custom_message_fn = _lambda.Function(
         #     self, f"CustomMessageFn-{stage}",
@@ -49,7 +51,7 @@ class CognitoStack(Construct):
                 require_symbols=False,
                 temp_password_validity=Duration.days(7)
             ),
-            removal_policy=RemovalPolicy.DESTROY  #todo mudar para RETAIN em produção
+            removal_policy=REMOVAL_POLICY
         )
 
         # Cognito Hosted UI (Login)
