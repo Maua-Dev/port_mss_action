@@ -30,7 +30,7 @@ class Test_GetMemberViewModel:
                     'active': 'ACTIVE',
                     'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                     'photo': None,
-                    'hours_worked': 134460000000
+                    'hours_worked': 143960000000
             },
             "message" : "the member was retrieved"
         }
