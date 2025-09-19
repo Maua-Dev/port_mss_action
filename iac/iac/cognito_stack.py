@@ -57,6 +57,8 @@ class CognitoStack(Construct):
         # Cognito Hosted UI (Login)
         cognito_custom_domain = os.environ.get("COGNITO_CUSTOM_DOMAIN")
         cognito_custom_domain_cert_arn = os.environ.get("COGNITO_CUSTOM_DOMAIN_CERT_ARN")
+        print(f"--- DEBUG CDK --- Dominio Recebido: {cognito_custom_domain}")
+        print(f"--- DEBUG CDK --- ARN do Certificado Recebido: {cognito_custom_domain_cert_arn}")
         if cognito_custom_domain and cognito_custom_domain_cert_arn:
             from aws_cdk import aws_certificatemanager as acm
             certificate = acm.Certificate.from_certificate_arn(
