@@ -13,7 +13,7 @@ class Test_Strike:
             owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
             target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-            occurred_date=1577847600000,
+            ocurred_date=1577847600000,
             category=STRIKE_CATEGORY.MISCONDUCT,
             description="Teste de strike."
         )
@@ -22,7 +22,7 @@ class Test_Strike:
         assert strike.owner_user_id == "93bc6ada-c0d1-7054-66ab-e17414c48ae3"
         assert strike.target_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert strike.applier_user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
-        assert strike.occurred_date == 1577847600000
+        assert strike.ocurred_date == 1577847600000
         assert strike.category == STRIKE_CATEGORY.MISCONDUCT
         assert strike.description == "Teste de strike."
 
@@ -33,7 +33,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -45,7 +45,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -57,7 +57,7 @@ class Test_Strike:
                 owner_user_id=123,
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -69,7 +69,7 @@ class Test_Strike:
                 owner_user_id="123",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -81,7 +81,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id=123,
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -93,7 +93,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="123",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -105,7 +105,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id=123,
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -117,7 +117,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="123",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -129,7 +129,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description=123
             )
@@ -141,19 +141,19 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="x" * 501
             )
 
-    def test_occurred_date_not_int(self):
+    def test_ocurred_date_not_int(self):
         with pytest.raises(EntityError):
             Strike(
                 strike_id="46b7ed28-02d9-4ea3-9f8b-85cd8708d846",
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date="1577847600000",
+                ocurred_date="1577847600000",
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Teste de strike."
             )
@@ -165,7 +165,7 @@ class Test_Strike:
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                occurred_date=1577847600000,
+                ocurred_date=1577847600000,
                 category="MISCONDUCT",
                 description="Teste de strike."
             )

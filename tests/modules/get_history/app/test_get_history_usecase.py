@@ -26,7 +26,7 @@ class Test_GetHistoryUsecase:
         actions, last_evaluated_key = usecase(user_id= '93bc6ada-c0d1-7054-66ab-e17414c48ae3', start=1634526000000, end=1676476000000)
 
         assert all(type(action) is Action for action in actions)
-        assert all(action.start_date >= 1634526000000 and action.start_date <= 1756990800000 for action in actions)
+        assert all(action.start_date >= 1634526000000 and action.start_date <= 1676476000000 for action in actions)
         
     def test_get_history_usecase_with_exclusive_start_key(self):
         repo = ActionRepositoryMock()
