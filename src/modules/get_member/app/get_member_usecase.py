@@ -75,49 +75,50 @@ class GetMemberUsecase:
         member.hours_worked = hours_worked.get(member_user_id, 0)
         member.project = member_projects.get(member_user_id, [])
 
-        # Código novo a partir daqui
-        target_user_list_strike= self.repo.get_strike_by_target_id(target_user_id= member_user_id)
+       
 
-        projects= self.repo_action.get_all_projects()
+        #verifica se estamos no semestre 1 ou 2
+        now= datetime.now()
+        year= now.year
 
+        if now.month <= 6:
+            start_sem= Decimal(datetime(year, 1, 1).timestamp() * 1000)
+            end_sem= Decimal(datetime(year, 6, 30).timestamp() * 1000)
+
+        else:
+            start_sem= Decimal(datetime(year, 7, 1).timestamp() * 1000)
+            end_sem= Decimal(datetime(year, 12, 31).timestamp() * 1000)
+
+        #puxa os strikes do usuário
+        target_user_list_strike= self.strike_repo.get_strike_by_target_id(target_user_id= member_user_id)
+        
+        #puxa todos os projetos
+        projects= self.action_repo.get_all_projects()
+        
+        #verifica se o usuário tem strikes neste semestre
         if target_user_list_strike:
             target_user_list_strike_this_sem= [
                 s for s in target_user_list_strike
                 if start_sem <= s.occurred_date <= end_sem
             ]
 
+            #se tiver, conta quantos projetos ele está envolvido
             total_projects= 0
 
             for project in projects:
-                if project.members_user_ids == target_user_id:
+                if project.members_user_ids == member_user_id:
                     total_projects+= 1
 
-            if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > 2) or (total_projects == 2 and len(target_user_list_strike_this_sem) > 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > 4):
+            #verifica quantidade de strikes permitidos conforme a quantidade de projetos
+            if(total_projects in [0,1]):
+                member.strikes_allowed= 2
+            if(total_projects == 2):
+                member.strikes_allowed= 3
+            if(total_projects >= 3):
+                member.strikes_allowed= 4
+            
+            member.strikes= len(target_user_list_strike_this_sem)
 
-                target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_sem, end_date=end_sem)
-
-                action_id= str(uuid.uuid4())
-
-                strike_action=Action(
-                    user_id=target_user_id,
-                    start_date=(int(start_sem) + target_user_hours_workerd),
-                    stack_tags=[target_user.stack],
-                    end_date=int(start_sem),
-                    duration=-target_user_hours_workerd,
-                    action_id=action_id,
-                    is_valid=True,
-                    title="ZERAGEM DE HORAS",
-                    project_code="HZ",
-                    action_type_tag= ACTION_TYPE.HOURS_RESET,
-                    description="Ação criada devido ao atingimento do limite de strikes"
-                )
-
-                self.repo_action.create_action(action=strike_action)
-
-                return (created_strike, 1)
-
-            return (created_strike, 0)
-       
         if not is_active:
             raise UserNotAllowed()
         
