@@ -84,11 +84,7 @@ class GetAllMembersAdminUsecase:
                     if start_sem <= s.occurred_date <= end_sem
                 ]
 
-            total_projects= 0
-
-            for project in projects:
-                if project.members_user_ids == member_user_id:
-                    total_projects+= 1
+            total_projects= len(member_projects[member_user_id])
             
             if(total_projects in [0,1]):
                 member.strikes_allowed= 2
