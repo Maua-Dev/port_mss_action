@@ -63,6 +63,15 @@ class ActionRepositoryMock(IActionRepository):
                 scrum_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 start_date=1672585200000,
                 members_user_ids=["76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "7gh5yf5H-857H-1234-75hng-94832hvng1s"]
+            ),
+            Project(
+                code="HZ",
+                name="Zeragem de Horas",
+                description="Projeto de molde para zerar as horas",
+                po_user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
+                scrum_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                start_date=1672585200000,
+                members_user_ids=["76h35dg4-h76v-1875-987hn-h67gfv45Gt4", "7gh5yf5H-857H-1234-75hng-94832hvng1s"]
             )
         ]
 
@@ -80,9 +89,9 @@ class ActionRepositoryMock(IActionRepository):
                    project_code="PT",
                    title="Retrospectiva",
                    description="Revisão de sprint",
-                   start_date=1644256000000,
-                   end_date=1653756000000,
-                   duration=9500000000),
+                   start_date=1756987200000,
+                   end_date=1756990800000,
+                   duration=3600000),
             Action(action_id="24c7d7a3-6560-4652-a8d6-f2e4f3f23460",
                    user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                    story_id=368,
