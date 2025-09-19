@@ -19,21 +19,6 @@ jobs:
       contents: read
 
     steps:
-<<<<<<< HEAD
-        - uses: actions/checkout@v2
-        
-        - name: Set AWS Account ID
-          run: |
-            if [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_DEV }}" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_HOML }}" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "prod" ]]; then
-              echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID_PROD }}" >> $GITHUB_ENV
-            else
-              echo "Invalid branch name!" && exit 1
-            fi
-=======
       - uses: actions/checkout@v2
       - name: Set AWS Account ID
         run: |
@@ -52,7 +37,6 @@ jobs:
           else
             echo "Invalid branch name!" && exit 1
           fi
->>>>>>> e1c8ec1a38a54d4b744567c974c200fe0b9e4c23
 
       - name: Setup AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -61,21 +45,6 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/GithubActionsRole
           role-session-name: github-action
 
-<<<<<<< HEAD
-        - name: Setting stage and stack name
-          run: |
-            echo "STAGE=${{ github.ref_name }}" 
-            if [[ "${{ github.ref_name }}" == "prod" ]]; then
-              echo "STAGE=prod" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "homolog" ]]; then
-              echo "STAGE=homolog" >> $GITHUB_ENV
-            elif [[ "${{ github.ref_name }}" == "dev" ]]; then
-              echo "STAGE=dev" >> $GITHUB_ENV
-            else
-              echo "Invalid branch name!" && exit 1
-            fi
-            echo "STACK_NAME=PortalInternoActionStack${{env.STAGE}}" >> $GITHUB_ENV
-=======
       - name: Setting stage and stack name
         run: |
           echo "STAGE=${{ github.ref_name }}" 
@@ -91,7 +60,6 @@ jobs:
             echo "Invalid branch name!" && exit 1
           fi
           echo "STACK_NAME=PortalInternoActionStack${{env.STAGE}}" >> $GITHUB_ENV
->>>>>>> e1c8ec1a38a54d4b744567c974c200fe0b9e4c23
 
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
