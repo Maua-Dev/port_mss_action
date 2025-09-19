@@ -9,7 +9,7 @@ class COURSE(Enum):
     ADM = "ADM"
     ARQ = "ARQ"
     EET = "EET"
-    EEN = "EEN"
+    EEE = "EEE"
     EQM = "EQM"
     SIN = "SIN"
     DSG = "DSG"
