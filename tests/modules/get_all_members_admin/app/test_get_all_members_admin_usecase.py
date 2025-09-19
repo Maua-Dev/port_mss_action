@@ -2,14 +2,16 @@ from src.modules.get_all_members_admin.app.get_all_members_admin_usecase import 
 from src.shared.domain.entities.member import Member
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 import pytest
 class Test_GetAllMembersAdminUseCase:
     def test_get_all_members_admin_usecase(self):
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
-        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
-        
+        strikerepo = StrikeRepositoryMock()
+        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
+
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3", start_date= 1624576165000, end_date= 1690046000000)
         assert type(members) == list
         assert len(members) == 14
@@ -21,24 +23,27 @@ class Test_GetAllMembersAdminUseCase:
 
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
-        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
-        
+        strikerepo = StrikeRepositoryMock()
+        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
+
         with pytest.raises(NoItemsFound):
             members = usecase(user_id="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdxxxxxx", start_date= 1624576165000, end_date= 1690046000000)
 
     def test_get_all_member_admin_usecase_inactive_user(self):
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
-        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
-        
+        strikerepo = StrikeRepositoryMock()
+        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
+
         with pytest.raises(UserNotAllowed):
             members = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4", start_date= 1624576165000, end_date= 1690046000000)
     
     def test_get_all_members_admin_usecase_no_start_and_end_date(self):
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
-        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
-        
+        strikerepo = StrikeRepositoryMock()
+        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
+
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         assert type(members) == list
         assert len(members) == 14
