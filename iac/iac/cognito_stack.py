@@ -59,27 +59,27 @@ class CognitoStack(Construct):
         cognito_custom_domain_cert_arn = os.environ.get("COGNITO_CUSTOM_DOMAIN_CERT_ARN")
         print(f"--- DEBUG CDK --- Dominio Recebido: {cognito_custom_domain}")
         print(f"--- DEBUG CDK --- ARN do Certificado Recebido: {cognito_custom_domain_cert_arn}")
-        # if cognito_custom_domain and cognito_custom_domain_cert_arn:
-        #     from aws_cdk import aws_certificatemanager as acm
-        #     certificate = acm.Certificate.from_certificate_arn(
-        #         self, f"CognitoCustomDomainCert-{stage}", cognito_custom_domain_cert_arn
-        #     )
-        #     self.user_pool_domain = cognito.UserPoolDomain(
-        #         self, f"PortalInternoUserPoolDomain-{stage}",
-        #         user_pool=self.user_pool,
-        #         custom_domain=cognito.CustomDomainOptions(
-        #             domain_name=cognito_custom_domain,
-        #             certificate=certificate
-        #         )
-        #     )
-        # else:
-        #     self.user_pool_domain = cognito.UserPoolDomain(
-        #         self, f"PortalInternoUserPoolDomain-{stage}",
-        #         user_pool=self.user_pool,
-        #         cognito_domain=cognito.CognitoDomainOptions(
-        #             domain_prefix=f"port-interno-{stage.lower()}"
-        #         )
-        #     )
+        if cognito_custom_domain and cognito_custom_domain_cert_arn:
+            from aws_cdk import aws_certificatemanager as acm
+            certificate = acm.Certificate.from_certificate_arn(
+                self, f"CognitoCustomDomainCert-{stage}", cognito_custom_domain_cert_arn
+            )
+            self.user_pool_domain = cognito.UserPoolDomain(
+                self, f"PortalInternoUserPoolDomain-{stage}",
+                user_pool=self.user_pool,
+                custom_domain=cognito.CustomDomainOptions(
+                    domain_name=cognito_custom_domain,
+                    certificate=certificate
+                )
+            )
+        else:
+            self.user_pool_domain = cognito.UserPoolDomain(
+                self, f"PortalInternoUserPoolDomain-{stage}",
+                user_pool=self.user_pool,
+                cognito_domain=cognito.CognitoDomainOptions(
+                    domain_prefix=f"port-interno-{stage.lower()}"
+                )
+            )
 
         # Habilita client secret
         self.client = self.user_pool.add_client(
