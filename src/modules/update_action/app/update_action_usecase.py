@@ -56,7 +56,7 @@ class UpdateActionUsecase:
             self.repo.batch_update_associated_action_members(action_id, full_members, start_date=start_date)
 
         elif start_date != action.start_date:
-            self.repo.batch_update_associated_action_members(action_id, members, start_date=new_start_date)
+            self.repo.batch_update_associated_action_members(action_id, full_members, start_date=start_date)
             
         description = new_description if new_description != '' else action.description
         if new_story_id == -1:
