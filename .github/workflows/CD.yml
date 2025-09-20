@@ -72,13 +72,6 @@ jobs:
           cd iac
           pip install -r requirements.txt
 
-      - name: ULTIMATE DEBUG - Describe the Certificate from the Pipeline
-        id: debug_cert
-        continue-on-error: true
-        run: |
-          echo "--- Descrevendo o certificado com o ARN fornecido para o ambiente ${{ github.ref_name }} ---"
-          aws acm describe-certificate --certificate-arn ${{ env.ACM_CERTIFICATE_ARN }} --region us-east-1
-
       - name: DeployWithCDK
         run: |
           cd iac
