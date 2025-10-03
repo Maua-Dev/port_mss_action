@@ -26,7 +26,7 @@ class Test_GetAllMembersController:
 
         assert response.status_code == 200
         assert response.body['message'] == 'the members were retrieved'
-        assert len(response.body['members']) == 14
+        assert len(response.body['members']) == 11
         assert response.body == expected_dict
 
     
