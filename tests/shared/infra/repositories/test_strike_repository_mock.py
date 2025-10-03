@@ -149,7 +149,7 @@ class TestStrikeRepositoryMock:
             assert len(strike.owner_user_id) == 36
             assert len(strike.target_user_id) == 36
             assert len(strike.applier_user_id) == 36
-            assert isinstance(strike.ocurred_date, int)
+            assert isinstance(strike.occurred_date, int)
             assert isinstance(strike.category, STRIKE_CATEGORY)
             assert strike.description is not None
             assert len(strike.description) <= 500
