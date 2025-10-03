@@ -16,7 +16,7 @@ class TestStrikeRepositoryMock:
             owner_user_id="87654321-4321-4321-4321-cba987654321",
             target_user_id="11111111-2222-3333-4444-555555555555",
             applier_user_id="22222222-3333-4444-5555-666666666666",
-            ocurred_date=1704067200000,
+            occurred_date=1704067200000,
             category=STRIKE_CATEGORY.MISCONDUCT,
             description="Teste de strike"
         )
@@ -161,7 +161,7 @@ class TestStrikeRepositoryMock:
             owner_user_id="11111111-1111-1111-1111-111111111111",
             target_user_id="22222222-2222-2222-2222-222222222222",
             applier_user_id="33333333-3333-3333-3333-333333333333",
-            ocurred_date=1704067200000,
+            occurred_date=1704067200000,
             category=STRIKE_CATEGORY.OTHER,
             description="Strike 1"
         )
@@ -171,7 +171,7 @@ class TestStrikeRepositoryMock:
             owner_user_id="44444444-4444-4444-4444-444444444444",
             target_user_id="55555555-5555-5555-5555-555555555555",
             applier_user_id="66666666-6666-6666-6666-666666666666",
-            ocurred_date=1704153600000,
+            occurred_date=1704153600000,
             category=STRIKE_CATEGORY.RULE_VIOLATION,
             description="Strike 2"
         )

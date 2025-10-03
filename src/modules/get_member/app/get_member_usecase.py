@@ -106,7 +106,7 @@ class GetMemberUsecase:
             total_projects= 0
 
             for project in projects:
-                if project.members_user_ids == member_user_id:
+                if member_user_id in project.members_user_ids:
                     total_projects+= 1
 
             #verifica quantidade de strikes permitidos conforme a quantidade de projetos
