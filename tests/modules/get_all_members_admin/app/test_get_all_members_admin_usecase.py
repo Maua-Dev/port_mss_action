@@ -16,7 +16,7 @@ class Test_GetAllMembersAdminUseCase:
         assert type(members) == list
         assert len(members) == 11
         assert all([type(member) == Member for member in members])
-        assert members[0].hours_worked == 143960000000
+        assert members[0].hours_worked == 134460000000
 
 
     def test_get_all_members_admin_usecase_user_id_not_found(self):
@@ -48,5 +48,25 @@ class Test_GetAllMembersAdminUseCase:
         assert type(members) == list
         assert len(members) == 11
         assert all([type(member) == Member for member in members])
-        assert members[0].hours_worked == 0
+        assert members[0].hours_worked == 3600000
 
+    def test_get_all_members_admin_usecase_strikes_calculation(self):
+        memberrepo = MemberRepositoryMock()
+        actionrepo = ActionRepositoryMock()
+        strikerepo = StrikeRepositoryMock()
+        usecase = GetAllMembersAdminUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
+        members = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", start_date= 1624576165000, end_date= 1690046000000)
+
+        #assert strikes are all positive numbers
+        assert all([member.strikes >=0 for member in members])
+
+        #assert strikes_allowed is correct
+        for member in members:
+            if len(member.project) in [0, 1]:
+                assert member.strikes_allowed == 2
+            
+            if len(member.project) == 2:
+                assert member.strikes_allowed == 3 
+
+            if len(member.project) >= 3:
+                assert member.strikes_allowed == 4

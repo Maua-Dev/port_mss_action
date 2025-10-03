@@ -1,10 +1,10 @@
 import json
-from src.modules.get_all_members.app.get_all_members_presenter import lambda_handler
+from src.modules.get_all_members_admin.app.get_all_members_admin_presenter import lambda_handler
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 first_member = MemberRepositoryMock().members[0]
 class Test_GetAllMembersAdminPresenter:
-
+    
     def test_get_all_members_admin_presenter(self):
         event = {
             "version": "2.0",
