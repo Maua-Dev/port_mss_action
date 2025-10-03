@@ -3,12 +3,14 @@ from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
+from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 
 class Test_GetMemberController:
     member_repo = MemberRepositoryMock()
     action_repo = ActionRepositoryMock()
+    strike_repo = StrikeRepositoryMock()
     first_member = member_repo.members[0]
-    usecase = GetMemberUsecase(member_repo = member_repo, action_repo = action_repo)
+    usecase = GetMemberUsecase(member_repo = member_repo, action_repo = action_repo, strike_repo = strike_repo)
     controller = GetMemberController(usecase)
     
     def test_get_member_controller(self):

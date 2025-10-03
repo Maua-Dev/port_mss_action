@@ -22,6 +22,8 @@ class GetMemberViewModel:
     user_id: str
     photo: Optional[str] = None
     hours_worked: int
+    strikes: int
+    strikes_allowed: int
     
     def __init__(self, member: Member):
         self.name = member.name
@@ -40,6 +42,8 @@ class GetMemberViewModel:
         self.user_id = member.user_id
         self.photo = member.photo
         self.hours_worked = member.hours_worked
+        self.strikes = member.strikes
+        self.strikes_allowed = member.strikes_allowed
 
     def to_dict(self):
         return {
@@ -59,7 +63,9 @@ class GetMemberViewModel:
                 'active' : self.active.value,
                 'user_id' : self.user_id,
                 'photo' : self.photo,
-                'hours_worked' : self.hours_worked
+                'hours_worked' : self.hours_worked,
+                'strikes' : self.strikes,
+                'strikes_allowed' : self.strikes_allowed
             },
             "message" : "the member was retrieved"
         }

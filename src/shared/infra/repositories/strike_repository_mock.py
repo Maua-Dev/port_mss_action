@@ -231,3 +231,4 @@ class StrikeRepositoryMock(IStrikeRepository):
         
         else:
             return None
+    
