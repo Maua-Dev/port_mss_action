@@ -58,7 +58,8 @@ class GetAllMembersAdminUsecase:
                 if member_user_id in member_projects:
                     member_projects[member_user_id].append(project_name)
 
-         #verifica se estamos no semestre 1 ou 2
+
+         
         now= datetime.now()
         year= now.year
 
@@ -72,12 +73,10 @@ class GetAllMembersAdminUsecase:
 
         
         
-     
-                 
         for member in members:
             member_user_id = member.user_id
+            
             member_list_strikes = self.strikerepo.get_strike_by_target_id(target_user_id=member_user_id)
-
             if member_list_strikes:
                 member_list_strike_this_sem = [
                     s for s in member_list_strikes
@@ -103,5 +102,5 @@ class GetAllMembersAdminUsecase:
             raise UserNotAllowed()
         
 
-        
+
         return members
