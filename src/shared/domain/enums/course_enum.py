@@ -17,6 +17,6 @@ class COURSE(Enum):
     EAL = "EAL"
     EPM = "EPM"
     RIN = "RIN"
-    IAD = "IAD"
+    IAC = "IAC"
     ADS = "ADS"
     ECO = "ECO"
