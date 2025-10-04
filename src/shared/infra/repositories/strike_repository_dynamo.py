@@ -44,7 +44,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
     def get_all(self) -> list[Strike]:
         pass
     
-    def find_by_id(self, strike_id: str) -> Strike | None:
+    def find_by_id(self, strike_id: str) -> Optional[Strike]:
         pass
 
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
