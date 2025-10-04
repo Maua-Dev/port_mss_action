@@ -107,7 +107,7 @@ class CreateStrikeUsecase:
                     is_valid=True,
                     title="ZERAGEM DE HORAS",
                     project_code="HZ",
-                    action_type_tag= ACTION_TYPE.HOURS_REZET,
+                    action_type_tag= ACTION_TYPE.HOURS_RESET,
                     description="Ação criada devido ao atingimento do limite de strikes"
                 )
 
