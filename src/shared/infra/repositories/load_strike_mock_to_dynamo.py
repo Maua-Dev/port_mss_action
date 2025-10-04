@@ -1,5 +1,6 @@
 import boto3
 
+from src.shared.infra.repositories.strike_repository_dynamo import StrikeRepositoryDynamo
 from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 
 def setup_dynamo_table():
@@ -23,73 +24,19 @@ def setup_dynamo_table():
                     'KeyType': 'RANGE'
                 }
             ],
-            LocalSecondaryIndexes=[
-                {
-                    'IndexName': 'LSI1',
-                    'KeySchema': [
-                        {
-                            'KeyType': 'HASH',
-                            'AttributeName': 'PK'
-                        },
-                        {
-                            'KeyType': 'RANGE',
-                            'AttributeName': 'occured-date'
-                        }
-                    ],
-                    'Projection': {
-                        'ProjectionType': 'ALL',
-                    }
-                }
-            ],
             GlobalSecondaryIndexes=[
                 {
-                    'IndexName': 'GSI-OWNER',
+                    'IndexName': 'GSI-STRIKE',
                     'KeySchema': [
                         {
                             'KeyType': 'HASH',
-                            'AttributeName': 'GSI-OWNER-PK'
+                            'AttributeName': 'GSI-STRIKE-PK'
                         },
-                        {
-                            'KeyType': 'RANGE',
-                            'AttributeName': 'GSI-OWNER-SK'
-                        }
                     ],
                     'Projection': {
-                        'ProjectionType': 'ALL',
+                        'ProjectionType': 'ALL'
                     }
                 },
-                {
-                    'IndexName': 'GSI-TARGET',
-                    'KeySchema': [
-                        {
-                            'KeyType': 'HASH',
-                            'AttributeName': 'GSI-TARGET-PK'
-                        },
-                        {
-                            'KeyType': 'RANGE',
-                            'AttributeName': 'GSI-TARGET-SK'
-                        }
-                    ],
-                    'Projection': {
-                        'ProjectionType': 'ALL',
-                    }
-                },
-                {
-                    'IndexName': 'GSI-APPLIER',
-                    'KeySchema': [
-                        {
-                            'KeyType': 'HASH',
-                            'AttributeName': 'GSI-APPLIER-PK'
-                        },
-                        {
-                            'KeyType': 'RANGE',
-                            'AttributeName': 'GSI-APPLIER-SK'
-                        }
-                    ],
-                    'Projection': {
-                        'ProjectionType': 'ALL',
-                    }
-                }
 
             ],
             AttributeDefinitions=[
@@ -102,34 +49,9 @@ def setup_dynamo_table():
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'occured-date',
-                    'AttributeType': 'N'
-                },
-                {
-                    'AttributeName': 'GSI-OWNER-PK',
+                    'AttributeName': 'GSI-STRIKE-PK',
                     'AttributeType': 'S'
                 },
-                {
-                    'AttributeName': 'GSI-OWNER-SK',
-                    'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'GSI-TARGET-PK',
-                    'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'GSI-TARGET-SK',
-                    'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'GSI-APPLIER-PK',
-                    'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'GSI-APPLIER-SK',
-                    'AttributeType': 'S'
-                }
-
             ],
             BillingMode='PAY_PER_REQUEST',
         )
@@ -137,8 +59,46 @@ def setup_dynamo_table():
     else:
         print('Table already exists!\n')
 
-def load_mock_to_dynamo():
+
+def load_mock_to_local_dynamo():
     repo_dynamo= StrikeRepositoryDynamo()
     repo_mock= StrikeRepositoryMock()
 
     print('Loading mock data to dynamo...')
+
+    print('Loading strikes...')
+
+    count= 0
+
+    for strike in repo_mock.strikes:
+        print(f'Loading strikes {strike.strike_id}...')
+
+        repo_dynamo.create_strike(strike=strike)
+        count+= 1
+
+        print(strike)
+    
+    print('Done!')
+
+
+def load_mock_to_real_dynamo():
+    repo_dynamo= StrikeRepositoryDynamo()
+    repo_mock= StrikeRepositoryMock()
+
+    print('Loading mock data to dynamo...')
+
+    count = 0
+
+    for strike in repo_mock.strikes:
+        print(f'Loading strikes {strike.strike_id}...')
+
+        repo_dynamo.create_strike(strike=strike)
+        count+= 1
+
+        print(strike)
+    
+    print('Done!')
+
+if __name__ == '__main__':
+    setup_dynamo_table()
+    load_mock_to_real_dynamo()

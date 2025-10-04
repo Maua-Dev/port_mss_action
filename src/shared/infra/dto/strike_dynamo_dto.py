@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional
 from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
@@ -47,19 +48,19 @@ class StrikeDynamoDTO:
     
     def to_dynamo(self) -> dict:
         data = {
-            "entity": "member",
+            "entity": "strike",
 
-            "stike_id": self.strike_id,
+            "strike_id": self.strike_id,
 
             "owner_user_id": self.owner_user_id,
 
-            "target_target_user_id": self.target_user_id,
+            "target_user_id": self.target_user_id,
 
             "applier_user_id": self.applier_user_id,
 
-            "occoured_date": self.occurred_date,
+            "occurred_date": self.occurred_date,
 
-            "category": self.category,
+            "category": self.category.value,
 
             "description": self.description
         }
