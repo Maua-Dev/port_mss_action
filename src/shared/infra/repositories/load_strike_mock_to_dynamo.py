@@ -79,6 +79,7 @@ def load_mock_to_local_dynamo():
         print(strike)
     
     print('Done!')
+    print(count)
 
 
 def load_mock_to_real_dynamo():

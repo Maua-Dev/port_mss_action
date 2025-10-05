@@ -14,8 +14,8 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         return f'target#{target_user_id}'
     
     @staticmethod
-    def strike_sort_key_format(strike_id: str) -> str:
-        return f'strike#{strike_id}'
+    def strike_sort_key_format(occurred_date: int, strike_id: str) -> int:
+        return f'{occurred_date}#strike{strike_id}'
     
     @staticmethod
     def gsi_strike_partition_key_format(strike_id: str) -> str:
@@ -37,7 +37,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         # aqui entendo que com essa GSI posso fazer querryes por somente pelo strike_id (caso nao saiba o target_user_id), nao basta ele como SK
         item['GSI-STRIKE-PK']= self.gsi_strike_partition_key_format(strike.strike_id)
 
-        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.target_user_id), sort_key=self.strike_sort_key_format(strike.strike_id))
+        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.target_user_id), sort_key=self.strike_sort_key_format(strike.occurred_date, strike.strike_id))
         
         return strike
 
