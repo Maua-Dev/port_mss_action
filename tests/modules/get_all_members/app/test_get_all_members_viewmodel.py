@@ -28,13 +28,12 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991758098',
                         'course': 'ECA',
                         'hired_date': 1634576165000,
+                        'hours_worked': 143960000000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                        'hours_worked': 143960000000,
                         'photo': None
-                        
-                        }
+                    }
                 },
                 {
                     'member': {
@@ -49,13 +48,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991152348',
                         'course': 'ECM',
                         'hired_date': 1634921765000,
+                        'hours_worked': 104090000000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-                        'hours_worked': 104090000000,
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Luigi Televisão',
@@ -69,13 +69,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991758228',
                         'course': 'CIC',
                         'hired_date': 1640192165000,
+                        'hours_worked': 72430000000,
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
-                        'hours_worked': 72430000000,
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Little Ronald',
@@ -89,13 +90,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991759998',
                         'course': 'ECM',
                         'hired_date': 1614567601000,
+                        'hours_worked': 160010000000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                        'hours_worked': 160010000000,
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Marcos Pereira Neto',
@@ -109,13 +111,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991753208',
                         'course': 'EMC',
                         'hired_date': 1614567601000,
+                        'hours_worked': 184430000000,
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                        'hours_worked': 184430000000,
                         'photo': None
                         }               
                 },
+
                 {
                     'member': {
                         'name': 'Rubicks Cube',
@@ -129,13 +132,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11911758098',
                         'course': 'ECM',
                         'hired_date': 1640192165000,
+                        'hours_worked': 107350000000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                        'hours_worked': 107350000000,
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Django Fett',
@@ -149,13 +153,14 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11915758098',
                         'course': 'ECA',
                         'hired_date': 1609606565000,
+                        'hours_worked': 79580000000,
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
-                        'hours_worked': 79580000000,
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Henrique Gustavo de Souza',
@@ -169,10 +174,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
+                        'hours_worked': 119700000000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        'hours_worked': 119700000000,
                         'photo': None
                         }
                 },
@@ -189,10 +194,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -209,12 +214,13 @@ class Test_GetAllMembersViewModel:
                         'cellphone' : "11991123498",
                         'course' : 'EPM',
                         'hired_date' : 1640192165000,
+                        'hours_worked': 0,
                         'active' : 'ACTIVE',
                         'deactivated_date' : None,
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
-                        'hours_worked' : 0,
                         'photo': None
                         }
+
                 },
                 {
                     'member' : {
@@ -229,17 +235,79 @@ class Test_GetAllMembersViewModel:
                         'cellphone' : "11998472663",
                         'course' : 'ECM',
                         'hired_date' : 1640192165000,
+                        'hours_worked': 0,
                         'active' : 'ON_HOLD',
                         'deactivated_date' : None,
-
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
-                        'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member': {
+                        'name': "Ryuske",
+                        'email_dev': "ryuske.devmaua@gmail.com",
+                        'email': "ryuske@gmail.com",
+                        'ra': "20123456",
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone': "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'hours_worked': 0,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                        'photo': None
+                    }
+                },
+                {
+
+                        'member': {
+                            'name': "Layala Sam",
+                            'email_dev': "layala.devmaua@gmail.com",
+                            'email': "layala@gmail.com",
+                            'ra': "25123456",
+                            'role': 'INTERNAL',
+                            'stack': 'RH',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828564",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'hours_worked': 0,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8b8ty",
+                            'photo': None
+                        }
+                 },
+                {
+                        'member': {
+                            'name': "Ana Julia",
+                            'email_dev': "anaju.devmaua@gmail.com",
+                            'email': "anaju@gmail.com",
+                            'ra': "25123457",
+                            'role': 'INTERNAL',
+                            'stack': 'MKT',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828565",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'hours_worked': 0,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8h9ir",
+                            'photo': None
+                        }
                 }
-            ],
-            'message' : 'the members were retrieved'
-        }
+                    ]
+                ,
+            'message': 'the members were retrieved'
+            }
+
 
         assert viewmodel == expected
         
@@ -267,13 +335,12 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991758098',
                         'course': 'ECA',
                         'hired_date': 1634576165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                        'hours_worked': 0,
                         'photo': None
-                        
-                        }
+                    }
                 },
                 {
                     'member': {
@@ -288,10 +355,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991152348',
                         'course': 'ECM',
                         'hired_date': 1634921765000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -309,10 +376,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991758228',
                         'course': 'CIC',
                         'hired_date': 1640192165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -330,10 +397,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991759998',
                         'course': 'ECM',
                         'hired_date': 1614567601000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -351,10 +418,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991753208',
                         'course': 'EMC',
                         'hired_date': 1614567601000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                        'hours_worked': 0,
                         'photo': None
                         }               
                 },
@@ -372,10 +439,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11911758098',
                         'course': 'ECM',
                         'hired_date': 1640192165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -393,10 +460,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11915758098',
                         'course': 'ECA',
                         'hired_date': 1609606565000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -414,10 +481,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -434,10 +501,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
+                        'hours_worked': 0,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
-                        'hours_worked': 0,
                         'photo': None
                         }
                 },
@@ -454,10 +521,10 @@ class Test_GetAllMembersViewModel:
                         'cellphone' : "11991123498",
                         'course' : 'EPM',
                         'hired_date' : 1640192165000,
+                        'hours_worked': 0,
                         'active' : 'ACTIVE',
                         'deactivated_date' : None,
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
-                        'hours_worked' : 0,
                         'photo': None
                         }
 
@@ -475,16 +542,79 @@ class Test_GetAllMembersViewModel:
                         'cellphone' : "11998472663",
                         'course' : 'ECM',
                         'hired_date' : 1640192165000,
+                        'hours_worked': 0,
                         'active' : 'ON_HOLD',
                         'deactivated_date' : None,
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
-                        'hours_worked' : 0,
                         'photo': None
                         }
+                },
+                {
+                    'member': {
+                        'name': "Ryuske",
+                        'email_dev': "ryuske.devmaua@gmail.com",
+                        'email': "ryuske@gmail.com",
+                        'ra': "20123456",
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone': "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'hours_worked': 0,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                        'photo': None
+                    }
+                },
+                {
+
+                        'member': {
+                            'name': "Layala Sam",
+                            'email_dev': "layala.devmaua@gmail.com",
+                            'email': "layala@gmail.com",
+                            'ra': "25123456",
+                            'role': 'INTERNAL',
+                            'stack': 'RH',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828564",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'hours_worked': 0,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8b8ty",
+                            'photo': None
+                        }
+                 },
+                {
+                        'member': {
+                            'name': "Ana Julia",
+                            'email_dev': "anaju.devmaua@gmail.com",
+                            'email': "anaju@gmail.com",
+                            'ra': "25123457",
+                            'role': 'INTERNAL',
+                            'stack': 'MKT',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828565",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'hours_worked': 0,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8h9ir",
+                            'photo': None
+                        }
                 }
-            ],
-            'message' : 'the members were retrieved'
-        }
+                    ]
+                ,
+            'message': 'the members were retrieved'
+            }
+
         print(viewmodel)
         assert viewmodel == expected
         
@@ -514,8 +644,7 @@ class Test_GetAllMembersViewModel:
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                         'photo': None
-                        
-                        }
+                    }
                 },
                 {
                     'member': {
@@ -536,6 +665,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Luigi Televisão',
@@ -555,6 +685,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Little Ronald',
@@ -574,6 +705,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Marcos Pereira Neto',
@@ -593,6 +725,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }               
                 },
+
                 {
                     'member': {
                         'name': 'Rubicks Cube',
@@ -612,6 +745,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Django Fett',
@@ -631,6 +765,7 @@ class Test_GetAllMembersViewModel:
                         'photo': None
                         }
                 },
+
                 {
                     'member': {
                         'name': 'Henrique Gustavo de Souza',
@@ -687,6 +822,7 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
                         'photo': None
                         }
+
                 },
                 {
                     'member' : {
@@ -706,11 +842,69 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
-                }
-            ],
-            'message' : 'the members were retrieved'
-        }
+                },
+                {
+                    'member': {
+                        'name': "Ryuske",
+                        'email_dev': "ryuske.devmaua@gmail.com",
+                        'email': "ryuske@gmail.com",
+                        'ra': "20123456",
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone': "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                        'photo': None
+                    }
+                },
+                {
 
+                        'member': {
+                            'name': "Layala Sam",
+                            'email_dev': "layala.devmaua@gmail.com",
+                            'email': "layala@gmail.com",
+                            'ra': "25123456",
+                            'role': 'INTERNAL',
+                            'stack': 'RH',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828564",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8b8ty",
+                            'photo': None
+                        }
+                 },
+                {
+                        'member': {
+                            'name': "Ana Julia",
+                            'email_dev': "anaju.devmaua@gmail.com",
+                            'email': "anaju@gmail.com",
+                            'ra': "25123457",
+                            'role': 'INTERNAL',
+                            'stack': 'MKT',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828565",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8h9ir",
+                            'photo': None
+                        }
+                }
+                    ]
+                ,
+            'message': 'the members were retrieved'
+            }
         assert viewmodel == expected
 
     def test_get_all_members_viewmodel_no_start_and_end_date_user(self):
@@ -740,8 +934,7 @@ class Test_GetAllMembersViewModel:
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                         'photo': None
-                        
-                        }
+                    }
                 },
                 {
                     'member': {
@@ -939,8 +1132,68 @@ class Test_GetAllMembersViewModel:
                         'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
                         'photo': None
                         }
+                },
+                {
+                    'member': {
+                        'name': "Ryuske",
+                        'email_dev': "ryuske.devmaua@gmail.com",
+                        'email': "ryuske@gmail.com",
+                        'ra': "20123456",
+                        'role': 'DIRECTOR',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 5,
+                        'cellphone': "11995623456",
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                        'photo': None
+                    }
+                },
+                {
+
+                        'member': {
+                            'name': "Layala Sam",
+                            'email_dev': "layala.devmaua@gmail.com",
+                            'email': "layala@gmail.com",
+                            'ra': "25123456",
+                            'role': 'INTERNAL',
+                            'stack': 'RH',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828564",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8b8ty",
+                            'photo': None
+                        }
+                 },
+                {
+                        'member': {
+                            'name': "Ana Julia",
+                            'email_dev': "anaju.devmaua@gmail.com",
+                            'email': "anaju@gmail.com",
+                            'ra': "25123457",
+                            'role': 'INTERNAL',
+                            'stack': 'MKT',
+                            'project': [],
+                            'year': 1,
+                            'cellphone': "11997828565",
+                            'course': 'ADM',
+                            'hired_date': 1640192165000,
+                            'active': 'ACTIVE',
+                            'deactivated_date': None,
+                            'user_id': "3b07232f-4f65-42c6-b005-242550b8h9ir",
+                            'photo': None
+                        }
                 }
-            ],
-            'message' : 'the members were retrieved'
-        }
+                    ]
+                ,
+            'message': 'the members were retrieved'
+            }
+
         assert viewmodel == expected
