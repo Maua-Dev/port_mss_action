@@ -10,16 +10,16 @@ from src.shared.infra.external.dynamo.datasources.dynamo_datasource import Dynam
 
 class StrikeRepositoryDynamo(IStrikeRepository):
     @staticmethod
-    def strike_partition_key_format(target_user_id: str) -> str:
-        return f'target#{target_user_id}'
+    def strike_partition_key_format(strike_id: str) -> str:
+        return f'strike#{strike_id}'
     
     @staticmethod
-    def strike_sort_key_format(occurred_date: int, strike_id: str) -> int:
-        return f'{occurred_date}#strike{strike_id}'
+    def gsi_strike_partition_key_format(target_id: str) -> str:
+        return f'target#{target_id}'
     
     @staticmethod
-    def gsi_strike_partition_key_format(strike_id: str) -> str:
-        return f'{strike_id}'
+    def gsi_strike_sort_key_format(occurred_date: int) -> int:
+        return occurred_date
     
     def __init__(self):
         self.dynamo= DynamoDatasource(
@@ -34,10 +34,11 @@ class StrikeRepositoryDynamo(IStrikeRepository):
     def create_strike(self, strike: Strike) -> Strike:
         item= StrikeDynamoDTO.from_entity(strike).to_dynamo()
 
-        # aqui entendo que com essa GSI posso fazer querryes por somente pelo strike_id (caso nao saiba o target_user_id), nao basta ele como SK
-        item['GSI-STRIKE-PK']= self.gsi_strike_partition_key_format(strike.strike_id)
+        # aqui entendo que com essa GSI posso fazer querryes por somente pelo target user id e ele será ordenado pelo occured date
+        item['GSI-TARGET-PK']= self.gsi_strike_partition_key_format(strike.target_user_id)
+        item['GSI-TARGET-SK']= self.gsi_strike_sort_key_format(occurred_date=strike.occurred_date)
 
-        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.target_user_id), sort_key=self.strike_sort_key_format(strike.occurred_date, strike.strike_id))
+        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.strike_id))
         
         return strike
 

@@ -18,20 +18,20 @@ def setup_dynamo_table():
                 {
                     'AttributeName': 'PK',
                     'KeyType': 'HASH'
-                },
-                {
-                    'AttributeName': 'SK',
-                    'KeyType': 'RANGE'
                 }
             ],
             GlobalSecondaryIndexes=[
                 {
-                    'IndexName': 'GSI-STRIKE',
+                    'IndexName': 'GSI-TARGET',
                     'KeySchema': [
                         {
                             'KeyType': 'HASH',
-                            'AttributeName': 'GSI-STRIKE-PK'
+                            'AttributeName': 'GSI-TARGET-PK'
                         },
+                        {
+                            'KeyType': 'RANGE',
+                            'AttributeName': 'GSI-TARGET-SK'
+                        }
                     ],
                     'Projection': {
                         'ProjectionType': 'ALL'
@@ -45,13 +45,13 @@ def setup_dynamo_table():
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'SK',
+                    'AttributeName': 'GSI-TARGET-PK',
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'GSI-STRIKE-PK',
-                    'AttributeType': 'S'
-                },
+                    'AttributeName': 'GSI-TARGET-SK',
+                    'AttributeType': 'N'
+                }
             ],
             BillingMode='PAY_PER_REQUEST',
         )
