@@ -2,12 +2,14 @@ from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
 from src.modules.get_member.app.get_member_viewmodel import GetMemberViewModel
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock   
 
 class Test_GetMemberViewModel:
     def test_get_member_viewmodel(self):
         member_repo = MemberRepositoryMock()
         action_repo = ActionRepositoryMock()
-        usecase = GetMemberUsecase(member_repo, action_repo)
+        strike_repo = StrikeRepositoryMock()
+        usecase = GetMemberUsecase(member_repo, action_repo, strike_repo)
         member = usecase(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', start_date= 1624576165000, end_date= 1690046000000)
 
         viewmodel = GetMemberViewModel(
@@ -30,7 +32,9 @@ class Test_GetMemberViewModel:
                     'active': 'ACTIVE',
                     'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                     'photo': None,
-                    'hours_worked': 134460000000
+                    'hours_worked': 134460000000,
+                    'strikes': 0,
+                    'strikes_allowed': 4,
             },
             "message" : "the member was retrieved"
         }

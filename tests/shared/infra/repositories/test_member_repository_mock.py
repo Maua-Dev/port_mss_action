@@ -62,7 +62,7 @@ class Test_MemberRepositoryMock:
         
     def test_update_member(self):
         repo = MemberRepositoryMock()
-        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED)
+        member = repo.update_member(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND,new_year=234,new_cellphone="11234567890",new_course=COURSE.ECM,new_active=ACTIVE.DISCONNECTED,new_photo="photo")
         assert type(member) == Member
         assert member.name == 'Teste'
         assert member.email_dev == "teste.devmaua@gmail.com"
@@ -73,6 +73,7 @@ class Test_MemberRepositoryMock:
         assert member.course ==   COURSE.ECM
         assert member.active ==  ACTIVE.DISCONNECTED
         assert member.deactivated_date != None
+        assert member.photo == "photo"
         
     def test_update_member_deactivated_date(self):
         repo = MemberRepositoryMock()

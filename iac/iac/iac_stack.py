@@ -3,7 +3,6 @@ from aws_cdk import (
     # Duration,
     Stack,
     # aws_sqs as sqs,
-    aws_cognito,
     aws_iam
 )
 from constructs import Construct
@@ -11,6 +10,7 @@ from constructs import Construct
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
+from .cognito_stack import CognitoStack
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
 
@@ -21,15 +21,6 @@ class IacStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
-
-        if 'prod' in self.github_ref_name: 
-            self.dev_auth_system_userpool_arn = os.environ.get(
-            "AUTH_DEV_SYSTEM_USERPOOL_ARN_PROD")
-
-        else:
-            self.dev_auth_system_userpool_arn = os.environ.get(
-            "AUTH_DEV_SYSTEM_USERPOOL_ARN_DEV")
-    
         self.aws_region = os.environ.get("AWS_REGION")
         
         self.rest_api = RestApi(self, "PortalInterno_RestApi",
@@ -54,6 +45,9 @@ class IacStack(Stack):
         self.dynamo_stack = DynamoStack(self)
 
         self.bucket_stack = BucketStack(self)
+
+        # Create Cognito stack
+        self.cognito_stack = CognitoStack(self, "CognitoStack", stage=self.github_ref_name)
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
@@ -64,23 +58,25 @@ class IacStack(Stack):
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
             "REGION": self.aws_region,
-            "REPLY_TO_EMAIL": "dev@maua.br",
-            "FROM_EMAIL": "contato@devmaua.com",
-            "HIDDEN_COPY": "dev@maua.br",
+            "REPLY_TO_EMAIL": os.environ.get("REPLY_TO_EMAIL", "dev@maua.br"),
+            "FROM_EMAIL": os.environ.get("FROM_EMAIL", "contato@devmaua.com"),
+            "HIDDEN_COPY": os.environ.get("HIDDEN_COPY", "dev@maua.br"),
             "S3_BUCKET_NAME_MEMBER": self.bucket_stack.s3_bucket_member.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER": self.bucket_stack.cloudfront_distribution_member.domain_name,
             "S3_BUCKET_NAME_PROJECT": self.bucket_stack.s3_bucket_project.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.cloudfront_distribution_project.domain_name,
             "S3_BUCKET_NAME_MEMBER_REPORT": self.bucket_stack.s3_bucket_member_report.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT": self.bucket_stack.cloudfront_distribution_member_report.domain_name,
+            "COGNITO_USER_POOL_ID": self.cognito_stack.user_pool.user_pool_id,
+            "COGNITO_CLIENT_ID": self.cognito_stack.client.user_pool_client_id,
+            "MSS_NAME": os.environ.get("MSS_NAME", "port_mss_action"),
+            "S3_ASSETS_CDN": os.environ.get("S3_ASSETS_CDN", ""),
 
         }
         
+        # Use the new Cognito stack for authorization
         self.cognito_auth = CognitoUserPoolsAuthorizer(self, f"port_cognito_auth_{self.github_ref_name}",
-                                                       cognito_user_pools=[aws_cognito.UserPool.from_user_pool_arn(
-                                                           self, f"port_cognito_auth_userpool_{self.github_ref_name}",
-                                                           self.dev_auth_system_userpool_arn
-                                                       )]
+                                                       cognito_user_pools=[self.cognito_stack.user_pool]
                                                        )
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,

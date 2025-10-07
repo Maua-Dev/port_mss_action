@@ -21,7 +21,9 @@ class MemberViewModel:
     active: ACTIVE
     user_id: str
     hours_worked: int
-    photo: Optional[str] = None 
+    strikes: int
+    strikes_allowed: int
+    photo: Optional[str] = None
 
     def __init__(self, member: Member):
         self.name = member.name
@@ -39,7 +41,10 @@ class MemberViewModel:
         self.active = member.active
         self.user_id = member.user_id
         self.hours_worked = member.hours_worked
+        self.strikes = member.strikes
+        self.strikes_allowed = member.strikes_allowed
         self.photo = member.photo
+
 
     def to_dict(self):
         return {
@@ -58,6 +63,8 @@ class MemberViewModel:
             'active' : self.active.value,
             'user_id' : self.user_id,
             'hours_worked' : self.hours_worked,
+            'strikes' : self.strikes,
+            'strikes_allowed' : self.strikes_allowed,
             'photo' : self.photo
         }
     

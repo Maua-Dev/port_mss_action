@@ -3,10 +3,8 @@ import pytest
 from src.modules.create_action.app.create_action_usecase import CreateActionUsecase
 from src.modules.create_member.app.create_member_usecase import CreateMemberUsecase
 from src.shared.domain.entities.action import Action
-from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
-from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem, NoItemsFound
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
@@ -29,7 +27,8 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            user_id="75638hbr-184n-1985-91han-7ghn4HgF182"
+            user_id="75638hbr-184n-1985-91han-7ghn4HgF182",
+            photo= None
             )
         
         assert repo.members[-1] == member
@@ -51,7 +50,8 @@ class Test_CreateMemberUsecase:
             year=1,
             cellphone="11991758098",
             course=COURSE.ECA,
-            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
+            photo= None
             )
         
         

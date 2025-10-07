@@ -62,7 +62,7 @@ class Test_GetHistoryViewmodel:
                         "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
                     ],
                     "stack_tags": [
-                        "MKT"
+                        "INTERNAL"
                     ],
                     "action_type_tag": "ARCHITECT"
                 },

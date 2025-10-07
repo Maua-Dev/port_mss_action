@@ -1,5 +1,6 @@
 from src.modules.get_all_members.app.get_all_members_usecase import GetAllMembersUsecase
 from src.shared.domain.entities.member import Member
+from src.shared.domain.enums.role_enum import ROLE
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
@@ -15,7 +16,16 @@ class Test_GetAllMembersUseCase:
         assert len(members) == 14
         assert all([type(member) == Member for member in members])
   
-
+    def test_get_all_members_usecase_external(self):
+        memberrepo = MemberRepositoryMock()
+        actionrepo = ActionRepositoryMock()
+        usecase = GetAllMembersUsecase(memberrepo=memberrepo, actionrepo=actionrepo)
+        member1 = memberrepo.members[0]
+        member1.role = ROLE.EXTERNAL
+        members = usecase(member1.user_id)
+        assert type(members) == list
+        assert len(members) == 14
+        assert all([type(member) == Member for member in members])
 
     def test_get_all_members_usecase_user_id_not_found(self):
 
