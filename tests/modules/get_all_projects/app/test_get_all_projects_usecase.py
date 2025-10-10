@@ -27,7 +27,7 @@ class Test_GetAllProjectsUsecase:
         member1.role = ROLE.EXTERNAL
         projects = usecase(member1.user_id)
         assert type(projects) == list
-        assert len(projects) == 5
+        assert len(projects) == 6
         assert type(projects[0]) == Project
 
     def test_get_all_projects_usecase_FREEZE_user(self):
@@ -55,6 +55,6 @@ class Test_GetAllProjectsUsecase:
 
         projects = usecase(repo_member.members[0].user_id)
         assert type(projects) == list
-        assert len(projects) == 5
+        assert len(projects) == 6
         assert type(projects[0]) == Project
         assert projects[0].hours_worked == 0

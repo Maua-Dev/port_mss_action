@@ -22,6 +22,7 @@ class Test_GetAllMembersController:
         })
         
         response = controller(request=request)
+         
         expected_dict = {
             'members': [
                 {
@@ -37,7 +38,7 @@ class Test_GetAllMembersController:
                         'cellphone': '11991758098',
                         'course': 'ECA',
                         'hired_date': 1634576165000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -57,14 +58,13 @@ class Test_GetAllMembersController:
                         'cellphone': '11991152348',
                         'course': 'ECM',
                         'hired_date': 1634921765000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                         'photo': None
-                        }
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Luigi Televisão',
@@ -73,19 +73,18 @@ class Test_GetAllMembersController:
                         'ra': '22017310',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Gameficação'],
+                        'project': ['Gameficação', 'Zeragem de Horas'],
                         'year': 2,
                         'cellphone': '11991758228',
                         'course': 'CIC',
                         'hired_date': 1640192165000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'FREEZE',
                         'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
                         'photo': None
-                        }
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Little Ronald',
@@ -99,14 +98,13 @@ class Test_GetAllMembersController:
                         'cellphone': '11991759998',
                         'course': 'ECM',
                         'hired_date': 1614567601000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                         'photo': None
-                        }
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Marcos Pereira Neto',
@@ -116,18 +114,17 @@ class Test_GetAllMembersController:
                         'role': 'PO',
                         'stack': 'BUSINESS',
                         'project': ['Selfie Mauá'],
-                        'year': 4,  
+                        'year': 4,
                         'cellphone': '11991753208',
                         'course': 'EMC',
                         'hired_date': 1614567601000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'DISCONNECTED',
                         'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                         'photo': None
-                        }               
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Rubicks Cube',
@@ -136,19 +133,18 @@ class Test_GetAllMembersController:
                         'ra': '19017311',
                         'role': 'DEV',
                         'stack': 'BACKEND',
-                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação'],
+                        'project': ['Selfie Mauá', 'SMILE', 'Gameficação', 'Zeragem de Horas'],
                         'year': 3,
                         'cellphone': '11911758098',
                         'course': 'ECM',
                         'hired_date': 1640192165000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
                         'photo': None
-                        }
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Django Fett',
@@ -167,9 +163,8 @@ class Test_GetAllMembersController:
                         'active': 'FREEZE',
                         'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                         'photo': None
-                        }
+                    }
                 },
-
                 {
                     'member': {
                         'name': 'Henrique Gustavo de Souza',
@@ -183,12 +178,12 @@ class Test_GetAllMembersController:
                         'cellphone': '11991123498',
                         'course': 'ECM',
                         'hired_date': 1672592165000,
-                        'hours_worked': 0,
+                        'hours_worked': 3600000,
                         'deactivated_date': None,
                         'active': 'ACTIVE',
                         'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
                         'photo': None
-                        }
+                    }
                 },
                 {
                     'member': {
@@ -208,114 +203,112 @@ class Test_GetAllMembersController:
                         'active': 'ACTIVE',
                         'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
                         'photo': None
-                        }
+                    }
                 },
                 {
                     'member': {
-                        'name' : "Fernandao Presidas",
-                        'email_dev' : "fernandinho.devmaua@gmail.com",
-                        'email' : "fernandao@gmail.com",
-                        'ra' : "22014322",
-                        'role' : 'PO',
-                        'stack' : 'BUSINESS',
+                        'name': 'Fernandao Presidas',
+                        'email_dev': 'fernandinho.devmaua@gmail.com',
+                        'email': 'fernandao@gmail.com',
+                        'ra': '22014322',
+                        'role': 'PO',
+                        'stack': 'BUSINESS',
                         'project': [],
-                        'year' : 3,
-                        'cellphone' : "11991123498",
-                        'course' : 'EPM',
-                        'hired_date' : 1640192165000,
+                        'year': 3,
+                        'cellphone': '11991123498',
+                        'course': 'EPM',
+                        'hired_date': 1640192165000,
                         'hours_worked': 0,
-                        'active' : 'ACTIVE',
-                        'deactivated_date' : None,
-                        'user_id' : "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
                         'photo': None
-                        }
-
-                },
-                {
-                    'member' : {
-                        'name' : "Carlinhos Miau",
-                        'email_dev' : "carlinhos.devmaua@gmail.com",
-                        'email' : "carlinhosmiau@gmail.com",
-                        'ra' : "23024211",
-                        'role' : 'DEV',
-                        'stack' : 'BACKEND',
-                        'project': [],
-                        'year' : 3,
-                        'cellphone' : "11998472663",
-                        'course' : 'ECM',
-                        'hired_date' : 1640192165000,
-                        'hours_worked': 0,
-                        'active' : 'ON_HOLD',
-                        'deactivated_date' : None,
-                        'user_id' : "3b07232f-4f65-42c6-b005-242550b8b8dc",
-                        'photo': None
-                        }
+                    }
                 },
                 {
                     'member': {
-                        'name': "Ryuske",
-                        'email_dev': "ryuske.devmaua@gmail.com",
-                        'email': "ryuske@gmail.com",
-                        'ra': "20123456",
+                        'name': 'Carlinhos Miau',
+                        'email_dev': 'carlinhos.devmaua@gmail.com',
+                        'email': 'carlinhosmiau@gmail.com',
+                        'ra': '23024211',
+                        'role': 'DEV',
+                        'stack': 'BACKEND',
+                        'project': [],
+                        'year': 3,
+                        'cellphone': '11998472663',
+                        'course': 'ECM',
+                        'hired_date': 1640192165000,
+                        'hours_worked': 0,
+                        'active': 'ON_HOLD',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8dc',
+                        'photo': None
+                    }
+                },
+                {
+                    'member': {
+                        'name': 'Ryuske',
+                        'email_dev': 'ryuske.devmaua@gmail.com',
+                        'email': 'ryuske@gmail.com',
+                        'ra': '20123456',
                         'role': 'DIRECTOR',
                         'stack': 'RH',
                         'project': [],
                         'year': 5,
-                        'cellphone': "11995623456",
+                        'cellphone': '11995623456',
                         'course': 'ECM',
                         'hired_date': 1640192165000,
                         'hours_worked': 0,
                         'active': 'ACTIVE',
                         'deactivated_date': None,
-                        'user_id': "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
                         'photo': None
                     }
                 },
                 {
-
-                        'member': {
-                            'name': "Layala Sam",
-                            'email_dev': "layala.devmaua@gmail.com",
-                            'email': "layala@gmail.com",
-                            'ra': "25123456",
-                            'role': 'INTERNAL',
-                            'stack': 'RH',
-                            'project': [],
-                            'year': 1,
-                            'cellphone': "11997828564",
-                            'course': 'ADM',
-                            'hired_date': 1640192165000,
-                            'hours_worked': 0,
-                            'active': 'ACTIVE',
-                            'deactivated_date': None,
-                            'user_id': "3b07232f-4f65-42c6-b005-242550b8b8ty",
-                            'photo': None
-                        }
-                 },
+                    'member': {
+                        'name': 'Layala Sam',
+                        'email_dev': 'layala.devmaua@gmail.com',
+                        'email': 'layala@gmail.com',
+                        'ra': '25123456',
+                        'role': 'INTERNAL',
+                        'stack': 'RH',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828564',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'hours_worked': 0,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8b8ty',
+                        'photo': None
+                    }
+                },
                 {
-                        'member': {
-                            'name': "Ana Julia",
-                            'email_dev': "anaju.devmaua@gmail.com",
-                            'email': "anaju@gmail.com",
-                            'ra': "25123457",
-                            'role': 'INTERNAL',
-                            'stack': 'MKT',
-                            'project': [],
-                            'year': 1,
-                            'cellphone': "11997828565",
-                            'course': 'ADM',
-                            'hired_date': 1640192165000,
-                            'hours_worked': 0,
-                            'active': 'ACTIVE',
-                            'deactivated_date': None,
-                            'user_id': "3b07232f-4f65-42c6-b005-242550b8h9ir",
-                            'photo': None
-                        }
+                    'member': {
+                        'name': 'Ana Julia',
+                        'email_dev': 'anaju.devmaua@gmail.com',
+                        'email': 'anaju@gmail.com',
+                        'ra': '25123457',
+                        'role': 'INTERNAL',
+                        'stack': 'MKT',
+                        'project': [],
+                        'year': 1,
+                        'cellphone': '11997828565',
+                        'course': 'ADM',
+                        'hired_date': 1640192165000,
+                        'hours_worked': 0,
+                        'active': 'ACTIVE',
+                        'deactivated_date': None,
+                        'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                        'photo': None
+                    }
                 }
-                    ]
-                ,
+            ],
             'message': 'the members were retrieved'
-            }
+        }
+
 
         assert response.status_code == 200
         assert response.body['message'] == 'the members were retrieved'

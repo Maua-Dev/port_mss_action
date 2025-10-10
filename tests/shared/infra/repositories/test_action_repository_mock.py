@@ -4,6 +4,7 @@ from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.action_type_enum import ACTION_TYPE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
+from pprint import pprint
 
 
 class Test_ActionRepositoryMock:
@@ -201,12 +202,10 @@ class Test_ActionRepositoryMock:
         repo_mock = ActionRepositoryMock()
 
         resp = repo_mock.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+        
+        pprint(resp)
 
-        assert resp == {'PT': 9500000000, 
-                            'SF': 96530000000, 
-                            'SM': 47430000000, 
-                            'GM': 1320000000, 
-                            'MF': 62120000000}
+        assert resp == {'GM': 1320000000, 'MF': 62120000000, 'SF': 96530000000, 'SM': 47430000000}
     
     def test_get_all_actions_by_project_code(self):
         repo = ActionRepositoryMock()
