@@ -11,6 +11,8 @@ from src.shared.domain.entities.member import Member
 from src.shared.domain.entities.project import Project
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.environments import Environments
+from botocore.config import Config
+from src.shared.helpers.errors.controller_errors import WrongTypeFile
 from src.shared.helpers.utils.compose_invalid_action_email import compose_invalid_action_email
 from src.shared.infra.dto.action_dynamo_dto import ActionDynamoDTO
 from src.shared.infra.dto.associated_action_dynamo_dto import AssociatedActionDynamoDTO
@@ -84,8 +86,22 @@ class ActionRepositoryDynamo(IActionRepository):
             gsi_sort_key=Environments.get_envs().dynamo_gsi_1_sort_key,
         )
         
+        my_config = Config(
+            region_name=Environments.get_envs().region,
+            signature_version='s3v4',
+        )
+        self.s3_client = boto3.client(
+            's3', config=my_config, region_name=Environments.get_envs().region)
+        
+        self.cloud_front_distribution_domain_assets_project = Environments.get_envs().cloud_front_distribution_domain_assets_project
+
+        self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name_project
         
     def create_project(self, project: Project) -> Project:
+        if project.photo is not None:
+            url = self.upload_project_photo(project.code, project.photo)
+            project.photo = url  
+
         item = ProjectDynamoDTO.from_entity(project).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project.code))
         
@@ -135,7 +151,7 @@ class ActionRepositoryDynamo(IActionRepository):
         project_dto = ProjectDynamoDTO.from_dynamo(project['Item'])
         return project_dto.to_entity()
 
-    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photos: Optional[List[str]] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
+    def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         project_to_update = self.get_project(code=code)
         
         if project_to_update is None:
@@ -149,8 +165,15 @@ class ActionRepositoryDynamo(IActionRepository):
             project_to_update.po_user_id = new_po_user_id
         if new_scrum_user_id is not None:
             project_to_update.scrum_user_id = new_scrum_user_id
-        if new_photos is not None:
-            project_to_update.photos = new_photos
+        if new_photo is not None:
+            if new_photo[:5] == "https":
+                url = new_photo
+            else:
+                if project_to_update.photo is not None:
+                    s3_key = self.generate_key(code, file_type=project_to_update.photo[74:77])
+                    self.s3_client.delete_object(Bucket=self.S3_BUCKET_NAME, Key=s3_key)
+                url = self.upload_project_photo(code, new_photo)
+            project_to_update.photo = url
         if new_members_user_ids is not None:
             project_to_update.members_user_ids = new_members_user_ids
             
@@ -159,8 +182,8 @@ class ActionRepositoryDynamo(IActionRepository):
             "description": project_to_update.description,
             "po_user_id": project_to_update.po_user_id,
             "scrum_user_id": project_to_update.scrum_user_id,
-            "photos": project_to_update.photos,
-            "members_user_ids": new_members_user_ids
+            "photo": url if new_photo is not None else None,
+            "members_user_ids": project_to_update.members_user_ids if project_to_update.members_user_ids is not None else None
         }
         
         resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)

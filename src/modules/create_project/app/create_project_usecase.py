@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from src.shared.domain.entities.project import Project
 from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
@@ -12,8 +12,23 @@ class CreateProjectUsecase:
         self.repo = repo
         self.repo_member = repo_member
         
-    def __call__(self, user_id: str, code: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photos: list = None) -> Project:
-        
+    def __call__(self, user_id: str, name: str, description: str, po_user_id: str, scrum_user_id: str, start_date: int, members_user_ids: List[str], photo: Optional[str] = None) -> Project:
+    
+        words = name.split()
+        if len(words) >= 2:
+            base_code = (words[0][:1] + words[1][:1]).upper()
+        else:
+            base_code = words[0][:2].upper()
+
+        code = base_code
+        suffix = 1
+        for project in self.repo.get_all_projects():
+            if project.code == code: 
+                code = f"{base_code}{suffix}"
+                suffix += 1
+                if suffix == 10:  
+                    raise ValueError("It's not possible to generate a code for this project.")
+        code = code[:3]
         project = Project(
             code=code,
             name=name,
@@ -21,19 +36,19 @@ class CreateProjectUsecase:
             po_user_id=po_user_id,
             scrum_user_id=scrum_user_id,
             start_date=start_date,
-            photos=photos,
+            photo=photo,
             members_user_ids=members_user_ids
         )
 
-        if self.repo_member.get_member(user_id=user_id) is None or self.repo_member.get_member(user_id=po_user_id) is None or self.repo_member.get_member(user_id=scrum_user_id) is None or any([self.repo_member.get_member(user_id=member_user_id) is None for member_user_id in members_user_ids]):
+        if self.repo_member.get_member(user_id=user_id) is None or self.repo_member.get_member(user_id=po_user_id) is None or self.repo_member.get_member(user_id=scrum_user_id) is None or any([self.repo_member.get_member(user_id=member_id) is None for member_id in members_user_ids]):
             raise UnregisteredUser()
         
         po = self.repo_member.get_member(user_id=po_user_id)
 
-        if po.role is not ROLE.BUSINESS:
+        if po.role not in [ROLE.PO, ROLE.SCRUM]:
             raise UserIsNotFromBusiness()
         
-        if po.stack not in [STACK.PO, STACK.SCRUM]:
+        if po.stack is not STACK.BUSINESS:
             raise UserIsNotFromBusiness()
         
         if po.active != ACTIVE.ACTIVE:
@@ -41,10 +56,10 @@ class CreateProjectUsecase:
         
         scrum = self.repo_member.get_member(user_id=scrum_user_id)
 
-        if scrum.role is not ROLE.BUSINESS:
+        if scrum.role not in [ROLE.PO, ROLE.SCRUM]:
             raise UserIsNotFromBusiness()
         
-        if scrum.stack not in [STACK.PO, STACK.SCRUM]:
+        if scrum.stack is not STACK.BUSINESS:
             raise UserIsNotFromBusiness()
         
         if scrum.active != ACTIVE.ACTIVE:
@@ -62,4 +77,3 @@ class CreateProjectUsecase:
             raise DuplicatedItem('code')
         
         return self.repo.create_project(project)
-        

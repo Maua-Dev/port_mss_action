@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from src.shared.domain.entities.project import Project
 
 class ProjectViewModel:
@@ -9,7 +9,7 @@ class ProjectViewModel:
     scrum_user_id: str
     start_date: int
     members_user_ids: List[str]
-    photos: List[str]
+    photo: Optional[str] = None
 
     def __init__(self, project: Project):
         self.code = project.code
@@ -19,7 +19,7 @@ class ProjectViewModel:
         self.scrum_user_id = project.scrum_user_id
         self.start_date = project.start_date
         self.members_user_ids = project.members_user_ids
-        self.photos = project.photos
+        self.photo = project.photo
 
     def to_dict(self):
         return {
@@ -30,17 +30,17 @@ class ProjectViewModel:
             'scrum_user_id' : self.scrum_user_id,
             'start_date' : self.start_date,
             'members_user_ids' : self.members_user_ids,
-            'photos' : self.photos
+            'photo' : self.photo
         }
 
 class DeleteProjectViewModel:
-    project: ProjectViewModel
-    
+    model: Project
+
     def __init__(self, project: Project):
-        self.project = ProjectViewModel(project)
-        
-    def to_dict(self):
+        self.project = project
+
+    def to_dict(self) -> dict:
         return {
-            'project' : self.project.to_dict(),
+            'project' : ProjectViewModel(self.project).to_dict(),
             'message' : 'the project was deleted'
         }

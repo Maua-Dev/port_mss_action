@@ -9,7 +9,7 @@ class Test_GetAllProjectsViewmodel:
         repo = ActionRepositoryMock()
         repo_member = MemberRepositoryMock()
         usecase = GetAllProjectsUsecase(repo, repo_member)
-        projects = usecase(repo_member.members[0].user_id)
+        projects = usecase(repo_member.members[0].user_id,1637046000000, 1690046000000)
 
         viewmodel = GetAllProjectsViewmodel(projects).to_dict()
 
@@ -102,5 +102,7 @@ class Test_GetAllProjectsViewmodel:
             ],
             'message': 'the projects were retrieved'
         }
+    ]
+}
         
         assert viewmodel == expected

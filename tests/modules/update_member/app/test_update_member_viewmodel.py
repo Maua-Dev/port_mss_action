@@ -12,7 +12,8 @@ class Test_UpdateMemberViewmodel:
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo)
         member = usecase(
-            user_id=repo.members[0].user_id, new_name='Joao Brancas')
+            user_id=repo.members[0].user_id, 
+            new_name='Joao Brancas')
 
         viewmodel = UpdateMemberViewmodel(member=member).to_dict()
         expected = {

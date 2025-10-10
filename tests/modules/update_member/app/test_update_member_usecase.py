@@ -14,12 +14,13 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
-                new_active=ACTIVE.ACTIVE)
+                new_active=ACTIVE.ACTIVE,
+                new_photo=None)
         
         assert repo.members[0] == member
 
@@ -40,9 +41,9 @@ class Test_UpdateMemberUsecase:
     def test_update_member_usecase_new_role(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
-        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.DIRECTOR)
+        member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.HEAD)
         
-        assert repo.members[0].role == ROLE.DIRECTOR
+        assert repo.members[0].role == ROLE.HEAD
 
     def test_update_member_usecase_new_stack(self):
         repo = MemberRepositoryMock()
@@ -88,7 +89,7 @@ class Test_UpdateMemberUsecase:
         with pytest.raises(NoItemsFound):
             member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e11111c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -197,7 +198,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -212,7 +213,7 @@ class Test_UpdateMemberUsecase:
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -227,7 +228,7 @@ class Test_UpdateMemberUsecase:
         with pytest.raises(UserNotAllowed):
             member = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -243,7 +244,7 @@ class Test_UpdateMemberUsecase:
         with pytest.raises(UserNotAllowed):
             member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -259,7 +260,7 @@ class Test_UpdateMemberUsecase:
         with pytest.raises(UserNotAllowed):
             member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",
@@ -273,7 +274,7 @@ class Test_UpdateMemberUsecase:
         with pytest.raises(UserNotAllowed):
             member = usecase(user_id="76h35dg4-h76v-1875-987hn-h67gfv45Gt4",new_name="Joao Branco",
                 new_email_dev="jbranco.devmaua@gmail.com",
-                new_role=ROLE.DIRECTOR,
+                new_role=ROLE.HEAD,
                 new_stack=STACK.BACKEND,
                 new_year=3,
                 new_cellphone="11991152348",

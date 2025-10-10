@@ -70,7 +70,7 @@ class LambdaStack(Construct):
                                                               code=lambda_.Code.from_asset("./lambda_requirements_layer_temp/xlsxwriter"),
                                                               compatible_runtimes=[lambda_.Runtime.PYTHON_3_9]
                                                               )
-        
+       
         self.create_action_function = self.create_lambda_api_gateway_integration(
             module_name="create_action",
             method="POST",
