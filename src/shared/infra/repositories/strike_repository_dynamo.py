@@ -35,21 +35,11 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         item['GSI-TARGET-PK'] = self.gsi_strike_partition_key_format(strike.target_user_id)
         item['GSI-TARGET-SK'] = self.gsi_strike_sort_key_format(occurred_date=strike.occurred_date)
 
-<<<<<<< Updated upstream
         resp = self.dynamo.put_item(
-            item=item, 
+            item=item,
             partition_key=self.strike_partition_key_format(strike.strike_id),
             sort_key=strike.applier_user_id  # Assumindo que SK é o applier_user_id
         )
-        
-        return strike
-
-    def get_all(self) -> List[Strike]:
-        # Implementar scan se necessário
-        pass
-    
-=======
-        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.strike_id))
 
         return strike
 
@@ -58,18 +48,17 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         strikes = [StrikeDynamoDTO.from_dynamo(item).to_entity() for item in items]
         return strikes
 
->>>>>>> Stashed changes
     def find_by_id(self, strike_id: str) -> Optional[Strike]:
         response = self.dynamo.query(
             key_condition_expression='PK = :pk',
             ExpressionAttributeValues={':pk': self.strike_partition_key_format(strike_id)},
             Limit=1
         )
-        
+
         items = response.get('Items', [])
         if not items:
             return None
-        
+
         strike_dto = StrikeDynamoDTO.from_dynamo(items[0])
         return strike_dto.to_entity()
 
@@ -96,12 +85,12 @@ class StrikeRepositoryDynamo(IStrikeRepository):
             key_condition_expression='#gsi_pk = :target_id',
             ExpressionAttributeNames={'#gsi_pk': 'GSI-TARGET-PK'},
             ExpressionAttributeValues={':target_id': self.gsi_strike_partition_key_format(target_user_id)},
-            IndexName='GSI-TARGET'  
+            IndexName='GSI-TARGET'
         )
-        
+
         items = response.get('Items', [])
         if not items:
             return None
-        
+
         strikes = [StrikeDynamoDTO.from_dynamo(item).to_entity() for item in items]
         return strikes
