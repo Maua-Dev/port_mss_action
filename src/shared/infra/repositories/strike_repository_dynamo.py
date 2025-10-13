@@ -10,15 +10,15 @@ class StrikeRepositoryDynamo(IStrikeRepository):
     @staticmethod
     def strike_partition_key_format(strike_id: str) -> str:
         return f'strike#{strike_id}'
-    
+
     @staticmethod
     def gsi_strike_partition_key_format(target_id: str) -> str:
         return f'target#{target_id}'
-    
+
     @staticmethod
     def gsi_strike_sort_key_format(occurred_date: int) -> int:
         return occurred_date
-    
+
     def __init__(self):
         self.dynamo = DynamoDatasource(
             endpoint_url=Environments.get_envs().endpoint_url,
@@ -35,6 +35,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         item['GSI-TARGET-PK'] = self.gsi_strike_partition_key_format(strike.target_user_id)
         item['GSI-TARGET-SK'] = self.gsi_strike_sort_key_format(occurred_date=strike.occurred_date)
 
+<<<<<<< Updated upstream
         resp = self.dynamo.put_item(
             item=item, 
             partition_key=self.strike_partition_key_format(strike.strike_id),
@@ -47,6 +48,17 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         # Implementar scan se necessário
         pass
     
+=======
+        resp= self.dynamo.put_item(item=item, partition_key=self.strike_partition_key_format(strike.strike_id))
+
+        return strike
+
+    def get_all(self) -> list[Strike]:
+        items = self.dynamo.get_all_items()
+        strikes = [StrikeDynamoDTO.from_dynamo(item).to_entity() for item in items]
+        return strikes
+
+>>>>>>> Stashed changes
     def find_by_id(self, strike_id: str) -> Optional[Strike]:
         response = self.dynamo.query(
             key_condition_expression='PK = :pk',
@@ -62,7 +74,22 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         return strike_dto.to_entity()
 
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
-        pass
+        items = self.dynamo.query_by_gsi(
+            gsi_partition_key=self.gsi_strike_partition_key_format(strike_id)
+        )
+
+        if not items:
+            return None
+
+        strike_dynamo = items[0]
+        strike = StrikeDynamoDTO.from_dynamo(strike_dynamo).to_entity()
+
+        self.dynamo.delete_item(
+            partition_key=self.strike_partition_key_format(strike.target_user_id),
+            sort_key=self.strike_sort_key_format(strike.occurred_date, strike.strike_id)
+        )
+
+        return strike
 
     def get_strike_by_target_id(self, target_user_id: str) -> Optional[List[Strike]]:
         response = self.dynamo.query(
