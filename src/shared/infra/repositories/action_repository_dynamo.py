@@ -1,6 +1,5 @@
 import base64
-import time
-import datetime
+from datetime import datetime
 from decimal import Decimal
 import imghdr
 import os

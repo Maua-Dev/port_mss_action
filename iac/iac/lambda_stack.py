@@ -235,6 +235,14 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.create_strike= self.create_strike(
+            module_name="create_strike",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
@@ -256,7 +264,8 @@ class LambdaStack(Construct):
                 self.delete_action_function,
                 self.download_projects_function,
                 self.download_members_function,
-                self.download_actions_function
+                self.download_actions_function,
+                self.create_strike
         ]
         
         self.functions_that_need_dynamo_member_permissions = [
@@ -280,7 +289,8 @@ class LambdaStack(Construct):
                 self.delete_action_function,
                 self.download_projects_function,
                 self.download_members_function,
-                self.download_actions_function
+                self.download_actions_function,
+                self.create_strike
         ]
         
         self.functions_that_need_ses_permissions = [

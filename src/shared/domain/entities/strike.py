@@ -9,7 +9,7 @@ class Strike(abc.ABC):
     owner_user_id: str
     target_user_id: str
     applier_user_id: str
-    ocurred_date: int # milisseconds
+    occurred_date: int # milisseconds
     category: STRIKE_CATEGORY
     description: Optional [str]
     MAX_DESCRIPTION_LENGTH = 500
@@ -18,7 +18,7 @@ class Strike(abc.ABC):
     TARGET_USER_ID_LENGTH = 36
     APPLIER_USER_ID_LENGTH = 36
 
-    def __init__(self, strike_id: str, owner_user_id: str, target_user_id: str, applier_user_id: str, ocurred_date: int, category: STRIKE_CATEGORY, description: Optional[str] = None):
+    def __init__(self, strike_id: str, owner_user_id: str, target_user_id: str, applier_user_id: str, occurred_date: int, category: STRIKE_CATEGORY, description: Optional[str] = None):
 
         if not self.validate_strike_id(strike_id):
             raise EntityError('strike_id')
@@ -40,9 +40,9 @@ class Strike(abc.ABC):
             raise EntityError('description')
         self.description = description
 
-        if type(ocurred_date) != int:
-            raise EntityError('ocurred_date')
-        self.ocurred_date = ocurred_date
+        if type(occurred_date) != int:
+            raise EntityError('occurred_date')
+        self.occurred_date = occurred_date
         if type(category) != STRIKE_CATEGORY:
             raise EntityError('category')
         self.category = category
@@ -89,10 +89,10 @@ class Strike(abc.ABC):
         return True
 
     def __repr__(self):
-        return f"<Strike> (strike_id: {self.strike_id}, owner_user_id: {self.owner_user_id}, target_user_id: {self.target_user_id}, applier_user_id: {self.applier_user_id}, ocurred_date: {self.ocurred_date}, category: {self.category}, description: {self.description})"
+        return f"<Strike> (strike_id: {self.strike_id}, owner_user_id: {self.owner_user_id}, target_user_id: {self.target_user_id}, applier_user_id: {self.applier_user_id}, occurred_date: {self.occurred_date}, category: {self.category}, description: {self.description})"
 
     def __eq__(self, other):
         if not isinstance(other, Strike):
             return False
 
-        return self.strike_id == other.strike_id and self.owner_user_id == other.owner_user_id and self.target_user_id == other.target_user_id and self.applier_user_id == other.applier_user_id and self.ocurred_date == other.ocurred_date and self.category == other.category and self.description == other.description
+        return self.strike_id == other.strike_id and self.owner_user_id == other.owner_user_id and self.target_user_id == other.target_user_id and self.applier_user_id == other.applier_user_id and self.occurred_date == other.occurred_date and self.category == other.category and self.description == other.description
