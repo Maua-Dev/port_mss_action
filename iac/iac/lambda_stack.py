@@ -119,6 +119,14 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.delete_strike_function= self.create_lambda_api_gateway_integration(
+            module_name="delete_strike",
+            method="DELETE",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        ) 
+
         self.get_all_projects_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_projects",
             method="GET",
@@ -263,6 +271,7 @@ class LambdaStack(Construct):
                 self.update_action_validation_function,
                 self.update_member_function,
                 self.delete_action_function,
+                self.delete_strike_function,
                 self.download_projects_function,
                 self.download_members_function,
                 self.download_actions_function,
@@ -288,6 +297,7 @@ class LambdaStack(Construct):
                 self.get_history_project_function,
                 self.get_project_function,
                 self.delete_action_function,
+                self.delete_strike_function,
                 self.download_projects_function,
                 self.download_members_function,
                 self.download_actions_function,
