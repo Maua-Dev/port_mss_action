@@ -248,7 +248,7 @@ class MemberRepositoryMock(IMemberRepository):
                 email= "anaju@gmail.com",
                 ra= "25123457",
                 role= ROLE.INTERNAL,
-                stack= STACK.MKT,
+                stack= STACK.INFRA,
                 year= 1,
                 cellphone="11997828565",
                 course= COURSE.ADM,

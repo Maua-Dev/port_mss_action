@@ -244,7 +244,7 @@ class Test_GetAllMembersViewModel:
                          'project': [],
                          'ra': '25123457',
                          'role': 'INTERNAL',
-                         'stack': 'MKT',
+                         'stack': 'INFRA',
                          'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
                          'year': 1}}],
  'message': 'the members were retrieved'}
@@ -490,7 +490,7 @@ class Test_GetAllMembersViewModel:
                          'project': [],
                          'ra': '25123457',
                          'role': 'INTERNAL',
-                         'stack': 'MKT',
+                         'stack': 'INFRA',
                          'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
                          'year': 1}}],
  'message': 'the members were retrieved'}
@@ -723,7 +723,7 @@ class Test_GetAllMembersViewModel:
                          'project': [],
                          'ra': '25123457',
                          'role': 'INTERNAL',
-                         'stack': 'MKT',
+                         'stack': 'INFRA',
                          'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
                          'year': 1}}],
  'message': 'the members were retrieved'}
@@ -954,7 +954,7 @@ class Test_GetAllMembersViewModel:
                          'project': [],
                          'ra': '25123457',
                          'role': 'INTERNAL',
-                         'stack': 'MKT',
+                         'stack': 'INFRA',
                          'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
                          'year': 1}}],
  'message': 'the members were retrieved'}
