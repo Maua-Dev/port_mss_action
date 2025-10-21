@@ -39,6 +39,8 @@ class MemberViewModel:
         self.active = member.active
         self.user_id = member.user_id
         self.photo = member.photo
+        self.strikes = member.strikes
+        self.strikes_allowed = member.strikes_allowed
         self.hours_worked = member.hours_worked
 
 
@@ -58,6 +60,8 @@ class MemberViewModel:
             'deactivated_date' : self.deactivated_date,
             'active' : self.active.value,
             'user_id' : self.user_id,
+            'strikes' : self.strikes,
+            'strikes_allowed' : self.strikes_allowed,
             'photo' : self.photo,
 
         }
