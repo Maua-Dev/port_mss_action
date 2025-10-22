@@ -12,6 +12,7 @@ class LambdaStack(Construct):
 
     functions_that_need_dynamo_permissions = []
     functions_that_need_dynamo_member_permissions = []
+    functions_that_need_dynamo_strike_permissions= []
 
     def create_lambda_api_gateway_integration(self, module_name: str, method: str, api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}, authorizer=None ):
         function = lambda_.Function(
@@ -251,6 +252,11 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.functions_that_need_dynamo_strike_permissions = [
+            self.create_strike_function,
+            self.delete_strike_function,
+        ]
+
         self.functions_that_need_dynamo_permissions = [
                 self.create_action_function,
                 self.create_project_function,
@@ -271,7 +277,6 @@ class LambdaStack(Construct):
                 self.update_action_validation_function,
                 self.update_member_function,
                 self.delete_action_function,
-                self.delete_strike_function,
                 self.download_projects_function,
                 self.download_members_function,
                 self.download_actions_function,
