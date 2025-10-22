@@ -255,6 +255,8 @@ class LambdaStack(Construct):
         self.functions_that_need_dynamo_strike_permissions = [
             self.create_strike_function,
             self.delete_strike_function,
+            self.get_all_members_admin_function,
+            self.get_all_members_function
         ]
 
         self.functions_that_need_dynamo_permissions = [
