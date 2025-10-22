@@ -320,7 +320,7 @@ class Test_GetAllMembersController:
                     'email': 'anaju@gmail.com',
                     'ra': '25123457',
                     'role': 'INTERNAL',
-                    'stack': 'MKT',
+                    'stack': 'INFRA',
                     'project': [],
                     'year': 1,
                     'cellphone': '11997828565',

@@ -51,12 +51,15 @@ class IacStack(Stack):
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
+            "DYNAMO_TABLE_NAME_STRIKE": self.dynamo_stack.dynamo_table_strike.table_name,
             "DYNAMO_TABLE_NAME": self.dynamo_stack.dynamo_table_action.table_name,
             "DYNAMO_TABLE_NAME_MEMBER": self.dynamo_stack.dynamo_table_member.table_name,
             "DYNAMO_PARTITION_KEY": "PK",
             "DYNAMO_SORT_KEY": "SK",
             "DYNAMO_GSI_PARTITION_KEY": "GSI1-PK",
             "DYNAMO_GSI_SORT_KEY": "GSI1-SK",
+            "DYNAMO_GSI_TARGET_PARTITION_KEY": "GSI-TARGET-PK",
+            "DYNAMO_GSI_TARGET_SORT_KEY": "GSI-TARGET-SK",
             "REGION": self.aws_region,
             "REPLY_TO_EMAIL": os.environ.get("REPLY_TO_EMAIL", "dev@maua.br"),
             "FROM_EMAIL": os.environ.get("FROM_EMAIL", "contato@devmaua.com"),
@@ -101,6 +104,9 @@ class IacStack(Stack):
                 "*"
             ]
         )
+
+        for f in self.lambda_stack.functions_that_need_dynamo_strike_permissions:
+            self.dynamo_stack.dynamo_table_strike.grant_read_write_data(f)
 
         for f in self.lambda_stack.functions_that_need_dynamo_permissions:
             self.dynamo_stack.dynamo_table_action.grant_read_write_data(f)

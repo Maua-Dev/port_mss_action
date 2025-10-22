@@ -9,4 +9,3 @@ class STACK(Enum):
     BUSINESS = "BUSINESS"
     INTERNAL = "INTERNAL"
     RH = "RH"
-    MKT = "MKT"
