@@ -20,7 +20,7 @@ class CreateActionUsecase:
         is_valid = True
 
         print('entrou no usecase')
-
+        print(self.repo_member)
         for id in [user_id] + associated_members_user_ids:
             print(f'O id é {id}')
             if not self.repo_member.get_member(id):
