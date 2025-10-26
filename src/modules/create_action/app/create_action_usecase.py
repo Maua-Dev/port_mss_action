@@ -18,15 +18,19 @@ class CreateActionUsecase:
         
         action_id = str(uuid.uuid4())
         is_valid = True
-        
+
         for id in [user_id] + associated_members_user_ids:
             if not self.repo_member.get_member(id):
                 raise UnregisteredUser()
-        action = Action(user_id, start_date, stack_tags, end_date, duration, action_id, is_valid, title, project_code, action_type_tag, associated_members_user_ids, description, story_id)        
+        action = Action(user_id, start_date, stack_tags, end_date, duration, action_id, is_valid, title, project_code, action_type_tag, associated_members_user_ids, description, story_id)  
+
+        print('passou da validacao dos usuarios da lista')      
         
         member = self.repo_member.get_member(user_id)
         if member.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
+        
+        print('passou a validacao do membro para que ele esteja na lista')
         
         self.repo.create_action(action)
         self.repo.create_associated_action(AssociatedAction(action_id, start_date, user_id))
@@ -34,5 +38,7 @@ class CreateActionUsecase:
             for user_id in action.associated_members_user_ids:
                 associated_action = AssociatedAction(action_id, start_date,user_id)
                 self.repo.create_associated_action(associated_action)
+
+        print('passou da criacao da action')
         
         return action
