@@ -20,10 +20,13 @@ class CreateActionUsecase:
         is_valid = True
 
         print('entrou no usecase')
-
+        print(self.repo_member)
         for id in [user_id] + associated_members_user_ids:
+            print(f'O id é {id}')
             if not self.repo_member.get_member(id):
+                print('invaliso')
                 raise UnregisteredUser()
+            print('valido')
         action = Action(user_id, start_date, stack_tags, end_date, duration, action_id, is_valid, title, project_code, action_type_tag, associated_members_user_ids, description, story_id)  
 
         print('passou da validacao dos usuarios da lista')  
