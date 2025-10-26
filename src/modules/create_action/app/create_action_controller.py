@@ -86,6 +86,8 @@ class CreateActionController:
             else:
                 description = None
 
+            print('chegou até o usecase')
+
             action = self.usecase(
                 user_id=requester_user.user_id,
                 start_date=request.data.get('start_date'),
@@ -99,6 +101,8 @@ class CreateActionController:
                 stack_tags=stack_tags,
                 action_type_tag=action_type_tag
             )
+
+            print('chegou até o viewmodel')
             
             viewmodel = CreateActionViewmodel(action=action)
             
