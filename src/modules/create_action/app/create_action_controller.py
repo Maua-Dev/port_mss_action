@@ -31,7 +31,9 @@ class CreateActionController:
             if request.data.get('associated_members_user_ids') is None:
                 raise MissingParameters('associated_members_user_ids')
             
-            
+            print(request.data)
+            print(request.data.get('requester_user'))
+
             if request.data.get('requester_user') is None:
                 raise MissingParameters('requester_user')
             
