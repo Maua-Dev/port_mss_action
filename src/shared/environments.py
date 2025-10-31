@@ -75,6 +75,7 @@ class Environments:
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
             self.dynamo_table_name_member = os.environ.get("DYNAMO_TABLE_NAME_MEMBER")
             self.dynamo_partition_key = os.environ.get("DYNAMO_PARTITION_KEY")
+            self.dynamo_table_name_strike = os.environ.get("DYNAMO_TABLE_NAME_STRIKE")
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
