@@ -18,6 +18,9 @@ class GetMemberController:
                 raise MissingParameters('requester_user')
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            print(request)
+            print(request.data)
             
             start_date = request.data.get('start_date')
             if start_date is not None:
