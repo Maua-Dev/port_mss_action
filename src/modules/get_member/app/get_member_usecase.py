@@ -29,6 +29,8 @@ class GetMemberUsecase:
             raise UnregisteredUser()
         
         is_active = Member.validate_active(member.active)
+
+        print("passou da validacao do isactive")
         
         if start_date is None :
             now = datetime.now()
@@ -91,8 +93,12 @@ class GetMemberUsecase:
             start_sem= Decimal(datetime(year, 7, 1).timestamp() * 1000)
             end_sem= Decimal(datetime(year, 12, 31).timestamp() * 1000)
 
+        print("chegou até antes de pegar os strikes")
+
         #puxa os strikes do usuário
         target_user_list_strike= self.strike_repo.get_strike_by_target_id(target_user_id= member_user_id)
+
+        print("conseguiu puxar os strikes do usuario")
         
         #puxa todos os projetos
         projects= self.action_repo.get_all_projects()
@@ -120,6 +126,8 @@ class GetMemberUsecase:
                 member.strikes_allowed= 4
             
             member.strikes= len(target_user_list_strike_this_sem)
+
+        print("passou da logica dos strikes")
 
         if not is_active:
             raise UserNotAllowed()
