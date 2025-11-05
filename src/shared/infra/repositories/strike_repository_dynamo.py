@@ -26,7 +26,8 @@ class StrikeRepositoryDynamo(IStrikeRepository):
             region=Environments.get_envs().region,
             partition_key=Environments.get_envs().dynamo_partition_key,
             sort_key=Environments.get_envs().dynamo_sort_key,
-            gsi_partition_key=Environments.get_envs().dynamo_gsi_strike_partition_key
+            gsi_partition_key=Environments.get_envs().dynamo_gsi_strike_partition_key,
+            gsi_sort_key=Environments.get_envs().dynamo_gsi_strike_sort_key
         )
 
     def create_strike(self, strike: Strike) -> Strike:

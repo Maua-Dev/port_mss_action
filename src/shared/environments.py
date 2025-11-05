@@ -55,7 +55,8 @@ class Environments:
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
-            self.dynamo_gsi_strike_partition_key = "GSI-STRIKE-PK"
+            self.dynamo_gsi_strike_partition_key = "GSI-TARGET-PK",
+            self.dynamo_gsi_strike_sort_key= "GSI-TARGET-SK",
             self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_member_report = "https://d3q9q9q9q9q9q9.cloudfront.net"
