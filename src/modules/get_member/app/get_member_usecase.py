@@ -17,6 +17,8 @@ class GetMemberUsecase:
         self.action_repo = action_repo
         
     def __call__(self,user_id: str, start_date: Optional[int] = None, end_date: Optional[int] = None) -> Member:
+
+        print("entoru no usecase")
     
         if not Member.validate_user_id(user_id):
             raise EntityError('user_id')
