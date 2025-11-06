@@ -35,9 +35,10 @@ class GetMemberController:
             print("chegou até antes do usecase")
 
             member = self.usecase(user_id=requester_user.user_id, start_date=start_date, end_date=end_date)
+
             viewmodel = GetMemberViewModel(member=member)
 
-            print("passou do usecase")
+            print("chegou no final")
 
 
             return OK(viewmodel.to_dict())

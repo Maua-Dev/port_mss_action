@@ -29,8 +29,6 @@ class GetMemberUsecase:
             raise UnregisteredUser()
         
         is_active = Member.validate_active(member.active)
-
-        print("passou da validacao do isactive")
         
         if start_date is None :
             now = datetime.now()
@@ -128,8 +126,12 @@ class GetMemberUsecase:
             member.strikes= len(target_user_list_strike_this_sem)
 
         print("passou da logica dos strikes")
+        print(member.strikes_allowed)
+        print(member.strikes)
 
         if not is_active:
             raise UserNotAllowed()
+        
+        print("passou da validacao do isactive")
         
         return member
