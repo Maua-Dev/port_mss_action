@@ -94,7 +94,7 @@ class GetMemberUsecase:
         print("chegou até antes de pegar os strikes")
 
         #puxa os strikes do usuário
-        target_user_list_strike= self.strike_repo.get_strike_by_target_id(target_user_id= member_user_id)
+        target_user_list_strike= self.strike_repo.get_strike_by_target_id(target_user_id= member_user_id) or []
 
         print("conseguiu puxar os strikes do usuario")
         
@@ -102,12 +102,10 @@ class GetMemberUsecase:
         projects= self.action_repo.get_all_projects()
         
         #verifica se o usuário tem strikes neste semestre
-        # COMENTEI A LINHA DE BAIXO
-        if target_user_list_strike: 
-            target_user_list_strike_this_sem= [
-                s for s in target_user_list_strike
-                if start_sem <= s.occurred_date <= end_sem
-            ]
+        target_user_list_strike_this_sem= [
+            s for s in target_user_list_strike
+            if start_sem <= s.occurred_date <= end_sem
+        ]
 
         #se tiver, conta quantos projetos ele está envolvido
         total_projects= 0
@@ -124,17 +122,8 @@ class GetMemberUsecase:
         if(total_projects >= 3):
             member.strikes_allowed= 4
         
-        if target_user_list_strike:
-            member.strikes= len(target_user_list_strike_this_sem)
         
-        else:
-            member.strikes= 0
-
-        print("passou da logica dos strikes")
-        print(member.strikes_allowed)
-        print(member.strikes)
-
-        print(is_active)
+        member.strikes= len(target_user_list_strike_this_sem)
 
         if not is_active:
             raise UserNotAllowed()

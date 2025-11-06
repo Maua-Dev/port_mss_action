@@ -26,6 +26,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Ausência injustificada em projeto crítico"
             ),
+            
             Strike(
                 strike_id="c3d4e5f6-g7h8-9012-3456-789012cdefgh",
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -142,6 +143,24 @@ class StrikeRepositoryMock(IStrikeRepository):
                 occurred_date=1756987200000,  # 2025-09-04
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Uso pessoal excessivo de recursos corporativos"
+            ),
+            Strike(
+                strike_id="p6q7r8s9-t0u1-2345-6789-012345pqrstu",
+                owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
+                target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.OTHER,
+                description="Falha na documentação de processos críticos"
+            ),
+            Strike(
+                strike_id="q7r8s9t0-u1v2-3456-7890-123456qrstuv",
+                owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
+                target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
+                occurred_date=1756987200000,  # 2025-09-4
+                category=STRIKE_CATEGORY.MISCONDUCT,
+                description="Assédio moral reportado por múltiplas pessoas"
             ),
             Strike(
                 strike_id="p6q7r8s9-t0u1-2345-6789-012345pqrstu",
