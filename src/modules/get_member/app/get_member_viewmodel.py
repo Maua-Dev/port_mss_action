@@ -45,6 +45,8 @@ class GetMemberViewModel:
         self.strikes = member.strikes
         self.strikes_allowed = member.strikes_allowed
 
+    print("conseguiu dar o init no viewmodel")
+
     def to_dict(self):
         return {
             'member':{
