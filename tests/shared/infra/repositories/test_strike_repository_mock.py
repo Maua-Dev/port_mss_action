@@ -27,7 +27,7 @@ class TestStrikeRepositoryMock:
         
         # Assert
         assert result == self.sample_strike
-        assert len(self.repo.strikes) == 21  # 20 exemplos + 1 novo
+        assert len(self.repo.strikes) == 23  # 22 exemplos + 1 novo
         assert self.sample_strike in self.repo.strikes
 
     def test_get_all(self):
@@ -35,7 +35,7 @@ class TestStrikeRepositoryMock:
         result = self.repo.get_all()
         
         # Assert
-        assert len(result) == 20  # Os 20 exemplos iniciais
+        assert len(result) == 22  # Os 22 exemplos iniciais
         assert isinstance(result, list)
         
     def test_get_all_should_return_copy_not_original_list(self):
@@ -125,9 +125,9 @@ class TestStrikeRepositoryMock:
         assert first_removal is not None
         assert second_removal is None  # Já foi removido
 
-    def test_repository_should_start_with_20_examples(self):
+    def test_repository_should_start_with_22_examples(self):
         # Assert
-        assert len(self.repo.strikes) == 20
+        assert len(self.repo.strikes) == 22
         
         # Verifica se tem strikes de todas as categorias
         categories = {strike.category for strike in self.repo.strikes}
@@ -181,7 +181,7 @@ class TestStrikeRepositoryMock:
         self.repo.create_strike(strike2)
         
         # Assert
-        assert len(self.repo.strikes) == 22  # 20 + 2
+        assert len(self.repo.strikes) == 24  # 20 + 2
         assert self.repo.find_by_id(strike1.strike_id) == strike1
         assert self.repo.find_by_id(strike2.strike_id) == strike2
 

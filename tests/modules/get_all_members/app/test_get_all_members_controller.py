@@ -155,8 +155,9 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
                     'photo': None,
-                    'strikes': 2,
+                    'strikes': 4,
                     'strikes_allowed': 2
+                    # alterei
                 }
             },
             {

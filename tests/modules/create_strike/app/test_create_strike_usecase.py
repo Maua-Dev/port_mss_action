@@ -27,7 +27,7 @@ class Test_CreateStrikeUsecase:
         assert returned_strike[0].target_user_id == "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
         assert returned_strike[0].applier_user_id == "3b07232f-4f65-42c6-b005-242550b8b8bf"
     
-    def test_create_strike_usecase_user_has_3_strikes_and_is_in_0_projects(self):
+    def test_create_strike_usecase_user_has_4_strikes_and_is_in_4_projects(self):
         repo= StrikeRepositoryMock()
         repo_member= MemberRepositoryMock()
         repo_action= ActionRepositoryMock()
