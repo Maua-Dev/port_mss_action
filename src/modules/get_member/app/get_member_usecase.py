@@ -102,28 +102,29 @@ class GetMemberUsecase:
         projects= self.action_repo.get_all_projects()
         
         #verifica se o usuário tem strikes neste semestre
-        if target_user_list_strike:
-            target_user_list_strike_this_sem= [
-                s for s in target_user_list_strike
-                if start_sem <= s.occurred_date <= end_sem
-            ]
+        # COMENTEI A LINHA DE BAIXO
+        # if target_user_list_strike: 
+        target_user_list_strike_this_sem= [
+            s for s in target_user_list_strike
+            if start_sem <= s.occurred_date <= end_sem
+        ]
 
-            #se tiver, conta quantos projetos ele está envolvido
-            total_projects= 0
+        #se tiver, conta quantos projetos ele está envolvido
+        total_projects= 0
 
-            for project in projects:
-                if member_user_id in project.members_user_ids:
-                    total_projects+= 1
+        for project in projects:
+            if member_user_id in project.members_user_ids:
+                total_projects+= 1
 
-            #verifica quantidade de strikes permitidos conforme a quantidade de projetos
-            if(total_projects in [0,1]):
-                member.strikes_allowed= 2
-            if(total_projects == 2):
-                member.strikes_allowed= 3
-            if(total_projects >= 3):
-                member.strikes_allowed= 4
-            
-            member.strikes= len(target_user_list_strike_this_sem)
+        #verifica quantidade de strikes permitidos conforme a quantidade de projetos
+        if(total_projects in [0,1]):
+            member.strikes_allowed= 2
+        if(total_projects == 2):
+            member.strikes_allowed= 3
+        if(total_projects >= 3):
+            member.strikes_allowed= 4
+        
+        member.strikes= len(target_user_list_strike_this_sem)
 
         print("passou da logica dos strikes")
         print(member.strikes_allowed)
