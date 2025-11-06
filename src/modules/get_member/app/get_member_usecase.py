@@ -129,6 +129,8 @@ class GetMemberUsecase:
         print(member.strikes_allowed)
         print(member.strikes)
 
+        print(is_active)
+
         if not is_active:
             raise UserNotAllowed()
         
