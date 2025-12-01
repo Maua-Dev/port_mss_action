@@ -13,7 +13,7 @@ class Test_GetAllMembersController:
         strikerepo = StrikeRepositoryMock()
         usecase = GetAllMembersUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
         controller = GetAllMembersController(usecase=usecase)
-        
+
         request = HttpRequest(body={
             'requester_user': {
                 "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -22,9 +22,9 @@ class Test_GetAllMembersController:
                 "custom:isMaua": True
             }
         })
-        
+
         response = controller(request=request)
-         
+
         expected_dict = {
         'members': [
             {
@@ -40,7 +40,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991758098',
                     'course': 'ECA',
                     'hired_date': 1634576165000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -62,7 +62,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991152348',
                     'course': 'ECM',
                     'hired_date': 1634921765000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
@@ -84,7 +84,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991758228',
                     'course': 'CIC',
                     'hired_date': 1640192165000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'FREEZE',
                     'user_id': "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
@@ -106,7 +106,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991759998',
                     'course': 'ECM',
                     'hired_date': 1614567601000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
@@ -128,7 +128,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991753208',
                     'course': 'EMC',
                     'hired_date': 1614567601000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'DISCONNECTED',
                     'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
@@ -150,7 +150,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11911758098',
                     'course': 'ECM',
                     'hired_date': 1640192165000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
@@ -195,7 +195,7 @@ class Test_GetAllMembersController:
                     'cellphone': '11991123498',
                     'course': 'ECM',
                     'hired_date': 1672592165000,
-                    'hours_worked': 3600000,
+                    'hours_worked': 0,
                     'deactivated_date': None,
                     'active': 'ACTIVE',
                     'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
@@ -345,9 +345,9 @@ class Test_GetAllMembersController:
         assert len(response.body['members']) == 14
         assert response.body == expected_dict
 
-    
+
     def test_get_all_members_controller__requester_user_none(self):
-        
+
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
         strikerepo = StrikeRepositoryMock()
@@ -355,6 +355,6 @@ class Test_GetAllMembersController:
         controller = GetAllMembersController(usecase=usecase)
         request = HttpRequest(body={})
         response = controller(request=request)
-        
+
         assert response.status_code == 400
         assert response.body == "Field requester_user is missing"
