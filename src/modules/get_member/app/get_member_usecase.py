@@ -77,22 +77,6 @@ class GetMemberUsecase:
         member.hours_worked = hours_worked.get(member_user_id, 0)
         member.project = member_projects.get(member_user_id, [])
 
-       
-
-        #verifica se estamos no semestre 1 ou 2
-        now= datetime.now()
-        year= now.year
-
-        if now.month <= 6:
-            start_sem= Decimal(datetime(year, 1, 1).timestamp() * 1000)
-            end_sem= Decimal(datetime(year, 6, 30).timestamp() * 1000)
-
-        else:
-            start_sem= Decimal(datetime(year, 7, 1).timestamp() * 1000)
-            end_sem= Decimal(datetime(year, 12, 31).timestamp() * 1000)
-
-        print("chegou até antes de pegar os strikes")
-
         #puxa os strikes do usuário
         target_user_list_strike= self.strike_repo.get_strike_by_target_id(target_user_id= member_user_id) or []
 
@@ -104,7 +88,7 @@ class GetMemberUsecase:
         #verifica se o usuário tem strikes neste semestre
         target_user_list_strike_this_sem= [
             s for s in target_user_list_strike
-            if start_sem <= s.occurred_date <= end_sem
+            if start_date <= s.occurred_date <= end_date
         ]
 
         #se tiver, conta quantos projetos ele está envolvido

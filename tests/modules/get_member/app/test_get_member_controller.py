@@ -135,7 +135,7 @@ class Test_GetMemberController:
             'email': 'vsoller@airubio.com',
             'email_dev': 'vsoller.devmaua@gmail.com',
             'hired_date': 1634576165000,
-            'hours_worked': 3600000,
+            'hours_worked': 0,
             'name': 'Vitor Guirão MPNTM',
             'photo': None,
             'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],

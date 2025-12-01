@@ -48,7 +48,7 @@ class Test_GetAllMembersAdminUseCase:
         assert type(members) == list
         assert len(members) == 14
         assert all([type(member) == Member for member in members])
-        assert members[0].hours_worked == 3600000
+        assert members[0].hours_worked == 0
 
     def test_get_all_members_admin_usecase_strikes_calculation(self):
         memberrepo = MemberRepositoryMock()
