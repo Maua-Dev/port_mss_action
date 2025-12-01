@@ -111,7 +111,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 4,
                     'strikes_allowed': 2
                 }
             },
@@ -133,7 +133,7 @@ class Test_GetAllMembersController:
                     'active': 'DISCONNECTED',
                     'user_id': "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 4,
                     'strikes_allowed': 2
                 }
             },
@@ -155,7 +155,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "7gh5yf5H-857H-1234-75hng-94832hvng1s",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 4,
                     'strikes_allowed': 2
                     # alterei
                 }
@@ -178,7 +178,7 @@ class Test_GetAllMembersController:
                     'active': 'FREEZE',
                     'user_id': "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 3,
                     'strikes_allowed': 2
                 }
             },
@@ -200,7 +200,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "75648hbr-184n-1985-91han-7ghn4HgF182",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 3,
                     'strikes_allowed': 2
                 }
             },
@@ -222,7 +222,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "9183jBnh-997H-1010-10god-914gHy46tBh",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 3,
                     'strikes_allowed': 2
                 }
             },
