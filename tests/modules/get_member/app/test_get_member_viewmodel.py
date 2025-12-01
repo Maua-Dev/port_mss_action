@@ -33,6 +33,7 @@ class Test_GetMemberViewModel:
             'role': 'DIRECTOR',
             'stack': 'INFRA',
             'strikes': 0,
+            'strikes_id': [],
             'strikes_allowed': 4,
             'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'year': 1},
