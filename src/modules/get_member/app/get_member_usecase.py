@@ -109,6 +109,8 @@ class GetMemberUsecase:
         
         member.strikes= len(target_user_list_strike_this_sem)
 
+        member.strikes_id= [s.strike_id for s in target_user_list_strike_this_sem]
+
         if not is_active:
             raise UserNotAllowed()
         
