@@ -22,7 +22,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Ausência injustificada em projeto crítico"
             ),
@@ -32,7 +32,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Violação das políticas de segurança da informação"
             ),
@@ -41,7 +41,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.OTHER,
                 description="Uso inadequado de recursos da empresa"
             ),
@@ -68,7 +68,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Acesso não autorizado a sistemas"
             ),
@@ -77,7 +77,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.OTHER,
                 description="Descumprimento do código de conduta"
             ),
@@ -86,7 +86,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1764622800000,  # 01/12/2025 às 18:00
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Conflito de interesses não declarado"
             ),

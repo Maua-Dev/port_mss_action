@@ -65,13 +65,22 @@ class CreateStrikeUsecase:
         now= datetime.now()
         year= now.year
 
-        if now.month <= 6:
-            start_sem= Decimal(datetime(year, 1, 1).timestamp() * 1000)
-            end_sem= Decimal(datetime(year, 6, 30).timestamp() * 1000)
 
-        else:
-            start_sem= Decimal(datetime(year, 7, 1).timestamp() * 1000)
-            end_sem= Decimal(datetime(year, 12, 31).timestamp() * 1000)
+        if (now.month <= 6) or (now.month == 12):
+            if (now.month <= 6): 
+                start_date = datetime(year-1, 12, 1).timestamp() * 1000
+                end_date = datetime(year, 6, 30).timestamp() * 1000
+
+            else:
+                start_date = datetime(year, 12, 1).timestamp() * 1000
+                end_date = datetime(year+1, 6, 30).timestamp() * 1000
+
+        else:  
+            start_date = datetime(year, 7, 1).timestamp() * 1000
+            end_date = datetime(year, 11, 30).timestamp() * 1000 
+
+        start_date, end_date = Decimal(start_date), Decimal(end_date)
+        
 
         created_strike= self.repo.create_strike(strike=strike)
 
@@ -82,7 +91,7 @@ class CreateStrikeUsecase:
         
         target_user_list_strike_this_sem= [
             s for s in taget_user_list_stike
-            if start_sem <= s.occurred_date <= end_sem 
+            if start_date <= s.occurred_date <= end_date 
         ]
 
         total_projects= 0
@@ -94,15 +103,15 @@ class CreateStrikeUsecase:
         
         if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > 2) or (total_projects == 2 and len(target_user_list_strike_this_sem) > 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > 4):
 
-            target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_sem, end_date=end_sem)
+            target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_date, end_date=end_date)
 
             action_id= str(uuid.uuid4())
 
             strike_action=Action(
                 user_id=target_user_id,
-                start_date=(int(start_sem) + target_user_hours_workerd),
+                start_date=(int(start_date) + target_user_hours_workerd),
                 stack_tags=[target_user.stack],
-                end_date=int(start_sem),
+                end_date=int(start_date),
                 duration=-target_user_hours_workerd,
                 action_id=action_id,
                 is_valid=True,
