@@ -26,7 +26,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Ausência injustificada em projeto crítico"
             ),
-            
+
             Strike(
                 strike_id="c3d4e5f6-g7h8-9012-3456-789012cdefgh",
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -220,7 +220,7 @@ class StrikeRepositoryMock(IStrikeRepository):
     def find_by_id(self, strike_id: str) -> Optional[Strike]:
         if not strike_id:
             return None
-       
+
         for strike in self.strikes:
             if strike.strike_id == strike_id:
                 return strike
@@ -229,24 +229,24 @@ class StrikeRepositoryMock(IStrikeRepository):
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
         if not strike_id:
             return None
-            
+
         for i, strike in enumerate(self.strikes):
             if strike.strike_id == strike_id:
                 return self.strikes.pop(i)
         return None
-    
+
     def get_strike_by_target_id(self, target_user_id: str) -> Optional[List[Strike]]:
         if not target_user_id:
               return None
-         
+
         list_of_stikes=[]
-    
+
         for strike in self.strikes:
             if strike.target_user_id == target_user_id:
                 list_of_stikes.append(strike)
 
         if len(list_of_stikes) > 0:
             return list_of_stikes
-        
+
         else:
             return None

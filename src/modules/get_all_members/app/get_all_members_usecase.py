@@ -13,12 +13,12 @@ class GetAllMembersUsecase:
         self.memberrepo = memberrepo
         self.actionrepo = actionrepo
         self.strikerepo = strikerepo
-        
+
     def __call__(self,user_id: str, start_date: Optional[int] = None, end_date: Optional[int] = None) -> list:
         member = self.memberrepo.get_member(user_id)
         if member is None:
             raise NoItemsFound('user_id')
-        
+
         is_active = Member.validate_active(member.active)
         is_admin = Member.validate_role_admin(member.role) or Member.validate_role_external(member.role)
 
@@ -54,12 +54,12 @@ class GetAllMembersUsecase:
 
         members = self.memberrepo.get_all_members()
         projects = self.actionrepo.get_all_projects()
-        
+
         member_projects = {member.user_id: [] for member in members}
-        
+
         for member in members:
             member_user_id = member.user_id
-            
+
             member_list_strikes = self.strikerepo.get_strike_by_target_id(target_user_id=member_user_id)
             if member_list_strikes:
                 member_list_strike_this_sem = [
@@ -68,7 +68,7 @@ class GetAllMembersUsecase:
                 ]
 
             total_projects= len(member_projects[member_user_id])
-            
+
             if(total_projects in [0,1]):
                 member.strikes_allowed= 2
             if(total_projects == 2):
@@ -79,11 +79,11 @@ class GetAllMembersUsecase:
             member.strikes= len(member_list_strike_this_sem)
             member.hours_worked = hours_worked.get(member_user_id, 0) if is_admin else None
             member.project = member_projects[member_user_id]
-            
-            
-            
+
+
+
         if not is_active:
             raise UserNotAllowed()
-        
-        
+
+
         return members

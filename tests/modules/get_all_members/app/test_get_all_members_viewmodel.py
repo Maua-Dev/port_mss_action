@@ -270,8 +270,8 @@ class Test_GetAllMembersViewModel:
                          'year': 1}}],
  'message': 'the members were retrieved'}
         assert viewmodel == expected
-        
-        
+
+
     def test_get_all_members_viewmodel_no_start_and_end_date_admin(self):
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
@@ -538,7 +538,7 @@ class Test_GetAllMembersViewModel:
 
         print(viewmodel)
         assert viewmodel == expected
-        
+
     def test_get_all_members_viewmodel_user(self):
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
@@ -548,7 +548,7 @@ class Test_GetAllMembersViewModel:
 
         viewmodel = GetAllMembersViewmodel(members).to_dict()
         pprint(viewmodel)
-        
+
         expected = {'members': [{'member': {'active': 'ACTIVE',
                          'cellphone': '11991758098',
                          'course': 'ECA',

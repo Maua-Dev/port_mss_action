@@ -12,7 +12,7 @@ class GetMemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
-    project: Optional[List] 
+    project: Optional[List]
     year: int
     cellphone: str
     course: COURSE
@@ -25,7 +25,7 @@ class GetMemberViewModel:
     strikes: int
     strikes_id: List[str]
     strikes_allowed: int
-    
+
     def __init__(self, member: Member):
         self.name = member.name
         self.email_dev = member.email_dev

@@ -13,7 +13,7 @@ class Test_GetMemberController:
     first_member = member_repo.members[0]
     usecase = GetMemberUsecase(member_repo = member_repo, action_repo = action_repo, strike_repo = strike_repo)
     controller = GetMemberController(usecase)
-    
+
     def test_get_member_controller(self):
         request = HttpRequest(
             body={
@@ -23,11 +23,11 @@ class Test_GetMemberController:
                     "email": self.first_member.email,
                     "custom:isMaua": True
                 },
-                'start_date': 1624576165000,	
+                'start_date': 1624576165000,
                 'end_date': 1690046000000
             }
         )
-        
+
         expected_dict = {'member': {'active': 'ACTIVE',
             'cellphone': '11991758098',
             'course': 'ECA',
@@ -48,14 +48,14 @@ class Test_GetMemberController:
             'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'year': 1},
  'message': 'the member was retrieved'}
-        
+
         response = self.controller(request)
-        
+
         pprint(response.body)
 
         assert response.status_code == 200
         assert response.body == expected_dict
-        
+
     def test_get_controller_with_invalid_id(self):
         request = HttpRequest(
             body={
@@ -113,7 +113,7 @@ class Test_GetMemberController:
         )
 
         response = self.controller(request)
-        
+
         assert response.status_code == 400
         assert response.body == "Field requester_user is missing"
 
@@ -149,9 +149,9 @@ class Test_GetMemberController:
             'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
             'year': 1},
  'message': 'the member was retrieved'}
-        
+
         response = self.controller(request)
-        
+
         pprint(response.body)
 
         assert response.status_code == 200

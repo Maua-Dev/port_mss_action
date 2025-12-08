@@ -13,7 +13,7 @@ class Test_GetAllMembersController:
         strikerepo = StrikeRepositoryMock()
         usecase = GetAllMembersUsecase(memberrepo=memberrepo, actionrepo=actionrepo, strikerepo=strikerepo)
         controller = GetAllMembersController(usecase=usecase)
-        
+
         request = HttpRequest(body={
             'requester_user': {
                 "sub": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
@@ -22,9 +22,9 @@ class Test_GetAllMembersController:
                 "custom:isMaua": True
             }
         })
-        
+
         response = controller(request=request)
-         
+
         expected_dict = {
         'members': [
             {
@@ -345,9 +345,9 @@ class Test_GetAllMembersController:
         assert len(response.body['members']) == 14
         assert response.body == expected_dict
 
-    
+
     def test_get_all_members_controller__requester_user_none(self):
-        
+
         memberrepo = MemberRepositoryMock()
         actionrepo = ActionRepositoryMock()
         strikerepo = StrikeRepositoryMock()
@@ -355,6 +355,6 @@ class Test_GetAllMembersController:
         controller = GetAllMembersController(usecase=usecase)
         request = HttpRequest(body={})
         response = controller(request=request)
-        
+
         assert response.status_code == 400
         assert response.body == "Field requester_user is missing"
