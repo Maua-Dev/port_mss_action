@@ -13,17 +13,14 @@ class GetStrikeUsecase:
 
     def __call__(self, strike_id: str, user_id: str):
 
+        requester_user = self.repo_member.get_member(user_id=user_id)
+
         # 1. Validação do Usuário Solicitante (Segurança)
-        if self.repo_member.get_member(user_id=user_id) is None:
+        if requester_user is None:
             raise UnregisteredUser()
 
-        user = self.repo_member.get_member(user_id=user_id)
-        if user.active != ACTIVE.ACTIVE:
+        if requester_user.active != ACTIVE.ACTIVE:
             raise UserNotAllowed()
-
-        # 2. Validação do ID do Strike
-        if type(strike_id) is not str:
-            raise WrongTypeParameter('strike_id', 'str', type(strike_id))
 
         if not Strike.validate_strike_id(strike_id):
             raise EntityError('strike_id')

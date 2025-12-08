@@ -25,9 +25,14 @@ class GetStrikeController:
 
             requester_user = UserApiGatewayDTO.from_api_gateway(requester_user)
 
+            strike_id= request.data.get('strike_id')
+
+            if type(strike_id) is not str:
+                raise WrongTypeParameter('strike_id', 'str', type(strike_id))
+
             # Execução do caso de uso
             strike = self.usecase(
-                strike_id=request.data.get('strike_id'),
+                strike_id=strike_id,
                 user_id=requester_user.user_id
             )
 

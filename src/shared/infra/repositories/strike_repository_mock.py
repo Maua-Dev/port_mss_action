@@ -239,14 +239,14 @@ class StrikeRepositoryMock(IStrikeRepository):
         if not target_user_id:
               return None
 
-        list_of_stikes=[]
+        list_of_strikes=[]
 
         for strike in self.strikes:
             if strike.target_user_id == target_user_id:
-                list_of_stikes.append(strike)
+                list_of_strikes.append(strike)
 
-        if len(list_of_stikes) > 0:
-            return list_of_stikes
+        if len(list_of_strikes) > 0:
+            return list_of_strikes
 
         else:
             return None

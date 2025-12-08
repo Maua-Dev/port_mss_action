@@ -5,10 +5,10 @@ from src.shared.domain.enums.strike_category import STRIKE_CATEGORY
 from src.shared.infra.repositories.strike_repository_dynamo import StrikeRepositoryDynamo
 
 
-class Test_StikeRepositoryDynamo:
+class Test_StrikeRepositoryDynamo:
 
     @pytest.mark.skip("Can't run test in github actions")
-    def test_create_stike(self):
+    def test_create_strike(self):
         repo= StrikeRepositoryDynamo()
 
         strike= Strike(

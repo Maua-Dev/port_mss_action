@@ -84,13 +84,13 @@ class CreateStrikeUsecase:
 
         created_strike= self.repo.create_strike(strike=strike)
 
-        taget_user_list_stike= self.repo.get_strike_by_target_id(target_user_id=target_user_id) or []
+        taget_user_list_strike= self.repo.get_strike_by_target_id(target_user_id=target_user_id) or []
 
         projects= self.repo_action.get_all_projects()
 
         
         target_user_list_strike_this_sem= [
-            s for s in taget_user_list_stike
+            s for s in taget_user_list_strike
             if start_date <= s.occurred_date <= end_date 
         ]
 
