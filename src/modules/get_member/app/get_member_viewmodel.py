@@ -12,7 +12,7 @@ class GetMemberViewModel:
     ra: str
     role: ROLE
     stack: STACK
-    project: Optional[List] 
+    project: Optional[List]
     year: int
     cellphone: str
     course: COURSE
@@ -23,8 +23,9 @@ class GetMemberViewModel:
     photo: Optional[str] = None
     hours_worked: int
     strikes: int
+    strikes_id: List[str]
     strikes_allowed: int
-    
+
     def __init__(self, member: Member):
         self.name = member.name
         self.email_dev = member.email_dev
@@ -43,6 +44,7 @@ class GetMemberViewModel:
         self.photo = member.photo
         self.hours_worked = member.hours_worked
         self.strikes = member.strikes
+        self.strikes_id = member.strikes_id
         self.strikes_allowed = member.strikes_allowed
 
     print("conseguiu dar o init no viewmodel")
@@ -67,6 +69,7 @@ class GetMemberViewModel:
                 'photo' : self.photo,
                 'hours_worked' : self.hours_worked,
                 'strikes' : self.strikes,
+                'strikes_id' : self.strikes_id,
                 'strikes_allowed' : self.strikes_allowed
             },
             "message" : "the member was retrieved"

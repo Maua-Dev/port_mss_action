@@ -32,7 +32,7 @@ class Test_DeleteStrikePresenter:
                 "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 "target_user_id": "7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1756987200000,
+                "occurred_date": 1764622800000,
                 "category": "MISCONDUCT",
                 "description": "Comportamento inadequado durante reunião",
                 "is_valid": True

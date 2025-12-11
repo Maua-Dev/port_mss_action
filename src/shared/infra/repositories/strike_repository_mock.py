@@ -13,7 +13,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Comportamento inadequado durante reunião"
             ),
@@ -22,17 +22,17 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Ausência injustificada em projeto crítico"
             ),
-            
+
             Strike(
                 strike_id="c3d4e5f6-g7h8-9012-3456-789012cdefgh",
                 owner_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Violação das políticas de segurança da informação"
             ),
@@ -41,7 +41,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.OTHER,
                 description="Uso inadequado de recursos da empresa"
             ),
@@ -68,7 +68,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Acesso não autorizado a sistemas"
             ),
@@ -77,7 +77,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.OTHER,
                 description="Descumprimento do código de conduta"
             ),
@@ -86,7 +86,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1756987200000,  # 2025-09-4 
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Conflito de interesses não declarado"
             ),
@@ -113,7 +113,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
                 target_user_id="75648hbr-184n-1985-91han-7ghn4HgF182",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.OTHER,
                 description="Negligência na manutenção de equipamentos"
             ),
@@ -122,7 +122,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="75648hbr-184n-1985-91han-7ghn4HgF182",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Discriminação no ambiente de trabalho"
             ),
@@ -131,7 +131,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Falta de participação em treinamentos obrigatórios"
             ),
@@ -140,7 +140,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-04
+                occurred_date=1764622800000,  # 2025-09-04
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Uso pessoal excessivo de recursos corporativos"
             ),
@@ -149,7 +149,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.OTHER,
                 description="Falha na documentação de processos críticos"
             ),
@@ -158,7 +158,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.MISCONDUCT,
                 description="Assédio moral reportado por múltiplas pessoas"
             ),
@@ -167,7 +167,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
                 target_user_id="75648hbr-184n-1985-91han-7ghn4HgF182",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1756987200000,  # 2025-09-4
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.OTHER,
                 description="Falha na documentação de processos críticos"
             ),
@@ -220,7 +220,7 @@ class StrikeRepositoryMock(IStrikeRepository):
     def find_by_id(self, strike_id: str) -> Optional[Strike]:
         if not strike_id:
             return None
-       
+
         for strike in self.strikes:
             if strike.strike_id == strike_id:
                 return strike
@@ -229,24 +229,24 @@ class StrikeRepositoryMock(IStrikeRepository):
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
         if not strike_id:
             return None
-            
+
         for i, strike in enumerate(self.strikes):
             if strike.strike_id == strike_id:
                 return self.strikes.pop(i)
         return None
-    
+
     def get_strike_by_target_id(self, target_user_id: str) -> Optional[List[Strike]]:
         if not target_user_id:
               return None
-         
-        list_of_stikes=[]
-    
+
+        list_of_strikes=[]
+
         for strike in self.strikes:
             if strike.target_user_id == target_user_id:
-                list_of_stikes.append(strike)
+                list_of_strikes.append(strike)
 
-        if len(list_of_stikes) > 0:
-            return list_of_stikes
-        
+        if len(list_of_strikes) > 0:
+            return list_of_strikes
+
         else:
             return None
