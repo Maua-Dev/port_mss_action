@@ -318,6 +318,7 @@ class LambdaStack(Construct):
                 self.download_projects_function,
                 self.download_members_function,
                 self.download_actions_function,
+                self.get_strike_function
         ]
         
         self.functions_that_need_ses_permissions = [
