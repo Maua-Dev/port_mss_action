@@ -1,4 +1,4 @@
-from src.modules.delete_strike.app.delete_strike_viewmodel import DeleteStrikeViewModel
+from .delete_strike_viewmodel import DeleteStrikeViewModel
 from src.shared.domain.entities.strike import Strike
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
