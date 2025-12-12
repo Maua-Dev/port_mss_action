@@ -1,5 +1,5 @@
-from src.modules.delete_strike.app.delete_strike_controller import DeleteStrikeController
-from src.modules.delete_strike.app.delete_strike_usecase import DeleteStrikeUseCase
+from .delete_strike_controller import DeleteStrikeController
+from .delete_strike_usecase import DeleteStrikeUseCase
 from src.shared.environments import Environments
 from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHttpRequest, LambdaHttpResponse
 
