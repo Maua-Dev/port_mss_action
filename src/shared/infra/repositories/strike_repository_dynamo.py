@@ -38,8 +38,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
 
         resp = self.dynamo.put_item(
             item=item,
-            partition_key=self.strike_partition_key_format(strike.strike_id),
-            sort_key=strike.applier_user_id  # Assumindo que SK é o applier_user_id
+            partition_key=self.strike_partition_key_format(strike.strike_id)
         )
 
         return strike
@@ -81,7 +80,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
             key_condition_expression='#gsi_pk = :target_id',
             ExpressionAttributeNames={'#gsi_pk': 'GSI-TARGET-PK'},
             ExpressionAttributeValues={':target_id': self.gsi_strike_partition_key_format(target_user_id)},
-            IndexName='GSI-TARGET'
+            IndexName='GSI-TARGET-PK'
         )
 
         items = response.get('Items', [])
