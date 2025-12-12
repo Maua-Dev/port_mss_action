@@ -410,15 +410,15 @@ class ActionRepositoryDynamo(IActionRepository):
             Attr('end_date').lte(end_date)
         )
 
-        projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
-        expression_attribute_names = {
-            "#dur": "duration"
-        }
+        # projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
+        # expression_attribute_names = {
+        #     "#dur": "duration"
+        # }
 
         resp = self.dynamo.scan_items_last_ev_key(
             filter_expression=expression,
-            projection_expression=projection_expression,
-            expression_attribute_names=expression_attribute_names
+            # projection_expression=projection_expression,
+            # expression_attribute_names=expression_attribute_names
         )
 
         if not resp:
