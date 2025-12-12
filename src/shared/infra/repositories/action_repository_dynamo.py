@@ -426,7 +426,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         total_duration = 0
 
-        for item in resp['Items']:
+        for item in resp:
             action = ActionDynamoDTO.from_dynamo(item).to_entity()
 
             if action.duration is not None:
