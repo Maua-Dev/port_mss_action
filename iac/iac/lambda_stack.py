@@ -126,7 +126,15 @@ class LambdaStack(Construct):
             api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
-        ) 
+        )
+
+        self.get_strike_function= self.create_lambda_api_gateway_integration(
+            module_name="get_strike",
+            method="GET",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
 
         self.get_all_projects_function = self.create_lambda_api_gateway_integration(
             module_name="get_all_projects",
@@ -257,7 +265,8 @@ class LambdaStack(Construct):
             self.delete_strike_function,
             self.get_all_members_admin_function,
             self.get_all_members_function,
-            self.get_member_function
+            self.get_member_function,
+            self.get_strike_function
         ]
 
         self.functions_that_need_dynamo_permissions = [
