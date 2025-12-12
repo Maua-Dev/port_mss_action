@@ -64,22 +64,16 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         return strike_dto.to_entity()
 
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
-        items = self.dynamo.delete_item(
-            partition_key=self.strike_partition_key_format(strike_id),
-            sort_key=None
-        )
-
-        if not items:
+        
+        strike = self.find_by_id(strike_id)
+        
+        if not strike:
             return None
-
-        strike_dynamo = items[0]
-        strike = StrikeDynamoDTO.from_dynamo(strike_dynamo).to_entity()
-
+        
         self.dynamo.delete_item(
-            partition_key=self.strike_partition_key_format(strike.target_user_id),
-            sort_key=self.strike_sort_key_format(strike.occurred_date, strike.strike_id)
+            partition_key=self.strike_partition_key_format(strike_id=strike_id)
         )
-
+        
         return strike
 
     def get_strike_by_target_id(self, target_user_id: str) -> Optional[List[Strike]]:
