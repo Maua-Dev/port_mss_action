@@ -80,7 +80,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
             key_condition_expression='#gsi_pk = :target_id',
             ExpressionAttributeNames={'#gsi_pk': 'GSI-TARGET-PK'},
             ExpressionAttributeValues={':target_id': self.gsi_strike_partition_key_format(target_user_id)},
-            IndexName='GSI-TARGET-PK'
+            IndexName='GSI-TARGET'
         )
 
         items = response.get('Items', [])
