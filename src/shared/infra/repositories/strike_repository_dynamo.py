@@ -25,7 +25,7 @@ class StrikeRepositoryDynamo(IStrikeRepository):
             dynamo_table_name=Environments.get_envs().dynamo_table_name_strike,
             region=Environments.get_envs().region,
             partition_key=Environments.get_envs().dynamo_partition_key,
-            sort_key=Environments.get_envs().dynamo_sort_key,
+            sort_key=None,
             gsi_partition_key=Environments.get_envs().dynamo_gsi_strike_partition_key,
             gsi_sort_key=Environments.get_envs().dynamo_gsi_strike_sort_key
         )
