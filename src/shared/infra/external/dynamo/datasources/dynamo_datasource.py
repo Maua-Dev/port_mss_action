@@ -120,11 +120,15 @@ class DynamoDatasource:
         @return: dict with the response from DynamoDB
         """
 
+        key_condition = {
+            self.partition_key: partition_key
+        }
+
+        if self.sort_key and sort_key:
+            key_condition[self.sort_key] = sort_key
+
         resp = self.dynamo_table.delete_item(
-            Key={
-                self.partition_key: partition_key,
-                self.sort_key: sort_key if sort_key else None
-            },
+            Key=key_condition,
             ReturnValues='ALL_OLD'
         )
         return resp
