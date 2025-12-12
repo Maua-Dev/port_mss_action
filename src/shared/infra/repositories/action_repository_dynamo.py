@@ -421,7 +421,7 @@ class ActionRepositoryDynamo(IActionRepository):
             expression_attribute_names=expression_attribute_names
         )
 
-        if resp.get("Count", 0) == 0:
+        if not resp:
             return 0
 
         total_duration = 0
