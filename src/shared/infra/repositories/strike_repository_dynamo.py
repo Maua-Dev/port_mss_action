@@ -64,8 +64,9 @@ class StrikeRepositoryDynamo(IStrikeRepository):
         return strike_dto.to_entity()
 
     def delete_strike(self, strike_id: str) -> Optional[Strike]:
-        items = self.dynamo.query_by_gsi(
-            gsi_partition_key=self.gsi_strike_partition_key_format(strike_id)
+        items = self.dynamo.delete_item(
+            partition_key=self.strike_partition_key_format(strike_id),
+            sort_key=None
         )
 
         if not items:
