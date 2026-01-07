@@ -16,7 +16,7 @@ class Test_GetAllMembersUseCase:
 
         members = usecase("93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         assert type(members) == list
-        assert len(members) == 14
+        assert len(members) == 15
         assert all([type(member) == Member for member in members])
   
     def test_get_all_members_usecase_external(self):
@@ -28,7 +28,7 @@ class Test_GetAllMembersUseCase:
         member1.role = ROLE.EXTERNAL
         members = usecase(member1.user_id)
         assert type(members) == list
-        assert len(members) == 14
+        assert len(members) == 15
         assert all([type(member) == Member for member in members])
 
     def test_get_all_members_usecase_user_id_not_found(self):

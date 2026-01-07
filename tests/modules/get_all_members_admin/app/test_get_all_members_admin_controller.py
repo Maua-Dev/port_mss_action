@@ -290,10 +290,28 @@ class Test_GetAllMembersAdminController:
                          'strikes': 0,
                          'strikes_allowed': 2,
                          'user_id': '3b07232f-4f65-42c6-b005-242550b8h9ir',
+                         'year': 1}},
+             {'member': {'active': 'ACTIVE',
+                         'cellphone': '11999999999',
+                         'course': 'ADM',
+                         'deactivated_date': None,
+                         'email': 'test@gmail.com',
+                         'email_dev': 'test.devmaua@gmail.com',
+                         'hired_date': 1640192165000,
+                         'hours_worked': 0,
+                         'name': 'Test User',
+                         'photo': None,
+                         'project': [],
+                         'ra': '20123458',
+                         'role': 'INTERNAL',
+                         'stack': 'INFRA',
+                         'strikes': 0,
+                         'strikes_allowed': 2,
+                         'user_id': 'c6092b30-8015-4ba7-a6e5-a111a67de1f4',
                          'year': 1}}],
  'message': 'the members were retrieved'}
         assert response.body['message'] == 'the members were retrieved'
-        assert len(response.body['members']) == 14
+        assert len(response.body['members']) == 15
         assert response.body == expected_dict
 
     

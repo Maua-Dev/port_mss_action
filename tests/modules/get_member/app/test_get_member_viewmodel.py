@@ -5,6 +5,8 @@ from src.shared.infra.repositories.action_repository_mock import ActionRepositor
 from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock  
 from src.shared.environments import Environments
 from pprint import pprint 
+from datetime import datetime 
+from decimal import Decimal
 
 class Test_GetMemberViewModel:
     def test_get_member_viewmodel(self):
@@ -12,12 +14,16 @@ class Test_GetMemberViewModel:
         action_repo = ActionRepositoryMock()
         strike_repo = StrikeRepositoryMock()
         usecase = GetMemberUsecase(member_repo, action_repo, strike_repo)
+
         if Environments.get_envs().stage.value == 'TEST':
-            member = usecase(user_id='c6092b30-8015-4ba7-a6e5-a111a67de1f4', start_date= 1624576165000, end_date= 1690046000000)
+
+            start = Decimal(datetime(2025, 7, 1).timestamp() * 1000)
+            end = Decimal(datetime(2025, 7, 15).timestamp() * 1000)
+            member = usecase(user_id='c6092b30-8015-4ba7-a6e5-a111a67de1f4', start_date=start, end_date=end)
             viewmodel = GetMemberViewModel(
                  member=member).to_dict()
-            member.hours_worked = 0
-            member.year = 1
+            
+            
             pprint(viewmodel)
 
             expected = {'member': {'active': 'ACTIVE',
