@@ -1,12 +1,14 @@
 import base64
 import datetime
 import imghdr
+from src.shared.domain.entities.strike import Strike
 from src.shared.helpers.errors.controller_errors import WrongTypeFile
 import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
 from botocore.config import Config
+from src.shared.helpers.utils import compose_member_reached_max_strike_number
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.environments import Environments
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
@@ -28,13 +30,22 @@ class MemberRepositoryDynamo(IMemberRepository):
     def member_sort_key_format(user_id: str) -> str:
         return f'member#{user_id}'
     
+    @staticmethod
+    def gsi_member_partition_key_format(role: ROLE) -> str:
+        return role.value
+
+    @staticmethod
+    def gsi_member_sort_key_format(active: ACTIVE) -> str:
+        return active.value
+    
     def __init__(self):
         self.dynamo = DynamoDatasource(
             endpoint_url=Environments.get_envs().endpoint_url,
             dynamo_table_name=Environments.get_envs().dynamo_table_name_member,
             region=Environments.get_envs().region,
-            partition_key=Environments.get_envs().dynamo_partition_key,
-            sort_key=Environments.get_envs().dynamo_sort_key)
+            partition_key=Environments.get_envs().dynamo_partition_key,sort_key=Environments.get_envs().dynamo_sort_key,gsi_partition_key=Environments.get_envs().dynamo_gsi_member_partition_key,
+            gsi_sort_key=Environments.get_envs().dynamo_gsi_member_sort_key
+        )
         
         my_config = Config(
             region_name=Environments.get_envs().region,
@@ -52,8 +63,16 @@ class MemberRepositoryDynamo(IMemberRepository):
         if member.photo is not None:
             url = self.upload_member_photo(member.user_id, member.photo)
             member.photo = url
+
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
+
+        item['GSI-ROLE-PK']= self.gsi_member_partition_key_format(member.role)
+        item['GSI-ROLE-SK']= self.gsi_member_sort_key_format(member.active)
+
+        resp = self.dynamo.put_item(
+            item=item,
+            partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True
+        )
         
         return member
     
@@ -76,6 +95,29 @@ class MemberRepositoryDynamo(IMemberRepository):
 
         member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
         return member_dto.to_entity()
+    
+    def get_active_heads_and_directors(self) -> Optional[List[Member]]:
+        head_response= self.dynamo.query(
+            IndexName= "GSI-ROLE",
+            key_condition_expression= Key('GSI-ROLE-PK').eq("HEAD") & Key('GSI-ROLE-SK').eq("ACTIVE")
+        )
+
+        director_response= self.dynamo.query(
+            IndexName= "GSI-ROLE",
+            key_condition_expression= Key('GSI-ROLE-PK').eq("DIRECTOR") & Key('GSI-ROLE-SK').eq("ACTIVE")
+        )
+
+        active_heads= head_response.get('Items', [])
+        active_directors= director_response.get('Items', [])
+
+        active_head_and_directors= active_heads + active_directors
+
+        if not active_head_and_directors:
+            return None
+        
+        active_head_and_direcotr_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in active_head_and_directors]
+
+        return active_head_and_direcotr_list
     
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         keys = [{self.dynamo.partition_key: self.member_partition_key_format(user_id), self.dynamo.sort_key: self.member_sort_key_format(user_id)} for user_id in user_ids]
@@ -138,6 +180,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             "cellphone": member_to_update.cellphone,
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
+            "GSI-ROLE-PK": member_to_update.role.value,
+            "GSI-ROLE-SK": member_to_update.active.value,
             "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
             "photo": url if new_photo is not None else None
         }
@@ -188,6 +232,56 @@ class MemberRepositoryDynamo(IMemberRepository):
         except Exception as err:
             print(err)
             return False
+        
+    def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
+        try:
+            member= self.get_member(created_strike.target_user_id)
+            
+            active_heads_and_directors_list= self.get_active_heads_and_directors()
+
+            if not active_heads_and_directors_list:
+                print("Não foi encontrado nenhum HEAD e nenhum DIRECTOR")
+                return False
+            
+            head_and_director_email_list= [head_or_director.email for head_or_director in active_heads_and_directors_list]
+
+            client_ses= boto3.client('ses', region_name=Environments.get_envs().region)
+
+            email_to_send= compose_member_reached_max_strike_number(member, created_strike, strike_limit)
+
+            response= client_ses.send_email(
+                Destination= {
+                    'ToAddresses': head_and_director_email_list,
+                    'BccAddresses': [
+                        Environments.get_envs().hidden_copy
+                    ]
+                },
+                Message={
+                    'Body': {
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': email_to_send
+                        }
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Membro Atingiu Número Máximo de Strikes"
+                    }
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email
+                ],
+                Source= Environments.get_envs().from_email
+            )
+
+            print('EMAIL ENVIADO')
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False
+
         
     def generate_key(self, user_id: str, file_type: str) -> str:
 

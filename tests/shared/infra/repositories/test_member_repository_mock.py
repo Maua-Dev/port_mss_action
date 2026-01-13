@@ -94,5 +94,37 @@ class Test_MemberRepositoryMock:
         repo = MemberRepositoryMock()
         member = repo.update_member(user_id='13bc6ada-c0d1-7054-66ab-e17414c48ae3',new_name='Teste',new_email_dev="teste.devmaua@gmail.com",new_role=ROLE.INTERNAL,new_stack=STACK.BACKEND)
         assert member is None
+    
+    def test_get_active_heads(self):
+        repo = MemberRepositoryMock()
+        active_heads = repo.get_active_heads_and_directors()
+        
+        assert type(active_heads) == list
+        # Should return 4 members: 1 HEAD + 3 DIRECTORs (Vitor, Little Ronald, Ryuske)
+        assert len(active_heads) == 4
+        assert all([type(head) == Member for head in active_heads])
+        assert all([(head.role == ROLE.HEAD or head.role == ROLE.DIRECTOR) and head.active == ACTIVE.ACTIVE for head in active_heads])
+        
+        # Verify the HEAD member
+        head_members = [h for h in active_heads if h.role == ROLE.HEAD]
+        assert len(head_members) == 1
+        assert head_members[0].user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert head_members[0].name == "Joao Branco"
+        
+        # Verify DIRECTOR members
+        director_members = [h for h in active_heads if h.role == ROLE.DIRECTOR]
+        assert len(director_members) == 3
+        
+    def test_get_active_heads_empty(self):
+        repo = MemberRepositoryMock()
+        # Change all heads and directors to inactive
+        for member in repo.members:
+            if member.role == ROLE.HEAD or member.role == ROLE.DIRECTOR:
+                member.active = ACTIVE.DISCONNECTED
+        
+        active_heads = repo.get_active_heads_and_directors()
+        
+        assert type(active_heads) == list
+        assert len(active_heads) == 0
 
    

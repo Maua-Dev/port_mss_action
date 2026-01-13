@@ -326,7 +326,8 @@ class LambdaStack(Construct):
             self.update_action_validation_function,
             self.download_projects_function,
             self.download_members_function,
-            self.download_actions_function
+            self.download_actions_function,
+            self.create_strike_function
         ]
 
         self.functions_that_need_s3_permissions = [
