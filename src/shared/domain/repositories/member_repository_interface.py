@@ -52,7 +52,7 @@ class IMemberRepository(ABC):
         pass
     
     @abstractmethod
-    def get_active_heads_and_directors(self) -> List[Member]:
+    def get_active_heads_and_directors(self) -> Optional[List[Member]]:
         '''
         It returns a list of the active members that have HEAD's or DIRECTOR's ROLE 
         '''
@@ -77,7 +77,7 @@ class IMemberRepository(ABC):
     @abstractmethod
     def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
         """
-        When a member reach the total of stikes he can have, notify Dev's Heads and return True.
+        When a member reach the total of strikes he can have, notify Dev's Heads and return True.
         Only in real repo
         """
         pass

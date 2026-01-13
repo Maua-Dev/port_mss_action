@@ -69,7 +69,7 @@ class MemberRepositoryDynamo(IMemberRepository):
         item['GSI-ROLE-PK']= self.gsi_member_partition_key_format(member.role)
         item['GSI-ROLE-SK']= self.gsi_member_sort_key_format(member.active)
 
-        resp = self.dynamo.put_item(
+        self.dynamo.put_item(
             item=item,
             partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True
         )
@@ -115,9 +115,9 @@ class MemberRepositoryDynamo(IMemberRepository):
         if not active_head_and_directors:
             return None
         
-        active_head_and_direcotr_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in active_head_and_directors]
+        active_head_and_director_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in active_head_and_directors]
 
-        return active_head_and_direcotr_list
+        return active_head_and_director_list
     
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         keys = [{self.dynamo.partition_key: self.member_partition_key_format(user_id), self.dynamo.sort_key: self.member_sort_key_format(user_id)} for user_id in user_ids]
@@ -249,7 +249,7 @@ class MemberRepositoryDynamo(IMemberRepository):
 
             email_to_send= compose_member_reached_max_strike_number(member, created_strike, strike_limit)
 
-            response= client_ses.send_email(
+            client_ses.send_email(
                 Destination= {
                     'ToAddresses': head_and_director_email_list,
                     'BccAddresses': [

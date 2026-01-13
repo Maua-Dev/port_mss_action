@@ -15,7 +15,7 @@ from src.shared.domain.repositories.member_repository_interface import IMemberRe
 
 from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 from src.shared.environments import Environments
-from src.shared.helpers.errors.usecase_errors import EmailWasNotSent, ForbiddenAction, UnregisteredUser, UserIsNotFromAdmin, UserIsNotFromRH
+from src.shared.helpers.errors.usecase_errors import EmailWasNotSent, ForbiddenAction, UnregisteredUser
 
 
 class CreateStrikeUsecase:
@@ -49,13 +49,13 @@ class CreateStrikeUsecase:
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
-            raise ForbiddenAction("Member is not active")
+            raise ForbiddenAction("Applier user is not active")
         
-        if applier_user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
-            raise ForbiddenAction("Member is neither Director nor Head")
+        # if applier_user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
+        #     raise ForbiddenAction("Member is neither Director nor Head")
             
-        elif not Member.validate_role_admin(role=applier_user.role):
-            raise ForbiddenAction('Applier user is not a director')
+        if not Member.validate_role_admin(role=applier_user.role):
+            raise ForbiddenAction('Applier user is neither Director nor Head')
         
         target_user= self.repo_member.get_member(user_id=target_user_id)
 
