@@ -27,9 +27,9 @@ class Test_CreateStrikePresenter:
                 "authorizer": {
                     "claims":
                         {
-                            "sub":"3b07232f-4f65-42c6-b005-242550b8b8bf",
-                            "name":"Ryuske",
-                            "email":"ryuske@gmail.com",
+                            "sub":"51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                            "name":"Joao Branco",
+                            "email":"jbranco@gmail.com",
                             "custom:isMaua":True
                         }
                 },
@@ -60,7 +60,7 @@ class Test_CreateStrikePresenter:
             'strike_id': json.loads(response['body'])['strike_id'],
             'owner_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
             'target_user_id': '5f55f6a5-a66e-4fff-9faf-72cd478bd5a0',
-            'applier_user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+            'applier_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
             'occurred_date': 1725512986000,
             'category': 'OTHER',
             'description': 'testing creating a strike',
@@ -95,9 +95,9 @@ class Test_CreateStrikePresenter:
                 "authorizer": {
                     "claims":
                         {
-                            "sub":"3b07232f-4f65-42c6-b005-242550b8b8bf",
-                            "name":"Ryuske",
-                            "email":"ryuske@gmail.com",
+                            "sub":"51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                            "name":"Joao Branco",
+                            "email":"jbranco@gmail.com",
                             "custom:isMaua":True
                         }
                 },
@@ -128,7 +128,7 @@ class Test_CreateStrikePresenter:
             'strike_id': json.loads(response['body'])['strike_id'],
             'owner_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
             'target_user_id': '75648hbr-184n-1985-91han-7ghn4HgF182',
-            'applier_user_id': '3b07232f-4f65-42c6-b005-242550b8b8bf',
+            'applier_user_id': '51ah5jaj-c9jm-1345-666ab-e12341c14a3',
             'occurred_date': 1725512986000,
             'category': 'OTHER',
             'description': 'testing creating a strike',

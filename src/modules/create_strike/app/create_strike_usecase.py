@@ -14,7 +14,8 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 
 from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
-from src.shared.helpers.errors.usecase_errors import ForbiddenAction, UnregisteredUser, UserIsNotFromAdmin, UserIsNotFromRH
+from src.shared.environments import Environments
+from src.shared.helpers.errors.usecase_errors import EmailWasNotSent, ForbiddenAction, UnregisteredUser, UserIsNotFromAdmin, UserIsNotFromRH
 
 
 class CreateStrikeUsecase:
@@ -48,11 +49,10 @@ class CreateStrikeUsecase:
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
-            raise ForbiddenAction("RH member is not active")
+            raise ForbiddenAction("Member is not active")
         
-        if applier_user.role is ROLE.INTERNAL:
-            if applier_user.stack is not STACK.RH:
-                raise UserIsNotFromRH(user='applier user')
+        if applier_user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
+            raise ForbiddenAction("Member is neither Director nor Head")
             
         elif not Member.validate_role_admin(role=applier_user.role):
             raise ForbiddenAction('Applier user is not a director')
@@ -61,10 +61,14 @@ class CreateStrikeUsecase:
 
         if not Member.validate_active(active=target_user.active):
             raise ForbiddenAction('target user is not active')
-        
-        now= datetime.now()
-        year= now.year
 
+        if Environments.get_envs().stage.value == "TEST":
+                now = datetime(2025, 12, 17)
+                year = 2025
+
+        else:
+            now= datetime.now()
+            year= now.year
 
         if (now.month <= 6) or (now.month == 12):
             if (now.month <= 6): 
@@ -101,7 +105,7 @@ class CreateStrikeUsecase:
             if target_user_id in project.members_user_ids:
                 total_projects+= 1
         
-        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > 2) or (total_projects == 2 and len(target_user_list_strike_this_sem) > 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > 4):
+        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > (2 - 1) ) or (total_projects == 2 and len(target_user_list_strike_this_sem) > (3 - 1)) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > (4 - 1)):
 
             target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_date, end_date=end_date)
 
@@ -125,6 +129,26 @@ class CreateStrikeUsecase:
 
             return (created_strike, 1)
         
+
+        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) >= 2 ) or (total_projects == 2 and len(target_user_list_strike_this_sem) >= 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) >= 4):
+
+            match total_projects:
+                case 0 | 1:
+                    strike_limit= 2
+                case 2:
+                    strike_limit= 3
+                case x if x >= 3:
+                    strike_limit= 4
+                case _:
+                    strike_limit= 0
+
+            success= self.repo_member.send_email_to_warn_about_member_reached_total_strike_limit(created_strike=strike, strike_limit=strike_limit)
+
+            if not success:
+                raise EmailWasNotSent()
+
+            return (created_strike, 2)
+
         return (created_strike, 0)
-        
+    
     # fazer uma logica parecida com o que esta no auth user, mandando uma mensagem caso as horas sejam zeradas e uma caso seja so criado o strike

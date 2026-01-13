@@ -2,6 +2,7 @@ from decimal import Decimal
 from typing import Optional
 from src.shared.domain.entities.member import Member
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.environments import Environments
 from src.shared.helpers.errors.usecase_errors import ForbiddenAction, NoItemsFound, UserNotAllowed
 from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
@@ -23,8 +24,13 @@ class GetAllMembersUsecase:
         is_admin = Member.validate_role_admin(member.role) or Member.validate_role_external(member.role)
 
         if start_date is None :
-            now = datetime.now()
-            year = now.year
+            if Environments.get_envs().stage.value == "TEST":
+                now = datetime(2025, 12, 17)
+                year = 2025
+
+            else:
+                now = datetime.now()
+                year = now.year
 
             if (now.month <= 6) or (now.month == 12):
                 if (now.month <= 6): 
@@ -36,8 +42,13 @@ class GetAllMembersUsecase:
         
 
         if end_date is None:
-            now = datetime.now()
-            year = now.year
+            if Environments.get_envs().stage.value == "TEST":
+                now = datetime(2025, 12, 17)
+                year = 2025
+                
+            else:
+                now = datetime.now()
+                year = now.year
 
             if (now.month <= 6) or (now.month == 12): 
                 if (now.month <= 6): 
