@@ -132,15 +132,14 @@ class CreateStrikeUsecase:
 
         if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) >= 2 ) or (total_projects == 2 and len(target_user_list_strike_this_sem) >= 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) >= 4):
 
-            match total_projects:
-                case 0 | 1:
-                    strike_limit= 2
-                case 2:
-                    strike_limit= 3
-                case x if x >= 3:
-                    strike_limit= 4
-                case _:
-                    strike_limit= 0
+            if total_projects in [0, 1]:
+                strike_limit = 2
+            elif total_projects == 2:
+                strike_limit = 3
+            elif total_projects >= 3:
+                strike_limit = 4
+            else:
+                strike_limit = 0
 
             success= self.repo_member.send_email_to_warn_about_member_reached_total_strike_limit(created_strike=strike, strike_limit=strike_limit)
 
