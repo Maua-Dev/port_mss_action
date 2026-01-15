@@ -45,7 +45,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 1,
                     'strikes_allowed': 2
                 }
             },
@@ -67,7 +67,7 @@ class Test_GetAllMembersController:
                     'active': 'ACTIVE',
                     'user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                     'photo': None,
-                    'strikes': 0,
+                    'strikes': 2,
                     'strikes_allowed': 2
                 }
             },

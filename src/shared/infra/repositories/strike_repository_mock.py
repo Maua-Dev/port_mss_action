@@ -59,7 +59,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8bf",
-                occurred_date=1704412800000,  # 2024-01-04
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00 
                 category=STRIKE_CATEGORY.LACK_OF_COMMITMENT,
                 description="Não cumprimento de prazos estabelecidos"
             ),
@@ -194,7 +194,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1705536000000,  # 2024-01-17
+                occurred_date=1764622800000,  # 01/12/2025 às 18:00
                 category=STRIKE_CATEGORY.RULE_VIOLATION,
                 description="Violação das normas de saúde e segurança"
             ),
@@ -203,7 +203,7 @@ class StrikeRepositoryMock(IStrikeRepository):
                 owner_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
                 target_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",
                 applier_user_id="3b07232f-4f65-42c6-b005-242550b8b8ty",
-                occurred_date=1705622400000,  # 2024-01-18
+                occurred_date=1764622800000,  # 2024-01-18
                 category=STRIKE_CATEGORY.OTHER,
                 description="Insubordinação repetida às orientações da liderança"
             )

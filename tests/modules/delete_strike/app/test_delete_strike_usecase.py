@@ -99,7 +99,7 @@ class Test_DeleteStrikeUseCase:
 
     def test_delete_strike_forbidden(self):
         strike = self.repo.strikes[0]
-        another_user = next(u for u in self.repo_member.members if u.user_id != strike.owner_user_id and u.active.value == "ACTIVE")
+        another_user = next(u for u in self.repo_member.members if u.user_id == "7gh5yf5H-857H-1234-75hng-94832hvng1s" and u.active.value == "ACTIVE")
 
-        with pytest.raises(ForbiddenAction):
+        with pytest.raises(UserNotAllowed):
             self.usecase(user_id=another_user.user_id, strike_id=strike.strike_id)
