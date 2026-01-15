@@ -39,8 +39,45 @@ class Test_CreateStrikeController:
         assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
         assert response.body['message'] == "Strike was created successfully"
-    
+
+
     def test_create_strike_controller_case_1(self):
+        repo= StrikeRepositoryMock()
+        repo_member= MemberRepositoryMock()
+        repo_action= ActionRepositoryMock()
+        usecase= CreateStrikeUsecase(repo=repo, repo_member=repo_member, repo_action=repo_action)
+        controller= CreateStrikeController(usecase=usecase)
+
+        request= HttpRequest(body = {
+            'requester_user' : {
+                "sub": "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "name": "Joao Branco",
+                "email": "jbranco@gmail.com",
+                "custom:isMaua": True
+            },
+            'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+            'target_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3", 
+            'occurred_date': 1764622800000, #01/12/2025 às 18:00
+            'category': 'OTHER',
+            'description': "testing creating a strike"
+        })
+
+        response= controller(request=request)
+
+
+        assert response.status_code == 201
+        assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['target_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['applier_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['occurred_date'] == 1764622800000
+        assert response.body['category'] == 'OTHER'
+        assert response.body['description'] == "testing creating a strike"
+        assert response.body['message'] == "Strike was created successfully and hours were reset"
+
+
+
+    
+    def test_create_strike_controller_case_2(self):
         repo= StrikeRepositoryMock()
         repo_member= MemberRepositoryMock()
         repo_action= ActionRepositoryMock()
@@ -70,7 +107,7 @@ class Test_CreateStrikeController:
         assert response.body['occurred_date'] == 1764622800000
         assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
-        assert response.body['message'] == "Strike was created successfully and hours were reset"
+        assert response.body['message'] == "Strike was created successfully and an Email was sent to Directors and Heads"
 
     def test_create_strike_controller_requester_user_is_missing(self):
         repo= StrikeRepositoryMock()

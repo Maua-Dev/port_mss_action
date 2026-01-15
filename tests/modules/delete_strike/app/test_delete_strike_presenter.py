@@ -172,9 +172,9 @@ class Test_DeleteStrikePresenter:
             "requestContext": {
                 "authorizer": {
                     "claims": {
-                        "sub": "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0",
-                        "name": "Fernandao Presidas",
-                        "email": "fernandao@gmail.com",
+                        "sub": "7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                        "name": "Rubicks Cube",
+                        "email": "rcube.devmaua@gmail.com",
                         "custom:isMaua": True
                     }
                 }
@@ -184,22 +184,9 @@ class Test_DeleteStrikePresenter:
 
         response = lambda_handler(event, None)
 
-        expected_body = {
-            "strike": {
-                "strike_id": "b2c3d4e5-f6g7-8901-2345-678901bcdefg",
-                "owner_user_id": "93bc6ada-c0d1-7054-66ab-e17414c48ae3",
-                "target_user_id": "7gh5yf5H-857H-1234-75hng-94832hvng1s",
-                "applier_user_id": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "occurred_date": 1756987200000,
-                "category": "LACK_OF_COMMITMENT",
-                "description": "Ausência injustificada em projeto crítico",
-                "is_valid": True
-            },
-            "message": "the strike was deleted successfully"
-        }
 
         assert response["statusCode"] == 403
-        assert json.loads(response["body"]) == "That action is forbidden for this type of user"
+        assert json.loads(response["body"]) == "That type of user has no permission for that action"
 
     def test_delete_strike_presenter_unregistered_user(self):
 

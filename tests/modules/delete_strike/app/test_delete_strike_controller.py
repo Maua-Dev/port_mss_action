@@ -118,9 +118,9 @@ class Test_DeleteStrikeController:
 
         request = HttpRequest(body={
             "requester_user": {
-                "sub": repo_member.members[1].user_id,
-                "name": repo_member.members[1].name,
-                "email": repo_member.members[1].email,
+                "sub": repo_member.members[5].user_id,
+                "name": repo_member.members[5].name,
+                "email": repo_member.members[5].email,
                 "custom:isMaua": True
             },
             "strike_id": repo.strikes[0].strike_id
@@ -129,4 +129,4 @@ class Test_DeleteStrikeController:
         response = controller(request)
 
         assert response.status_code == 403
-        assert response.body == "That action is forbidden for this type of user"
+        assert response.body == "That type of user has no permission for that action"

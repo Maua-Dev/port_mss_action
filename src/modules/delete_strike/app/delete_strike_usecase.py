@@ -1,6 +1,6 @@
 from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.active_enum import ACTIVE
-from src.shared.domain.enums.stack_enum import STACK
+from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 from src.shared.helpers.errors.domain_errors import EntityError
@@ -22,7 +22,7 @@ class DeleteStrikeUseCase:
 
         user = self.repo_member.get_member(user_id=user_id)
 
-        if user.active != ACTIVE.ACTIVE:
+        if user.active != ACTIVE.ACTIVE or user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
             raise UserNotAllowed()
 
         strike = self.repo.find_by_id(strike_id=strike_id)

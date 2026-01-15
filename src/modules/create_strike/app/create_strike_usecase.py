@@ -148,6 +148,7 @@ class CreateStrikeUsecase:
 
             return (created_strike, 2)
 
-        return (created_strike, 0)
+        else:
+            return (created_strike, 0)
     
     # fazer uma logica parecida com o que esta no auth user, mandando uma mensagem caso as horas sejam zeradas e uma caso seja so criado o strike

@@ -42,13 +42,13 @@ class Test_CreateStrikeUsecase:
             description="testing creating a strike"
         )
 
-        assert returned_strike[1] == 1
+        assert returned_strike[1] == 2
         assert returned_strike[0].owner_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert returned_strike[0].target_user_id == "7gh5yf5H-857H-1234-75hng-94832hvng1s"
         assert returned_strike[0].applier_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert repo_action.get_action_durations_for_user(user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s", start_date=1764558000000, end_date=1782874740000) == 0
 
-    def test_create_strike_usecase_user_has_4_strikes_and_is_in_2_projects(self):
+    def test_create_strike_usecase_user_has_3_strikes_and_is_in_4_projects(self):
         repo= StrikeRepositoryMock()
         repo_member= MemberRepositoryMock()
         repo_action= ActionRepositoryMock()
@@ -56,7 +56,7 @@ class Test_CreateStrikeUsecase:
 
         returned_strike= usecase(
             owner_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-            target_user_id="75648hbr-184n-1985-91han-7ghn4HgF182", 
+            target_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", 
             applier_user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3",
             occurred_date=1764622800000,
             category=STRIKE_CATEGORY.OTHER,
@@ -65,9 +65,9 @@ class Test_CreateStrikeUsecase:
 
         assert returned_strike[1] == 1
         assert returned_strike[0].owner_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-        assert returned_strike[0].target_user_id == "75648hbr-184n-1985-91han-7ghn4HgF182"
+        assert returned_strike[0].target_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert returned_strike[0].applier_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-        assert repo_action.get_action_durations_for_user(user_id="75648hbr-184n-1985-91han-7ghn4HgF182", start_date=1764558000000, end_date=1782874740000) == 0
+        assert repo_action.get_action_durations_for_user(user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3", start_date=1764558000000, end_date=1782874740000) == 0
 
     def test_create_strike_usecase_user_has_5_strikes_and_is_in_3_projects(self):
         repo= StrikeRepositoryMock()
@@ -84,7 +84,7 @@ class Test_CreateStrikeUsecase:
             description="testing creating a strike"
         )
 
-        assert returned_strike[1] == 1
+        assert returned_strike[1] == 2
         assert returned_strike[0].owner_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert returned_strike[0].target_user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
         assert returned_strike[0].applier_user_id == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
