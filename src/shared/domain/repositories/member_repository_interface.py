@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from src.shared.domain.entities.action import Action
+from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.active_enum import ACTIVE
 from typing import List, Optional
 from src.shared.domain.entities.member import Member
@@ -49,6 +50,13 @@ class IMemberRepository(ABC):
         else returns None
         '''
         pass
+    
+    @abstractmethod
+    def get_active_heads_and_directors(self) -> Optional[List[Member]]:
+        '''
+        It returns a list of the active members that have HEAD's or DIRECTOR's ROLE 
+        '''
+        pass
 
     @abstractmethod
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
@@ -62,6 +70,14 @@ class IMemberRepository(ABC):
     def send_active_member_email(self, member: Member) -> bool:
         """
         When a member's action is invalidated, notify the member and return True.
+        Only in real repo
+        """
+        pass
+
+    @abstractmethod
+    def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
+        """
+        When a member reach the total of strikes he can have, notify Dev's Heads and return True.
         Only in real repo
         """
         pass

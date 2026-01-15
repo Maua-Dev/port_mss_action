@@ -1,5 +1,6 @@
 import datetime
 from typing import List, Optional
+from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
@@ -280,6 +281,17 @@ class MemberRepositoryMock(IMemberRepository):
                 return member
         return None
     
+    def get_active_heads_and_directors(self) -> List[Member]:
+        active_heads_list= []
+
+        for member in self.members:
+            if member.role == ROLE.HEAD and member.active == ACTIVE.ACTIVE:
+                active_heads_list.append(member)
+
+            if member.role == ROLE.DIRECTOR and member.active == ACTIVE.ACTIVE:
+                active_heads_list.append(member)
+
+        return active_heads_list
     
     def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[bytes] = None) -> Member:
        
@@ -330,4 +342,7 @@ class MemberRepositoryMock(IMemberRepository):
 
     def send_active_member_email(self, member: Member) -> bool: 
         # send email in real
+        return True
+    
+    def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
         return True

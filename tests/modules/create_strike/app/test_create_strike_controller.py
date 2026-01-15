@@ -18,9 +18,9 @@ class Test_CreateStrikeController:
 
         request= HttpRequest(body = {
             'requester_user' : {
-                "sub": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "name": "Ryuske",
-                "email": "ryuske@gmail.com",
+                "sub": "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "name": "Joao Branco",
+                "email": "jbranco@gmail.com",
                 "custom:isMaua": True
             }, 
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
@@ -34,7 +34,7 @@ class Test_CreateStrikeController:
         assert response.status_code == 201
         assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['target_user_id'] == "5f55f6a5-a66e-4fff-9faf-72cd478bd5a0"
-        assert response.body['applier_user_id'] == "3b07232f-4f65-42c6-b005-242550b8b8bf"
+        assert response.body['applier_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['occurred_date'] == 1725512986000
         assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
@@ -49,9 +49,9 @@ class Test_CreateStrikeController:
 
         request= HttpRequest(body = {
             'requester_user' : {
-                "sub": "3b07232f-4f65-42c6-b005-242550b8b8bf",
-                "name": "Ryuske",
-                "email": "ryuske@gmail.com",
+                "sub": "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
+                "name": "Joao Branco",
+                "email": "jbranco@gmail.com",
                 "custom:isMaua": True
             },
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
@@ -66,7 +66,7 @@ class Test_CreateStrikeController:
         assert response.status_code == 201
         assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['target_user_id'] == "7gh5yf5H-857H-1234-75hng-94832hvng1s"
-        assert response.body['applier_user_id'] == "3b07232f-4f65-42c6-b005-242550b8b8bf"
+        assert response.body['applier_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['occurred_date'] == 1764622800000
         assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"

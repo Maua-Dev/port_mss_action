@@ -35,3 +35,7 @@ class UserIsNotFromAdmin(BaseError):
 class UserIsNotFromRH(BaseError):
     def __init__(self, user: str = 'user'):
         super().__init__(f'That {user} is not a member of RH')
+
+class EmailWasNotSent(BaseError):
+    def __init__(self):
+        super().__init__(f'The email was not sent!')

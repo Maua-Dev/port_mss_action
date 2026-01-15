@@ -55,8 +55,10 @@ class Environments:
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
-            self.dynamo_gsi_strike_partition_key = "GSI-TARGET-PK",
-            self.dynamo_gsi_strike_sort_key= "GSI-TARGET-SK",
+            self.dynamo_gsi_strike_partition_key = "GSI-TARGET-PK"
+            self.dynamo_gsi_strike_sort_key= "GSI-TARGET-SK"
+            self.dynamo_gsi_member_partition_key= "GSI-ROLE-PK"
+            self.dynamo_gsi_member_sort_key= "GSI-ROLE-SK"
             self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_member_report = "https://d3q9q9q9q9q9q9.cloudfront.net"
@@ -82,6 +84,8 @@ class Environments:
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
             self.dynamo_gsi_strike_partition_key= os.environ.get("DYNAMO_GSI_TARGET_PARTITION_KEY")
             self.dynamo_gsi_strike_sort_key= os.environ.get("DYNAMO_GSI_TARGET_SORT_KEY")
+            self.dynamo_gsi_member_partition_key= os.environ.get("DYNAMO_GSI_TARGET_PARTITION_KEY")
+            self.dynamo_gsi_member_sort_key= os.environ.get("DYNAMO_GSI_TARGET_SORT_KEY")
             self.cloud_front_distribution_domain_assets_member = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER")
             self.cloud_front_distribution_domain_assets_project = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT")
             self.cloud_front_distribution_domain_assets_member_report = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT")

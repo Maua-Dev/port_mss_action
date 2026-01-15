@@ -108,8 +108,59 @@ class Test_MemberRepositoryDynamo:
         @pytest.mark.skip("Can't test dynamo in Github")
         def test_request_upload_member_photo(self):
             repo_dynamo = MemberRepositoryDynamo()
-            presigned_post = repo_dynamo.request_upload_member_photo(user_id="51ah5jaj-c9jm-1345-666ab-e12341c14a3")
+            presigned_post = repo_dynamo.request_upload_member_photo(user_id="51ah5jaj-c9jm-1345-666ab-e17414c14a3")
             assert type(presigned_post) == dict
-            assert presigned_post["metadata"]["user_id"] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+            assert presigned_post["metadata"]["user_id"] == "51ah5jaj-c9jm-1345-666ab-e17414c48ae3"
             assert presigned_post["metadata"]["time_created"].isdecimal()
             assert type(presigned_post["url"]) == str
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_active_heads_and_directors(self):
+        repo = MemberRepositoryDynamo()
+        repo_mock = MemberRepositoryMock()
+        
+        active_heads_and_directors = repo.get_active_heads_and_directors()
+        
+        # Get expected active heads and directors from mock
+        expected_active = [member for member in repo_mock.members 
+                          if (member.role == ROLE.HEAD or member.role == ROLE.DIRECTOR) 
+                          and member.active == ACTIVE.ACTIVE]
+        
+        assert active_heads_and_directors is not None
+        assert type(active_heads_and_directors) == list
+        assert len(active_heads_and_directors) == len(expected_active)
+        assert len(active_heads_and_directors) == 4  # 1 HEAD + 3 DIRECTORs
+        assert all([type(head) == Member for head in active_heads_and_directors])
+        assert all([(head.role == ROLE.HEAD or head.role == ROLE.DIRECTOR) for head in active_heads_and_directors])
+        assert all([head.active == ACTIVE.ACTIVE for head in active_heads_and_directors])
+        
+        # Sort both lists by user_id for comparison
+        active_heads_and_directors.sort(key=lambda x: x.user_id)
+        expected_active.sort(key=lambda x: x.user_id)
+        
+        assert active_heads_and_directors == expected_active
+    
+    @pytest.mark.skip("Can't run test in github actions")
+    def test_get_active_heads_and_directors_with_gsi(self):
+        """Test that get_active_heads_and_directors correctly uses the GSI-ROLE index for both HEAD and DIRECTOR"""
+        repo = MemberRepositoryDynamo()
+        
+        # This test verifies the GSI query is working for both roles
+        active_heads_and_directors = repo.get_active_heads_and_directors()
+        
+        # Should return 4 active members (1 HEAD + 3 DIRECTORs from mock data)
+        assert active_heads_and_directors is not None
+        assert len(active_heads_and_directors) == 4
+        
+        # Verify all returned members match the GSI query criteria
+        for member in active_heads_and_directors:
+            assert member.role in [ROLE.HEAD, ROLE.DIRECTOR]
+            assert member.active == ACTIVE.ACTIVE
+        
+        # Verify we have both roles
+        roles = [m.role for m in active_heads_and_directors]
+        assert ROLE.HEAD in roles
+        assert ROLE.DIRECTOR in roles
+
+
+    # to test the method send_email_to_warn_about_member_reached_total_strikes_limit it's needed to deploy the project to DEV
