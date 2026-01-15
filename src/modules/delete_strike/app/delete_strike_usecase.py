@@ -31,7 +31,7 @@ class DeleteStrikeUseCase:
             from src.shared.helpers.errors.usecase_errors import NoItemsFound
             raise NoItemsFound("No items found for strike_id")
 
-        is_admin = user.validate_role_admin(user.role) and user.stack == STACK.RH
+        is_admin = user.validate_role_admin(user.role)
 
         if not is_admin and strike.owner_user_id != user.user_id:
             from src.shared.helpers.errors.usecase_errors import ForbiddenAction

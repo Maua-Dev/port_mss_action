@@ -105,7 +105,7 @@ class CreateStrikeUsecase:
             if target_user_id in project.members_user_ids:
                 total_projects+= 1
         
-        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > (2 - 1) ) or (total_projects == 2 and len(target_user_list_strike_this_sem) > (3 - 1)) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > (4 - 1)):
+        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) == (2 - 1) ) or (total_projects == 2 and len(target_user_list_strike_this_sem) == (3 - 1)) or (total_projects >= 3 and len(target_user_list_strike_this_sem) == (4 - 1)):
 
             target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_date, end_date=end_date)
 
