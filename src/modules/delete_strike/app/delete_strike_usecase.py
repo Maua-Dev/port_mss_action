@@ -14,14 +14,11 @@ class DeleteStrikeUseCase:
 
     def __call__(self, user_id: str, strike_id: str):
 
-        if self.repo_member.get_member(user_id=user_id) is None:
-            raise UnregisteredUser()
-
-        if not Strike.validate_strike_id(strike_id):
-            raise EntityError('strike_id')
-
         user = self.repo_member.get_member(user_id=user_id)
 
+        if user is None:
+            raise UnregisteredUser()
+        
         if user.active != ACTIVE.ACTIVE or user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
             raise UserNotAllowed()
 
@@ -29,7 +26,7 @@ class DeleteStrikeUseCase:
 
         if strike is None:
             from src.shared.helpers.errors.usecase_errors import NoItemsFound
-            raise NoItemsFound("No items found for strike_id")
+            raise NoItemsFound("strike_id")
 
         is_admin = user.validate_role_admin(user.role)
 

@@ -44,23 +44,23 @@ class CreateStrikeUsecase:
         owner_user= self.repo_member.get_member(user_id=owner_user_id)
 
         if not Member.validate_role_admin(role= owner_user.role):
-            raise ForbiddenAction('Owner user is not a director')
+            raise ForbiddenAction('Owner user as he is neither a Director nor Head')
         
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
-            raise ForbiddenAction("Applier user is not active")
+            raise ForbiddenAction("Applier user as he is not active")
         
         # if applier_user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
         #     raise ForbiddenAction("Member is neither Director nor Head")
             
         if not Member.validate_role_admin(role=applier_user.role):
-            raise ForbiddenAction('Applier user is neither Director nor Head')
+            raise ForbiddenAction('Applier user as he is neither Director nor Head')
         
         target_user= self.repo_member.get_member(user_id=target_user_id)
 
         if not Member.validate_active(active=target_user.active):
-            raise ForbiddenAction('target user is not active')
+            raise ForbiddenAction('Target user as he is not active')
 
         if Environments.get_envs().stage.value == "TEST":
                 now = datetime(2025, 12, 17)
