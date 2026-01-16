@@ -8,7 +8,7 @@ from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
 from botocore.config import Config
-from src.shared.helpers.utils import compose_member_reached_max_strike_number
+from src.shared.helpers.utils.compose_member_reached_max_strike_number import compose_member_reached_max_strike_number
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.environments import Environments
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
@@ -238,6 +238,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             member= self.get_member(created_strike.target_user_id)
             
             active_heads_and_directors_list= self.get_active_heads_and_directors()
+
+            print(f"Os actives heads são: {active_heads_and_directors_list}")
 
             if not active_heads_and_directors_list:
                 print("Não foi encontrado nenhum HEAD e nenhum DIRECTOR")
