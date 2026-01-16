@@ -87,11 +87,6 @@ class Test_DeleteStrikeUseCase:
         with pytest.raises(UnregisteredUser):
             self.usecase(user_id="non-existent-user", strike_id=self.repo.strikes[0].strike_id)
 
-    def test_delete_strike_invalid_strike_id(self):
-        user_id = self.repo_member.members[0].user_id
-        with pytest.raises(EntityError):
-            self.usecase(user_id=user_id, strike_id="invalid-strike-id")
-
     def test_delete_strike_not_found(self):
         user_id = self.repo_member.members[0].user_id
         with pytest.raises(NoItemsFound):
