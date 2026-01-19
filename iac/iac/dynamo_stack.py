@@ -95,18 +95,6 @@ class DynamoStack(Construct):
                     billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
                     removal_policy=REMOVAL_POLICY
                 )  
-
-                self.dynamo_table_member.add_global_secondary_index(
-                    partition_key=aws_dynamodb.Attribute(
-                        name="GSI-ROLE-PK",
-                        type=aws_dynamodb.AttributeType.STRING
-                    ),
-                    sort_key=aws_dynamodb.Attribute(
-                        name="GSI-ROLE-SK",
-                        type=aws_dynamodb.AttributeType.STRING
-                    ),
-                    index_name="GSI-ROLE"
-                )  
                 CfnOutput(self, 'DynamoActionRemovalPolicy',
                     value=REMOVAL_POLICY.value,
                     export_name=f'PortalInterno{self.github_ref_name}DynamoActionRemovalPolicyValue')

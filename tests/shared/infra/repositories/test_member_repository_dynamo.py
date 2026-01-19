@@ -141,18 +141,18 @@ class Test_MemberRepositoryDynamo:
         assert active_heads_and_directors == expected_active
     
     @pytest.mark.skip("Can't run test in github actions")
-    def test_get_active_heads_and_directors_with_gsi(self):
-        """Test that get_active_heads_and_directors correctly uses the GSI-ROLE index for both HEAD and DIRECTOR"""
+    def test_get_active_heads_and_directors_scan_filter(self):
+        """Test that get_active_heads_and_directors correctly uses scan with filter for both HEAD and DIRECTOR roles"""
         repo = MemberRepositoryDynamo()
         
-        # This test verifies the GSI query is working for both roles
+        # This test verifies the scan filter is working correctly for both roles
         active_heads_and_directors = repo.get_active_heads_and_directors()
         
         # Should return 4 active members (1 HEAD + 3 DIRECTORs from mock data)
         assert active_heads_and_directors is not None
         assert len(active_heads_and_directors) == 4
         
-        # Verify all returned members match the GSI query criteria
+        # Verify all returned members match the scan filter criteria
         for member in active_heads_and_directors:
             assert member.role in [ROLE.HEAD, ROLE.DIRECTOR]
             assert member.active == ACTIVE.ACTIVE
