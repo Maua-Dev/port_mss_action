@@ -25,25 +25,6 @@ def setup_dynamo_table():
                     'KeyType': 'RANGE'
                 }
             ],
-            GlobalSecondaryIndexes=[
-                {
-                    'IndexName': 'GSI-ROLE',
-                    'KeySchema': [
-                        {
-                            'KeyType': 'HASH',
-                            'AttributeName': 'GSI-ROLE-PK'
-                        },
-                        {
-                            'KeyType': 'RANGE',
-                            'AttributeName': 'GSI-ROLE-SK'
-                        }
-                    ],
-                    'Projection': {
-                        'ProjectionType': 'ALL'
-                    }
-                },
-
-            ],
             AttributeDefinitions=[
                 {
                     'AttributeName': 'PK',
@@ -52,14 +33,6 @@ def setup_dynamo_table():
                 {
                     'AttributeName': 'SK',
                     'AttributeType': 'S'
-                },
-                {
-                    'AttributeName': 'GSI-ROLE-PK',
-                    "AttributeType": 'S'
-                },
-                {
-                    'AttributeName': 'GSI-ROLE-SK',
-                    "AttributeType": 'S'
                 }
             ],
             

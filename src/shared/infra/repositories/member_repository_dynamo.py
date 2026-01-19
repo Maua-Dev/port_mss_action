@@ -19,6 +19,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.utils.compose_member_active_email import compose_member_active_email
 import boto3
+from boto3.dynamodb.conditions import Attr
 
 
 class MemberRepositoryDynamo(IMemberRepository):
@@ -30,21 +31,12 @@ class MemberRepositoryDynamo(IMemberRepository):
     def member_sort_key_format(user_id: str) -> str:
         return f'member#{user_id}'
     
-    @staticmethod
-    def gsi_member_partition_key_format(role: ROLE) -> str:
-        return role.value
-
-    @staticmethod
-    def gsi_member_sort_key_format(active: ACTIVE) -> str:
-        return active.value
-    
     def __init__(self):
         self.dynamo = DynamoDatasource(
             endpoint_url=Environments.get_envs().endpoint_url,
             dynamo_table_name=Environments.get_envs().dynamo_table_name_member,
             region=Environments.get_envs().region,
-            partition_key=Environments.get_envs().dynamo_partition_key,sort_key=Environments.get_envs().dynamo_sort_key,gsi_partition_key=Environments.get_envs().dynamo_gsi_member_partition_key,
-            gsi_sort_key=Environments.get_envs().dynamo_gsi_member_sort_key
+            partition_key=Environments.get_envs().dynamo_partition_key,sort_key=Environments.get_envs().dynamo_sort_key
         )
         
         my_config = Config(
@@ -65,9 +57,6 @@ class MemberRepositoryDynamo(IMemberRepository):
             member.photo = url
 
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
-
-        item['GSI-ROLE-PK']= self.gsi_member_partition_key_format(member.role)
-        item['GSI-ROLE-SK']= self.gsi_member_sort_key_format(member.active)
 
         self.dynamo.put_item(
             item=item,
@@ -97,25 +86,19 @@ class MemberRepositoryDynamo(IMemberRepository):
         return member_dto.to_entity()
     
     def get_active_heads_and_directors(self) -> Optional[List[Member]]:
-        head_response= self.dynamo.query(
-            IndexName= "GSI-ROLE",
-            key_condition_expression= Key('GSI-ROLE-PK').eq("HEAD") & Key('GSI-ROLE-SK').eq("ACTIVE")
+
+        filter= Attr('ACTIVE').eq("ACTIVE") & Attr('ROLE').isin(["HEAD", "DIRECTOR"])
+
+        response = self.dynamo.scan_items(
+            filter_expression=filter
         )
 
-        director_response= self.dynamo.query(
-            IndexName= "GSI-ROLE",
-            key_condition_expression= Key('GSI-ROLE-PK').eq("DIRECTOR") & Key('GSI-ROLE-SK').eq("ACTIVE")
-        )
+        items = response.get("Items", [])
 
-        active_heads= head_response.get('Items', [])
-        active_directors= director_response.get('Items', [])
-
-        active_head_and_directors= active_heads + active_directors
-
-        if not active_head_and_directors:
+        if not items:
             return None
         
-        active_head_and_director_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in active_head_and_directors]
+        active_head_and_director_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in items]
 
         return active_head_and_director_list
     
@@ -180,8 +163,6 @@ class MemberRepositoryDynamo(IMemberRepository):
             "cellphone": member_to_update.cellphone,
             "course": member_to_update.course.value,
             "active": member_to_update.active.value,
-            "GSI-ROLE-PK": member_to_update.role.value,
-            "GSI-ROLE-SK": member_to_update.active.value,
             "deactivated_date": member_to_update.deactivated_date if new_deactivated_date is not None else None,
             "photo": url if new_photo is not None else None
         }
