@@ -87,7 +87,7 @@ class MemberRepositoryDynamo(IMemberRepository):
     
     def get_active_heads_and_directors(self) -> Optional[List[Member]]:
 
-        filter= Attr('ACTIVE').eq("ACTIVE") & Attr('ROLE').isin(["HEAD", "DIRECTOR"])
+        filter= Attr('ACTIVE').eq("ACTIVE") & Attr('ROLE').is_in([ROLE.HEAD.value, ROLE.DIRECTOR.value])
 
         response = self.dynamo.scan_items(
             filter_expression=filter
