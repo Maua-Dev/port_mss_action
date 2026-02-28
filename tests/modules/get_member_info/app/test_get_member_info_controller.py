@@ -1,21 +1,19 @@
-from src.modules.get_member.app.get_member_controller import GetMemberController
-from src.modules.get_member.app.get_member_usecase import GetMemberUsecase
+from src.modules.get_member_info.app.get_member_info_controller import GetMemberInfoController
+from src.modules.get_member_info.app.get_member_info_usecase import GetMemberInfoUsecase
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 from src.shared.infra.repositories.action_repository_mock import ActionRepositoryMock
 from src.shared.helpers.external_interfaces.http_models import HttpRequest
-from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
 from pprint import pprint
 
 
-class Test_GetMemberController:
+class Test_GetMemberInfoController:
     member_repo = MemberRepositoryMock()
     action_repo = ActionRepositoryMock()
-    strike_repo = StrikeRepositoryMock()
     first_member = member_repo.members[0]  # Vitor Guirão
-    usecase = GetMemberUsecase(member_repo=member_repo, action_repo=action_repo, strike_repo=strike_repo)
-    controller = GetMemberController(usecase)
+    usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
+    controller = GetMemberInfoController(usecase)
 
-    def test_get_member_controller(self):
+    def test_get_member_info_controller(self):
         request = HttpRequest(
             body={
                 'requester_user': {
@@ -23,35 +21,23 @@ class Test_GetMemberController:
                     "name": self.first_member.name,
                     "email": self.first_member.email,
                     "custom:isMaua": True
-                },
-                'start_date': 1624576165000,  # 25/06/2021
-                'end_date': 1690046000000     # 22/07/2023
+                }
             }
         )
 
         expected_dict = {
-            'member': {
-                'active': 'ACTIVE',
-                'cellphone': '11991758098',
-                'course': 'ECA',
-                'deactivated_date': None,
-                'email': 'vsoller@airubio.com',
-                'email_dev': 'vsoller.devmaua@gmail.com',
-                'hired_date': 1634576165000,
-                'hours_worked': 134460000000,
+            'member_info': {
                 'name': 'Vitor Guirão MPNTM',
-                'photo': None,
-                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
                 'ra': '21017310',
                 'role': 'DIRECTOR',
                 'stack': 'INFRA',
-                'strikes': 0,  # Nenhum strike nesse período (2021-2023)
-                'strikes_id': [],
-                'strikes_allowed': 4,  # 3 projetos = 4 strikes permitidos
-                'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                'year': 1
+                'year': 1,
+                'course': 'ECA',
+                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
+                'hired_date': 1634576165000,
+                'photo': None
             },
-            'message': 'the member was retrieved'
+            'message': 'the member info was retrieved successfully'
         }
 
         response = self.controller(request)
@@ -61,7 +47,7 @@ class Test_GetMemberController:
         assert response.status_code == 200
         assert response.body == expected_dict
 
-    def test_get_controller_with_invalid_id(self):
+    def test_get_member_info_controller_with_invalid_id(self):
         request = HttpRequest(
             body={
                 'requester_user': {
@@ -77,7 +63,7 @@ class Test_GetMemberController:
 
         assert response.status_code == 400
 
-    def test_get_controller_without_id(self):
+    def test_get_member_info_controller_without_id(self):
         request = HttpRequest(
             body={
                 'requester_user': {
@@ -93,7 +79,7 @@ class Test_GetMemberController:
 
         assert response.status_code == 400
 
-    def test_get_controller_with_nonexistentid(self):
+    def test_get_member_info_controller_with_nonexistent_id(self):
         request = HttpRequest(
             body={
                 'requester_user': {
@@ -110,7 +96,7 @@ class Test_GetMemberController:
         assert response.status_code == 403
         assert response.body == "That user is not registered"
 
-    def test_get_controller_with_no_request_user(self):
+    def test_get_member_info_controller_with_no_requester_user(self):
         request = HttpRequest(
             body={}
         )
@@ -120,46 +106,36 @@ class Test_GetMemberController:
         assert response.status_code == 400
         assert response.body == "Field requester_user is missing"
 
-    def test_get_member_contoller_no_start_date_and_end_date(self):
+    def test_get_member_info_controller_freeze_user(self):
+        # Luigi Televisão - FREEZE
         request = HttpRequest(
             body={
                 'requester_user': {
-                    "sub": self.first_member.user_id,
-                    "name": self.first_member.name,
-                    "email": self.first_member.email,
+                    "sub": "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
+                    "name": "Luigi Televisão",
+                    "email": "lgtv@gmail.com",
                     "custom:isMaua": True
                 }
             }
         )
 
-        expected_dict = {
-            'member': {
-                'active': 'ACTIVE',
-                'cellphone': '11991758098',
-                'course': 'ECA',
-                'deactivated_date': None,
-                'email': 'vsoller@airubio.com',
-                'email_dev': 'vsoller.devmaua@gmail.com',
-                'hired_date': 1634576165000,
-                'hours_worked': 0,
-                'name': 'Vitor Guirão MPNTM',
-                'photo': None,
-                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                'ra': '21017310',
-                'role': 'DIRECTOR',
-                'stack': 'INFRA',
-                'strikes': 1,
-                'strikes_id': ['t0u1v2w3-x4y5-6789-0123-456789tuvwxy'],
-                'strikes_allowed': 4,
-                'user_id': '93bc6ada-c0d1-7054-66ab-e17414c48ae3',
-                'year': 1
-            },
-            'message': 'the member was retrieved'
-        }
+        response = self.controller(request)
+
+        assert response.status_code == 403
+
+    def test_get_member_info_controller_disconnected_user(self):
+        # Marcos Pereira Neto - DISCONNECTED
+        request = HttpRequest(
+            body={
+                'requester_user': {
+                    "sub": "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
+                    "name": "Marcos Pereira Neto",
+                    "email": "mneto@gmail.com",
+                    "custom:isMaua": True
+                }
+            }
+        )
 
         response = self.controller(request)
 
-        pprint(response.body)
-
-        assert response.status_code == 200
-        assert response.body == expected_dict
+        assert response.status_code == 403

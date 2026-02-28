@@ -1,16 +1,16 @@
 import json
-from src.modules.get_member.app.get_member_presenter import lambda_handler
+from src.modules.get_member_info.app.get_member_info_presenter import lambda_handler
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 
 repo_mock = MemberRepositoryMock()
-first_member = repo_mock.members[0]
-third_member = repo_mock.members[2] 
+first_member = repo_mock.members[0]  # Vitor Guirão
+third_member = repo_mock.members[2]  # Luigi Televisão (FREEZE)
 
 
-class Test_GetMemberPresenter:
+class Test_GetMemberInfoPresenter:
 
-    def test_get_member_presenter(self):
+    def test_get_member_info_presenter(self):
         event = {
             "version": "2.0",
             "routeKey": "$default",
@@ -58,9 +58,13 @@ class Test_GetMemberPresenter:
         }
 
         response = lambda_handler(event, None)
-        assert response["statusCode"] == 200
 
-    def test_get_enrollment_presenter_invalid_id(self):
+        assert response["statusCode"] == 200
+        body = json.loads(response["body"])
+        assert "member_info" in body
+        assert body["member_info"]["name"] == "Vitor Guirão MPNTM"
+
+    def test_get_member_info_presenter_invalid_id(self):
         event = {
             "version": "2.0",
             "routeKey": "$default",
@@ -110,7 +114,7 @@ class Test_GetMemberPresenter:
         response = lambda_handler(event, None)
         assert response["statusCode"] == 400
 
-    def test_get_enrollment_presenter_nonexistent_id(self):
+    def test_get_member_info_presenter_nonexistent_id(self):
         event = {
             "version": "2.0",
             "routeKey": "$default",
@@ -159,3 +163,69 @@ class Test_GetMemberPresenter:
 
         response = lambda_handler(event, None)
         assert response["statusCode"] == 403
+
+    def test_get_member_info_presenter_freeze_user(self):
+        # third_member é Luigi Televisão (FREEZE)
+        event = {
+            "version": "2.0",
+            "routeKey": "$default",
+            "rawPath": "/my/path",
+            "rawQueryString": "",
+            "headers": {},
+            "requestContext": {
+                "accountId": "123456789012",
+                "apiId": "<urlid>",
+                "authentication": None,
+                "authorizer": {
+                    "claims": {
+                        "sub": third_member.user_id,
+                        "name": third_member.name,
+                        "email": third_member.email,
+                        "custom:isMaua": True
+                    }
+                },
+                "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
+                "requestId": "id",
+                "routeKey": "$default",
+                "stage": "$default",
+                "time": "12/Mar/2020:19:03:58 +0000",
+                "timeEpoch": 1583348638390
+            },
+            "body": None,
+            "pathParameters": None,
+            "isBase64Encoded": None,
+            "stageVariables": None
+        }
+
+        response = lambda_handler(event, None)
+        assert response["statusCode"] == 403
+
+    def test_get_member_info_presenter_missing_claims(self):
+        event = {
+            "version": "2.0",
+            "routeKey": "$default",
+            "rawPath": "/my/path",
+            "rawQueryString": "",
+            "headers": {},
+            "requestContext": {
+                "accountId": "123456789012",
+                "apiId": "<urlid>",
+                "authentication": None,
+                "authorizer": {
+                    "claims": None  # Sem claims
+                },
+                "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
+                "requestId": "id",
+                "routeKey": "$default",
+                "stage": "$default",
+                "time": "12/Mar/2020:19:03:58 +0000",
+                "timeEpoch": 1583348638390
+            },
+            "body": None,
+            "pathParameters": None,
+            "isBase64Encoded": None,
+            "stageVariables": None
+        }
+
+        response = lambda_handler(event, None)
+        assert response["statusCode"] == 400
