@@ -22,6 +22,7 @@ class MemberViewModel:
     user_id: str
     hours_worked: int
     strikes: int
+    strikes_id: List[str]
     strikes_allowed: int
     photo: Optional[str] = None
 
@@ -42,6 +43,7 @@ class MemberViewModel:
         self.user_id = member.user_id
         self.hours_worked = member.hours_worked
         self.strikes = member.strikes
+        self.strikes_id = member.strikes_id
         self.strikes_allowed = member.strikes_allowed
         self.photo = member.photo
 
@@ -64,6 +66,7 @@ class MemberViewModel:
             'user_id' : self.user_id,
             'hours_worked' : self.hours_worked,
             'strikes' : self.strikes,
+            'strikes_id' : self.strikes_id,
             'strikes_allowed' : self.strikes_allowed,
             'photo' : self.photo
         }
