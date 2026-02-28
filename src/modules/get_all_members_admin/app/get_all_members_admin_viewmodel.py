@@ -22,7 +22,7 @@ class MemberViewModel:
     user_id: str
     hours_worked: int
     strikes: int
-    strikes_id: list
+    strikes_id: List[str]
     strikes_allowed: int
     photo: Optional[str] = None
 
