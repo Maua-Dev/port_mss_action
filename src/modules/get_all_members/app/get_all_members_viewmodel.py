@@ -40,6 +40,7 @@ class MemberViewModel:
         self.user_id = member.user_id
         self.photo = member.photo
         self.strikes = member.strikes
+        self.strikes_id = member.strikes_id
         self.strikes_allowed = member.strikes_allowed
         self.hours_worked = member.hours_worked
 
@@ -61,6 +62,7 @@ class MemberViewModel:
             'active' : self.active.value,
             'user_id' : self.user_id,
             'strikes' : self.strikes,
+            'strikes_id' : self.strikes_id,
             'strikes_allowed' : self.strikes_allowed,
             'photo' : self.photo,
 

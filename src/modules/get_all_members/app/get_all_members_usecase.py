@@ -88,6 +88,7 @@ class GetAllMembersUsecase:
                 member.strikes_allowed= 4
 
             member.strikes= len(member_list_strike_this_sem)
+            member.strikes_id= [s.strike_id for s in member_list_strike_this_sem]
             member.hours_worked = hours_worked.get(member_user_id, 0) if is_admin else None
             member.project = member_projects[member_user_id]
 
