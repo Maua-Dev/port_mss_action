@@ -33,7 +33,7 @@ def setup_dynamo_table():
                 {
                     'AttributeName': 'SK',
                     'AttributeType': 'S'
-                },
+                }
             ],
             
             BillingMode='PAY_PER_REQUEST',

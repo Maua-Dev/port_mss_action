@@ -16,10 +16,10 @@ class Test_UpdateActionViewmodel:
         expected = {
             'action': {
                 'user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
-                'start_date': 1644256000000,
-                'end_date': 1653756000000,
+                'start_date': 1756987200000,
+                'end_date': 1756990800000,
                 'is_valid': True,
-                'duration': 9500000000,
+                'duration': 3600000,
                 'action_id': '5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
                 'story_id': 94,
                 'title': 'Retrospectiva',

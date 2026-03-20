@@ -5,7 +5,8 @@ from src.shared.helpers.external_interfaces.http_lambda_requests import LambdaHt
 
 member_repo = Environments.get_member_repo()()
 action_repo = Environments.get_action_repo()()
-usecase = GetMemberUsecase(member_repo=member_repo, action_repo=action_repo)
+strike_repo = Environments.get_strike_repo()()
+usecase = GetMemberUsecase(member_repo=member_repo, action_repo=action_repo, strike_repo=strike_repo)
 controller = GetMemberController(usecase=usecase)
 
 def lambda_handler(event, context):

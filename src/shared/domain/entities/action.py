@@ -161,8 +161,8 @@ class Action(abc.ABC):
     def validate_duration(duration: int, start_date: int, end_date: int) -> bool:
         if type(duration) != int:
             return False
-        if duration <= 0:
-            return False
+        # if duration <= 0:
+        #     return False
         if duration > end_date - start_date:
             return False
         return True

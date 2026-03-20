@@ -1,6 +1,5 @@
 import base64
-import time
-import datetime
+from datetime import datetime
 from decimal import Decimal
 import imghdr
 import os
@@ -411,23 +410,23 @@ class ActionRepositoryDynamo(IActionRepository):
             Attr('end_date').lte(end_date)
         )
 
-        projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
-        expression_attribute_names = {
-            "#dur": "duration"
-        }
+        # projection_expression = "SK, start_date, end_date, user_id, #dur, associated_members_user_ids"
+        # expression_attribute_names = {
+        #     "#dur": "duration"
+        # }
 
         resp = self.dynamo.scan_items_last_ev_key(
             filter_expression=expression,
-            projection_expression=projection_expression,
-            expression_attribute_names=expression_attribute_names
+            # projection_expression=projection_expression,
+            # expression_attribute_names=expression_attribute_names
         )
 
-        if resp.get("Count", 0) == 0:
+        if not resp:
             return 0
 
         total_duration = 0
 
-        for item in resp['Items']:
+        for item in resp:
             action = ActionDynamoDTO.from_dynamo(item).to_entity()
 
             if action.duration is not None:

@@ -19,6 +19,32 @@ class DynamoStack(Construct):
 
                 REMOVAL_POLICY = RemovalPolicy.RETAIN if 'prod' in self.github_ref_name else RemovalPolicy.DESTROY
 
+                self.dynamo_table_strike= aws_dynamodb.Table(
+                    self, 
+                    "PortalInterno_strike_Table",
+                    partition_key=aws_dynamodb.Attribute(
+                            name="PK",
+                            type=aws_dynamodb.AttributeType.STRING
+                    ),
+                    point_in_time_recovery=True,
+                    
+                    billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+
+                    removal_policy=REMOVAL_POLICY
+                )
+
+                self.dynamo_table_strike.add_global_secondary_index(
+                    partition_key=aws_dynamodb.Attribute(
+                        name="GSI-TARGET-PK",
+                        type=aws_dynamodb.AttributeType.STRING
+                    ),
+                    sort_key=aws_dynamodb.Attribute(
+                        name="GSI-TARGET-SK",
+                        type=aws_dynamodb.AttributeType.NUMBER
+                    ),
+                    index_name="GSI-TARGET"
+                )
+
                 self.dynamo_table_action = aws_dynamodb.Table(
                 self, "PortalInterno_action_Table",
                 partition_key=aws_dynamodb.Attribute(
@@ -56,24 +82,24 @@ class DynamoStack(Construct):
                 )
             
                 self.dynamo_table_member = aws_dynamodb.Table(
-                self, "PortalInterno_member_Table",
-                partition_key=aws_dynamodb.Attribute(
-                    name="PK",
-                    type=aws_dynamodb.AttributeType.STRING
-                ),
-                point_in_time_recovery=True,
-                sort_key=aws_dynamodb.Attribute(
-                    name="SK",
-                    type=aws_dynamodb.AttributeType.STRING
-                ),
-                billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
-                removal_policy=REMOVAL_POLICY
-            )    
+                    self, "PortalInterno_member_Table",
+                    partition_key=aws_dynamodb.Attribute(
+                        name="PK",
+                        type=aws_dynamodb.AttributeType.STRING
+                    ),
+                    point_in_time_recovery=True,
+                    sort_key=aws_dynamodb.Attribute(
+                        name="SK",
+                        type=aws_dynamodb.AttributeType.STRING
+                    ),
+                    billing_mode=aws_dynamodb.BillingMode.PAY_PER_REQUEST,
+                    removal_policy=REMOVAL_POLICY
+                )  
                 CfnOutput(self, 'DynamoActionRemovalPolicy',
                     value=REMOVAL_POLICY.value,
                     export_name=f'PortalInterno{self.github_ref_name}DynamoActionRemovalPolicyValue')
                 
                 CfnOutput(self, 'DynamoMemberRemovalPolicy',
                     value=REMOVAL_POLICY.value,
-                    export_name=f'PortalInterno{self.github_ref_name}DynamoMemberRemovalPolicyValue') 
+                    export_name=f'PortalInterno{self.github_ref_name}DynamoMemberRemovalPolicyValue')
             

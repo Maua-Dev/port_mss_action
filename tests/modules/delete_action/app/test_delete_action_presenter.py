@@ -61,9 +61,9 @@ class Test_DeleteActionPresenter:
         expected = {
             'action':{
                 'user_id':'6f5g4h7J-876j-0098-123hb-hgb567fy4hb',
-                'start_date':1644256000000,
-                'end_date':1653756000000,
-                'duration':9500000000,
+                'start_date':1756987200000,
+                'end_date':1756990800000,
+                'duration':3600000,
                 'action_id':'5f4f13df-e7d3-4a10-9219-197ceae9e3f0',
                 'is_valid':True,
                 'story_id':94,
