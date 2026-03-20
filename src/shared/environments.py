@@ -4,6 +4,7 @@ import os
 
 from src.shared.domain.repositories.action_repository_interface import IActionRepository
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
+from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 
 
 class STAGE(Enum):
@@ -49,10 +50,13 @@ class Environments:
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
             self.dynamo_table_name_member = "port_mss_member-table"
+            self.dynamo_table_name_strike = "port_mss_strike-table"
             self.dynamo_partition_key = "PK"
             self.dynamo_sort_key = "SK"
             self.dynamo_gsi_1_partition_key = "GSI1-PK"
             self.dynamo_gsi_1_sort_key = "GSI1-SK"
+            self.dynamo_gsi_strike_partition_key = "GSI-TARGET-PK"
+            self.dynamo_gsi_strike_sort_key= "GSI-TARGET-SK"
             self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_member_report = "https://d3q9q9q9q9q9q9.cloudfront.net"
@@ -72,9 +76,12 @@ class Environments:
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
             self.dynamo_table_name_member = os.environ.get("DYNAMO_TABLE_NAME_MEMBER")
             self.dynamo_partition_key = os.environ.get("DYNAMO_PARTITION_KEY")
+            self.dynamo_table_name_strike = os.environ.get("DYNAMO_TABLE_NAME_STRIKE")
             self.dynamo_sort_key = os.environ.get("DYNAMO_SORT_KEY")
             self.dynamo_gsi_1_partition_key = os.environ.get("DYNAMO_GSI_PARTITION_KEY")
             self.dynamo_gsi_1_sort_key = os.environ.get("DYNAMO_GSI_SORT_KEY")
+            self.dynamo_gsi_strike_partition_key= os.environ.get("DYNAMO_GSI_TARGET_PARTITION_KEY")
+            self.dynamo_gsi_strike_sort_key= os.environ.get("DYNAMO_GSI_TARGET_SORT_KEY")
             self.cloud_front_distribution_domain_assets_member = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER")
             self.cloud_front_distribution_domain_assets_project = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT")
             self.cloud_front_distribution_domain_assets_member_report = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT")
@@ -109,6 +116,16 @@ class Environments:
         else:
             raise Exception("No repository found for this stage")
         
+    @staticmethod
+    def get_strike_repo() -> IStrikeRepository:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from src.shared.infra.repositories.strike_repository_mock import StrikeRepositoryMock
+            return StrikeRepositoryMock
+        elif Environments.get_envs().stage in [STAGE.PROD, STAGE.DEV, STAGE.HOMOLOG]:
+            from src.shared.infra.repositories.strike_repository_dynamo import StrikeRepositoryDynamo
+            return StrikeRepositoryDynamo
+        else:
+            raise Exception("No repository found for this stage")
 
     @staticmethod
     def get_envs() -> "Environments":

@@ -1,12 +1,14 @@
 import base64
 import datetime
 import imghdr
+from src.shared.domain.entities.strike import Strike
 from src.shared.helpers.errors.controller_errors import WrongTypeFile
 import os
 from typing import List, Optional
 from src.shared.domain.repositories.member_repository_interface import IMemberRepository
 from src.shared.domain.entities.member import Member
 from botocore.config import Config
+from src.shared.helpers.utils.compose_member_reached_max_strike_number import compose_member_reached_max_strike_number
 from src.shared.infra.dto.member_dynamo_dto import MemberDynamoDTO
 from src.shared.environments import Environments
 from src.shared.infra.external.dynamo.datasources.dynamo_datasource import DynamoDatasource
@@ -17,6 +19,7 @@ from src.shared.domain.enums.role_enum import ROLE
 from src.shared.domain.enums.stack_enum import STACK
 from src.shared.helpers.utils.compose_member_active_email import compose_member_active_email
 import boto3
+from boto3.dynamodb.conditions import Attr
 
 
 class MemberRepositoryDynamo(IMemberRepository):
@@ -33,8 +36,8 @@ class MemberRepositoryDynamo(IMemberRepository):
             endpoint_url=Environments.get_envs().endpoint_url,
             dynamo_table_name=Environments.get_envs().dynamo_table_name_member,
             region=Environments.get_envs().region,
-            partition_key=Environments.get_envs().dynamo_partition_key,
-            sort_key=Environments.get_envs().dynamo_sort_key)
+            partition_key=Environments.get_envs().dynamo_partition_key,sort_key=Environments.get_envs().dynamo_sort_key
+        )
         
         my_config = Config(
             region_name=Environments.get_envs().region,
@@ -52,8 +55,13 @@ class MemberRepositoryDynamo(IMemberRepository):
         if member.photo is not None:
             url = self.upload_member_photo(member.user_id, member.photo)
             member.photo = url
+
         item = MemberDynamoDTO.from_entity(member).to_dynamo()
-        resp = self.dynamo.put_item(item=item, partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True)
+
+        self.dynamo.put_item(
+            item=item,
+            partition_key=self.member_partition_key_format(member), sort_key=self.member_sort_key_format(member.user_id), is_decimal=True
+        )
         
         return member
     
@@ -76,6 +84,23 @@ class MemberRepositoryDynamo(IMemberRepository):
 
         member_dto = MemberDynamoDTO.from_dynamo(member['Item'])
         return member_dto.to_entity()
+    
+    def get_active_heads_and_directors(self) -> Optional[List[Member]]:
+
+        filter= Attr('active').eq("ACTIVE") & Attr('role').is_in([ROLE.HEAD.value, ROLE.DIRECTOR.value])
+
+        response = self.dynamo.scan_items(
+            filter_expression=filter
+        )
+
+        items = response.get("Items", [])
+
+        if not items:
+            return None
+        
+        active_head_and_director_list= [MemberDynamoDTO.from_dynamo(active_head_or_director).to_entity() for active_head_or_director in items]
+
+        return active_head_and_director_list
     
     def batch_get_member(self, user_ids: List[str]) -> List[Member]:
         keys = [{self.dynamo.partition_key: self.member_partition_key_format(user_id), self.dynamo.sort_key: self.member_sort_key_format(user_id)} for user_id in user_ids]
@@ -188,6 +213,58 @@ class MemberRepositoryDynamo(IMemberRepository):
         except Exception as err:
             print(err)
             return False
+        
+    def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
+        try:
+            member= self.get_member(created_strike.target_user_id)
+            
+            active_heads_and_directors_list= self.get_active_heads_and_directors()
+
+            print(f"Os actives heads são: {active_heads_and_directors_list}")
+
+            if not active_heads_and_directors_list:
+                print("Não foi encontrado nenhum HEAD e nenhum DIRECTOR")
+                return False
+            
+            head_and_director_email_list= [head_or_director.email for head_or_director in active_heads_and_directors_list]
+
+            client_ses= boto3.client('ses', region_name=Environments.get_envs().region)
+
+            email_to_send= compose_member_reached_max_strike_number(member, created_strike, strike_limit)
+
+            client_ses.send_email(
+                Destination= {
+                    'ToAddresses': head_and_director_email_list,
+                    'BccAddresses': [
+                        Environments.get_envs().hidden_copy
+                    ]
+                },
+                Message={
+                    'Body': {
+                        'Html': {
+                            'Charset': "UTF-8",
+                            'Data': email_to_send
+                        }
+                    },
+                    'Subject': {
+                        'Charset': "UTF-8",
+                        'Data': "Portal Interno - Membro Atingiu Número Máximo de Strikes"
+                    }
+                },
+                ReplyToAddresses=[
+                    Environments.get_envs().reply_to_email
+                ],
+                Source= Environments.get_envs().from_email
+            )
+
+            print('EMAIL ENVIADO')
+
+            return True
+
+        except Exception as err:
+            print(err)
+            return False
+
         
     def generate_key(self, user_id: str, file_type: str) -> str:
 

@@ -18,6 +18,9 @@ class GetMemberController:
                 raise MissingParameters('requester_user')
             
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
+
+            print(request)
+            print(request.data)
             
             start_date = request.data.get('start_date')
             if start_date is not None:
@@ -29,8 +32,13 @@ class GetMemberController:
                 if type(end_date) is not int:
                     raise WrongTypeParameter(fieldName='end_date', fieldTypeExpected='int', fieldTypeReceived=type(end_date))
                 
+            print("chegou até antes do usecase")
+
             member = self.usecase(user_id=requester_user.user_id, start_date=start_date, end_date=end_date)
+
             viewmodel = GetMemberViewModel(member=member)
+
+            print("chegou no final")
 
 
             return OK(viewmodel.to_dict())

@@ -1,5 +1,6 @@
 import datetime
 from typing import List, Optional
+from src.shared.domain.entities.strike import Strike
 from src.shared.domain.enums.active_enum import ACTIVE
 from src.shared.domain.enums.course_enum import COURSE
 from src.shared.domain.enums.role_enum import ROLE
@@ -206,7 +207,60 @@ class MemberRepositoryMock(IMemberRepository):
                 user_id = "3b07232f-4f65-42c6-b005-242550b8b8dc",
                 photo=None
             )
+            ,
+            Member(
+                name= "Ryuske",
+                email_dev= "ryuske.devmaua@gmail.com",
+                email= "ryuske@gmail.com",
+                ra= "20123456",
+                role= ROLE.DIRECTOR,
+                stack= STACK.RH,
+                year= 5,
+                cellphone = "11995623456",
+                course= COURSE.ECM,
+                hired_date= 1640192165000,
+                active= ACTIVE.ACTIVE,
+                deactivated_date= None,
+                user_id= "3b07232f-4f65-42c6-b005-242550b8b8bf",
+                photo=None
+            )
+            ,
+
+            Member(
+                name= "Layala Sam",
+                email_dev= "layala.devmaua@gmail.com",
+                email= "layala@gmail.com",
+                ra= "25123456",
+                role= ROLE.INTERNAL,
+                stack= STACK.RH,
+                year= 1,
+                cellphone="11997828564",
+                course= COURSE.ADM,
+                hired_date= 1640192165000,
+                active= ACTIVE.ACTIVE,
+                deactivated_date= None,
+                user_id= "3b07232f-4f65-42c6-b005-242550b8b8ty",
+                photo=None
+            ),
+
+            Member(
+                name= "Ana Julia",
+                email_dev= "anaju.devmaua@gmail.com",
+                email= "anaju@gmail.com",
+                ra= "25123457",
+                role= ROLE.INTERNAL,
+                stack= STACK.INFRA,
+                year= 1,
+                cellphone="11997828565",
+                course= COURSE.ADM,
+                hired_date= 1640192165000,
+                active= ACTIVE.ACTIVE,
+                deactivated_date= None,
+                user_id= "3b07232f-4f65-42c6-b005-242550b8h9ir",
+                photo=None 
+            )
         ]
+        
 
    
 
@@ -227,6 +281,17 @@ class MemberRepositoryMock(IMemberRepository):
                 return member
         return None
     
+    def get_active_heads_and_directors(self) -> List[Member]:
+        active_heads_list= []
+
+        for member in self.members:
+            if member.role == ROLE.HEAD and member.active == ACTIVE.ACTIVE:
+                active_heads_list.append(member)
+
+            if member.role == ROLE.DIRECTOR and member.active == ACTIVE.ACTIVE:
+                active_heads_list.append(member)
+
+        return active_heads_list
     
     def update_member(self, user_id: str, new_name: Optional[str] = None, new_email_dev: Optional[str] = None, new_role: Optional[ROLE] = None, new_stack: Optional[STACK] = None, new_year: Optional[int] = None, new_cellphone: Optional[str] = None, new_course: Optional[COURSE] = None,new_deactivated_date: Optional[int] = None, new_active: Optional[ACTIVE] = None,new_photo: Optional[bytes] = None) -> Member:
        
@@ -277,4 +342,7 @@ class MemberRepositoryMock(IMemberRepository):
 
     def send_active_member_email(self, member: Member) -> bool: 
         # send email in real
+        return True
+    
+    def send_email_to_warn_about_member_reached_total_strike_limit(self, created_strike: Strike, strike_limit: int) -> bool:
         return True
