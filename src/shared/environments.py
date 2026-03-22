@@ -46,6 +46,7 @@ class Environments:
             self.s3_bucket_name_member = "portalinternostackbackd-portalinternobackbucket-project"
             self.s3_bucket_name_project = "portalinternostackbackd-portalinternobackbucket-member"
             self.s3_bucket_name_member_report = "portalinternostackbackd-portalinternobackbucket-member-report"
+            self.s3_bucket_name_dev_policy_documents= "portalinternosbackd-portalinternobackbucket-dev-policy-report"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
@@ -60,6 +61,7 @@ class Environments:
             self.cloud_front_distribution_domain_assets_member = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_project = "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.cloud_front_distribution_domain_assets_member_report = "https://d3q9q9q9q9q9q9.cloudfront.net"
+            self.cloud_front_distribution_domain_assets_dev_policy_documents= "https://d3q9q9q9q9q9q9.cloudfront.net"
             self.bucket_endpoint_url = "http://localhost:9000"
             self.reply_to_email = "dev@maua.br"
             self.from_email = "contato@devmaua.com"
@@ -71,6 +73,7 @@ class Environments:
             self.s3_bucket_name_member = os.environ.get("S3_BUCKET_NAME_MEMBER")
             self.s3_bucket_name_project = os.environ.get("S3_BUCKET_NAME_PROJECT")
             self.s3_bucket_name_member_report = os.environ.get("S3_BUCKET_NAME_MEMBER_REPORT")
+            self.s3_bucket_name_dev_policy_documents= os.environ.get("S3_BUCKET_NAME_DEV_POLICY_DOCUMENTS")
             self.region = os.environ.get("REGION")
             self.endpoint_url = os.environ.get("ENDPOINT_URL")
             self.dynamo_table_name = os.environ.get("DYNAMO_TABLE_NAME")
@@ -85,6 +88,7 @@ class Environments:
             self.cloud_front_distribution_domain_assets_member = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER")
             self.cloud_front_distribution_domain_assets_project = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT")
             self.cloud_front_distribution_domain_assets_member_report = os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT")
+            self.cloud_front_distribution_domain_assets_dev_policy_documents= os.environ.get("CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_DEV_POLICY_DOCUMENTS")
             self.bucket_endpoint_url = os.environ.get("BUCKET_ENDPOINT_URL")
             self.reply_to_email = os.environ.get("REPLY_TO_EMAIL")
             self.from_email = os.environ.get("FROM_EMAIL")
