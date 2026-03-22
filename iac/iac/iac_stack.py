@@ -70,6 +70,8 @@ class IacStack(Stack):
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_PROJECT": self.bucket_stack.cloudfront_distribution_project.domain_name,
             "S3_BUCKET_NAME_MEMBER_REPORT": self.bucket_stack.s3_bucket_member_report.bucket_name,
             "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_MEMBER_REPORT": self.bucket_stack.cloudfront_distribution_member_report.domain_name,
+            "S3_BUCKET_NAME_DEV_POLICY_DOCUMENTS": self.bucket_stack.s3_bucket_dev_policy_documents.bucket_name,
+            "CLOUD_FRONT_DISTRIBUTION_DOMAIN_ASSETS_DEV_POLICY_DOCUMENTS": self.bucket_stack.cloudfront_distribution_dev_policy_documents.domain_name,
             "COGNITO_USER_POOL_ID": self.cognito_stack.user_pool.user_pool_id,
             "COGNITO_CLIENT_ID": self.cognito_stack.client.user_pool_client_id,
             "MSS_NAME": os.environ.get("MSS_NAME", "port_mss_action"),
