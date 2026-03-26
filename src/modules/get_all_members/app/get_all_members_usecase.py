@@ -67,6 +67,12 @@ class GetAllMembersUsecase:
         projects = self.actionrepo.get_all_projects()
 
         member_projects = {member.user_id: [] for member in members}
+        
+        for project in projects:
+            project_name = project.name
+            for member_user_id in project.members_user_ids:
+                if member_user_id in member_projects:
+                    member_projects[member_user_id].append(project_name)
 
         for member in members:
             member_user_id = member.user_id
