@@ -67,16 +67,22 @@ class GetAllMembersUsecase:
         projects = self.actionrepo.get_all_projects()
 
         member_projects = {member.user_id: [] for member in members}
+        
+        for project in projects:
+            project_name = project.name
+            for member_user_id in project.members_user_ids:
+                if member_user_id in member_projects:
+                    member_projects[member_user_id].append(project_name)
 
         for member in members:
             member_user_id = member.user_id
 
-            member_list_strikes = self.strikerepo.get_strike_by_target_id(target_user_id=member_user_id)
-            if member_list_strikes:
-                member_list_strike_this_sem = [
-                    s for s in member_list_strikes
-                    if start_date <= s.occurred_date <= end_date
-                ]
+            member_list_strikes = self.strikerepo.get_strike_by_target_id(target_user_id=member_user_id) or []
+
+            member_list_strike_this_sem = [
+                s for s in member_list_strikes
+                if start_date <= s.occurred_date <= end_date
+            ]
 
             total_projects= len(member_projects[member_user_id])
 
