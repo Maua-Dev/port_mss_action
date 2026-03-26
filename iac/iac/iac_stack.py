@@ -23,16 +23,19 @@ class IacStack(Stack):
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
         self.aws_region = os.environ.get("AWS_REGION")
         
-        self.rest_api = RestApi(self, "PortalInterno_RestApi",
-                                rest_api_name="PortalInterno_RestApi",
-                                description="This is the Portal Interno RestApi",
-                                default_cors_preflight_options=
-                                {
-                                    "allow_origins": Cors.ALL_ORIGINS,
-                                    "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-                                    "allow_headers": ["*"]
-                                },
-                                )
+        self.rest_api = RestApi(
+            self, "PortalInterno_RestApi",
+            rest_api_name="PortalInterno_RestApi",
+            description="This is the Portal Interno RestApi",
+            default_cors_preflight_options={
+                "allow_origins": Cors.ALL_ORIGINS,
+                "allow_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "allow_headers": ["*"]
+            },
+            deploy_options={
+                "stage_name": self.github_ref_name.lower()
+            }
+        )
 
         api_gateway_resource = self.rest_api.root.add_resource("mss-action", default_cors_preflight_options=
         {
