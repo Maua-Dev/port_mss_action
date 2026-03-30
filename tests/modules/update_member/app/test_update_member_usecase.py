@@ -21,63 +21,63 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,
                 new_photo=None)
-        
+
         assert repo.members[0] == member
 
     def test_update_member_usecase_new_name(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_name="Teste Testudo")
-        
+
         assert repo.members[0].name == 'Teste Testudo'
 
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3",new_year=3)
-        
+
         assert repo.members[0].year == 3
 
     def test_update_member_usecase_new_role(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_role=ROLE.HEAD)
-        
+
         assert repo.members[0].role == ROLE.HEAD
 
     def test_update_member_usecase_new_stack(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_stack=STACK.FRONTEND)
-        
+
         assert repo.members[0].stack == STACK.FRONTEND
 
     def test_update_member_usecase_new_year(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_year=5)
-        
+
         assert repo.members[0].year == 5
 
     def test_update_member_usecase_new_cellphone(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_cellphone="11991751111")
-        
+
         assert repo.members[0].cellphone == "11991751111"
 
     def test_update_member_usecase_new_course(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_course=COURSE.DSG)
-        
+
         assert repo.members[0].course == COURSE.DSG
 
     def test_update_member_usecase_new_active(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
         member = usecase(user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3", new_active=ACTIVE.DISCONNECTED)
-        
+
         assert repo.members[0].active == ACTIVE.DISCONNECTED
 
 
@@ -95,7 +95,7 @@ class Test_UpdateMemberUsecase:
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE)
-            
+
 
     def test_update_member_name_wrongtype(self):
         with pytest.raises(EntityError):
@@ -112,7 +112,7 @@ class Test_UpdateMemberUsecase:
             first_user = repo.members[0]
 
             updated_user = usecase(user_id=first_user.user_id, new_email_dev=3)
-    
+
     def test_update_member_email_dev_invalid(self):
         with pytest.raises(EntityError):
             repo = MemberRepositoryMock()
@@ -127,15 +127,15 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_role="@gmail.com")   
-            
+            updated_user = usecase(user_id=first_user.user_id, new_role="@gmail.com")
+
     def test_update_member_stack_wrongtype(self):
         with pytest.raises(EntityError):
             repo = MemberRepositoryMock()
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_stack="@gmail.com")   
+            updated_user = usecase(user_id=first_user.user_id, new_stack="@gmail.com")
 
     def test_update_member_new_year_wrongtype(self):
         with pytest.raises(EntityError):
@@ -143,7 +143,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_year="@gmail.com")   
+            updated_user = usecase(user_id=first_user.user_id, new_year="@gmail.com")
 
     def test_update_member_new_year_higher_than_6(self):
         with pytest.raises(EntityError):
@@ -151,7 +151,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_year=7)   
+            updated_user = usecase(user_id=first_user.user_id, new_year=7)
 
     def test_update_member_new_year_lesser_than_1(self):
         with pytest.raises(EntityError):
@@ -159,7 +159,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_year=0)   
+            updated_user = usecase(user_id=first_user.user_id, new_year=0)
 
     def test_update_member_new_cellphone_wrongtype(self):
         with pytest.raises(EntityError):
@@ -167,7 +167,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_cellphone=0)  
+            updated_user = usecase(user_id=first_user.user_id, new_cellphone=0)
 
     def test_update_member_new_cellphone_invalid(self):
         with pytest.raises(EntityError):
@@ -175,7 +175,7 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_cellphone="0")  
+            updated_user = usecase(user_id=first_user.user_id, new_cellphone="0")
 
     def test_update_member_new_course_wrongtype(self):
         with pytest.raises(EntityError):
@@ -183,16 +183,16 @@ class Test_UpdateMemberUsecase:
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_course=0) 
-  
+            updated_user = usecase(user_id=first_user.user_id, new_course=0)
+
     def test_update_member_new_active_date_wrongtype(self):
         with pytest.raises(EntityError):
             repo = MemberRepositoryMock()
             usecase = UpdateMemberUsecase(repo=repo)
             first_user = repo.members[0]
 
-            updated_user = usecase(user_id=first_user.user_id, new_active=0)  
-    
+            updated_user = usecase(user_id=first_user.user_id, new_active=0)
+
     def test_update_member_usecase_different_user(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -205,9 +205,9 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
                 new_member_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb")
-        
+
         assert repo.members[3] == member
-    
+
     def test_update_member_usecase_user_not_admin_update(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -219,9 +219,9 @@ class Test_UpdateMemberUsecase:
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000)
-        
+
         assert repo.members[3] == member
-    
+
     def test_update_member_usecase_user_forbidden(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -235,7 +235,7 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
                 new_member_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3")
-    
+
     def test_update_member_usecase_user_active_DISCONNECTED(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -251,7 +251,7 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
                 new_member_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb")
-            
+
     def test_update_member_usecase_user_active_FREEZE(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -267,7 +267,7 @@ class Test_UpdateMemberUsecase:
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE,new_deactivated_date=42312123230000,
                 new_member_user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb")
-    
+
     def test_update_member_usecase_update_self_not_active(self):
         repo = MemberRepositoryMock()
         usecase = UpdateMemberUsecase(repo=repo)
@@ -280,5 +280,25 @@ class Test_UpdateMemberUsecase:
                 new_cellphone="11991152348",
                 new_course=COURSE.ECM,
                 new_active=ACTIVE.ACTIVE)
-        
-            
+
+    def test_update_member_photo_non_admin(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+
+        member = usecase(
+            user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+            new_photo="https://fake-cloudfront.com/foto.png"
+        )
+
+        assert repo.members[5].photo == "https://fake-cloudfront.com/foto.png"
+
+    def test_update_member_photo_non_admin_cannot_update_other(self):
+        repo = MemberRepositoryMock()
+        usecase = UpdateMemberUsecase(repo=repo)
+
+        with pytest.raises(UserIsNotFromAdmin):
+            usecase(
+                user_id="7gh5yf5H-857H-1234-75hng-94832hvng1s",
+                new_photo="https://fake-cloudfront.com/foto.png",
+                new_member_user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3"
+            )
