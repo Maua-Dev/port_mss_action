@@ -40,23 +40,23 @@ class CreateStrikeUsecase:
 
         if not self.repo_member.get_member(user_id=owner_user_id) or not self.repo_member.get_member(user_id=applier_user_id) or not self.repo_member.get_member(user_id=target_user_id):
             raise UnregisteredUser()
-        
+
         owner_user= self.repo_member.get_member(user_id=owner_user_id)
 
         if not Member.validate_role_admin(role= owner_user.role):
             raise ForbiddenAction('Owner user as he is neither a Director nor Head')
-        
+
         applier_user= self.repo_member.get_member(user_id=applier_user_id)
 
         if not Member.validate_active(active=applier_user.active):
             raise ForbiddenAction("Applier user as he is not active")
-        
+
         # if applier_user.role not in [ROLE.DIRECTOR, ROLE.HEAD]:
         #     raise ForbiddenAction("Member is neither Director nor Head")
-            
+
         if not Member.validate_role_admin(role=applier_user.role):
             raise ForbiddenAction('Applier user as he is neither Director nor Head')
-        
+
         target_user= self.repo_member.get_member(user_id=target_user_id)
 
         if not Member.validate_active(active=target_user.active):
@@ -71,7 +71,7 @@ class CreateStrikeUsecase:
             year= now.year
 
         if (now.month <= 6) or (now.month == 12):
-            if (now.month <= 6): 
+            if (now.month <= 6):
                 start_date = datetime(year-1, 12, 1).timestamp() * 1000
                 end_date = datetime(year, 6, 30).timestamp() * 1000
 
@@ -79,12 +79,12 @@ class CreateStrikeUsecase:
                 start_date = datetime(year, 12, 1).timestamp() * 1000
                 end_date = datetime(year+1, 6, 30).timestamp() * 1000
 
-        else:  
+        else:
             start_date = datetime(year, 7, 1).timestamp() * 1000
-            end_date = datetime(year, 11, 30).timestamp() * 1000 
+            end_date = datetime(year, 11, 30).timestamp() * 1000
 
         start_date, end_date = Decimal(start_date), Decimal(end_date)
-        
+
 
         created_strike= self.repo.create_strike(strike=strike)
 
@@ -92,10 +92,10 @@ class CreateStrikeUsecase:
 
         projects= self.repo_action.get_all_projects()
 
-        
+
         target_user_list_strike_this_sem= [
             s for s in taget_user_list_strike
-            if start_date <= s.occurred_date <= end_date 
+            if start_date <= s.occurred_date <= end_date
         ]
 
         total_projects= 0
@@ -104,7 +104,7 @@ class CreateStrikeUsecase:
             # aqui ficar de olho porque na minha cabeca faz sentido fazer o in e nao o ==
             if target_user_id in project.members_user_ids:
                 total_projects+= 1
-        
+
         if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) == (2 - 1) ) or (total_projects == 2 and len(target_user_list_strike_this_sem) == (3 - 1)) or (total_projects >= 3 and len(target_user_list_strike_this_sem) == (4 - 1)):
 
             target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_date, end_date=end_date)
@@ -128,7 +128,7 @@ class CreateStrikeUsecase:
             self.repo_action.create_action(action=strike_action)
 
             return (created_strike, 1)
-        
+
 
         if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) >= 2 ) or (total_projects == 2 and len(target_user_list_strike_this_sem) >= 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) >= 4):
 
@@ -150,5 +150,5 @@ class CreateStrikeUsecase:
 
         else:
             return (created_strike, 0)
-    
+
     # fazer uma logica parecida com o que esta no auth user, mandando uma mensagem caso as horas sejam zeradas e uma caso seja so criado o strike

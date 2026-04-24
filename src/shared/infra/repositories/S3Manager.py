@@ -21,5 +21,16 @@ class S3Manager:
             's3_response': response,
             'key': key
         }
-    
-    
+
+    def generate_presigned_url(self, key: str, expiration: int = 3600) -> str:
+        url = self.s3.generate_presigned_url(
+            'put_object',
+            Params={
+                'Bucket': self.__envs.s3_bucket_name_member_report,
+                'Key': key,
+                'ContentType': 'application/pdf',
+            },
+            ExpiresIn=expiration
+        )
+        return url
+
