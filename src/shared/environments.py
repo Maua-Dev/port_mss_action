@@ -46,7 +46,7 @@ class Environments:
             self.s3_bucket_name_member = "portalinternostackbackd-portalinternobackbucket-project"
             self.s3_bucket_name_project = "portalinternostackbackd-portalinternobackbucket-member"
             self.s3_bucket_name_member_report = "portalinternostackbackd-portalinternobackbucket-member-report"
-            self.s3_bucket_name_dev_policy_documents= "portalinternosbackd-portalinternobackbucket-dev-policy-report"
+            self.s3_bucket_name_dev_policy_documents= "portalinternosback-dev-policy-report"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
