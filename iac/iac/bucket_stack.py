@@ -23,13 +23,14 @@ class BucketStack(Construct):
     def __init__(self, scope: Construct) -> None:
         super().__init__(scope, "PortalInterno_Bucket")
 
-        self.github_ref_name = os.environ.get("GITHUB_REF_NAME")
+        self.github_ref_name = os.environ.get("GITHUB_REF_NAME", "dev")
 
         REMOVAL_POLICY = RemovalPolicy.RETAIN if 'prod' in self.github_ref_name else RemovalPolicy.DESTROY
 
         self.s3_bucket_member = aws_s3.Bucket(
           self,
           "PortalInterno_Member_Photo_S3_Bucket",
+          bucket_name=f"portal-interno-member-photo-{self.github_ref_name.lower()}",
           versioned=True,
           block_public_access=aws_s3.BlockPublicAccess.BLOCK_ALL,
           event_bridge_enabled=False,
@@ -71,6 +72,7 @@ class BucketStack(Construct):
         self.s3_bucket_project = aws_s3.Bucket(
           self, 
           "PortalInterno_Project_Photo_S3_Bucket",
+          bucket_name=f"portal-interno-project-photo-{self.github_ref_name.lower()}",
           versioned=True,
           block_public_access=aws_s3.BlockPublicAccess.BLOCK_ALL,
           event_bridge_enabled=False,
@@ -112,6 +114,7 @@ class BucketStack(Construct):
         self.s3_bucket_member_report = aws_s3.Bucket(
           self,
           "PortalInterno_Member_Report_S3_Bucket",
+          bucket_name=f"portal-interno-member-report-{self.github_ref_name.lower()}",
           versioned=True,
           block_public_access=aws_s3.BlockPublicAccess.BLOCK_ALL,
           event_bridge_enabled=False,
@@ -145,6 +148,7 @@ class BucketStack(Construct):
         self.s3_bucket_dev_policy_documents= aws_s3.Bucket(
           self,
           "PortalInterno_Dev_Policy_Documents_S3_Bucket",
+          bucket_name=f"portal-interno-dev-policy-documents-{self.github_ref_name.lower()}",
           versioned= True,
           block_public_access= aws_s3.BlockPublicAccess.BLOCK_ALL,
           event_bridge_enabled=False,
