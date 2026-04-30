@@ -3,7 +3,6 @@ from aws_cdk import (
     aws_lambda as lambda_,
     NestedStack, Duration,
 )
-import os 
 from constructs import Construct
 from aws_cdk.aws_apigateway import Resource, LambdaIntegration, CognitoUserPoolsAuthorizer
 from aws_cdk.aws_events import Rule, Schedule
@@ -15,11 +14,9 @@ class LambdaStack(Construct):
     functions_that_need_dynamo_member_permissions = []
     functions_that_need_dynamo_strike_permissions= []
 
-
     def create_lambda_api_gateway_integration(self, module_name: str, method: str, api_resource: Resource, environment_variables: dict = {"STAGE": "TEST"}, authorizer=None ):
         function = lambda_.Function(
             self, module_name.title(),
-            function_name=f"pi-{module_name}",
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
@@ -36,12 +33,9 @@ class LambdaStack(Construct):
         return function
 
     def create_lambda_event_bridge_integration(self,module_name: str,cron_schedule: Schedule.cron,environment_variables: dict = {"STAGE": "TEST"}):
-        self.github_ref_name = os.environ.get("GITHUB_REF_NAME", "dev")
-
         function = lambda_.Function(
             self,
             module_name.title(),
-            function_name=f"pi-{module_name}",
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_9,
