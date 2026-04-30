@@ -34,6 +34,7 @@ class CognitoStack(Construct):
 
         self.user_pool = cognito.UserPool(
             self, f"PortalInternoUserPool-{stage}",
+            user_pool_name=f"portal-interno-user-pool-{self.github_ref_name.lower()}",
             self_sign_up_enabled=True,
             sign_in_aliases=cognito.SignInAliases(email=True),
             standard_attributes=cognito.StandardAttributes(
