@@ -1,4 +1,4 @@
-from src.shared.helpers.errors.usecase_errors import UnconfirmedUserError, DataIngestionError
+from src.shared.helpers.errors.usecase_errors import DataIngestionError
 from src.shared.helpers.errors.usecase_errors import DuplicatedItem
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.controller_errors import WrongTypeParameter
@@ -7,6 +7,7 @@ from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.external_interfaces.external_interface import IResponse
 from .bedrock_ingestion_usecase import BedrockIngestionUseCase
 from src.shared.helpers.external_interfaces.http_codes import OK, NotFound, BadRequest, InternalServerError, Conflict, ServiceUnavailable
+from .bedrock_ingestion_viewmodel import BedrockIngestionViewModel
 
 class BedrockIngestionController:
 
@@ -29,12 +30,8 @@ class BedrockIngestionController:
                 object_key
             )
 
-            viewmodel= {
-                'data': result,
-                'message': 'Bedrock ingestion started successfully'
-            }
+            viewmodel= BedrockIngestionViewModel(result).to_dict()
             
-
             response= OK(viewmodel)
 
             return response
@@ -51,7 +48,7 @@ class BedrockIngestionController:
         except EntityError as err:
             return BadRequest(body=err.message)
 
-        except (DuplicatedItem, UnconfirmedUserError) as err:
+        except DuplicatedItem as err:
             return Conflict(body=err.message)
 
         except DataIngestionError as err:
