@@ -53,6 +53,26 @@ class LambdaStack(Construct):
 
         return function
 
+    # this is an lambda that will not be acces by the internet through api gateway so it's only to be used by aws services
+    def create_background_lambda(
+        self,
+        module_name: str,
+        environment_variables: dict
+    ):
+        function= lambda_.Function(
+            self,
+            module_name.title(),
+            function_name=f"pnesc-{module_name}",
+            code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
+            handler=f"app.{module_name}_presenter.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_13,
+            layers=[self.lambda_layer],
+            environment=environment_variables,
+            timeout=Duration.seconds(35)
+        )
+
+        return function
+
     def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict,
                  authorizer: CognitoUserPoolsAuthorizer) -> None:
         super().__init__(scope, "PortalInterno_Lambdas")
@@ -268,6 +288,11 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.bedrock_ingestion= self.create_background_lambda(
+            module_name="bedrock_ingestion",
+            environment_variables=environment_variables
+        )
+
         self.functions_that_need_dynamo_strike_permissions = [
             self.create_strike_function,
             self.delete_strike_function,
@@ -347,5 +372,9 @@ class LambdaStack(Construct):
             self.update_project_function,
             self.download_projects_function,
             self.download_members_function
+        ]
+
+        self.functions_that_need_bedrock_access= [
+            self.bedrock_ingestion
         ]
 
