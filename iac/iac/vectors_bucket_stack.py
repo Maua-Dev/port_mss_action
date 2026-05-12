@@ -10,7 +10,7 @@ class VectorsBucketStack(Construct):
         self,
         scope: Construct
     ) -> None:
-        super().__init__(scope, "ProjetoNutriEsportivaSaoCamilo_VectorsBucket")
+        super().__init__(scope, "PortMssAction_VectorsBucket")
 
         self.github_ref_name = os.environ.get("GITHUB_REF_NAME", "dev")
 
@@ -19,15 +19,15 @@ class VectorsBucketStack(Construct):
         # cria o bucket de vetores
         self.s3_vectors_bucket_context_files= s3vectors.CfnVectorBucket(
             self,
-            "ProjetoNutriEsportivaSaoCamilo_Context_File_Vector_Bucket",
-            vector_bucket_name=f"projeto-nutri-esportiva-sao-camilo-context-files-vector-{stage.lower()}",
+            "PortalInterno_File_Vector_Bucket",
+            vector_bucket_name=f"portal-interno-files-vector-{stage.lower()}",
         )
 
         self.s3_vectors_index= s3vectors.CfnIndex(
             self,
-            "ProjetoNutriEsportivaSaoCamilo_Context_File_Vector_Index",
+            "PortalInterno_File_Vector_Index",
             vector_bucket_name=self.s3_vectors_bucket_context_files.vector_bucket_name,
-            index_name="nutri-index",
+            index_name="portal-interno-index",
             dimension=1024,
             data_type="float32",
             distance_metric="cosine",

@@ -62,7 +62,7 @@ class LambdaStack(Construct):
         function= lambda_.Function(
             self,
             module_name.title(),
-            function_name=f"pnesc-{module_name}",
+            function_name=f"portal-interno-{module_name}",
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
             runtime=lambda_.Runtime.PYTHON_3_13,
