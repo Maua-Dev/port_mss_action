@@ -39,3 +39,7 @@ class UserIsNotFromRH(BaseError):
 class EmailWasNotSent(BaseError):
     def __init__(self):
         super().__init__(f'The email was not sent!')
+
+class DataIngestionError(BaseError):
+    def __init__(self, message: str):
+        super().__init__(f'Error starting bedrock ingestion: {message}')

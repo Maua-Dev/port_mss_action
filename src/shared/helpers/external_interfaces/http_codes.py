@@ -48,3 +48,7 @@ class RedirectResponse(HttpResponse):
 class Forbidden(HttpResponse):
     def __init__(self, body: dict) -> None:
         super().__init__(HttpStatusCodeEnum.FORBIDDEN.value, body)
+
+class ServiceUnavailable(HttpResponse):
+    def __init__(self, body: Any) -> None:
+        super().__init__(HttpStatusCodeEnum.SERVICE_UNAVAILABLE.value, body)
