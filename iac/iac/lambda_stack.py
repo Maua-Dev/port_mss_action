@@ -65,7 +65,7 @@ class LambdaStack(Construct):
             function_name=f"portal-interno-{module_name}",
             code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
             handler=f"app.{module_name}_presenter.lambda_handler",
-            runtime=lambda_.Runtime.PYTHON_3_13,
+            runtime=lambda_.Runtime.PYTHON_3_9,
             layers=[self.lambda_layer],
             environment=environment_variables,
             timeout=Duration.seconds(35)
