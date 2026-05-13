@@ -1,6 +1,3 @@
-from iac.iac.event_bridge_stack import EventBridgeStack
-from iac.iac.vectors_bucket_stack import VectorsBucketStack
-from iac.iac.bedrock_stack import BedrockStack
 import os
 from aws_cdk import (
     # Duration,
@@ -8,13 +5,16 @@ from aws_cdk import (
     # aws_sqs as sqs,
     aws_iam,
     aws_events_targets as targets
-)
+) 
 from constructs import Construct
 
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
 from .cognito_stack import CognitoStack
+from .event_bridge_stack import EventBridgeStack
+from .vectors_bucket_stack import VectorsBucketStack
+from .bedrock_stack import BedrockStack
 
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
