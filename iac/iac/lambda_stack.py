@@ -290,12 +290,12 @@ class LambdaStack(Construct):
 
         self.get_upload_url = self.create_lambda_api_gateway_integration(
             module_name="get_upload_url",
-            method="PUT",
+            method="GET",
             api_resource=api_gateway_resource,
             environment_variables=environment_variables,
             authorizer=authorizer
         )
-        
+
         self.bedrock_ingestion= self.create_background_lambda(
             module_name="bedrock_ingestion",
             environment_variables=environment_variables
