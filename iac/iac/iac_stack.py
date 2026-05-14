@@ -56,6 +56,28 @@ class IacStack(Stack):
 
         # Create Cognito stack
         self.cognito_stack = CognitoStack(self, "CognitoStack", stage=self.github_ref_name)
+
+        self.s3_vectors_bucket_stack= VectorsBucketStack(self)
+
+
+        self.bedrock_stack= BedrockStack(
+            self,
+            vector_bucket_arn=self.s3_vectors_bucket_stack.vector_bucket_arn,
+            vector_index_arn=self.s3_vectors_bucket_stack.vector_index_arn,
+            bucket_arn=self.bucket_stack.s3_bucket_dev_policy_documents.bucket_arn
+        )
+        
+        self.event_bridge_stack= EventBridgeStack(self, self.bucket_stack.s3_bucket_dev_policy_documents.bucket_name)
+
+        # permitindo que a kb_role do bedrock leia arquivos do s3
+        self.bucket_stack.s3_bucket_dev_policy_documents.grant_read(self.bedrock_stack.kb_role)
+
+
+        # permitindo que a role assumida pelo bedrock tenha acesso ao s3 vectors
+        vector_bucket_policy=self.s3_vectors_bucket_stack.grant_bedrock_access(role_arn=self.bedrock_stack.kb_role.role_arn)
+
+        # fazendo o bedrock esperar pela policy ser criada e atrelada a ele
+        self.bedrock_stack.knowledge_base.node.add_dependency(vector_bucket_policy)
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
@@ -94,27 +116,7 @@ class IacStack(Stack):
                                                        cognito_user_pools=[self.cognito_stack.user_pool]
                                                        )
 
-        self.s3_vectors_bucket_stack= VectorsBucketStack(self)
 
-
-        self.bedrock_stack= BedrockStack(
-            self,
-            vector_bucket_arn=self.s3_vectors_bucket_stack.vector_bucket_arn,
-            vector_index_arn=self.s3_vectors_bucket_stack.vector_index_arn,
-            bucket_arn=self.bucket_stack.s3_bucket_dev_policy_documents.bucket_arn
-        )
-
-        self.event_bridge_stack= EventBridgeStack(self, self.bucket_stack.s3_bucket_dev_policy_documents.bucket_name)
-
-        # permitindo que a kb_role do bedrock leia arquivos do s3
-        self.bucket_stack.s3_bucket_dev_policy_documents.grant_read(self.bedrock_stack.kb_role)
-
-
-        # permitindo que a role assumida pelo bedrock tenha acesso ao s3 vectors
-        vector_bucket_policy=self.s3_vectors_bucket_stack.grant_bedrock_access(role_arn=self.bedrock_stack.kb_role.role_arn)
-
-        # fazendo o bedrock esperar pela policy ser criada e atrelada a ele
-        self.bedrock_stack.knowledge_base.node.add_dependency(vector_bucket_policy)
 
 
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
