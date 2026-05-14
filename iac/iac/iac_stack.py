@@ -177,10 +177,10 @@ class IacStack(Stack):
             ],
             resources=[
                 # this one gives acces to the Kb it self
-                self.bedrock_construct.knowledge_base.attr_knowledge_base_arn,
+                self.bedrock_stack.knowledge_base.attr_knowledge_base_arn,
                 
                 # this line line below it gives access to the datasource and Jobs inside KB
-                f"{self.bedrock_construct.knowledge_base.attr_knowledge_base_arn}/*",
+                f"{self.bedrock_stack.knowledge_base.attr_knowledge_base_arn}/*",
                 
                 # give access to all LLMs
                 "arn:aws:bedrock:*::foundation-model/*",
