@@ -84,6 +84,8 @@ class IacStack(Stack):
             "COGNITO_CLIENT_ID": self.cognito_stack.client.user_pool_client_id,
             "MSS_NAME": os.environ.get("MSS_NAME", "port_mss_action"),
             "S3_ASSETS_CDN": os.environ.get("S3_ASSETS_CDN", ""),
+            "KNOWLEDGE_BASE_ID": self.bedrock_stack.knowledge_base.attr_knowledge_base_id,
+            "DATA_SOURCE_ID": self.bedrock_stack.data_source.attr_data_source_id
 
         }
         
@@ -166,14 +168,22 @@ class IacStack(Stack):
             actions=[
                 "bedrock:RetrieveAndGenerate",
                 "bedrock:Retrieve",
-                "bedrock:StartIngestionJob"
+                "bedrock:StartIngestionJob",
+                "bedrock:InvokeModel",
+                "bedrock:GetInferenceProfile",
+                "bedrock:GetFoundationModel"
             ],
             resources=[
                 # this one gives acces to the Kb it self
-                self.bedrock_stack.knowledge_base.attr_knowledge_base_arn,
+                self.bedrock_construct.knowledge_base.attr_knowledge_base_arn,
                 
                 # this line line below it gives access to the datasource and Jobs inside KB
-                f"{self.bedrock_stack.knowledge_base.attr_knowledge_base_arn}/*"
+                f"{self.bedrock_construct.knowledge_base.attr_knowledge_base_arn}/*",
+                
+                # give access to all LLMs
+                "arn:aws:bedrock:*::foundation-model/*",
+
+                "arn:aws:bedrock:*:*:inference-profile/*"
             ]
         )
 
