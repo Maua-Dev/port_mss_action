@@ -126,7 +126,7 @@ class IacStack(Stack):
         # add the lambda to be trigged by the event bridge when the .pdf object is added/removed to s3
         self.event_bridge_stack.trigger_ingestion_rule.add_target(
             targets.LambdaFunction(
-                handler=self.lambda_stack.bedrock_ingestion
+                handler=self.lambda_stack.bedrock_ingestion_function
             )
         )
         

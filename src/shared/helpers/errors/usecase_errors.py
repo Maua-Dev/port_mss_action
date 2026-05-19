@@ -43,3 +43,7 @@ class EmailWasNotSent(BaseError):
 class DataIngestionError(BaseError):
     def __init__(self, message: str):
         super().__init__(f'Error starting bedrock ingestion: {message}')
+
+class BedrockIntegrationError(BaseError):
+    def __init__(self, message: str):
+        super().__init__(f'Error with bedrock integration: {message}')

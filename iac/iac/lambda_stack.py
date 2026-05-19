@@ -288,7 +288,7 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
-        self.get_upload_url = self.create_lambda_api_gateway_integration(
+        self.get_upload_url_function = self.create_lambda_api_gateway_integration(
             module_name="get_upload_url",
             method="GET",
             api_resource=api_gateway_resource,
@@ -296,9 +296,17 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
-        self.bedrock_ingestion= self.create_background_lambda(
-            module_name="bedrock_ingestion",
+        self.bedrock_ingestion_function= self.create_background_lambda(
+            module_name="bedrock_ingestion_function",
             environment_variables=environment_variables
+        )
+
+        self.create_chat_function= self.create_lambda_api_gateway_integration(
+            module_name="create_chat",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
         )
 
 
@@ -363,7 +371,7 @@ class LambdaStack(Construct):
                 self.download_members_function,
                 self.download_actions_function,
                 self.get_strike_function,
-                self.get_upload_url
+                self.get_upload_url_function
         ]
 
         self.functions_that_need_ses_permissions = [
@@ -382,10 +390,11 @@ class LambdaStack(Construct):
             self.update_project_function,
             self.download_projects_function,
             self.download_members_function,
-            self.get_upload_url
+            self.get_upload_url_function
         ]
 
         self.functions_that_need_bedrock_access= [
-            self.bedrock_ingestion
+            self.bedrock_ingestion_function,
+            self.create_chat_function
         ]
 
