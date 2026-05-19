@@ -297,7 +297,7 @@ class LambdaStack(Construct):
         )
 
         self.bedrock_ingestion_function= self.create_background_lambda(
-            module_name="bedrock_ingestion_function",
+            module_name="bedrock_ingestion",
             environment_variables=environment_variables
         )
 
