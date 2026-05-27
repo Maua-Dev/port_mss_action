@@ -15,7 +15,7 @@ from src.shared.domain.repositories.member_repository_interface import IMemberRe
 
 from src.shared.domain.repositories.strike_repository_interface import IStrikeRepository
 from src.shared.environments import Environments
-from src.shared.helpers.errors.usecase_errors import EmailWasNotSent, ForbiddenAction, UnregisteredUser
+from src.shared.helpers.errors.usecase_errors import EmailWasNotSent, ForbiddenAction, UnregisteredUser, MemberAlreadyReachedStrikeLimit
 
 
 class CreateStrikeUsecase:
@@ -105,7 +105,7 @@ class CreateStrikeUsecase:
             if target_user_id in project.members_user_ids:
                 total_projects+= 1
 
-        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) == (2 - 1) ) or (total_projects == 2 and len(target_user_list_strike_this_sem) == (3 - 1)) or (total_projects >= 3 and len(target_user_list_strike_this_sem) == (4 - 1)):
+        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) == 2) or (total_projects == 2 and len(target_user_list_strike_this_sem) == 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) == 4):
 
             target_user_hours_workerd= self.repo_action.get_action_durations_for_user(user_id=target_user_id, start_date=start_date, end_date=end_date)
 
@@ -127,11 +127,6 @@ class CreateStrikeUsecase:
 
             self.repo_action.create_action(action=strike_action)
 
-            return (created_strike, 1)
-
-
-        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) >= 2 ) or (total_projects == 2 and len(target_user_list_strike_this_sem) >= 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) >= 4):
-
             if total_projects in [0, 1]:
                 strike_limit = 2
             elif total_projects == 2:
@@ -145,8 +140,30 @@ class CreateStrikeUsecase:
 
             if not success:
                 raise EmailWasNotSent()
+            
+            return (created_strike, 1)
+            
 
-            return (created_strike, 2)
+
+        if (total_projects in [0, 1] and len(target_user_list_strike_this_sem) > 2 ) or (total_projects == 2 and len(target_user_list_strike_this_sem) > 3) or (total_projects >= 3 and len(target_user_list_strike_this_sem) > 4):
+            raise MemberAlreadyReachedStrikeLimit()
+
+
+            # if total_projects in [0, 1]:
+            #     strike_limit = 2
+            # elif total_projects == 2:
+            #     strike_limit = 3
+            # elif total_projects >= 3:
+            #     strike_limit = 4
+            # else:
+            #     strike_limit = 0
+
+            # success= self.repo_member.send_email_to_warn_about_member_reached_total_strike_limit(created_strike=strike, strike_limit=strike_limit)
+
+            # if not success:
+            #     raise EmailWasNotSent()
+
+            # return (created_strike, 2)
 
         else:
             return (created_strike, 0)

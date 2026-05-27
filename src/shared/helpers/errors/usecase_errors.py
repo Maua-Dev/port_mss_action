@@ -12,6 +12,10 @@ class ForbiddenAction(BaseError):
     def __init__(self, message: str):
         super().__init__(f'That action is forbidden for this {message}')
 
+class MemberAlreadyReachedStrikeLimit(BaseError):
+    def __init__(self):
+        super().__init__(f'Member has already reached the strike limit for this semester')
+
 class UserNotAllowed(BaseError):
     def __init__(self):
         super().__init__(f'That type of user has no permission for that action')

@@ -56,7 +56,7 @@ class Test_CreateStrikeViewmodel:
             'category': 'OTHER',
             'description': 'testing creating a strike',
             'case_number': 1,
-            'message': 'Strike was created successfully and hours were reset'
+            'message': 'Strike was created successfully, hours were reset and an Email was sent to Directors and Heads'
         }
 
         assert new_strike.to_dict() == expected
