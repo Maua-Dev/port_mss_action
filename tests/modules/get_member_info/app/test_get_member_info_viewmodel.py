@@ -11,47 +11,39 @@ class Test_GetMemberInfoViewModel:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo, action_repo)
 
-        # Primeiro membro: Vitor Guirão
-        member = usecase(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
-        viewmodel = GetMemberInfoViewModel(member=member).to_dict()
+        # Vitor Guirão solicitando
+        members = usecase(requester_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
+        viewmodel = GetMemberInfoViewModel(members=members).to_dict()
 
         pprint(viewmodel)
 
-        expected = {
-            'member_info': {
-                'name': 'Vitor Guirão MPNTM',
-                'ra': '21017310',
-                'role': 'DIRECTOR',
-                'stack': 'INFRA',
-                'year': 1,
-                'course': 'ECA',
-                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                'hired_date': 1634576165000,
-                'photo': None
-            },
-            'message': 'the member info was retrieved successfully'
-        }
+        # Verifica se as listas principais foram criadas
+        assert 'ALL' in viewmodel
+        assert type(viewmodel['ALL']) == list
+        assert len(viewmodel['ALL']) == len(members)
 
-        assert viewmodel == expected
+        # Verifica se agrupou pelas stacks que existem no mock (ex: BACKEND, FRONTEND, INFRA)
+        # O mock tem membros dessas stacks
+        assert 'BACKEND' in viewmodel
+        assert 'FRONTEND' in viewmodel
+        assert 'INFRA' in viewmodel
 
-    def test_get_member_info_viewmodel_another_member(self):
-        member_repo = MemberRepositoryMock()
-        action_repo = ActionRepositoryMock()
-        usecase = GetMemberInfoUsecase(member_repo, action_repo)
+        # Validando a estrutura de um membro dentro da lista ALL
+        vitor = next((m for m in viewmodel['ALL'] if m['name'] == 'Vitor Guirão MPNTM'), None)
+        assert vitor is not None
+        assert vitor['ra'] == '21017310'
+        assert vitor['role'] == 'DIRECTOR'
+        assert vitor['stack'] == 'INFRA'
+        assert vitor['year'] == 1
+        assert vitor['course'] == 'ECA'
+        assert type(vitor['project']) == list
+        assert vitor['hired_date'] == 1634576165000
+        assert vitor['photo'] is None
 
-        # Little Ronald - DIRECTOR, FRONTEND
-        member = usecase(user_id='6f5g4h7J-876j-0098-123hb-hgb567fy4hb')
-        viewmodel = GetMemberInfoViewModel(member=member).to_dict()
+    def test_get_member_info_viewmodel_empty_list(self):
+        # Testa como o viewmodel se comporta caso o repositório retorne vazio
+        viewmodel = GetMemberInfoViewModel(members=[]).to_dict()
 
-        pprint(viewmodel)
-
-        assert 'member_info' in viewmodel
-        assert viewmodel['member_info']['name'] == 'Little Ronald'
-        assert viewmodel['member_info']['ra'] == '10017310'
-        assert viewmodel['member_info']['role'] == 'DIRECTOR'
-        assert viewmodel['member_info']['stack'] == 'FRONTEND'
-        assert viewmodel['member_info']['year'] == 6
-        assert viewmodel['member_info']['course'] == 'ECM'
-        assert viewmodel['member_info']['project'] == ['Maua Food', 'Portfólio', 'Selfie Mauá', 'SMILE']
-        assert viewmodel['member_info']['hired_date'] == 1614567601000
-        assert viewmodel['member_info']['photo'] is None
+        assert 'ALL' in viewmodel
+        assert len(viewmodel['ALL']) == 0
+        assert len(viewmodel.keys()) == 1 # Somente a chave ALL deve existir

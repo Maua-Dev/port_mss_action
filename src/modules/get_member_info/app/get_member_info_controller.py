@@ -7,7 +7,6 @@ from src.shared.helpers.external_interfaces.external_interface import IRequest
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
-
 class GetMemberInfoController:
     def __init__(self, usecase: GetMemberInfoUsecase):
         self.usecase = usecase
@@ -19,13 +18,13 @@ class GetMemberInfoController:
 
             requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
 
-            print(f"Fetching member info for user_id: {requester_user.user_id}")
+            print(f"Fetching members info requested by user_id: {requester_user.user_id}")
 
-            member = self.usecase(user_id=requester_user.user_id)
+            members = self.usecase(requester_user_id=requester_user.user_id)
 
-            viewmodel = GetMemberInfoViewModel(member=member)
+            viewmodel = GetMemberInfoViewModel(members=members)
 
-            print("Member info retrieved successfully")
+            print("All members info retrieved and formatted successfully")
 
             return OK(viewmodel.to_dict())
 

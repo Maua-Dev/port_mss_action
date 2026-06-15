@@ -25,27 +25,14 @@ class Test_GetMemberInfoController:
             }
         )
 
-        expected_dict = {
-            'member_info': {
-                'name': 'Vitor Guirão MPNTM',
-                'ra': '21017310',
-                'role': 'DIRECTOR',
-                'stack': 'INFRA',
-                'year': 1,
-                'course': 'ECA',
-                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                'hired_date': 1634576165000,
-                'photo': None
-            },
-            'message': 'the member info was retrieved successfully'
-        }
-
         response = self.controller(request)
 
         pprint(response.body)
 
         assert response.status_code == 200
-        assert response.body == expected_dict
+        assert 'ALL' in response.body
+        assert type(response.body['ALL']) == list
+        assert len(response.body['ALL']) > 0
 
     def test_get_member_info_controller_with_invalid_id(self):
         request = HttpRequest(
