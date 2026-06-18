@@ -12,14 +12,12 @@ class Test_GetMemberInfoUsecase:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
 
-        # Usando o segundo membro ativo do mock - Joao Branco como requester
         members = usecase(requester_user_id='51ah5jaj-c9jm-1345-666ab-e12341c14a3')
 
         assert type(members) == list
         assert len(members) > 0
         assert type(members[0]) == Member
 
-        # Validando se o vínculo de projetos funcionou para algum membro
         member_with_projects = next((m for m in members if m.name == 'Vitor Guirão MPNTM'), None)
         assert member_with_projects is not None
         assert hasattr(member_with_projects, 'project')
@@ -39,7 +37,6 @@ class Test_GetMemberInfoUsecase:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
 
-        # Luigi Televisão - FREEZE
         with pytest.raises(UserNotAllowed):
             usecase(requester_user_id='76h35dg4-h76v-1875-987hn-h67gfv45Gt4')
 
@@ -48,7 +45,6 @@ class Test_GetMemberInfoUsecase:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
 
-        # Marcos Pereira Neto - DISCONNECTED
         with pytest.raises(UserNotAllowed):
             usecase(requester_user_id='6574hgyt-785n-9134-18gn4-7gh5uvn36cG')
 
@@ -57,6 +53,5 @@ class Test_GetMemberInfoUsecase:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
 
-        # Carlinhos Miau - ON_HOLD
         with pytest.raises(UserNotAllowed):
             usecase(requester_user_id='3b07232f-4f65-42c6-b005-242550b8b8dc')

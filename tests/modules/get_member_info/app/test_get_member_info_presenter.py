@@ -3,8 +3,8 @@ from src.modules.get_member_info.app.get_member_info_presenter import lambda_han
 from src.shared.infra.repositories.member_repository_mock import MemberRepositoryMock
 
 repo_mock = MemberRepositoryMock()
-first_member = repo_mock.members[0]  # Vitor Guirão
-third_member = repo_mock.members[2]  # Luigi Televisão (FREEZE)
+first_member = repo_mock.members[0]
+third_member = repo_mock.members[2]
 
 
 class Test_GetMemberInfoPresenter:
@@ -61,9 +61,11 @@ class Test_GetMemberInfoPresenter:
         assert response["statusCode"] == 200
         body = json.loads(response["body"])
 
-        assert "ALL" in body
-        assert isinstance(body["ALL"], list)
-        assert len(body["ALL"]) > 0
+        assert "homeCarousel" in body
+        assert "quoteCarousel" in body
+        assert "memberCarousel" in body
+        assert isinstance(body["homeCarousel"], list)
+        assert len(body["homeCarousel"]) > 0
 
     def test_get_member_info_presenter_invalid_id(self):
         event = {
@@ -106,7 +108,6 @@ class Test_GetMemberInfoPresenter:
         assert response["statusCode"] == 403
 
     def test_get_member_info_presenter_freeze_user(self):
-        # third_member é Luigi Televisão (FREEZE)
         event = {
             "version": "2.0",
             "routeKey": "$default",
@@ -132,11 +133,13 @@ class Test_GetMemberInfoPresenter:
             "routeKey": "$default",
             "requestContext": {
                 "authorizer": {
-                    "claims": None  # Sem claims
+                    "claims": None
                 }
             },
             "body": None,
         }
 
         response = lambda_handler(event, None)
+
         assert response["statusCode"] == 400
+        assert response["body"] == '"Field requester_user is missing"'

@@ -6,30 +6,34 @@ class GetMemberInfoViewModel:
         self.members = members
 
     def to_dict(self):
-        response = {
-            "ALL": []
-        }
+        home_carousel = []
+        quote_carousel = []
+        member_carousel = []
 
         for member in self.members:
-            member_dict = {
-                'name': member.name,
-                'ra': member.ra,
-                'role': member.role.value,
-                'stack': member.stack.value,
-                'year': member.year,
-                'course': member.course.value,
-                'project': member.project if hasattr(member, 'project') else [],
-                'hired_date': member.hired_date,
-                'photo': member.photo
-            }
+            home_carousel.append({
+                "name": member.name,
+                "photoPath": member.photo,
+                "area": member.stack.value if hasattr(member, 'stack') and member.stack else ""
+            })
 
-            response["ALL"].append(member_dict)
+            quote_carousel.append({
+                "name": member.name,
+                "quote": getattr(member, 'quote', ""),
+                "photoPath": member.photo,
+                "role": member.role.value if hasattr(member, 'role') and member.role else ""
+            })
 
-            stack_name = member.stack.value
+            member_carousel.append({
+                "name": member.name,
+                "photoPath": member.photo,
+                "email": getattr(member, 'email', ""),
+                "role": member.role.value if hasattr(member, 'role') and member.role else "",
+                "phone": getattr(member, 'phone', "")
+            })
 
-            if stack_name not in response:
-                response[stack_name] = []
-
-            response[stack_name].append(member_dict)
-
-        return response
+        return {
+            "homeCarousel": home_carousel,
+            "quoteCarousel": quote_carousel,
+            "memberCarousel": member_carousel
+        }
