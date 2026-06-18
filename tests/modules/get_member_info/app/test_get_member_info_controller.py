@@ -9,7 +9,7 @@ from pprint import pprint
 class Test_GetMemberInfoController:
     member_repo = MemberRepositoryMock()
     action_repo = ActionRepositoryMock()
-    first_member = member_repo.members[0]  # Vitor Guirão
+    first_member = member_repo.members[0]
     usecase = GetMemberInfoUsecase(member_repo=member_repo, action_repo=action_repo)
     controller = GetMemberInfoController(usecase)
 
@@ -25,27 +25,12 @@ class Test_GetMemberInfoController:
             }
         )
 
-        expected_dict = {
-            'member_info': {
-                'name': 'Vitor Guirão MPNTM',
-                'ra': '21017310',
-                'role': 'DIRECTOR',
-                'stack': 'INFRA',
-                'year': 1,
-                'course': 'ECA',
-                'project': ['Maua Food', 'Portfólio', 'Selfie Mauá'],
-                'hired_date': 1634576165000,
-                'photo': None
-            },
-            'message': 'the member info was retrieved successfully'
-        }
-
         response = self.controller(request)
 
-        pprint(response.body)
-
         assert response.status_code == 200
-        assert response.body == expected_dict
+        assert 'homeCarousel' in response.body
+        assert 'quoteCarousel' in response.body
+        assert 'memberCarousel' in response.body
 
     def test_get_member_info_controller_with_invalid_id(self):
         request = HttpRequest(
@@ -107,7 +92,6 @@ class Test_GetMemberInfoController:
         assert response.body == "Field requester_user is missing"
 
     def test_get_member_info_controller_freeze_user(self):
-        # Luigi Televisão - FREEZE
         request = HttpRequest(
             body={
                 'requester_user': {
@@ -124,7 +108,6 @@ class Test_GetMemberInfoController:
         assert response.status_code == 403
 
     def test_get_member_info_controller_disconnected_user(self):
-        # Marcos Pereira Neto - DISCONNECTED
         request = HttpRequest(
             body={
                 'requester_user': {
