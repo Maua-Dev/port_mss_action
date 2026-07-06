@@ -28,12 +28,6 @@ class Test_GetMemberInfoPresenter:
                 "apiId": "<urlid>",
                 "authentication": None,
                 "authorizer": {
-                    "claims": {
-                        "sub": first_member.user_id,
-                        "name": first_member.name,
-                        "email": first_member.email,
-                        "custom:isMaua": True
-                    }
                 },
                 "domainName": "<url-id>.lambda-url.us-west-2.on.aws",
                 "domainPrefix": "<url-id>",
@@ -66,80 +60,3 @@ class Test_GetMemberInfoPresenter:
         assert "memberCarousel" in body
         assert isinstance(body["homeCarousel"], list)
         assert len(body["homeCarousel"]) > 0
-
-    def test_get_member_info_presenter_invalid_id(self):
-        event = {
-            "version": "2.0",
-            "routeKey": "$default",
-            "requestContext": {
-                "authorizer": {
-                    "claims": {
-                        "sub": "Um id invalido",
-                        "name": first_member.name,
-                        "email": first_member.email,
-                        "custom:isMaua": True
-                    }
-                }
-            },
-            "body": None,
-        }
-
-        response = lambda_handler(event, None)
-        assert response["statusCode"] == 400
-
-    def test_get_member_info_presenter_nonexistent_id(self):
-        event = {
-            "version": "2.0",
-            "routeKey": "$default",
-            "requestContext": {
-                "authorizer": {
-                    "claims": {
-                        "sub": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                        "name": first_member.name,
-                        "email": first_member.email,
-                        "custom:isMaua": True
-                    }
-                }
-            },
-            "body": None,
-        }
-
-        response = lambda_handler(event, None)
-        assert response["statusCode"] == 403
-
-    def test_get_member_info_presenter_freeze_user(self):
-        event = {
-            "version": "2.0",
-            "routeKey": "$default",
-            "requestContext": {
-                "authorizer": {
-                    "claims": {
-                        "sub": third_member.user_id,
-                        "name": third_member.name,
-                        "email": third_member.email,
-                        "custom:isMaua": True
-                    }
-                }
-            },
-            "body": None,
-        }
-
-        response = lambda_handler(event, None)
-        assert response["statusCode"] == 403
-
-    def test_get_member_info_presenter_missing_claims(self):
-        event = {
-            "version": "2.0",
-            "routeKey": "$default",
-            "requestContext": {
-                "authorizer": {
-                    "claims": None
-                }
-            },
-            "body": None,
-        }
-
-        response = lambda_handler(event, None)
-
-        assert response["statusCode"] == 400
-        assert response["body"] == '"Field requester_user is missing"'

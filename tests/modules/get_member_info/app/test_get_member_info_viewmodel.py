@@ -11,7 +11,7 @@ class Test_GetMemberInfoViewModel:
         action_repo = ActionRepositoryMock()
         usecase = GetMemberInfoUsecase(member_repo, action_repo)
 
-        members = usecase(requester_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
+        members = usecase()
         viewmodel = GetMemberInfoViewModel(members=members).to_dict()
 
         assert 'homeCarousel' in viewmodel

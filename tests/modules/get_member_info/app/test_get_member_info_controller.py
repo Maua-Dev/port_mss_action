@@ -32,93 +32,10 @@ class Test_GetMemberInfoController:
         assert 'quoteCarousel' in response.body
         assert 'memberCarousel' in response.body
 
-    def test_get_member_info_controller_with_invalid_id(self):
-        request = HttpRequest(
-            body={
-                'requester_user': {
-                    "sub": "Um id no formato inválido",
-                    "name": self.first_member.name,
-                    "email": self.first_member.email,
-                    "custom:isMaua": True
-                }
-            }
-        )
-
-        response = self.controller(request)
-
-        assert response.status_code == 400
-
-    def test_get_member_info_controller_without_id(self):
-        request = HttpRequest(
-            body={
-                'requester_user': {
-                    "sub": None,
-                    "name": self.first_member.name,
-                    "email": self.first_member.email,
-                    "custom:isMaua": True
-                }
-            }
-        )
-
-        response = self.controller(request)
-
-        assert response.status_code == 400
-
-    def test_get_member_info_controller_with_nonexistent_id(self):
-        request = HttpRequest(
-            body={
-                'requester_user': {
-                    "sub": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-                    "name": self.first_member.name,
-                    "email": self.first_member.email,
-                    "custom:isMaua": True
-                }
-            }
-        )
-
-        response = self.controller(request)
-
-        assert response.status_code == 403
-        assert response.body == "That user is not registered"
-
     def test_get_member_info_controller_with_no_requester_user(self):
         request = HttpRequest(
-            body={}
         )
 
         response = self.controller(request)
 
-        assert response.status_code == 400
-        assert response.body == "Field requester_user is missing"
-
-    def test_get_member_info_controller_freeze_user(self):
-        request = HttpRequest(
-            body={
-                'requester_user': {
-                    "sub": "76h35dg4-h76v-1875-987hn-h67gfv45Gt4",
-                    "name": "Luigi Televisão",
-                    "email": "lgtv@gmail.com",
-                    "custom:isMaua": True
-                }
-            }
-        )
-
-        response = self.controller(request)
-
-        assert response.status_code == 403
-
-    def test_get_member_info_controller_disconnected_user(self):
-        request = HttpRequest(
-            body={
-                'requester_user': {
-                    "sub": "6574hgyt-785n-9134-18gn4-7gh5uvn36cG",
-                    "name": "Marcos Pereira Neto",
-                    "email": "mneto@gmail.com",
-                    "custom:isMaua": True
-                }
-            }
-        )
-
-        response = self.controller(request)
-
-        assert response.status_code == 403
+        assert response.status_code == 200

@@ -192,8 +192,7 @@ class LambdaStack(Construct):
             module_name="get_member_info",
             method="GET",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables,
-            authorizer=authorizer
+            environment_variables=environment_variables
         )
 
         self.get_project_function = self.create_lambda_api_gateway_integration(

@@ -10,17 +10,7 @@ class GetMemberInfoUsecase:
         self.member_repo = member_repo
         self.action_repo = action_repo
 
-    def __call__(self, requester_user_id: str) -> List[Member]:
-        if not Member.validate_user_id(requester_user_id):
-            raise EntityError('user_id')
-
-        requester = self.member_repo.get_member(user_id=requester_user_id)
-
-        if requester is None:
-            raise UnregisteredUser()
-
-        if not Member.validate_active(requester.active):
-            raise UserNotAllowed()
+    def __call__(self) -> List[Member]:
 
         all_members = self.member_repo.get_all_members()
 

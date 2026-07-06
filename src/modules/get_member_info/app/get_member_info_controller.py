@@ -13,14 +13,8 @@ class GetMemberInfoController:
 
     def __call__(self, request: IRequest):
         try:
-            if request.data.get('requester_user') is None:
-                raise MissingParameters('requester_user')
 
-            requester_user = UserApiGatewayDTO.from_api_gateway(request.data.get('requester_user'))
-
-            print(f"Fetching members info requested by user_id: {requester_user.user_id}")
-
-            members = self.usecase(requester_user_id=requester_user.user_id)
+            members = self.usecase()
 
             viewmodel = GetMemberInfoViewModel(members=members)
 
