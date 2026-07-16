@@ -7,7 +7,6 @@ from aws_cdk import (
     aws_events_targets as targets
 ) 
 from constructs import Construct
-from iac.iac.ssm_stack import SsmConstruct, SsmStack
 
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
@@ -16,6 +15,7 @@ from .cognito_stack import CognitoStack
 from .event_bridge_stack import EventBridgeStack
 from .vectors_bucket_stack import VectorsBucketStack
 from .bedrock_stack import BedrockStack
+from .ssm_stack import SsmStack
 
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
