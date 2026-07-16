@@ -7,6 +7,7 @@ from aws_cdk import (
     aws_events_targets as targets
 ) 
 from constructs import Construct
+from iac.iac.ssm_stack import SsmConstruct, SsmStack
 
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
@@ -128,6 +129,19 @@ class IacStack(Stack):
             targets.LambdaFunction(
                 handler=self.lambda_stack.bedrock_ingestion_function
             )
+        )
+        
+        self.ssm_stack = SsmStack(
+            self,
+            construct_id="Ssm",
+            stage=self.github_ref_name,
+            mss_name_identification_for_path="mss-action",
+            api=self.rest_api,
+            api_gateway_resource=api_gateway_resource,
+            buckets=None,
+            extra_params={
+                "get_user_info_endpoint": f"{self.rest_api.url}mss-action/get_user_info",
+            }
         )
         
         ses_admin_policy = aws_iam.PolicyStatement(
