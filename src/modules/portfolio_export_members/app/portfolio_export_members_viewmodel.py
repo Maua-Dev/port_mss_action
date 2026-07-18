@@ -1,7 +1,7 @@
 from src.shared.domain.entities.member import Member
 from typing import List
 
-class GetMemberInfoViewModel:
+class PortfolioExportMembersViewModel:
     def __init__(self, members: List[Member]):
         self.members = members
 

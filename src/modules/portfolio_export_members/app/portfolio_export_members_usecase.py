@@ -5,7 +5,7 @@ from src.shared.domain.repositories.action_repository_interface import IActionRe
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import UnregisteredUser, UserNotAllowed
 
-class GetMemberInfoUsecase:
+class PortfolioExportMembersUsecase:
     def __init__(self, member_repo: IMemberRepository, action_repo: IActionRepository):
         self.member_repo = member_repo
         self.action_repo = action_repo

@@ -188,8 +188,15 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
-        self.get_member_info_function = self.create_lambda_api_gateway_integration(
-            module_name="get_member_info",
+        self.portfolio_export_members_function = self.create_lambda_api_gateway_integration(
+            module_name="portfolio_export_members",
+            method="GET",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables
+        )
+
+        self.portfolio_export_projects_function = self.create_lambda_api_gateway_integration(
+            module_name="portfolio_export_projects",
             method="GET",
             api_resource=api_gateway_resource,
             environment_variables=environment_variables
@@ -330,7 +337,8 @@ class LambdaStack(Construct):
                 self.get_history_function,
                 self.get_history_project_function,
                 self.get_member_function,
-                self.get_member_info_function,
+                self.portfolio_export_members_function,
+                self.portfolio_export_projects_function,
                 self.get_project_function,
                 self.get_all_members_function,
                 self.get_all_members_admin_function,
@@ -359,7 +367,7 @@ class LambdaStack(Construct):
                 self.get_all_members_admin_function,
                 self.batch_get_member_function,
                 self.get_member_function,
-                self.get_member_info_function,
+                self.portfolio_export_members_function,
                 self.get_all_projects_function,
                 self.get_history_function,
                 self.get_history_project_function,

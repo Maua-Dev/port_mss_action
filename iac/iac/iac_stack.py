@@ -140,7 +140,8 @@ class IacStack(Stack):
             api_gateway_resource=api_gateway_resource,
             buckets=None,
             extra_params={
-                "get_user_info_endpoint": f"{self.rest_api.url}mss-action/get_user_info",
+                "portfolio_export_members_endpoint": f"{self.rest_api.url}mss-action/portfolio-export-members",
+                "portfolio_export_projects_endpoint": f"{self.rest_api.url}mss-action/portfolio-export-projects",
             }
         )
         

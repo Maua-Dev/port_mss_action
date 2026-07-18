@@ -1,14 +1,14 @@
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import UnregisteredUser, UserNotAllowed
-from .get_member_info_usecase import GetMemberInfoUsecase
-from .get_member_info_viewmodel import GetMemberInfoViewModel
+from .portfolio_export_members_usecase import PortfolioExportMembersUsecase
+from .portfolio_export_members_viewmodel import PortfolioExportMembersViewModel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.external_interfaces.external_interface import IRequest
 from src.shared.helpers.external_interfaces.http_codes import OK, BadRequest, Forbidden, InternalServerError
 from src.shared.infra.dto.user_api_gateway_dto import UserApiGatewayDTO
 
-class GetMemberInfoController:
-    def __init__(self, usecase: GetMemberInfoUsecase):
+class PortfolioExportMembersController:
+    def __init__(self, usecase: PortfolioExportMembersUsecase):
         self.usecase = usecase
 
     def __call__(self, request: IRequest):
@@ -16,7 +16,7 @@ class GetMemberInfoController:
 
             members = self.usecase()
 
-            viewmodel = GetMemberInfoViewModel(members=members)
+            viewmodel = PortfolioExportMembersViewModel(members=members)
 
             print("All members info retrieved and formatted successfully")
 
