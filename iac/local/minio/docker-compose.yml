@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio-PI
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: root1234
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address :9001
+
+  create-bucket:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      set -e;
+      sleep 5;
+      /usr/bin/mc alias set s3 http://minio:9000 root root1234;
+      /usr/bin/mc mb s3/portalinternosback-dev-policy-report
+      /usr/bin/mc policy set public s3/portalinternosback-dev-policy-report
+      echo '✅ Bucket created successfully!';
+      "
+
+volumes:
+  minio-data:

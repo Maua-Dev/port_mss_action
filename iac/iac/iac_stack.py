@@ -3,14 +3,20 @@ from aws_cdk import (
     # Duration,
     Stack,
     # aws_sqs as sqs,
-    aws_iam
-)
+    aws_iam,
+    aws_events_targets as targets
+) 
 from constructs import Construct
 
 from .dynamo_stack import DynamoStack
 from .bucket_stack import BucketStack
 from .lambda_stack import LambdaStack
 from .cognito_stack import CognitoStack
+from .event_bridge_stack import EventBridgeStack
+from .vectors_bucket_stack import VectorsBucketStack
+from .bedrock_stack import BedrockStack
+from .ssm_stack import SsmStack
+
 from aws_cdk.aws_apigateway import RestApi, Cors, CognitoUserPoolsAuthorizer
 
 
@@ -51,6 +57,28 @@ class IacStack(Stack):
 
         # Create Cognito stack
         self.cognito_stack = CognitoStack(self, "CognitoStack", stage=self.github_ref_name)
+
+        self.s3_vectors_bucket_stack= VectorsBucketStack(self)
+
+
+        self.bedrock_stack= BedrockStack(
+            self,
+            vector_bucket_arn=self.s3_vectors_bucket_stack.vector_bucket_arn,
+            vector_index_arn=self.s3_vectors_bucket_stack.vector_index_arn,
+            bucket_arn=self.bucket_stack.s3_bucket_dev_policy_documents.bucket_arn
+        )
+        
+        self.event_bridge_stack= EventBridgeStack(self, self.bucket_stack.s3_bucket_dev_policy_documents.bucket_name)
+
+        # permitindo que a kb_role do bedrock leia arquivos do s3
+        self.bucket_stack.s3_bucket_dev_policy_documents.grant_read(self.bedrock_stack.kb_role)
+
+
+        # permitindo que a role assumida pelo bedrock tenha acesso ao s3 vectors
+        vector_bucket_policy=self.s3_vectors_bucket_stack.grant_bedrock_access(role_arn=self.bedrock_stack.kb_role.role_arn)
+
+        # fazendo o bedrock esperar pela policy ser criada e atrelada a ele
+        self.bedrock_stack.knowledge_base.node.add_dependency(vector_bucket_policy)
         
         ENVIRONMENT_VARIABLES = {
             "STAGE": self.github_ref_name.upper(),
@@ -79,6 +107,8 @@ class IacStack(Stack):
             "COGNITO_CLIENT_ID": self.cognito_stack.client.user_pool_client_id,
             "MSS_NAME": os.environ.get("MSS_NAME", "port_mss_action"),
             "S3_ASSETS_CDN": os.environ.get("S3_ASSETS_CDN", ""),
+            "KNOWLEDGE_BASE_ID": self.bedrock_stack.knowledge_base.attr_knowledge_base_id,
+            "DATA_SOURCE_ID": self.bedrock_stack.data_source.attr_data_source_id
 
         }
         
@@ -87,8 +117,33 @@ class IacStack(Stack):
                                                        cognito_user_pools=[self.cognito_stack.user_pool]
                                                        )
 
+
+
+
         self.lambda_stack = LambdaStack(self, api_gateway_resource=api_gateway_resource,
                                         environment_variables=ENVIRONMENT_VARIABLES, authorizer=self.cognito_auth)
+
+
+        # add the lambda to be trigged by the event bridge when the .pdf object is added/removed to s3
+        self.event_bridge_stack.trigger_ingestion_rule.add_target(
+            targets.LambdaFunction(
+                handler=self.lambda_stack.bedrock_ingestion_function
+            )
+        )
+        
+        self.ssm_stack = SsmStack(
+            self,
+            construct_id="Ssm",
+            stage=self.github_ref_name,
+            mss_name_identification_for_path="mss-action",
+            api=self.rest_api,
+            api_gateway_resource=api_gateway_resource,
+            buckets=None,
+            extra_params={
+                "portfolio_export_members_endpoint": f"{self.rest_api.url}mss-action/portfolio-export-members",
+                "portfolio_export_projects_endpoint": f"{self.rest_api.url}mss-action/portfolio-export-projects",
+            }
+        )
         
         ses_admin_policy = aws_iam.PolicyStatement(
             effect=aws_iam.Effect.ALLOW,
@@ -124,3 +179,32 @@ class IacStack(Stack):
 
         for f in self.lambda_stack.functions_that_need_s3_permissions:
             f.add_to_role_policy(s3_admin_policy)
+
+        # bedrock access
+        bedrock_policy= aws_iam.PolicyStatement(
+            actions=[
+                "bedrock:RetrieveAndGenerate",
+                "bedrock:Retrieve",
+                "bedrock:StartIngestionJob",
+                "bedrock:InvokeModel",
+                "bedrock:GetInferenceProfile",
+                "bedrock:GetFoundationModel"
+            ],
+            resources=[
+                # this one gives acces to the Kb it self
+                self.bedrock_stack.knowledge_base.attr_knowledge_base_arn,
+                
+                # this line line below it gives access to the datasource and Jobs inside KB
+                f"{self.bedrock_stack.knowledge_base.attr_knowledge_base_arn}/*",
+                
+                # give access to all LLMs
+                "arn:aws:bedrock:*::foundation-model/*",
+
+                "arn:aws:bedrock:*:*:inference-profile/*"
+            ]
+        )
+
+        for fn in self.lambda_stack.functions_that_need_bedrock_access:
+            fn.add_to_role_policy(bedrock_policy)
+
+        

@@ -53,6 +53,26 @@ class LambdaStack(Construct):
 
         return function
 
+    # this is an lambda that will not be acces by the internet through api gateway so it's only to be used by aws services
+    def create_background_lambda(
+        self,
+        module_name: str,
+        environment_variables: dict
+    ):
+        function= lambda_.Function(
+            self,
+            module_name.title(),
+            function_name=f"portal-interno-{module_name}",
+            code=lambda_.Code.from_asset(f"../src/modules/{module_name}"),
+            handler=f"app.{module_name}_presenter.lambda_handler",
+            runtime=lambda_.Runtime.PYTHON_3_9,
+            layers=[self.lambda_layer],
+            environment=environment_variables,
+            timeout=Duration.seconds(35)
+        )
+
+        return function
+
     def __init__(self, scope: Construct, api_gateway_resource: Resource, environment_variables: dict,
                  authorizer: CognitoUserPoolsAuthorizer) -> None:
         super().__init__(scope, "PortalInterno_Lambdas")
@@ -168,12 +188,18 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
-        self.get_member_info_function = self.create_lambda_api_gateway_integration(
-            module_name="get_member_info",
+        self.portfolio_export_members_function = self.create_lambda_api_gateway_integration(
+            module_name="portfolio_export_members",
             method="GET",
             api_resource=api_gateway_resource,
-            environment_variables=environment_variables,
-            authorizer=authorizer
+            environment_variables=environment_variables
+        )
+
+        self.portfolio_export_projects_function = self.create_lambda_api_gateway_integration(
+            module_name="portfolio_export_projects",
+            method="GET",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables
         )
 
         self.get_project_function = self.create_lambda_api_gateway_integration(
@@ -268,6 +294,28 @@ class LambdaStack(Construct):
             authorizer=authorizer
         )
 
+        self.get_upload_url_function = self.create_lambda_api_gateway_integration(
+            module_name="get_upload_url",
+            method="GET",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+
+        self.bedrock_ingestion_function= self.create_background_lambda(
+            module_name="bedrock_ingestion",
+            environment_variables=environment_variables
+        )
+
+        self.create_chat_function= self.create_lambda_api_gateway_integration(
+            module_name="create_chat",
+            method="POST",
+            api_resource=api_gateway_resource,
+            environment_variables=environment_variables,
+            authorizer=authorizer
+        )
+
+
         self.functions_that_need_dynamo_strike_permissions = [
             self.create_strike_function,
             self.delete_strike_function,
@@ -289,7 +337,8 @@ class LambdaStack(Construct):
                 self.get_history_function,
                 self.get_history_project_function,
                 self.get_member_function,
-                self.get_member_info_function,
+                self.portfolio_export_members_function,
+                self.portfolio_export_projects_function,
                 self.get_project_function,
                 self.get_all_members_function,
                 self.get_all_members_admin_function,
@@ -318,7 +367,7 @@ class LambdaStack(Construct):
                 self.get_all_members_admin_function,
                 self.batch_get_member_function,
                 self.get_member_function,
-                self.get_member_info_function,
+                self.portfolio_export_members_function,
                 self.get_all_projects_function,
                 self.get_history_function,
                 self.get_history_project_function,
@@ -328,7 +377,8 @@ class LambdaStack(Construct):
                 self.download_projects_function,
                 self.download_members_function,
                 self.download_actions_function,
-                self.get_strike_function
+                self.get_strike_function,
+                self.get_upload_url_function
         ]
 
         self.functions_that_need_ses_permissions = [
@@ -346,6 +396,12 @@ class LambdaStack(Construct):
             self.create_project_function,
             self.update_project_function,
             self.download_projects_function,
-            self.download_members_function
+            self.download_members_function,
+            self.get_upload_url_function
+        ]
+
+        self.functions_that_need_bedrock_access= [
+            self.bedrock_ingestion_function,
+            self.create_chat_function
         ]
 

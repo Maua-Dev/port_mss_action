@@ -145,9 +145,10 @@ class BucketStack(Construct):
         self.s3_bucket_dev_policy_documents= aws_s3.Bucket(
           self,
           "PortalInterno_Dev_Policy_Documents_S3_Bucket",
+          bucket_name=f"portal-interno-dev-policy-documents-{self.github_ref_name}",
           versioned= True,
           block_public_access= aws_s3.BlockPublicAccess.BLOCK_ALL,
-          event_bridge_enabled=False,
+          event_bridge_enabled=True,
           cors=[aws_s3.CorsRule(
             allowed_methods=[aws_s3.HttpMethods.GET, aws_s3.HttpMethods.PUT, aws_s3.HttpMethods.POST],
             allowed_origins=["*"],
