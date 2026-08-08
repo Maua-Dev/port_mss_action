@@ -8,6 +8,7 @@ from src.shared.domain.repositories.strike_repository_interface import IStrikeRe
 
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import UnregisteredUser, UserNotAllowed
+from src.shared.environments import Environments
 
 
 class GetMemberUsecase:
@@ -31,8 +32,12 @@ class GetMemberUsecase:
         is_active = Member.validate_active(member.active)
 
         if start_date is None :
-            now = datetime.now()
-            year = now.year
+            if Environments.get_envs().stage.value == "TEST":
+                now = datetime(2025, 12, 17)
+                year = 2025
+            else:
+                now = datetime.now()
+                year = now.year
 
             if (now.month <= 6) or (now.month == 12):
                 if (now.month <= 6):
@@ -44,8 +49,12 @@ class GetMemberUsecase:
 
 
         if end_date is None:
-            now = datetime.now()
-            year = now.year
+            if Environments.get_envs().stage.value == "TEST":
+                now = datetime(2025, 12, 17)
+                year = 2025
+            else:
+                now = datetime.now()
+                year = now.year
 
             if (now.month <= 6) or (now.month == 12):
                 if (now.month <= 6):
