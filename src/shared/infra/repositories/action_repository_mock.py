@@ -482,13 +482,13 @@ class ActionRepositoryMock(IActionRepository):
                     action.end_date = new_end_date
                 if new_duration is not None:
                     action.duration = new_duration
-                if new_story_id is not -1:
+                if new_story_id != -1:
                     action.story_id = new_story_id
                 if new_is_valid is not None:
                     action.is_valid = new_is_valid
                 if new_title is not None:
                     action.title = new_title
-                if new_description is not '':
+                if new_description != '':
                     action.description = new_description
                 if new_project_code is not None:
                     action.project_code = new_project_code

@@ -40,9 +40,5 @@ class CreateStrikeViewmodel:
             return model
 
         elif self.case_number == 1:
-            model.update({'message': 'Strike was created successfully and hours were reset'})
-            return model
-        
-        elif self.case_number == 2:
-            model.update({'message': 'Strike was created successfully and an Email was sent to Directors and Heads'})
+            model.update({'message': 'Strike was created successfully, hours were reset and an Email was sent to Directors and Heads'})
             return model

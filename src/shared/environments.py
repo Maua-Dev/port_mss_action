@@ -46,7 +46,7 @@ class Environments:
             self.s3_bucket_name_member = "portalinternostackbackd-portalinternobackbucket-project"
             self.s3_bucket_name_project = "portalinternostackbackd-portalinternobackbucket-member"
             self.s3_bucket_name_member_report = "portalinternostackbackd-portalinternobackbucket-member-report"
-            self.s3_bucket_name_dev_policy_documents= "portalinternosbackd-portalinternobackbucket-dev-policy-report"
+            self.s3_bucket_name_dev_policy_documents= "portalinternosback-dev-policy-report"
             self.region = "sa-east-1"
             self.endpoint_url = "http://localhost:8000"
             self.dynamo_table_name = "port_mss_action-table"
@@ -67,7 +67,8 @@ class Environments:
             self.from_email = "contato@devmaua.com"
             self.ses_region = "sa-east-1"
             self.hidden_copy = "dev@maua.br"
-            
+            self.knowledge_base_id= "jfajkflakflafkaf"
+            self.data_source_id= "alfkjafkafafkakf"
 
         else:
             self.s3_bucket_name_member = os.environ.get("S3_BUCKET_NAME_MEMBER")
@@ -97,6 +98,8 @@ class Environments:
             self.cognito_user_pool_id = os.environ.get("COGNITO_USER_POOL_ID")
             self.cognito_client_id = os.environ.get("COGNITO_CLIENT_ID")
             self.confirmation_url_base = os.environ.get("CONFIRMATION_URL_BASE", "https://portal-interno.dev/auth/confirm")
+            self.knowledge_base_id=os.environ.get("KNOWLEDGE_BASE_ID")
+            self.data_source_id=os.environ.get("DATA_SOURCE_ID")
 
     @staticmethod
     def get_action_repo() -> IActionRepository:

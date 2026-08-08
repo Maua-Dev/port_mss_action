@@ -43,6 +43,8 @@ class Test_CreateStrikeController:
 
     def test_create_strike_controller_case_1(self):
         repo= StrikeRepositoryMock()
+        # Remove one strike to make it exactly 3 strikes before the request
+        repo.delete_strike("i9j0k1l2-m3n4-5678-9012-345678ijklmn")
         repo_member= MemberRepositoryMock()
         repo_action= ActionRepositoryMock()
         usecase= CreateStrikeUsecase(repo=repo, repo_member=repo_member, repo_action=repo_action)
@@ -56,7 +58,7 @@ class Test_CreateStrikeController:
                 "custom:isMaua": True
             },
             'owner_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3",
-            'target_user_id': "51ah5jaj-c9jm-1345-666ab-e12341c14a3", 
+            'target_user_id': "6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
             'occurred_date': 1764622800000, #01/12/2025 às 18:00
             'category': 'OTHER',
             'description': "testing creating a strike"
@@ -67,17 +69,17 @@ class Test_CreateStrikeController:
 
         assert response.status_code == 201
         assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-        assert response.body['target_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
+        assert response.body['target_user_id'] == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb"
         assert response.body['applier_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
         assert response.body['occurred_date'] == 1764622800000
         assert response.body['category'] == 'OTHER'
         assert response.body['description'] == "testing creating a strike"
-        assert response.body['message'] == "Strike was created successfully and hours were reset"
+        assert response.body['message'] == "Strike was created successfully, hours were reset and an Email was sent to Directors and Heads"
 
 
 
     
-    def test_create_strike_controller_case_2(self):
+    def test_create_strike_controller_case_user_has_already_reached_strike_limit(self):
         repo= StrikeRepositoryMock()
         repo_member= MemberRepositoryMock()
         repo_action= ActionRepositoryMock()
@@ -100,14 +102,8 @@ class Test_CreateStrikeController:
 
         response= controller(request=request)
 
-        assert response.status_code == 201
-        assert response.body['owner_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-        assert response.body['target_user_id'] == "7gh5yf5H-857H-1234-75hng-94832hvng1s"
-        assert response.body['applier_user_id'] == "51ah5jaj-c9jm-1345-666ab-e12341c14a3"
-        assert response.body['occurred_date'] == 1764622800000
-        assert response.body['category'] == 'OTHER'
-        assert response.body['description'] == "testing creating a strike"
-        assert response.body['message'] == "Strike was created successfully and an Email was sent to Directors and Heads"
+        assert response.status_code == 403
+        assert response.body == "Member has already reached the strike limit for this semester"
 
     def test_create_strike_controller_requester_user_is_missing(self):
         repo= StrikeRepositoryMock()
