@@ -7,15 +7,15 @@ from src.shared.domain.entities.project import Project
 
 
 class IActionRepository(ABC):
-    
-    
+
+
     @abstractmethod
     def create_action(self, action: Action) -> Action:
         '''
         creates action and associated_actions for each associated_member and the owner
         '''
         pass
-    
+
     @abstractmethod
     def get_action(self, action_id: str) -> Optional[Action]:
         '''
@@ -23,21 +23,21 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
-    
+
     @abstractmethod
     def create_associated_action(self, associatedAction: AssociatedAction) -> AssociatedAction:
         '''
         append associated_action to associated_actions
         '''
         pass
-    
+
     @abstractmethod
     def create_project(self, project: Project) -> Project:
         '''
         If project does not exist, creates it and returns it
         '''
         pass
-    
+
     @abstractmethod
     def delete_project(self, code: str) -> Optional[Project]:
         '''
@@ -45,7 +45,7 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
-    
+
     @abstractmethod
     def get_project(self, code: str) -> Project:
         '''
@@ -61,13 +61,13 @@ class IActionRepository(ABC):
         else returns None
         '''
         pass
-    
+
     def get_all_projects(self) -> List[Project]:
         '''
         Returns all projects
         '''
         pass
-    
+
     @abstractmethod
     def get_associated_actions_by_user_id(self, user_id: str, amount: int, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> Tuple[List[AssociatedAction], Optional[dict]]:
         '''
@@ -75,7 +75,7 @@ class IActionRepository(ABC):
         If no actions are found, returns []
         '''
         pass
-    
+
     @abstractmethod
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
         '''
@@ -83,21 +83,21 @@ class IActionRepository(ABC):
         else returns []
         '''
         pass
-    
+
     @abstractmethod
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
         '''
         Updates all associated actions with new_start_date and returns them, if any
         '''
         pass
-    
+
     @abstractmethod
     def batch_update_associated_action_members(self, action_id: str, members: List[str], user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         '''
         Removes all associated actions with action_id and recreates them with the given members and start_date
         '''
         pass
-    
+
     @abstractmethod
     def update_action(self, action_id: str, user_id: Optional[str] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_user_ids : Optional[List[str]] = None, new_stack_tags : Optional[List[str]] = None, new_action_type_tag : Optional[str] = None, new_is_valid: Optional[bool] = None) -> Action:
         '''
@@ -123,12 +123,12 @@ class IActionRepository(ABC):
         pass
 
     @abstractmethod
-    def get_all_actions_durations_by_user_id(self, start_date: int , end_date: int) -> dict:   
+    def get_all_actions_durations_by_user_id(self, start_date: int , end_date: int) -> dict:
         '''
         Checks all actions of all members and returns the sum of their durations
         '''
         pass
-    
+
     @abstractmethod
     def get_action_durations_for_user(self, start_date: int, end_date: int, user_id: str) -> int:
         '''
@@ -147,7 +147,7 @@ class IActionRepository(ABC):
     @abstractmethod
     def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
         """
-        Checks all actions of all projects and returns the sum of their durations        
+        Checks all actions of all projects and returns the sum of their durations
         """
 
     @abstractmethod
@@ -171,14 +171,14 @@ class IActionRepository(ABC):
 
     @abstractmethod
     def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-    
+
         """
         Returns all their actions and associated actions of a specific user
         """
         pass
     @abstractmethod
     def get_all_actions_and_associated_actions_by_project_code(self, project_code: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[Action]]:
-      
+
         """
         Returns all their actions and associated actions of a specific project
         """
@@ -187,4 +187,12 @@ class IActionRepository(ABC):
     def download_actions_csv(self,email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) :
       #     Download csv with projects
 
+        pass
+
+    @abstractmethod
+    def get_all_actions_durations_by_project_and_stack(self, start_date: int, end_date: int) -> dict:
+        """
+        Checks all actions within [start_date, end_date] and returns, for each project_code,
+        the sum of durations (in milliseconds) grouped by stack tag (área).
+        """
         pass
