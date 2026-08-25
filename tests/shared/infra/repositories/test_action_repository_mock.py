@@ -12,7 +12,7 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         action = Action(user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, is_valid=True, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', story_id=100, duration=2*60*60*1000,  associated_members_user_ids=["51ah5jaj-c9jm-1345-666ab-e12341c14a3"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         len_before = len(repo.actions)
-        
+
         new_action = repo.create_action(action=action)
         assert len(repo.actions) == len_before + 1
         assert new_action == action
@@ -23,23 +23,23 @@ class Test_ActionRepositoryMock:
 
         assert type(action) == Action
         assert action == repo.actions[0]
-        
+
     def test_get_action_not_found(self):
         repo = ActionRepositoryMock()
         action = repo.get_action(action_id="1234")
 
         assert action is None
-        
+
     def test_create_associated_action(self):
         repo = ActionRepositoryMock()
         action = Action(user_id="7465hvnb-143g-1675-86HnG-75hgnFbcg36", start_date=1634526000000, action_id='87d4a661-0752-4ce2-9440-05e752e636fc', is_valid=True, story_id=100, duration=2*60*60*1000, associated_members_user_ids=["93bc6ada-c0d1-7054-66ab-e17414c48ae3"], title='Teste', end_date=1634536800000, project_code='MF', stack_tags=[STACK.BACKEND], action_type_tag=ACTION_TYPE.CODE)
         associatedAction = AssociatedAction(action_id=action.action_id, start_date=action.start_date, user_id="93bc6ada-c0d1-7054-66ab-e17414c48ae3")
         len_before = len(repo.associated_actions)
-        
+
         new_associated_action = repo.create_associated_action(associatedAction=associatedAction)
         assert len(repo.associated_actions) == len_before + 1
         assert new_associated_action == associatedAction
-        
+
     def test_create_project(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.projects)
@@ -49,20 +49,20 @@ class Test_ActionRepositoryMock:
         assert repo.projects[-1].code == 'DM'
         assert repo.projects[-1].photo == 'https://i.imgur.com/7QF7uCk.png'
         assert repo.projects[-1].members_user_ids == ['7465hvnb-143g-1675-86HnG-75hgnFbcg36','93bc6ada-c0d1-7054-66ab-e17414c48ae3']
-        
+
     def test_delete_project(self):
         repo = ActionRepositoryMock()
         len_before = len(repo.projects)
         project = repo.delete_project(code='MF')
         assert len(repo.projects) == len_before - 1
         assert project.code == 'MF'
-        
+
     def test_get_project(self):
         repo = ActionRepositoryMock()
         project = repo.get_project(code='MF')
         assert type(project) == Project
         assert project == repo.projects[0]
-        
+
     def test_get_all_projects(self):
         repo = ActionRepositoryMock()
         projects = repo.get_all_projects()
@@ -90,7 +90,7 @@ class Test_ActionRepositoryMock:
         assert type(associated_actions) == list
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
         assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
-        
+
     def test_get_associated_actions_by_user_id_with_start(self):
         repo = ActionRepositoryMock()
         associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', start=1658136000000, amount=20)
@@ -98,7 +98,7 @@ class Test_ActionRepositoryMock:
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
         assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.start_date >= 1658136000000 for associated_action in associated_actions])
-        
+
     def test_get_associated_actions_by_user_id_with_end(self):
         repo = ActionRepositoryMock()
         associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', end=1676476000000, amount=20)
@@ -106,7 +106,7 @@ class Test_ActionRepositoryMock:
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
         assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.start_date <= 1676476000000 for associated_action in associated_actions])
-        
+
     def test_get_associated_actions_by_user_id_exclusive_start_key(self):
         repo = ActionRepositoryMock()
         associated_actions = repo.get_associated_actions_by_user_id(user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', exclusive_start_key={'action_id' : '87d4a661-0752-4ce2-9440-05e752e636fc', 'start_date' :1658136000000}, amount=20)
@@ -114,7 +114,7 @@ class Test_ActionRepositoryMock:
         assert all([type(associated_action) == AssociatedAction for associated_action in associated_actions])
         assert all([associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in associated_actions])
         assert all([associated_action.action_id != '87d4a661-0752-4ce2-9440-05e752e636fc' for associated_action in associated_actions])
-        
+
     def test_batch_get_action(self):
         repo = ActionRepositoryMock()
         actions = repo.batch_get_action(action_ids=[repo.actions[0].action_id, repo.actions[1].action_id])
@@ -130,7 +130,7 @@ class Test_ActionRepositoryMock:
         associated_actions = repo.batch_update_associated_action_start(action_id=action_id, new_start_date=1658136000000)
         assert type(associated_actions) == list
         assert all(associated_action.start_date == 1658136000000 for associated_action in repo.associated_actions if associated_action.action_id == action_id)
-        
+
     def test_batch_update_associated_action_members(self):
         repo = ActionRepositoryMock()
         action_id = repo.actions[0].action_id
@@ -138,7 +138,7 @@ class Test_ActionRepositoryMock:
         assert type(associated_actions) == list
         assert len([associated_action for associated_action in repo.associated_actions if associated_action.action_id == action_id]) == 1
         assert all(associated_action.user_id == '93bc6ada-c0d1-7054-66ab-e17414c48ae3' for associated_action in repo.associated_actions if associated_action.action_id == action_id)
-        
+
     def test_update_action(self):
         repo = ActionRepositoryMock()
         action = repo.update_action(action_id=repo.actions[0].action_id, new_title='Teste', new_description='Teste', new_start_date=1658136000000, new_end_date=1676476000000, new_project_code='MF', new_user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3', new_associated_members_user_ids=['76h35dg4-h76v-1875-987hn-h67gfv45Gt4'], new_is_valid=False, new_story_id=200, new_duration=2*60*60*1000, new_stack_tags=[STACK.BACKEND], new_action_type_tag=ACTION_TYPE.CODE)
@@ -173,24 +173,24 @@ class Test_ActionRepositoryMock:
         repo = ActionRepositoryMock()
         actions = repo.batch_get_action(action_ids=['1234'])
         assert actions == []
-    
+
     def test_get_all_actions_durations_by_user_id(self):
-   
+
         repo_mock = ActionRepositoryMock()
 
         resp = repo_mock.get_all_actions_durations_by_user_id(1624576165000, 1690046000000)
 
-        assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 94590000000, 
-                            '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 174930000000, 
-                            '6f5g4h7J-876j-0098-123hb-hgb567fy4hb': 150510000000, 
-                            '7465hvnb-143g-1675-86HnG-75hgnFbcg36': 79580000000, 
+        assert resp == {'51ah5jaj-c9jm-1345-666ab-e12341c14a3': 94590000000,
+                            '6574hgyt-785n-9134-18gn4-7gh5uvn36cG': 174930000000,
+                            '6f5g4h7J-876j-0098-123hb-hgb567fy4hb': 150510000000,
+                            '7465hvnb-143g-1675-86HnG-75hgnFbcg36': 79580000000,
                             '75648hbr-184n-1985-91han-7ghn4HgF182': 110200000000,
-                            '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 62930000000, 
-                            '7gh5yf5H-857H-1234-75hng-94832hvng1s': 97850000000, 
+                            '76h35dg4-h76v-1875-987hn-h67gfv45Gt4': 62930000000,
+                            '7gh5yf5H-857H-1234-75hng-94832hvng1s': 97850000000,
                             '93bc6ada-c0d1-7054-66ab-e17414c48ae3': 134460000000}
-        
+
     def test_get_action_durations_for_user(self):
-        
+
         repo_mock = ActionRepositoryMock()
 
         resp = repo_mock.get_action_durations_for_user(start_date=1624576165000, end_date=1690046000000, user_id='93bc6ada-c0d1-7054-66ab-e17414c48ae3')
@@ -198,22 +198,22 @@ class Test_ActionRepositoryMock:
         assert resp == 134460000000
 
     def test_get_all_actions_durations_by_project(self):
-   
+
         repo_mock = ActionRepositoryMock()
 
         resp = repo_mock.get_all_actions_durations_by_project(1637046000000, 1690046000000)
-        
+
         pprint(resp)
 
         assert resp == {'GM': 1320000000, 'MF': 62120000000, 'SF': 96530000000, 'SM': 47430000000}
-    
+
     def test_get_all_actions_by_project_code(self):
         repo = ActionRepositoryMock()
         actions = repo.get_all_actions_by_project_code(project_code='SF', amount=20)
         assert type(actions) == list
         assert all([type(action) == Action for action in actions])
         assert all([action.project_code == 'SF' for action in actions])
-        
+
     def test_get_all_actions_by_project_code_with_start(self):
         repo = ActionRepositoryMock()
         actions = repo.get_all_actions_by_project_code(project_code='PT', start=1644256000000, amount=20)
@@ -221,7 +221,7 @@ class Test_ActionRepositoryMock:
         assert all([type(action) == Action for action in actions])
         assert all([action.project_code == 'PT' for action in actions])
         assert all([action.start_date >= 1644256000000 for action in actions])
-        
+
     def test_get_all_actions_by_project_code_with_end(self):
         repo = ActionRepositoryMock()
         actions = repo.get_all_actions_by_project_code(project_code='PT', end=1653756000000, amount=20)
@@ -229,7 +229,7 @@ class Test_ActionRepositoryMock:
         assert all([type(action) == Action for action in actions])
         assert all([action.project_code == 'PT' for action in actions])
         assert all([action.start_date <= 1653756000000 for action in actions])
-        
+
     def test_get_all_actions_by_project_code_exclusive_start_key(self):
         repo = ActionRepositoryMock()
         actions = repo.get_all_actions_by_project_code(project_code='SF', exclusive_start_key={'action_id' : '42e01f11-283c-4925-b0aa-e80ac6c1815a', 'start_date' :1676476000000}, amount=20)
@@ -253,17 +253,17 @@ class Test_ActionRepositoryMock:
     def test_get_projects_with_actions_and_associations(self):
 
         repo = ActionRepositoryMock()
-        
+
         result = repo.get_projects_with_actions_and_associations()
         assert type(result) == dict
-      
+
     def test_get_all_actions_by_user_id(self):
 
         repo = ActionRepositoryMock()
 
         result = repo.get_all_actions_by_user_id(user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb", start=1676476000000, end=1677067200000)
 
-    
+
         assert isinstance(result, dict)
         assert "actions" in result and "associated_actions" in result
         assert isinstance(result["actions"], list) and isinstance(result["associated_actions"], list)
@@ -272,17 +272,17 @@ class Test_ActionRepositoryMock:
         assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["actions"])
         assert all(action.user_id == "6f5g4h7J-876j-0098-123hb-hgb567fy4hb" for action in result["associated_actions"])
         assert all(
-            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000
             for action in result["actions"]
         )
         assert all(
-            action.start_date >= 1676476000000 and action.start_date <= 1677067200000 
+            action.start_date >= 1676476000000 and action.start_date <= 1677067200000
             for action in result["associated_actions"]
         )
 
 
     def test_get_all_actions_and_associated_actions_by_project_code(self):
-      
+
         repo = ActionRepositoryMock()
 
         result = repo.get_all_actions_and_associated_actions_by_project_code(project_code="PT", start=0, end=1677067200000)
@@ -294,10 +294,67 @@ class Test_ActionRepositoryMock:
         assert all(isinstance(assoc_action, AssociatedAction) for assoc_action in result["associated_actions"])
         assert all(action.project_code == "PT" for action in result["actions"])
         assert all(
-            action.start_date >= 0 and action.start_date <= 1677067200000 
+            action.start_date >= 0 and action.start_date <= 1677067200000
             for action in result["actions"]
         )
         assert all(
-            assoc_action.start_date >= 0 and assoc_action.start_date <= 1677067200000 
+            assoc_action.start_date >= 0 and assoc_action.start_date <= 1677067200000
             for assoc_action in result["associated_actions"]
         )
+
+    def test_get_all_actions_durations_by_project_and_stack(self):
+
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo_mock.get_all_actions_durations_by_project_and_stack(1637046000000, 1690046000000)
+
+        pprint(resp)
+
+        assert resp == {
+            'GM': {'BACKEND': 1320000000},
+            'MF': {'INFRA': 20490000000, 'INTERNAL': 41630000000},
+            'SF': {'FRONTEND': 19980000000, 'INFRA': 68720000000, 'INTERNAL': 7830000000},
+            'SM': {'INFRA': 24640000000, 'INTERNAL': 22790000000},
+        }
+
+        totals = repo_mock.get_all_actions_durations_by_project(1637046000000, 1690046000000)
+        for project_code, areas in resp.items():
+            assert sum(areas.values()) == totals[project_code]
+
+    def test_get_all_actions_durations_by_project_and_stack_duplicates_multi_tag_actions(self):
+        repo_mock = ActionRepositoryMock()
+
+        repo_mock.actions.append(Action(
+            action_id="11111111-1111-1111-1111-111111111111",
+            user_id="6f5g4h7J-876j-0098-123hb-hgb567fy4hb",
+            is_valid=True,
+            associated_members_user_ids=[],
+            stack_tags=[STACK.BACKEND, STACK.FRONTEND],
+            action_type_tag=ACTION_TYPE.CODE,
+            project_code="MF",
+            title="Teste duplicacao",
+            description="Acao sintetica para o teste",
+            start_date=1637046000001,
+            end_date=1637082000001,
+            duration=36000000  # 10h
+        ))
+
+        resp = repo_mock.get_all_actions_durations_by_project_and_stack(1637046000000, 1690046000000)
+
+        assert resp['MF']['BACKEND'] == 36000000
+        assert resp['MF']['FRONTEND'] == 36000000
+
+    def test_get_all_actions_durations_by_project_and_stack_empty(self):
+        repo_mock = ActionRepositoryMock()
+        repo_mock.actions = []
+
+        resp = repo_mock.get_all_actions_durations_by_project_and_stack(1637046000000, 1690046000000)
+
+        assert resp == {}
+
+    def test_get_all_actions_durations_by_project_and_stack_no_actions_in_range(self):
+        repo_mock = ActionRepositoryMock()
+
+        resp = repo_mock.get_all_actions_durations_by_project_and_stack(1000000000001, 1000000000002)
+
+        assert resp == {}

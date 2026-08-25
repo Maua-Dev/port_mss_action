@@ -30,39 +30,39 @@ class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
     def action_partition_key_format(action_id: str) -> str:
         return f'{action_id}'
-    
+
     @staticmethod
     def action_sort_key_format(action_id: str) -> str:
         return f'action#{action_id}'
-    
+
     @staticmethod
     def project_partition_key_format(project: Project) -> str:
         return f'project'
-    
+
     @staticmethod
     def project_sort_key_format(code: str) -> str:
         return f'project#{code}'
-    
+
     @staticmethod
     def member_partition_key_format(member: Member) -> str:
         return f'member'
-    
+
     @staticmethod
     def member_sort_key_format(user_id: str) -> str:
         return f'member#{user_id}'
-    
+
     @staticmethod
     def associated_action_partition_key_format(user_id: str) -> str:
         return f'{user_id}'
-    
+
     @staticmethod
     def associated_action_sort_key_format(action_id: str) -> str:
         return f'associated_action#{action_id}'
-    
+
     @staticmethod
     def gsi1_associated_action_partition_key_format(action_id: str) -> str:
         return f'{action_id}'
-    
+
     @staticmethod
     def gsi1_associated_action_sort_key_format(user_id: str) -> str:
         return f'associated_action#{user_id}'
@@ -70,11 +70,11 @@ class ActionRepositoryDynamo(IActionRepository):
     @staticmethod
     def associated_action_lsi1_partition_key_format(user_id: str) -> str:
         return f'{user_id}'
-    
+
     @staticmethod
     def associated_action_lsi1_sort_key_format(start_date: str) -> str:
         return f'{start_date}'
-    
+
     def __init__(self):
         self.dynamo = DynamoDatasource(
             endpoint_url=Environments.get_envs().endpoint_url,
@@ -85,55 +85,55 @@ class ActionRepositoryDynamo(IActionRepository):
             gsi_partition_key=Environments.get_envs().dynamo_gsi_1_partition_key,
             gsi_sort_key=Environments.get_envs().dynamo_gsi_1_sort_key,
         )
-        
+
         my_config = Config(
             region_name=Environments.get_envs().region,
             signature_version='s3v4',
         )
         self.s3_client = boto3.client(
             's3', config=my_config, region_name=Environments.get_envs().region)
-        
+
         self.cloud_front_distribution_domain_assets_project = Environments.get_envs().cloud_front_distribution_domain_assets_project
 
         self.S3_BUCKET_NAME = Environments.get_envs().s3_bucket_name_project
-        
+
     def create_project(self, project: Project) -> Project:
         if project.photo is not None:
             url = self.upload_project_photo(project.code, project.photo)
-            project.photo = url  
+            project.photo = url
 
         item = ProjectDynamoDTO.from_entity(project).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.project_partition_key_format(project), sort_key=self.project_sort_key_format(project.code))
-        
+
         return project
-    
+
     def create_action(self, action: Action) -> Action:
         item = ActionDynamoDTO.from_entity(action).to_dynamo()
         resp = self.dynamo.put_item(item=item, partition_key=self.action_partition_key_format(action.action_id), sort_key=self.action_sort_key_format(action.action_id), is_decimal=True)
-        
+
         return action
-    
+
     def create_associated_action(self, associated_action: AssociatedAction) -> AssociatedAction:
         item = AssociatedActionDynamoDTO.from_entity(associated_action).to_dynamo()
         item['GSI1-PK'] = self.gsi1_associated_action_partition_key_format(associated_action.action_id)
         item['GSI1-SK'] = self.gsi1_associated_action_sort_key_format(associated_action.user_id)
         resp = self.dynamo.put_item(item=item, partition_key=self.associated_action_partition_key_format(associated_action.user_id), sort_key=self.associated_action_sort_key_format(associated_action.action_id), is_decimal=True)
-        
+
         return associated_action
-    
+
     def get_action(self, action_id: str) -> Optional[Action]:
-        # query →  PK = action_id && SK Begins with action				
+        # query →  PK = action_id && SK Begins with action
         query_string = Key(self.dynamo.partition_key).eq(self.action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
-        
+
         if len(resp['Items']) == 0:
             return None
         elif resp.get("Items")[0]["entity"] != "action":
             return None
-        
+
         action = ActionDynamoDTO.from_dynamo(resp.get("Items")[0]).to_entity()
         return action
-            
+
     def delete_project(self, code: str) -> Optional[Project]:
         delete_project = self.dynamo.delete_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
 
@@ -141,10 +141,10 @@ class ActionRepositoryDynamo(IActionRepository):
             return None
 
         return ProjectDynamoDTO.from_dynamo(delete_project['Attributes']).to_entity()
-    
+
     def get_project(self, code: str) -> Project:
         project = self.dynamo.get_item(partition_key=self.project_partition_key_format(code), sort_key=self.project_sort_key_format(code))
-        
+
         if "Item" not in project:
             return None
 
@@ -153,10 +153,10 @@ class ActionRepositoryDynamo(IActionRepository):
 
     def update_project(self, code: str, new_name: Optional[str] = None, new_description: Optional[str] = None, new_po_user_id: Optional[str] = None, new_scrum_user_id: Optional[str] = None, new_photo: Optional[str] = None, new_members_user_ids: Optional[List[str]] = None) -> Project:
         project_to_update = self.get_project(code=code)
-        
+
         if project_to_update is None:
             return None
-        
+
         if new_name is not None:
             project_to_update.name = new_name
         if new_description is not None:
@@ -176,7 +176,7 @@ class ActionRepositoryDynamo(IActionRepository):
             project_to_update.photo = url
         if new_members_user_ids is not None:
             project_to_update.members_user_ids = new_members_user_ids
-            
+
         update_dict = {
             "name": project_to_update.name,
             "description": project_to_update.description,
@@ -185,57 +185,57 @@ class ActionRepositoryDynamo(IActionRepository):
             "photo": url if new_photo is not None else None,
             "members_user_ids": project_to_update.members_user_ids if project_to_update.members_user_ids is not None else None
         }
-        
+
         resp = self.dynamo.update_item(partition_key=self.project_partition_key_format(project_to_update), sort_key=self.project_sort_key_format(project_to_update.code), update_dict=update_dict)
-        
+
         if "Attributes" not in resp:
             return None
-        
+
         return ProjectDynamoDTO.from_dynamo(resp["Attributes"]).to_entity()
-    
-    def get_all_projects(self) -> List[Project]:			
+
+    def get_all_projects(self) -> List[Project]:
         query_string = Key(self.dynamo.partition_key).eq("project")
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES')
-        
+
         projects = []
         for item in resp.get("Items"):
             if item.get("entity") == "project":
                 projects.append(ProjectDynamoDTO.from_dynamo(item).to_entity())
-        
+
         return projects
-    
+
     def get_associated_actions_by_user_id(self, user_id: str, amount: Optional[int] = None, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.partition_key).eq(user_id)
 
         if amount is None:
             amount = 20
-            
+
         if start and end:
             query_string = query_string & Key('start_date').between(start, end)
         elif start and not end:
             query_string = query_string & Key('start_date').gte(start)
         elif end and not start:
             query_string = query_string & Key('start_date').lte(end)
-            
-            
+
+
         query_params = { 'IndexName': "LSI1", 'key_condition_expression': query_string, 'Select': 'ALL_ATTRIBUTES', 'Limit': amount, 'ScanIndexForward': False }
-        
+
         if exclusive_start_key:
             query_params['ExclusiveStartKey'] = {"PK": self.action_partition_key_format(user_id), "SK" : self.associated_action_sort_key_format(exclusive_start_key['action_id']), "start_date" : Decimal(str(exclusive_start_key['start_date']))}
         resp = self.dynamo.query(**query_params)
-        
+
         associated_actions = []
         for item in resp.get("Items"):
             if item.get("entity") == "associated_action":
                 associated_actions.append(AssociatedActionDynamoDTO.from_dynamo(item).to_entity())
-        
+
         return associated_actions
-        
+
     def batch_get_action(self, action_ids: List[str]) -> List[Action]:
-        # query →  PK = action_id && SK Begins with action	
+        # query →  PK = action_id && SK Begins with action
         if len(action_ids) == 0:
             return []
-        			
+
         keys = [{self.dynamo.partition_key: self.action_partition_key_format(action_id), self.dynamo.sort_key: self.action_sort_key_format(action_id)} for action_id in action_ids]
 
         resp = self.dynamo.batch_get_items(keys=keys)
@@ -245,57 +245,57 @@ class ActionRepositoryDynamo(IActionRepository):
             if item.get("entity") == "action":
                 actions.append(ActionDynamoDTO.from_dynamo(item).to_entity())
 
-        
+
         return actions
-    
+
     def batch_update_associated_action_start(self, action_id: str, new_start_date: Optional[int] = None) -> List[AssociatedAction]:
         '''
         Updates all associated actions with new_start_date and returns them, if any
         '''
-        
+
         # we need to query all associated actions with action_id as sort key to get the partition keys, so we can batch_write_items
-        
+
         query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
-        
+
         if resp["Count"] == 0:
             return []
-        
+
         user_ids = [item['PK'] for item in resp['Items']]
-        
+
         update_dict = {"start_date": new_start_date}
-        
+
         actions = []
         for user_id in user_ids:
             update_resp = self.dynamo.update_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id), update_dict=update_dict)
             actions.append(AssociatedActionDynamoDTO.from_dynamo(update_resp['Attributes']).to_entity())
-            
+
         return actions
-        
-    
+
+
     def batch_update_associated_action_members(self, action_id: str, user_ids: List[str], start_date: int) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
-            
+
         if resp["Count"] == 0:
             return []
-            
+
         member_user_ids = [item['PK'] for item in resp['Items']]
-            
+
         for user_id in member_user_ids:
             self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id))
-            
+
         actions = []
         for user_id in user_ids:
             associated_action = AssociatedAction(action_id=action_id, start_date=start_date, user_id=user_id)
             actions.append(self.create_associated_action(associated_action))
-                
+
         return actions
-    
+
     def update_action(self, action_id: str, new_user_id: Optional[str] = None, new_is_valid: Optional[bool] = None, new_start_date : Optional[int] = None, new_end_date : Optional[int] = None, new_duration : Optional[int] = None, new_story_id : Optional[str] = None, new_title : Optional[str] = None, new_description : Optional[str] = None, new_project_code : Optional[str] = None, new_associated_members_user_ids : Optional[List[str]] = None, new_stack_tags : Optional[List[STACK]] = None, new_action_type_tag : Optional[ACTION_TYPE] = None) -> Action:
-        
+
         action = self.get_action(action_id=action_id)
-        
+
         if action is None:
             return None
 
@@ -320,16 +320,16 @@ class ActionRepositoryDynamo(IActionRepository):
 
         if "Attributes" not in response:
             return None
-        
+
         return ActionDynamoDTO.from_dynamo(response['Attributes']).to_entity()
-    
+
 
     def delete_action(self, action_id: str) -> Optional[Action]:
         delete_action = self.dynamo.delete_item(partition_key=self.action_partition_key_format(action_id), sort_key=self.action_sort_key_format(action_id))
 
         if "Attributes" not in delete_action:
             return None
-        
+
         self.batch_delete_associated_actions(action_id=action_id)
 
         return ActionDynamoDTO.from_dynamo(delete_action['Attributes']).to_entity()
@@ -337,27 +337,27 @@ class ActionRepositoryDynamo(IActionRepository):
     def batch_delete_associated_actions(self, action_id: str) -> List[AssociatedAction]:
         query_string = Key(self.dynamo.gsi_partition_key).eq(self.gsi1_associated_action_partition_key_format(action_id))
         resp = self.dynamo.query(key_condition_expression=query_string, Select='ALL_ATTRIBUTES', IndexName="GSI1")
-        
+
         if resp["Count"] == 0:
             return []
-        
+
         user_ids = [item['PK'] for item in resp['Items']]
-        
+
         for user_id in user_ids:
             self.dynamo.delete_item(partition_key=self.associated_action_partition_key_format(user_id), sort_key=self.associated_action_sort_key_format(action_id))
-            
+
         return [AssociatedActionDynamoDTO.from_dynamo(item).to_entity() for item in resp['Items']]
 
     def scan_actions_by_start_date(self, start_date, end_date):
         expression = Attr('start_date').between(start_date,end_date) & Attr('SK').begins_with('action#')
 
         resp = self.dynamo.scan_items(expression)
-        
+
         if resp["Count"] == 0:
             return []
-        
+
         return [ActionDynamoDTO.from_dynamo(item).to_entity for item in resp['Items']]
-    
+
     def get_all_actions_durations_by_user_id(self, start_date: int, end_date: int) -> dict:
 
         filter_expression = (
@@ -384,7 +384,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         for item in all_matching_items:
             user_id = item.get('user_id')
-            raw_duration = item.get('duration')  
+            raw_duration = item.get('duration')
             associated_members = item.get('associated_members_user_ids', [])
 
             try:
@@ -405,8 +405,8 @@ class ActionRepositoryDynamo(IActionRepository):
 
     def get_action_durations_for_user(self, user_id: str, start_date: int, end_date: int) -> int:
         expression = (
-            Attr('SK').begins_with('action#') & 
-            Attr('start_date').between(start_date, end_date) & 
+            Attr('SK').begins_with('action#') &
+            Attr('start_date').between(start_date, end_date) &
             Attr('end_date').lte(end_date)
         )
 
@@ -439,7 +439,7 @@ class ActionRepositoryDynamo(IActionRepository):
         return total_duration
 
 
-        
+
     def send_invalid_action_email(self, member: Member, action: Action) -> bool:
         try:
             client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
@@ -457,7 +457,7 @@ class ActionRepositoryDynamo(IActionRepository):
                         ]
                 },
                 Message={
-                    'Body': {       
+                    'Body': {
                         'Html': {
                             'Charset': "UTF-8",
                             'Data': member_active_composed_html,
@@ -479,21 +479,21 @@ class ActionRepositoryDynamo(IActionRepository):
         except Exception as err:
             print(err)
             return False
-        
+
     def generate_key(self, code: str, file_type: str) -> str:
 
         key = f"{code}.{file_type}"
         return key
-        
+
     def upload_project_photo(self, code: str, photo: str) -> str:
         try:
             photo_bytes = base64.b64decode(photo)
-            
+
 
             file_type = imghdr.what(None, photo_bytes)
             if file_type is None:
                 raise WrongTypeFile()
-            
+
             s3_key = self.generate_key(code, file_type)
 
             content_type = f"'image/{file_type}"
@@ -531,14 +531,14 @@ class ActionRepositoryDynamo(IActionRepository):
 
     def get_all_actions_durations_by_project(self, start_date: int , end_date:int) -> dict:
         expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
-        
+
         resp = self.dynamo.scan_items(expression)
-        
+
         if resp["Count"] == 0:
             return {}
-        
+
         durations_by_project = {}
-        
+
         for item in resp['Items']:
             action = ActionDynamoDTO.from_dynamo(item).to_entity()
 
@@ -547,9 +547,9 @@ class ActionRepositoryDynamo(IActionRepository):
                     durations_by_project[action.project_code] += action.duration
                 else:
                     durations_by_project[action.project_code] = action.duration
-        
+
         return durations_by_project
-    
+
     def get_all_actions_by_project_code(self, project_code: str, amount: Optional[int] = None, start: Optional[int] = None, end: Optional[int] = None, exclusive_start_key: Optional[dict] = None) -> List[Action]:
         query_string = Attr('project_code').eq(project_code)
 
@@ -575,7 +575,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         return actions
     def get_projects_with_actions_and_associations(self) -> dict:
-   
+
         projects_resp = self.dynamo.scan_items(Attr('SK').begins_with('project#'))
 
         if projects_resp["Count"] == 0:
@@ -583,7 +583,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         projects_with_details = {}
 
-       
+
         for project_item in projects_resp['Items']:
 
             project = ProjectDynamoDTO.from_dynamo(project_item).to_entity()
@@ -603,7 +603,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
             actions_with_associations = []
 
-            
+
             for action in actions:
                 associations_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').eq(action.action_id)
                 associations_resp = self.dynamo.scan_items(associations_expression)
@@ -650,10 +650,10 @@ class ActionRepositoryDynamo(IActionRepository):
 
         return projects_with_details
 
-    
+
     def get_all_actions_by_user_id(self, user_id: str, start: Optional[int] = None, end: Optional[int] = None) -> dict[str, List[dict]]:
-  
-   
+
+
         actions_expression = (
             Attr('SK').begins_with('action#') &
             Attr('user_id').eq(user_id) &
@@ -672,7 +672,7 @@ class ActionRepositoryDynamo(IActionRepository):
 
         associated_actions = []
 
-      
+
         for action in actions:
             associated_expression = (
                 Attr('SK').begins_with('associated_action#') &
@@ -707,7 +707,7 @@ class ActionRepositoryDynamo(IActionRepository):
                     "associated_action_id": associated_actions.action_id,
                     "user_id": assoc.user_id,
                     "start_date": assoc.start_date,
-                    "action_id": assoc.action_id 
+                    "action_id": assoc.action_id
                 }
                 for assoc in associated_actions
             ]
@@ -729,13 +729,13 @@ class ActionRepositoryDynamo(IActionRepository):
                 scan_kwargs["ExclusiveStartKey"] = last_key
 
             actions_resp = self.dynamo.scan_items(expression, **scan_kwargs)
-            
+
             actions_items.extend(actions_resp.get("Items", []))
-            
+
             last_key = actions_resp.get("LastEvaluatedKey")
             if not last_key:
                 break
-                
+
         if not actions_items:
             return {"actions": [], "associated_actions": []}
 
@@ -750,7 +750,7 @@ class ActionRepositoryDynamo(IActionRepository):
             return {"actions": actions, "associated_actions": []}
 
         associated_expression = Attr('SK').begins_with('associated_action#') & Attr('action_id').is_in(list(action_ids))
-        
+
         associated_items = []
         last_key_assoc = None
         while True:
@@ -764,12 +764,12 @@ class ActionRepositoryDynamo(IActionRepository):
             last_key_assoc = associated_resp.get("LastEvaluatedKey")
             if not last_key_assoc:
                 break
-        
+
         associated_actions = [
             AssociatedActionDynamoDTO.from_dynamo(item).to_entity()
             for item in associated_items
         ]
-        
+
         return {
             "actions": actions,
             "associated_actions": associated_actions,
@@ -795,7 +795,7 @@ class ActionRepositoryDynamo(IActionRepository):
         csv += '\nAssociated Actions\n'
         csv += 'Associated Action ID, User ID, Start Date, Action ID\n'
 
-       
+
         for assoc_action in associated_actions:
             csv += (
                 f"{assoc_action['associated_action_id']}, {assoc_action['user_id']}, "
@@ -805,7 +805,7 @@ class ActionRepositoryDynamo(IActionRepository):
         return csv
 
     def send_csv_email(self, user_email: str, csv_content: str, csv_filename: str) -> bool:
-     
+
         try:
             client_ses = boto3.client('ses', region_name=Environments.get_envs().region)
 
@@ -850,7 +850,7 @@ class ActionRepositoryDynamo(IActionRepository):
             return False
 
     def download_actions_csv(self, email:str, user_id: Optional[str] = None, project_code: Optional[str] = None, start: Optional[int] = None, end: Optional[int] = None) -> bytes:
-     
+
         try:
             if user_id:
                 actions_data = self.get_all_actions_by_user_id(user_id, start, end)
@@ -879,16 +879,39 @@ class ActionRepositoryDynamo(IActionRepository):
                     'Bucket': self.S3_BUCKET_NAME,
                     'Key': csv_key
                 },
-                ExpiresIn=600  
+                ExpiresIn=600
             )
 
             presigned_url = presigned_url.replace(
                 f"{self.S3_BUCKET_NAME}.s3.amazonaws.com", self.cloud_front_distribution_domain_assets_project)
 
             self.send_csv_email(user_email=email, csv_content=csv_content, csv_filename=csv_key)
-            
+
             return presigned_url
 
         except Exception as err:
             print(f"Erro ao criar ou baixar o CSV: {err}")
             return None
+
+    def get_all_actions_durations_by_project_and_stack(self, start_date: int, end_date: int) -> dict:
+        expression = Attr('SK').begins_with('action#') & Attr('start_date').between(start_date, end_date) & Attr('end_date').lte(end_date)
+
+        resp = self.dynamo.scan_items(expression)
+
+        if resp["Count"] == 0:
+            return {}
+
+        durations_by_project_and_stack = {}
+
+        for item in resp['Items']:
+            action = ActionDynamoDTO.from_dynamo(item).to_entity()
+
+            if action.duration is None:
+                continue
+
+            project_bucket = durations_by_project_and_stack.setdefault(action.project_code, {})
+
+            for stack in action.stack_tags:
+                project_bucket[stack.value] = project_bucket.get(stack.value, 0) + action.duration
+
+        return durations_by_project_and_stack
